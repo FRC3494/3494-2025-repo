@@ -7,6 +7,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -30,8 +31,18 @@ public class Elevator extends SubsystemBase {
   public Elevator() {
     leaderMotor = new SparkMax(Constants.Elevator.leaderMotor, MotorType.kBrushless);
     followerMotor = new SparkMax(Constants.Elevator.followerMotor, MotorType.kBrushless);
+    leaderConfig = new SparkMaxConfig();
+    followerConfig = new SparkMaxConfig();
+    followerConfig.follow(leaderMotor, true);
+
+    leaderConfig.closedLoop.pid(0.5, 0, 0);
+    leaderConfig.closedLoop.outputRange(-0.7, 0.7);
+    leaderConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+    
+  
     leaderConfig.idleMode(IdleMode.kCoast);
-    followerConfig.follow(leaderMotor);
+    leaderConfig.inverted(true);
+    
 
     leaderMotor.configure(
         leaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -59,9 +70,9 @@ public class Elevator extends SubsystemBase {
 
   @Override
   public void periodic() {
-    if (DriverStation.isEnabled()) {
-      this.setBrakes(IdleMode.kBrake);
-    }
+    // if (DriverStation.isEnabled()) {
+    //   this.setBrakes(IdleMode.kBrake);
+    // }
 
     if (getElevatorSensorState() == ElevatorSensorState.BOTTOM) {
       leaderMotor.getEncoder().setPosition(0);

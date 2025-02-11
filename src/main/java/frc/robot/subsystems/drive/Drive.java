@@ -174,6 +174,7 @@ public class Drive extends SubsystemBase {
     m_LimeLight2.periodic();
     odometryLock.lock(); // Prevents odometry updates while reading data
     gyroIO.updateInputs(gyroInputs);
+    
 
     for (var module : modules) {
       module.updateInputs();
@@ -334,7 +335,7 @@ public class Drive extends SubsystemBase {
   public Rotation2d getRotation() {
     return getPose().getRotation();
   }
-
+  
   /** Resets the current odometry pose. */
   public void setPose(Pose2d pose) {
     poseEstimator.resetPosition(rawGyroRotation, getModulePositions(), pose);

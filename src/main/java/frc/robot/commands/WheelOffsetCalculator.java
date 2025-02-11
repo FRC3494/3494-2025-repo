@@ -23,6 +23,8 @@ public class WheelOffsetCalculator extends Command {
 
   @Override
   public void initialize() {
+    
+
     ArrayList<Rotation2d> positions = drive.getRawTurnEncoderPositions();
 
     if (positions == null || positions.size() < 4) {
@@ -32,8 +34,8 @@ public class WheelOffsetCalculator extends Command {
 
     DecimalFormat df = new DecimalFormat("#.#");
 
-    String PURPLE = "\u001B[35m";
-    String ANSI_RESET = "\u001B[0m";
+    String PURPLE = "";
+    String ANSI_RESET = "";
 
     System.out.println(
         PURPLE

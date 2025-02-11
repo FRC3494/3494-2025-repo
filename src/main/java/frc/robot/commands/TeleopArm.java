@@ -19,6 +19,7 @@ public class TeleopArm extends Command {
         armPower = OI.deadband(OI.getArmPower(), 0.05);
         Logger.recordOutput("Arm/Manual-Power-Command", armPower);
         if(armPower != 0 || (arm.getManualMotorPower() != 0 && armPower == 0)){
+            // arm.setMotorPower(armPower*0.2);
             arm.setTargetAngle(arm.getTargetPosition()+armPower*Constants.Arm.manualPowerPOS,0);
         }
         

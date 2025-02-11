@@ -1,11 +1,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 
 public final class OI {
   private static EventLoop eventLoop = new EventLoop();
-  private static XboxController primaryController =
+  public static XboxController primaryController =
       new XboxController(Constants.OI.PRIMARY_CONTROLLER_PORT);
 
   public static XboxController getPrimaryController() {
@@ -34,11 +35,15 @@ public final class OI {
 
   public static double getElevatorPower() {
     // TODO: assign a button
-    return 0.0;
+    double upPower = (primaryController.povUp(eventLoop).getAsBoolean()? 0.5: 0.0);
+    double downPower = (primaryController.povDown(eventLoop).getAsBoolean()? -0.5 : 0.0);
+    return upPower+downPower;
   }
 
   public static double getArmPower() {
-    // TODO: assign a button
-    return 0.0;
+    double leftPower = (primaryController.povLeft(eventLoop).getAsBoolean()? 0.5: 0.0);
+    double rightPower = (primaryController.povRight(eventLoop).getAsBoolean()? -0.5 : 0.0);
+    return leftPower+rightPower;
   }
+
 }

@@ -28,13 +28,13 @@ import org.littletonrobotics.junction.Logger;
 
 /** IO implementation for Pigeon2 */
 public class GyroIOPigeon2 implements GyroIO {
-  private final Pigeon2 pigeon = new Pigeon2(Constants.Drivetrain.PIGEON_PORT);
+  public static final Pigeon2 pigeon = new Pigeon2(Constants.Drivetrain.PIGEON_PORT);
 
-  private final StatusSignal<Angle> yaw = pigeon.getYaw();
+  private final StatusSignal<Angle> yaw = pigeon.getYaw();//pigeon.getYaw();
   private final Queue<Double> yawPositionQueue;
   private final Queue<Double> yawTimestampQueue;
   private final StatusSignal<AngularVelocity> yawVelocity = pigeon.getAngularVelocityZWorld();
-
+  public static double offset = 0;
   public GyroIOPigeon2() {
     // Pigeon2Configuration myConfiguratioon = new Pigeon2Configuration()
     // myConfiguratioon.GyroTrim.GyroScalarY

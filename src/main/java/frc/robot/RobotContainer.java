@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.commands.AutoIntakePower;
 import frc.robot.commands.Direction;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.TeleopArm;
@@ -108,11 +109,54 @@ public class RobotContainer {
     }
 
     // Set up auto routines
-
     NamedCommands.registerCommand(
-        "Run Flywheel", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
-    autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
+        "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
+    //INTAKE STUFF-----------------------
+    NamedCommands.registerCommand(
+            "Intake", new AutoIntakePower(intake, 1));
+    NamedCommands.registerCommand(
+            "Outtake", new AutoIntakePower(intake, -1));
+    NamedCommands.registerCommand(
+            "Stop Intake", new AutoIntakePower(intake, 0));
+    //Superstructure Place STUFF-----------------------
+    NamedCommands.registerCommand(
+            "L2 Outtake", Commands.sequence(
+                new InstantCommand(
+                    () -> {
+                        elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
+                        arm.setTargetAngle(Constants.Presets.armOuttakeL2, 0);
+        })));
+    NamedCommands.registerCommand(
+        "L2 Algea", Commands.sequence(
+            new InstantCommand(
+                () -> {
+                    elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                    arm.setTargetAngle(Constants.Presets.armAlgeaL3, 0);
+        })));
+    NamedCommands.registerCommand(
+        "L3 Outtake", Commands.sequence(
+                new InstantCommand(
+                    () -> {
+                      elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
+                      arm.setTargetAngle(Constants.Presets.armOuttakeL3, 0);
+        })));
+    NamedCommands.registerCommand(
+        "L3 Algea", Commands.sequence(
+            new InstantCommand(
+                () -> {
+                  elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
+                  arm.setTargetAngle(Constants.Presets.armAlgeaL3, 0);
+        })) );
+    //Superstrucutre Intake Stuff-----------------------
+    NamedCommands.registerCommand(
+            "Intake Pos", Commands.sequence(
+                new InstantCommand(
+                    () -> {
+                        elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                        arm.setTargetAngle(Constants.Presets.armIntake, 0);
+                    })));
 
+    autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
     // Set up SysId routines
     autoChooser.addOption(
         "Drive SysId (Quasistatic Forward)",
@@ -144,10 +188,13 @@ public class RobotContainer {
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(), // used to be -
             () -> -controller.getRightX())); // used to be -
-    controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
-    controller
-        .a()
-        .or(controller.leftBumper())
+    // controller.x().onTrue(Commands.runOnce(drive::stopWithX, drive));
+    controller.back().onTrue(Commands.runOnce(
+        () -> {
+           GyroIOPigeon2.pigeon.setYaw(0.0);
+        }));
+    controller.
+        leftBumper()
         .or(controller.rightBumper())
         .onTrue(
             Commands.runOnce(
@@ -164,11 +211,9 @@ public class RobotContainer {
 
                   // ------------
 
-                }));
-    // }));
+        }));
     controller
-        .a()
-        .or(controller.leftBumper())
+        .leftBumper()
         .or(controller.rightBumper())
         .onFalse(
             Commands.runOnce(
@@ -182,8 +227,7 @@ public class RobotContainer {
                           () -> -controller.getRightX()));
                 }));
     controller
-        .a()
-        .or(controller.leftBumper())
+        .leftBumper()
         .or(controller.rightBumper())
         .onTrue(
             Commands.runOnce(
@@ -193,14 +237,63 @@ public class RobotContainer {
                     drive)
                 .ignoringDisable(true));
 
+    //======== L3 ============
     controller
         .y()
         .onTrue(
             Commands.sequence(
                 new InstantCommand(
                     () -> {
-                      elevator.setElevatorPosition(0.0);
+                      elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
+                      arm.setTargetAngle(Constants.Presets.armAlgeaL3, 0);
                     })));
+    controller
+        .y()
+        .onFalse(
+            Commands.sequence(
+                new InstantCommand(
+                    () -> {
+                      elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
+                      arm.setTargetAngle(Constants.Presets.armOuttakeL3, 0);
+                    })));
+    //========== L2 ===============
+    controller
+        .x().onTrue(
+            Commands.sequence(
+                new InstantCommand(
+                    () -> {
+                        elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                        arm.setTargetAngle(Constants.Presets.armAlgeaL2, 0);
+                    })));
+    controller
+        .x().onFalse(
+            Commands.sequence(
+                new InstantCommand(
+                    () -> {
+                        elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
+                        arm.setTargetAngle(Constants.Presets.armOuttakeL2, 0);
+                    })));
+    //========= L1 ==============
+    //========= Intake ==============
+    controller
+        .b()
+            .onTrue(
+                Commands.sequence(
+                    new InstantCommand(
+                        () -> {
+                            elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                            arm.setTargetAngle(Constants.Presets.armCoral, 0);
+                        })));
+    controller
+        .b()
+            .onFalse(
+                Commands.sequence(
+                    new InstantCommand(
+                        () -> {
+                            elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                            arm.setTargetAngle(Constants.Presets.armIntake, 0);
+                        })));
+    
   }
 
   /**

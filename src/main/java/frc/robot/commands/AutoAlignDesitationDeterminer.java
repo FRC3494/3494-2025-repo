@@ -28,9 +28,11 @@ public class AutoAlignDesitationDeterminer {
 
             Pose2d targetPose = new Pose2d();
             if(leftSide){
+               
                  targetPose = Constants.Field.Reef.leftLocations[minIndex];
             }
             else{
+          
                  targetPose = Constants.Field.Reef.rightLocations[minIndex];
             }
           return targetPose;
