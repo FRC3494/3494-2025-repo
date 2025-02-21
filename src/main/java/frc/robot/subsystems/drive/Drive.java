@@ -22,7 +22,6 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import com.pathplanner.lib.util.PathPlannerLogging;
-import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -74,8 +73,7 @@ public class Drive extends SubsystemBase {
       };
   public SwerveDrivePoseEstimator poseEstimator =
       new SwerveDrivePoseEstimator(kinematics, rawGyroRotation, lastModulePositions, new Pose2d());
-  private Limelights m_LimeLight1 = new Limelights(this, "limelight-right");
-  private Limelights m_LimeLight2 = new Limelights(this, "limelight-left");
+  private Limelights m_Limelights = new Limelights(this);
   public double rotationRate = 0;
 
   public Drive(
@@ -166,8 +164,7 @@ public class Drive extends SubsystemBase {
   }
 
   public void periodic() {
-    m_LimeLight1.periodic();
-    m_LimeLight2.periodic();
+    m_Limelights.periodic(poseEstimator);
     odometryLock.lock(); // Prevents odometry updates while reading data
     gyroIO.updateInputs(gyroInputs);
 
@@ -245,28 +242,10 @@ public class Drive extends SubsystemBase {
         Twist2d twist = kinematics.toTwist2d(moduleDeltas);
         rawGyroRotation = rawGyroRotation.plus(new Rotation2d(twist.dtheta));
       }
-      // rawGyroRotation = gyroInputs.yawPosition; // Seans test FIX NOT PERMENATE
-      rotationRate = gyroInputs.yawVelocityRadPerSec; // Logged for megaTag
 
-      // Apply update
-      // System.out.println(rawGyroRotation+ "|" +
-      // poseEstimator.getEstimatedPosition().getRotation());
-      // System.out.println("PRediodicing2");
-      Logger.recordOutput("Odo Yaw from gyro", rawGyroRotation.getDegrees());
+      rotationRate = gyroInputs.yawVelocityRadPerSec;
+
       poseEstimator.updateWithTime(sampleTimestamps[i], rawGyroRotation, modulePositions);
-      Logger.recordOutput(
-          "Odo Yaw right after", poseEstimator.getEstimatedPosition().getRotation().getDegrees());
-
-      if (m_LimeLight1.measurmentValid()) {
-        poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
-        poseEstimator.addVisionMeasurement(
-            m_LimeLight1.getMeasuremPosition(), m_LimeLight1.getMeasurementTimeStamp());
-      } // THE SDEVS ARE TOO HIGH (I THINK) causes jitter wehn seeing two measurments
-      else if (m_LimeLight2.measurmentValid()) {
-        poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
-        poseEstimator.addVisionMeasurement(
-            m_LimeLight2.getMeasuremPosition(), m_LimeLight2.getMeasurementTimeStamp());
-      }
     }
   }
 

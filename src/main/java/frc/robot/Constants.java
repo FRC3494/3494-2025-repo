@@ -33,7 +33,6 @@ public final class Constants {
   public static final Mode simMode = Mode.SIM;
   public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
 
-
   public static final int POWER_DISTRIBUTION_PANEL_CAN_ID = 28;
 
   public static enum Mode {
@@ -93,6 +92,11 @@ public final class Constants {
 
   public static class Climber {
     public static int CLIMBER_MOTOR_CAN_ID = 6;
+  }
+
+  public static class Limelight {
+    public static String RIGHT_LIMELIGHT_NAME = "limelight-right";
+    public static String LEFT_LIMELIGHT_NAME = "limelight-left";
   }
 
   public static class Drivetrain {

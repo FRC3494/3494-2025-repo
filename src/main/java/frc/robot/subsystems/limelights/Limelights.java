@@ -1,54 +1,38 @@
 package frc.robot.subsystems.limelights;
 
-import edu.wpi.first.math.estimator.ExtendedKalmanFilter;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.numbers.N2;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import frc.robot.subsystems.drive.Drive;
-import frc.robot.util.LimelightHelpers;
 import org.littletonrobotics.junction.Logger;
 
 public class Limelights {
-  private ExtendedKalmanFilter<N2, N2, N2> mKalmanFilter; // NICE IDEA IMPLEMENT LATER
-
-  private boolean invalidMeasurment = true;
-  private double measurementTimeStamp;
-  private Pose2d measurementPosition;
-
   private LimelightIOInputsAutoLogged inputs;
   private LimelightIO limelightIO;
 
-  public Limelights(Drive drivetrain, String limelightName) {
+  public Limelights(Drive drivetrain) {
     inputs = new LimelightIOInputsAutoLogged();
-    limelightIO = new LimelightIO(drivetrain, limelightName);
+    limelightIO = new LimelightIO(drivetrain);
   }
 
-  public void periodic() {
+  @SuppressWarnings("null")
+  public void periodic(SwerveDrivePoseEstimator poseEstimator) {
     limelightIO.updateInputs(inputs);
     Logger.processInputs("Limelights", inputs);
 
-    LimelightHelpers.PoseEstimate measurement = inputs.limelightMeasurement;
+    poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
 
-    if (measurement == null || inputs.isDrivetrainRotationRateTooHigh) {
-      invalidMeasurment = true;
-      return;
+    if (inputs.isDrivetrainRotationRateTooHigh) return;
+
+    if (inputs.leftLimelightMeasurement != null) {
+      poseEstimator.addVisionMeasurement(
+          inputs.leftLimelightMeasurement.pose(),
+          inputs.leftLimelightMeasurement.timestampSeconds());
     }
 
-    invalidMeasurment = false;
-
-    measurementTimeStamp = measurement.timestampSeconds();
-    measurementPosition = measurement.pose();
-  }
-
-  // returns validity of last measurment
-  public boolean measurmentValid() {
-    return !invalidMeasurment;
-  }
-
-  public double getMeasurementTimeStamp() {
-    return measurementTimeStamp;
-  }
-
-  public Pose2d getMeasuremPosition() {
-    return measurementPosition;
+    if (inputs.rightLimelightMeasurement != null) {
+      poseEstimator.addVisionMeasurement(
+          inputs.rightLimelightMeasurement.pose(),
+          inputs.rightLimelightMeasurement.timestampSeconds());
+    }
   }
 }
