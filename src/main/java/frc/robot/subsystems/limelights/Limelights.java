@@ -15,7 +15,7 @@ public class Limelights {
   }
 
   @SuppressWarnings("null")
-  public void periodic(SwerveDrivePoseEstimator poseEstimator) {
+  public void updatePoseEstimator(SwerveDrivePoseEstimator poseEstimator) {
     limelightIO.updateInputs(inputs);
     Logger.processInputs("Limelights", inputs);
 

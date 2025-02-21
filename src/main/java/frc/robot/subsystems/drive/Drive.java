@@ -164,7 +164,7 @@ public class Drive extends SubsystemBase {
   }
 
   public void periodic() {
-    m_Limelights.periodic(poseEstimator);
+    m_Limelights.updatePoseEstimator(poseEstimator);
     odometryLock.lock(); // Prevents odometry updates while reading data
     gyroIO.updateInputs(gyroInputs);
 
