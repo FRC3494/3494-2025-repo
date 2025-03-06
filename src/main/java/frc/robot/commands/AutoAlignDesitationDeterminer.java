@@ -3,6 +3,8 @@ package frc.robot.commands;
 import java.util.Optional;
 import java.util.function.Supplier;
 
+import com.google.googlejavaformat.Indent.Const;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -49,6 +51,12 @@ public class AutoAlignDesitationDeterminer {
             }
             if(placingAtL1){ //Rotates us to auto align to the other side if we are placing at L1, need to test if we can use the same reef postions or if I need to offset us a bit due to how accurate the odo is :)
                 targetPose = new Pose2d(targetPose.getX(), targetPose.getY(), new Rotation2d(targetPose.getRotation().getRadians()+Math.PI));
+                
+                //offset L1 pose closer to the reef
+                Translation2d targetTrans = new Translation2d(targetPose.getX(),targetPose.getY());
+                Translation2d distanceFromReefCenter = Constants.Field.Reef.reefCenter.minus(targetTrans);
+                targetTrans= targetTrans.plus(distanceFromReefCenter.times(Constants.Drivetrain.L1autoAlignOffset));
+                targetPose = new Pose2d(targetTrans, new Rotation2d(targetPose.getRotation().getRadians()));
             }
             else if(seekingAlgea){//if we want algea just average the left and righ positions
                 Pose2d leftPos =  Constants.Field.Reef.leftLocations[minIndex];

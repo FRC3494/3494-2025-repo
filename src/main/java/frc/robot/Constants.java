@@ -106,6 +106,8 @@ public final class Constants {
   }
 
   public static class Drivetrain {
+
+    public static double L1autoAlignOffset = 0.1; //Expressed as a percent of the distance between correct position and the reef
     public static double driveBaseRadius() {
       return Math.hypot(trackWidthX / 2.0, trackWidthY / 2.0);
     }

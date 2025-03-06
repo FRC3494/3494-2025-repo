@@ -284,13 +284,13 @@ public class Drive extends SubsystemBase {
 
       
       
-      Optional<Alliance> ally = DriverStation.getAlliance();
-      if(ally.get() == DriverStation.Alliance.Red){
-        currentRadiusFromReef = SeanMathUtil.distance(poseEstimator.getEstimatedPosition(), new Pose2d(AutoAlignDesitationDeterminer.transform2red(Constants.Field.Reef.reefCenter), new Rotation2d(0.0)));
-      }
-      else{
-      currentRadiusFromReef = SeanMathUtil.distance(poseEstimator.getEstimatedPosition(), new Pose2d(Constants.Field.Reef.reefCenter, new Rotation2d(0.0)));
-      }
+      // Optional<Alliance> ally = DriverStation.getAlliance();
+      // if(ally.get() == DriverStation.Alliance.Red){
+      //   currentRadiusFromReef = SeanMathUtil.distance(poseEstimator.getEstimatedPosition(), new Pose2d(AutoAlignDesitationDeterminer.transform2red(Constants.Field.Reef.reefCenter), new Rotation2d(0.0)));
+      // }
+      // else{
+      // currentRadiusFromReef = SeanMathUtil.distance(poseEstimator.getEstimatedPosition(), new Pose2d(Constants.Field.Reef.reefCenter, new Rotation2d(0.0)));
+      // }
       specialPoseEstimation = currentRadiusFromReef < 2.0;
       Logger.recordOutput("Drive/DistanceFromReef", currentRadiusFromReef);
       Logger.recordOutput("Drive/InSpecialMode", specialPoseEstimation);
@@ -310,11 +310,11 @@ public class Drive extends SubsystemBase {
           poseEstimator.addVisionMeasurement(
               m_LimeLight1.getMeasuremPosition(), m_LimeLight1.getMeasurementTimeStamp());
       }
-      if (m_LimeLight2.measurmentValid() && !specialPoseEstimation) {
+      if (m_LimeLight2.measurmentValid() && (!specialPoseEstimation || !AutoAlignDesitationDeterminer.placingAtL1) ) {
         poseEstimator.addVisionMeasurement(
               m_LimeLight2.getMeasuremPosition(), m_LimeLight2.getMeasurementTimeStamp());
       }
-      if (m_LimeLight3.measurmentValid() && !specialPoseEstimation) {
+      if (m_LimeLight3.measurmentValid() &&  (!specialPoseEstimation || !AutoAlignDesitationDeterminer.placingAtL1)) {
         poseEstimator.addVisionMeasurement(
               m_LimeLight3.getMeasuremPosition(), m_LimeLight3.getMeasurementTimeStamp());
       }
