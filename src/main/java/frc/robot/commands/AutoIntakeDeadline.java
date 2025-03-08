@@ -16,7 +16,7 @@ public class AutoIntakeDeadline extends Command {
 
     @Override
     public boolean isFinished(){
-        if(intake.hasNote()) return true;
+        if(intake.getHasCoral()) return true;
         return false;
         
     } 

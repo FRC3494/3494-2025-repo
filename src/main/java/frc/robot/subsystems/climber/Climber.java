@@ -24,7 +24,7 @@ public class Climber extends SubsystemBase {
     climberMotor = new SparkMax(Constants.Climber.CLIMBER_MOTOR_CAN_ID, MotorType.kBrushless);
 
     SparkMaxConfig climberMotorConfig = new SparkMaxConfig();
-    climberMotorConfig.idleMode(IdleMode.kBrake);
+    climberMotorConfig.idleMode(IdleMode.kCoast);
     climberMotorConfig.inverted(false);
     climberMotorConfig.closedLoop.pid(2, 0, 0);
     climberMotorConfig.closedLoop.outputRange(-1, 1);
@@ -52,11 +52,11 @@ public class Climber extends SubsystemBase {
       }
     }
 
-    if (inputs.mode == ClimberMode.Manual) {
-      if (inputs.climberPosition > -1) {
-        climberMotor.set(inputs.power);
-      }
-    }
+    // if (inputs.mode == ClimberMode.Manual) {
+    //   if (inputs.climberPosition > -1) {
+    //     climberMotor.set(inputs.power);
+    //   }
+    // }
 
     prevTicks = inputs.targetPosition;
   }

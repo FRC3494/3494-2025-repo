@@ -22,7 +22,7 @@ public class TeleopClimber extends Command {
         // }
 
         //We have a ratchet now!
-        climber.setMotorPower(climberPower);
+        // climber.setMotorPower(climberPower);
         
 
     }

@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.AutoAlignDesitationDeterminer;
+import frc.robot.commands.AutoCoralConfirm;
 import frc.robot.commands.AutoIntakePower;
 import frc.robot.commands.Direction;
 import frc.robot.commands.DriveCommands;
@@ -130,6 +131,7 @@ public class RobotContainer {
             "Outtake L1", new AutoIntakePower(intake, -0.3));
     NamedCommands.registerCommand(
             "Stop Intake", new AutoIntakePower(intake, 0));
+    NamedCommands.registerCommand("Confirm Coral", new AutoCoralConfirm(intake));
     //Superstructure Place STUFF-----------------------
     NamedCommands.registerCommand(
             "L1", Commands.sequence(
@@ -364,6 +366,18 @@ public class RobotContainer {
     OI.startClimb().rising().ifHigh(()->{
         elevator.setElevatorPosition(Constants.Presets.liftClimb);
         arm.setTargetAngle(Constants.Presets.armClimb, 0);
+    });
+
+    OI.ClimbStage0().rising().ifHigh(()->{
+        climber.setTargetAngle(Constants.Presets.climberStage0, 0);
+    });
+
+    OI.ClimbStage1().rising().ifHigh(()->{
+        climber.setTargetAngle(Constants.Presets.climberStage1, 0);
+    });
+
+    OI.ClimbStage2().rising().ifHigh(()->{
+        climber.setTargetAngle(Constants.Presets.climberStage2, 0);
     });
   }
 

@@ -18,7 +18,7 @@ public class Intake extends SubsystemBase {
   private SparkMaxConfig intakeConfig;
   private double intakeSpeed;
 
-  boolean hasNote = false;
+  boolean hasCoral = false;
   private double currentSpeed = 0;
   ArrayList currents =  new ArrayList<>();
 
@@ -56,16 +56,16 @@ public class Intake extends SubsystemBase {
   public void periodic(){
     double Cavrg = currentAverage(intakeMotor.getOutputCurrent());
     if(Cavrg >9){
-      hasNote = true;
+      hasCoral = true;
     }
     Logger.recordOutput("Intake/Current-Average", Cavrg);
-    Logger.recordOutput("Intake/Has-Coral", hasNote);
+    Logger.recordOutput("Intake/Has-Coral", hasCoral);
     if(currentSpeed > 0.05){
-      hasNote = false;
+      hasCoral = false;
     }
   }
 
-  public boolean hasNote(){
-    return hasNote;
+  public boolean getHasCoral(){
+    return hasCoral;
   }
 }

@@ -53,7 +53,7 @@ public final class OI {
     return leftPower+rightPower;
   }
   public static double getClimberPower(){
-    double upPower = (primaryController.povUp(eventLoop).getAsBoolean()? 0.7: 0.0);
+    double upPower = (primaryController.povUp(eventLoop).getAsBoolean()? 0.5: 0.0);
     double downPower = (primaryController.povDown(eventLoop).getAsBoolean()? -0.25 : 0.0);
     return upPower+downPower;
   }
@@ -84,4 +84,14 @@ public final class OI {
   public static BooleanEvent startClimb(){
     return rightButtonBoard.button(3, eventLoop);
   }
+  public static BooleanEvent ClimbStage0(){
+    return rightButtonBoard.button(5, eventLoop);
+  }
+  public static BooleanEvent ClimbStage1(){
+    return rightButtonBoard.button(6, eventLoop);
+  }
+  public static BooleanEvent ClimbStage2(){
+    return rightButtonBoard.button(7, eventLoop);
+  }
+
 }

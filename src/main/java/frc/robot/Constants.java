@@ -78,6 +78,10 @@ public final class Constants {
     
     public static double liftClimb = 20;
     public static double armClimb = 0.56;
+
+    public static double climberStage0 = 0.0;
+    public static double climberStage1 = -25.0;
+    public static double climberStage2 = -49.0;
   }
 
   public static class OI {
@@ -107,7 +111,7 @@ public final class Constants {
 
   public static class Drivetrain {
 
-    public static double L1autoAlignOffset = 0.1; //Expressed as a percent of the distance between correct position and the reef
+    public static double L1autoAlignOffset = 0.15; //Expressed as a percent of the distance between correct position and the reef that we nudge by
     public static double driveBaseRadius() {
       return Math.hypot(trackWidthX / 2.0, trackWidthY / 2.0);
     }
