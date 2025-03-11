@@ -69,6 +69,7 @@ public final class Constants {
     public static double armAlgeaL2 = 0.605;
     public static double armAlgeaL3 = 0.58; // -116.0;
     public static double armBargeYeet = 0.66;
+    public static double armBargeYeetRelease = 0.7965;
 
     public static double liftIntake = 0;
     public static double liftOuttakeL2 = 20;
@@ -82,6 +83,10 @@ public final class Constants {
     public static double climberStage0 = 0.0;
     public static double climberStage1 = -25.0;
     public static double climberStage2 = -49.0;
+
+
+    public static double armStore = 0.95;
+    public static double elevatorStore = 0.0;
   }
 
   public static class OI {

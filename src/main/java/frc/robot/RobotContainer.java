@@ -24,12 +24,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.commands.AutoCoralConfirm;
 import frc.robot.commands.AutoIntakePower;
+import frc.robot.commands.BargFligIntake;
 import frc.robot.commands.Direction;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.TeleopClimber;
@@ -126,7 +128,7 @@ public class RobotContainer {
     NamedCommands.registerCommand(
                 "Outtake Fast", new AutoIntakePower(intake, 0.5));
     NamedCommands.registerCommand(
-                "Outtake Algea", new AutoIntakePower(intake, 1));
+                "Outtake Algea", new AutoIntakePower(intake, 0.5));
     NamedCommands.registerCommand(
             "Outtake L1", new AutoIntakePower(intake, -0.3));
     NamedCommands.registerCommand(
@@ -322,6 +324,7 @@ public class RobotContainer {
             Commands.sequence(
                 new InstantCommand(
                     () -> {
+                        intake.setSpeed(0);
                         elevator.setElevatorPosition(Constants.Presets.liftIntake);
                         arm.setTargetAngle(Constants.Presets.armOuttakeL1, 0);
                     })));
@@ -331,6 +334,7 @@ public class RobotContainer {
         arm.setTargetAngle(Constants.Presets.armIntake, 0);
     });
     OI.Processor().rising().ifHigh(()->{
+        intake.setSpeed(0.75);
         elevator.setElevatorPosition(Constants.Presets.liftIntake);
         arm.setTargetAngle(Constants.Presets.armCoral, 0);
     });
@@ -357,8 +361,10 @@ public class RobotContainer {
             new InstantCommand(() -> {arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);}),
             new WaitCommand(0.0),
             new InstantCommand(() -> {elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);}),
-            new WaitCommand(0.36),//WORKED at 0.2
-            new InstantCommand(() -> {intake.setSpeed(-1);}),
+            new BargFligIntake(arm, intake, Constants.Presets.armBargeYeetRelease),
+            // new WaitCommand(0.36),//WORKED at 0.2
+            // new PrintCommand(arm.getAbsoluteTicks()+"|==================="),
+            // new InstantCommand(() -> {intake.setSpeed(-1);}),
             new WaitCommand(0.75),
             new InstantCommand(() -> {elevator.setPIDlimits(-0.5, 0.5);}),
             new InstantCommand(() -> {arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);})).schedule();});    
@@ -379,6 +385,11 @@ public class RobotContainer {
     OI.ClimbStage2().rising().ifHigh(()->{
         climber.setTargetAngle(Constants.Presets.climberStage2, 0);
     });
+    OI.defensePos().rising().ifHigh(()->{
+        arm.setTargetAngle(Constants.Presets.armStore, 0);
+        elevator.setElevatorPosition(Constants.Presets.elevatorStore);
+    });
+    
   }
 
   /**

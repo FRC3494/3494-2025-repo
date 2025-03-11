@@ -40,7 +40,7 @@ public class TeleopIntake extends Command {
       AutoAlignDesitationDeterminer.placingAtL1 = false;
     }
     if (arm.getTargetPosition() == Constants.Presets.armCoral+Constants.Presets.globalArmOffset){
-      arm.setPIDlimits(-0.3, 0.3);
+      arm.setPIDlimits(-0.4, 0.4);
       System.out.println("limiting!!!!!!!!!");
     }
     // else{

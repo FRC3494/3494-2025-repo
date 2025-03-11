@@ -94,4 +94,7 @@ public final class OI {
     return rightButtonBoard.button(7, eventLoop);
   }
 
+  public static BooleanEvent defensePos(){
+    return rightButtonBoard.button(4, eventLoop);
+  }
 }
