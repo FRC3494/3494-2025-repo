@@ -3,43 +3,43 @@ connectors:
   FL Drive:
     type: Neo Vortex
     subtype: Spark Flex
-    pinlabels: [TX, RX, U, V, W]
-    pincolors: [yellow, green, black, white, red]
+    pinlabels: [TX, RX, +12v, GND]
+    pincolors: [yellow, green, red, black]
   FL Steer:
     type: Neo Vortex
     subtype: Spark Flex
-    pinlabels: [TX, RX, U, V, W]
-    pincolors: [yellow, green, black, white, red]
+    pinlabels: [TX, RX, +12v, GND]
+    pincolors: [yellow, green, red, black]
   FR Drive:
     type: Neo Vortex
     subtype: Spark Flex
-    pinlabels: [TX, RX, U, V, W]
-    pincolors: [yellow, green, black, white, red]
+    pinlabels: [TX, RX, +12v, GND]
+    pincolors: [yellow, green, red, black]
   FR Steer:
     type: Neo Vortex
     subtype: Spark Flex
-    pinlabels: [TX, RX, U, V, W]
-    pincolors: [yellow, green, black, white, red]
+    pinlabels: [TX, RX, +12v, GND]
+    pincolors: [yellow, green, red, black]
   BL Drive:
     type: Neo Vortex
     subtype: Spark Flex
-    pinlabels: [TX, RX, U, V, W]
-    pincolors: [yellow, green, black, white, red]
+    pinlabels: [TX, RX, +12v, GND]
+    pincolors: [yellow, green, red, black]
   BL Steer:
     type: Neo Vortex
     subtype: Spark Flex
-    pinlabels: [TX, RX, U, V, W]
-    pincolors: [yellow, green, black, white, red]
+    pinlabels: [TX, RX, +12v, GND]
+    pincolors: [yellow, green, red, black]
   BR Drive:
     type: Neo Vortex
     subtype: Spark Flex
-    pinlabels: [TX, RX, U, V, W]
-    pincolors: [yellow, green, black, white, red]
+    pinlabels: [TX, RX, +12v, GND]
+    pincolors: [yellow, green, red, black]
   BR Steer:
     type: Neo Vortex
     subtype: Spark Flex
-    pinlabels: [TX, RX, U, V, W]
-    pincolors: [yellow, green, black, white, red]
+    pinlabels: [TX, RX, +12v, GND]
+    pincolors: [yellow, green, red, black]
 # Motors
   Intake Motor:
     type: Neo 550
@@ -149,11 +149,13 @@ connectors:
   PDH:
     type: Power Distrobution Hub
     manufacturer: REV
-    pinlabels: [TX, RX, TX-2, RX-2, +12v-Batt, GND-Batt, USB-C]
+    pinlabels: [GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, GND, +12v, TX, RX, TX-2, RX-2, +12v-Batt, GND-Batt, USB-C]
   Breaker:
     type: 
+    pinlabels: [Batt, PDH]
   Battery:
     type: Right angle 4awg anderson powerpole
+    pinlabels: [GND +12v]
   RSL:
     type:
     manufacturer: Allen Bradly
@@ -164,15 +166,114 @@ cables:
   Intake cables:
     notes: runs through shoulder maxspline, and inside of elevator stage
 connections:
+# spark maxes and Vortex power
   - 
     - Intake Motor: [1-9]
     - Intake Controler: [3-9]
   - 
+    - Intake Controler: [10-11]
+    - PDH: [30-31]
+  -
     - Climber Motor: [1-9]
     - Climber Controler: [3-9]
+  -
+    - Climber Controler: [10-11]
+    - PDH: [12-13]
   -
     - Lift Motor 1: [1-9]
     - Lift Controler 1: [3-9]
   -
+    - Lift Controler 1: [10-11]
+    - PDH: [24-25]
+  -
     - Lift Motor 2: [1-9]
     - Lift Controler 2: [3-9]
+  -
+    - Lift Controler 2: [10-11]
+    - PDH: [24-25]
+  -
+    - Arm Motor: [3-4]
+    - PDH: [27-28] # 14
+# Ethernet
+# switch port numbers are incorect, needs to be updated to match robot
+  -
+    - Limelight 1: [3]
+    - Switch: [2]
+  - 
+    - Limelight 2: [3]
+    - Switch: [3]
+  - 
+    - Limelight 3: [3]
+    - Switch: [4]
+  -
+    - Rio: [1] # Placeholder
+    - Switch: [1]
+  -
+    - Radio: [3] # needs POE remover
+    - Switch: [5]
+# Ethernet Power
+  -
+    - Limelight 1: [1-2]
+    - MitoCANdria 1: [1-2] # Placeholder
+  -
+    - Limelight 2: [1-2]
+    - MitoCANdria 1: [1-2] # Placeholder
+  -
+    - Limelight 3: [1-2]
+    - MitoCANdria 2: [1-2] # Placeholder
+  -
+    - Radio: [1-2]
+    - PDH: [40-41] #21
+  -
+    - Rio: [1-2] # Placeholder
+    - PDH: [43-44] #22
+  -
+    - Switch: [1-2]
+    - MitoCANdria 2: [1-2] # Placeholder
+# basic components Power
+  -
+    - RSL: [1-2]
+    - Rio: [1-2] # Placeholder
+  -
+    - Hour Meter: [1-2]
+    - PDH: [13-14] # 7
+  -
+    - MitoCANdria 1: [1-2] # Placeholder
+    - PDH: [15-16] # 8
+  -
+    - MitoCANdria 2: [1-2] # Placeholder
+    - PDH: [17-18] # 9
+  -
+    - Battery: [1]
+    - PDH: [54]
+  -
+    - Battery: [2]
+    - Breaker: [1]
+  -
+    - Breaker: [2]
+    - PDH: [53]
+# Swerve Power
+  -
+    - FL Drive: [3-4]
+    - PDH: [35-36] # 18
+  -
+    - FL Steer: [3-4]
+    - PDH: [31-32] # 16
+  -
+    - FR Drive: [3-4]
+    - PDH: [37-38] # 19
+  -
+    - FR Steer: [3-4]
+    - PDH: [33-34] # 17
+  -
+    - BL Drive: [3-4]
+    - PDH: [7-8] # 4
+  -
+    - BL Steer: [3-4]
+    - PDH: [3-4] # 2
+  -
+    - BR Drive: [3-4]
+    - PDH: [1-2] # 1
+  -
+    - BR Steer: [3-4]
+    - PDH: [5-6] # 3
