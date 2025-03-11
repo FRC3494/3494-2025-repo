@@ -1,39 +1,162 @@
 connectors:
-  X1: &boo
-    type: Molex Micro-Fit
-    subtype: male
-    pinlabels: [GND, VCC]
-  X2: &con_power_f # define template
-    type: Molex Micro-Fit
-    subtype: female
-    pinlabels: [GND, VCC]
-  X3:
-    <<: *con_power_f # create from template
-  X4:
-    <<: *con_power_f # create from template
-
-cables:
-  W1: &wire_power # define template
-    colors: [BK, RD] # number of wires implicit in color list
-    gauge: 0.25 # assume mm2 if no gauge unit is specified
-    show_equiv: true
-    length: 0.2
-  W2:
-    <<: *wire_power # create from template
-  W3:
-    <<: *wire_power # create from template
-    gauge: 20 awg
-
+# Swerve Motors
+  FL Drive:
+    type: Neo Vortex
+    subtype: Spark Flex
+    pinlabels: [TX, RX, U, V, W]
+    pincolors: [yellow, green, black, white, red]
+  FL Steer:
+    type: Neo Vortex
+    subtype: Spark Flex
+    pinlabels: [TX, RX, U, V, W]
+    pincolors: [yellow, green, black, white, red]
+  FR Drive:
+    type: Neo Vortex
+    subtype: Spark Flex
+    pinlabels: [TX, RX, U, V, W]
+    pincolors: [yellow, green, black, white, red]
+  FR Steer:
+    type: Neo Vortex
+    subtype: Spark Flex
+    pinlabels: [TX, RX, U, V, W]
+    pincolors: [yellow, green, black, white, red]
+  BL Drive:
+    type: Neo Vortex
+    subtype: Spark Flex
+    pinlabels: [TX, RX, U, V, W]
+    pincolors: [yellow, green, black, white, red]
+  BL Steer:
+    type: Neo Vortex
+    subtype: Spark Flex
+    pinlabels: [TX, RX, U, V, W]
+    pincolors: [yellow, green, black, white, red]
+  BR Drive:
+    type: Neo Vortex
+    subtype: Spark Flex
+    pinlabels: [TX, RX, U, V, W]
+    pincolors: [yellow, green, black, white, red]
+  BR Steer:
+    type: Neo Vortex
+    subtype: Spark Flex
+    pinlabels: [TX, RX, U, V, W]
+    pincolors: [yellow, green, black, white, red]
+# Motors
+  Intake Motor:
+    type: Neo 550
+    pinlabels: [U, V, W, GND, +5v, A, B, C, Temp]
+    pincolors: [black, white, red, black, red, blue, yellow, green, white]
+  Arm Motor:
+    type: Neo Vortex
+    subtype: Spark Flex
+    pinlabels: [TX, RX, U, V, W]
+    pincolors: [yellow, green, black, white, red]
+  Climber Motor:
+    type: Neo
+    pinlabels: [U, V, W, GND, +5v, A, B, C, Temp]
+    pincolors: [black, white, red, black, red, blue, yellow, green, white]
+  Lift motor 1:
+    type: Neo
+    pinlabels: [U, V, W, GND, +5v, A, B, C, Temp]
+    pincolors: [black, white, red, black, red, blue, yellow, green, white]
+  Lift motor 2:
+    type: Neo
+    pinlabels: [U, V, W, GND, +5v, A, B, C, Temp]
+    pincolors: [black, white, red, black, red, blue, yellow, green, white]
+# Motor Controlers
+  Lift Controler:
+    type: Spark Max
+    pinlabels: [TX, RX, U, V, W, +12v, GND, GND, +5v, A, B, C, Temp]
+    pincolors: [yellow, green, black, white, red, red, black, black, red, blue, yellow, green, white]
+  Lift Controler 1:
+    type: Spark Max
+    pinlabels: [TX, RX, U, V, W, +12v, GND, GND, +5v, A, B, C, Temp]
+    pincolors: [yellow, green, black, white, red, red, black, black, red, blue, yellow, green, white]
+  CLimber Controler: 
+    type: Spark Max
+    pinlabels: [TX, RX, U, V, W, +12v, GND, GND, +5v, A, B, C, Temp]
+    pincolors: [yellow, green, black, white, red, red, black, black, red, blue, yellow, green, white]
+  Intake Controler:
+    type: Spark Max
+    pinlabels: [TX, RX, U, V, W, +12v, GND, GND, +5v, A, B, C, Temp]
+    pincolors: [yellow, green, black, white, red, red, black, black, red, blue, yellow, green, white]
+# Sensors
+  Arm Encoder:
+    type: Microfit 3
+    manufacturer: Molex
+    pinlabels: [GND, +5v, A, B, C, Temp]
+    pincolors: [black, red, blue, yellow, green, white]
+  Lift mag switch:
+    type: REV Magnetic limit switch
+    pinlabels: [GND, +5v, A, B, C, Temp]
+    pincolors: [black, red, blue, yellow, green, white]
+  FL Swerve Encoder:
+    type: Hall effect rotarty encoder
+    subtype: Dupont
+    manufacturer: Thriftybot
+    pinlabels: [GND, +5v, S]
+    pincolors: [black, red, white]
+  FR Swerve Encoder:
+    type: Hall effect rotarty encoder
+    subtype: Dupont
+    manufacturer: Thriftybot
+    pinlabels: [GND, +5v, S]
+    pincolors: [black, red, white]
+  BL Swerve Encoder:
+    type: Hall effect rotarty encoder
+    subtype: Dupont
+    manufacturer: Thriftybot
+    pinlabels: [GND, +5v, S]
+    pincolors: [black, red, white]
+  BR Swerve Encoder:
+    type: Hall effect rotarty encoder
+    subtype: Dupont
+    manufacturer: Thriftybot
+    pinlabels: [GND, +5v, S]
+    pincolors: [black, red, white]
+# Ethernet
+  Switch:
+    type: 8 port gbps switch
+    pincount: 10
+    pinlabels: [+12v, GND, +12v-2, GND-2]
+    pincolors: [red, black, red, black, pink, pink, pink, pink, pink, pink, pink, pink]
+  Limelight 1:
+    type: Limelight 3
+    pinlabels: [+12v, GND, Ethernet, USB]
+    pincolors: [red, black, pink, orange]
+  Limelight 2:
+    type: Limelight 3
+    pinlabels: [+12v, GND, Ethernet, USB]
+    pincolors: [red, black, pink, orange]
+  Limelight 3:
+    type: Limelight 3
+    pinlabels: [+12v, GND, Ethernet, USB]
+    pincolors: [red, black, pink, orange]
+  Radio:
+    type: Vivid hosting Radio
+    subtype: Robot Radio Mode
+    pinlabels: [+12v, GND, RIO, DS AUX, AUX-2]
+    pincolors: [red, black, pink, pink, pink, pink]
+# Power
+  Rio: 
+    type: Robot RIO 2
+    manufacturer: Ni
+  MitoCANdria:
+    type: limelight, limelight 2, pidgen
+    manufacturer: Grapple Robotics
+  MitoCANdria 2:
+    type: limelight 3, ethernet switch
+    manufacturer: Grapple Robotics
+  PDH:
+    type: Power Distrobution Hub
+    manufacturer: REV
+  Breaker:
+    type: 
+  Battery:
+    type: Right angle 4awg anderson powerpole
+  RSL:
+    type:
+    manufacturer: Allen Bradly
+  Hour Meter:
+    type: runtime counter
+    manufacturer: Andymark
 connections:
-  -
-    - X1: [1-2]
-    - W1: [1-2]
-    - X2: [1-2]
-  -
-    - X1: [1-2]
-    - W2: [1-2]
-    - X3: [1-2]
-  -
-    - X1: [1-2]
-    - W3: [1-2]
-    - X4: [1-2]
