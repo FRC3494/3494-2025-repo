@@ -65,20 +65,20 @@ connectors:
 # Motor Controlers
   Lift Controler:
     type: Spark Max
-    pinlabels: [TX, RX, U, V, W, +12v, GND, GND, +5v, A, B, C, Temp]
-    pincolors: [yellow, green, black, white, red, red, black, black, red, blue, yellow, green, white]
+    pinlabels: [TX, RX, U, V, W, GND, +5v, A, B, C, Temp, +12v, GND]
+    pincolors: [yellow, green, black, white, red, black, red, blue, yellow, green, white, red, black]
   Lift Controler 1:
     type: Spark Max
-    pinlabels: [TX, RX, U, V, W, +12v, GND, GND, +5v, A, B, C, Temp]
-    pincolors: [yellow, green, black, white, red, red, black, black, red, blue, yellow, green, white]
+    pinlabels: [TX, RX, U, V, W, GND, +5v, A, B, C, Temp, +12v, GND]
+    pincolors: [yellow, green, black, white, red, black, red, blue, yellow, green, white, red, black]
   CLimber Controler: 
     type: Spark Max
-    pinlabels: [TX, RX, U, V, W, +12v, GND, GND, +5v, A, B, C, Temp]
-    pincolors: [yellow, green, black, white, red, red, black, black, red, blue, yellow, green, white]
+    pinlabels: [TX, RX, U, V, W, GND, +5v, A, B, C, Temp, +12v, GND]
+    pincolors: [yellow, green, black, white, red, black, red, blue, yellow, green, white, red, black]
   Intake Controler:
     type: Spark Max
-    pinlabels: [TX, RX, U, V, W, +12v, GND, GND, +5v, A, B, C, Temp]
-    pincolors: [yellow, green, black, white, red, red, black, black, red, blue, yellow, green, white]
+    pinlabels: [TX, RX, U, V, W, GND, +5v, A, B, C, Temp, +12v, GND]
+    pincolors: [yellow, green, black, white, red, black, red, blue, yellow, green, white, red, black]
 # Sensors
   Arm Encoder:
     type: Microfit 3
@@ -149,6 +149,7 @@ connectors:
   PDH:
     type: Power Distrobution Hub
     manufacturer: REV
+    pinlabels: [TX, RX, TX-2, RX-2, +12v-Batt, GND-Batt, USB-C]
   Breaker:
     type: 
   Battery:
@@ -159,4 +160,19 @@ connectors:
   Hour Meter:
     type: runtime counter
     manufacturer: Andymark
+cables:
+  Intake cables:
+    notes: runs through shoulder maxspline, and inside of elevator stage
 connections:
+  - 
+    - Intake Motor: [1-9]
+    - Intake Controler: [3-9]
+  - 
+    - Climber Motor: [1-9]
+    - Climber Controler: [3-9]
+  -
+    - Lift Motor 1: [1-9]
+    - Lift Controler 1: [3-9]
+  -
+    - Lift Motor 2: [1-9]
+    - Lift Controler 2: [3-9]
