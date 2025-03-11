@@ -169,25 +169,25 @@ connections:
 # spark maxes and Vortex power
   - 
     - Intake Motor: [1-9]
-    - Intake Controler: [3-9]
+    - Intake Controler: [3-11]
   - 
     - Intake Controler: [10-11]
     - PDH: [30-31]
   -
     - Climber Motor: [1-9]
-    - Climber Controler: [3-9]
+    - Climber Controler: [3-11]
   -
     - Climber Controler: [10-11]
     - PDH: [12-13]
   -
     - Lift Motor 1: [1-9]
-    - Lift Controler 1: [3-9]
+    - Lift Controler 1: [3-11]
   -
     - Lift Controler 1: [10-11]
     - PDH: [24-25]
   -
     - Lift Motor 2: [1-9]
-    - Lift Controler 2: [3-9]
+    - Lift Controler 2: [3-11]
   -
     - Lift Controler 2: [10-11]
     - PDH: [24-25]
