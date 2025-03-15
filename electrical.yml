@@ -163,8 +163,15 @@ connectors:
     type: runtime counter
     manufacturer: Andymark
 cables:
-  Intake cables:
-    notes: runs through shoulder maxspline, and inside of elevator stage
+  shoulder Disconect Power:
+    notes: runs through shoulder maxspline, to the inside of elevator stage
+    category: Elevator
+    gauge: Mr60 
+  Shoulder Disconect Encoder:
+    notes: runs through shoulder maxspline, to the inside of elevator stage
+    category: Elevator
+    gauge: Molex Sl
+
 connections:
 # spark maxes and Vortex power
   - 

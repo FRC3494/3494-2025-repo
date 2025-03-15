@@ -1,0 +1,107 @@
+connectors:
+# Intake
+  Intake Motor:
+    type: Neo 550
+    pinlabels: [U, V, W, GND, +5v, A, B, C, Temp]
+    pincolors: [black, white, red, black, red, blue, yellow, green, white]
+  Intake Controler:
+    type: Spark Max
+    pinlabels: [TX, RX, TX, RX, U, V, W, GND, +5v, A, B, C, Temp, +12v, GND]
+    pincolors: [yellow, green, yellow, green, black, white, red, black, red, blue, yellow, green, white, red, black]
+# Intake motor Encoder
+  Intake Motor Encoder Extenton:
+    type: Molex Sl
+    pinlabels: [GND, +5v, A, B, C, Temp]
+    pincolors: [black, red, blue, yellow, green, white]
+  Intake Controler Encoder Extenton:
+    type: Molex Sl
+    pinlabels: [GND, +5v, A, B, C, Temp]
+    pincolors: [black, red, blue, yellow, green, white]
+# Intake motor Power
+  Intake Motor Extension:
+    type: Mr60
+    pinlabels: [U, V, W]
+    pincolors: [black, white, red]
+  Intake Controler Extension:
+    type: Mr60
+    pinlabels: [U, V, W]
+    pincolors: [black, white, red]
+# Arm
+  Arm Motor:
+    type: Neo Vortex
+    subtype: Spark Flex
+    pinlabels: [TX, RX, TX, RX, +12V, GND]
+    pincolors: [yellow, green, yellow, green, red, black]
+  Arm Encoder:
+    type: throughbore Encoder
+    manufacturer: REV
+    pinlabels: [GND, +5v, A, B, C, Temp]
+    pincolors: [black, red, blue, yellow, green, white]
+  Elevator Disconect:
+    type: Base Of elevator
+    pincount: 8
+cables:
+  Cable Chain:
+    type: closed loop plastic 1 axis
+    wirecount: 8
+# Intake Encoder
+  Intake Controler Encoder:
+    type: Encoder
+    gauge: 18 gauge
+    wirecount: 6
+# Intake Power
+  Intake Pigtail:
+    type: Motor Power
+    gauge: 16-29 gauge
+    wirecount: 9
+  Intake Extension:
+    type: Motor Power
+    gauge: 16 gauge
+    wirecount: 9
+  Intake Controler Pigtail:
+    type: Motor Power
+    gauge: 16 gauge
+    wirecount: 9
+# CAN
+  Can intermotor:
+    type: CAN Bus
+    gauge: 20
+    wirecount: 2
+connections:
+# Intake
+  -
+    - Intake Motor: [4-9]
+    - Intake Pigtail: [4-9]
+    - Intake Motor Encoder Extenton: [1-6]
+    - Intake Extension: [4-9]
+    - Intake Controler Encoder Extenton: [1-6]
+    - Intake Controler Pigtail: [4-9]
+    - Intake Controler: [8-13]
+  -
+    - Intake Motor: [1-3]
+    - Intake Pigtail: [1-3]
+    - Intake Motor Extension: [1-3]
+    - Intake Extension: [1-3]
+    - Intake Controler Extension: [1-3]
+    - Intake Controler Pigtail: [1-3]
+    - Intake Controler: [5-7]
+  -
+    - Intake Controler: [3-4]
+    - Can intermotor: [1-2]
+    - Arm Motor: [3-4]
+  -
+    - Intake Controler: [14-15]
+    - Cable Chain: [1-2]
+    - Elevator Disconect: [1-2]
+  -
+    - Arm Motor: [5-6]
+    - Cable Chain: [3-4]
+    - Elevator Disconect: [3-4]
+  -
+    - Intake Controler: [1-2]
+    - Cable Chain: [5-6]
+    - Elevator Disconect: [5-6]
+  -
+    - Arm Motor: [1-2]
+    - Cable Chain: [7-8]
+    - Elevator Disconect: [7-8]
