@@ -13,6 +13,7 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 
 public class Arm extends SubsystemBase {
   SparkFlex armMotor;
@@ -20,6 +21,9 @@ public class Arm extends SubsystemBase {
   double manualPower = 0;
   private double targetPosition;
   private RelativeEncoder encoder;
+
+  LoggedNetworkNumber pTuner = new LoggedNetworkNumber("/SmartDashboard/Arm/P", 6);
+  LoggedNetworkNumber dTuner = new LoggedNetworkNumber("/SmartDashboard/Arm/D", 0);
 
   public Arm() {
     armMotor = new SparkFlex(Constants.Arm.armMotor, MotorType.kBrushless);
@@ -65,6 +69,8 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
+    setPID(pTuner.get(), 0, dTuner.get());
+
     Logger.recordOutput("Arm/Arm-Position", encoder.getPosition());
     Logger.recordOutput("Arm/Arm-Encoder-Position", armMotor.getAbsoluteEncoder().getPosition());
     Logger.recordOutput("Arm/Target-Position", targetPosition);
