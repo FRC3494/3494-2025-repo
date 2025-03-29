@@ -65,9 +65,9 @@ public final class Constants {
     public static double armOuttakeL2Auto = 0.60; // 0.595;
     public static double armOuttakeL3 = 0.62; // -106.0;
 
-    public static double armAlgeaL2 = 0.6125;//0.6125; // 0.605
+    public static double armAlgeaL2 = 0.6125; // 0.6125; // 0.605
     public static double armAlgeaL2Auto = 0.6125;
-    public static double armAlgeaL3 = 0.627;//0.585; // 0.58 // -116.0;
+    public static double armAlgeaL3 = 0.627; // 0.585; // 0.58 // -116.0;
     public static double armBargeYeet = 0.65;
 
     public static double liftIntake = 0;
@@ -131,10 +131,10 @@ public final class Constants {
     public static final double trackWidthX = 0.5222; // TODO: random Number
     public static final double trackWidthY = 0.574675;
 
-    public static final double maxLinearVelocity = 4.5; // TODO: I made this number up
-    public static final double maxLinearAcceleration = 9.0; // TODO: I made this number up
-    public static final double maxAngularVelocity = 6;
-    public static final double maxAngularAcceleration = 12;
+    public static final double maxLinearVelocity = 1; // TODO: I made this number up
+    public static final double maxLinearAcceleration = 1.0; // TODO: I made this number up
+    public static final double maxAngularVelocity = 3;
+    public static final double maxAngularAcceleration = 5;
 
     public static final int PIGEON_PORT = 52;
     public static final int FRONT_LEFT_DRIVE_ID = 18; // 18
@@ -164,7 +164,9 @@ public final class Constants {
     public static final double fieldWidth = Units.inchesToMeters(317); // 26ft 6in
     public static final Translation2d ampCenter =
         new Translation2d(Units.inchesToMeters(72.455), fieldWidth);
-    public static final Pose2d bargeSpot = new Pose2d(7.4, 6.893, new Rotation2d(Math.toRadians(-135.0)));
+    public static final Pose2d bargeSpot =
+        new Pose2d(7.4, 6.893, new Rotation2d(Math.toRadians(-135.0)));
+
     public static class Reef {
       //       6
       //     ----

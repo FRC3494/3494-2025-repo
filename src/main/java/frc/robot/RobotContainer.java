@@ -266,10 +266,10 @@ public class RobotContainer {
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(), // used to be -
             () -> -controller.getRightX())); // used to be -
-    controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
-    controller.y().onTrue(Commands.runOnce(()->{
-        AutoAlignDesitationDeterminer.seekingAlgea = !AutoAlignDesitationDeterminer.seekingAlgea;
-    }));
+    // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
+    // controller.y().onTrue(Commands.runOnce(()->{
+    //     AutoAlignDesitationDeterminer.seekingAlgea = !AutoAlignDesitationDeterminer.seekingAlgea;
+    // }));
     // controller.y().onFalse(Commands.runOnce(()->{
     //     AutoAlignDesitationDeterminer.seekingAlgea = false;
     // }));
@@ -281,49 +281,49 @@ public class RobotContainer {
         () -> {
            drive.rezeroModulesRelativeEncoders();
         }));
-    controller.
-        leftBumper()
-        .or(controller.rightBumper()).or(controller.x())
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  System.out.println("ALIGNING-------------------------------------------");
-                  // DriveCommands.autoAlign(drive).execute();
-                  System.out.println(drive.getDefaultCommand());
-                  // ------------
+    // controller.
+    //     leftBumper()
+    //     .or(controller.rightBumper()).or(controller.x())
+    //     .onTrue(
+    //         Commands.runOnce(
+    //             () -> {
+    //               System.out.println("ALIGNING-------------------------------------------");
+    //               // DriveCommands.autoAlign(drive).execute();
+    //               System.out.println(drive.getDefaultCommand());
+    //               // ------------
 
-                  // -----------
-                  drive.setDefaultCommand(
-                      DriveCommands.autoAlign(drive, controller.leftBumper().getAsBoolean(), controller.x().getAsBoolean()));
-                  System.out.println(drive.getDefaultCommand());
+    //               // -----------
+    //               drive.setDefaultCommand(
+    //                   DriveCommands.autoAlign(drive, controller.leftBumper().getAsBoolean(), controller.x().getAsBoolean()));
+    //               System.out.println(drive.getDefaultCommand());
 
-                  // ------------
+    //               // ------------
 
-        }));
-    controller
-        .leftBumper()
-        .or(controller.rightBumper()).or(controller.x())
-        .onFalse(
-            Commands.runOnce(
-                () -> {
-                  System.out.println("Stopping-------------------------------------------");
-                  drive.setDefaultCommand(
-                      DriveCommands.joystickDrive(
-                          drive,
-                          () -> -controller.getLeftY(),
-                          () -> -controller.getLeftX(), // used to be -
-                          () -> -controller.getRightX()));
-                }));
-    controller
-        .leftBumper()
-        .or(controller.rightBumper()).or(controller.x())
-        .onTrue(
-            Commands.runOnce(
-                    () ->
-                        drive.setPoseDummy(
-                            new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
-                    drive)
-                .ignoringDisable(true));
+    //     }));
+    // controller
+    //     .leftBumper()
+    //     .or(controller.rightBumper()).or(controller.x())
+    //     .onFalse(
+    //         Commands.runOnce(
+    //             () -> {
+    //               System.out.println("Stopping-------------------------------------------");
+    //               drive.setDefaultCommand(
+    //                   DriveCommands.joystickDrive(
+    //                       drive,
+    //                       () -> -controller.getLeftY(),
+    //                       () -> -controller.getLeftX(), // used to be -
+    //                       () -> -controller.getRightX()));
+    //             }));
+    // controller
+    //     .leftBumper()
+    //     .or(controller.rightBumper()).or(controller.x())
+    //     .onTrue(
+    //         Commands.runOnce(
+    //                 () ->
+    //                     drive.setPoseDummy(
+    //                         new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
+    //                 drive)
+    //             .ignoringDisable(true));
 
     //======== L3 ============
     OI.L3Algea().rising().ifHigh(()->{
@@ -439,55 +439,55 @@ public class RobotContainer {
         ).schedule();
     });    
     //CLIMB===========================
-    OI.startClimb().rising().ifHigh(()->{
-        Commands.sequence(
-            new InstantCommand(() -> {
-                elevator.setElevatorPosition(Constants.Presets.liftClimb);
-                arm.setTargetAngle(Constants.Presets.armClimb, 0);
-            }),
-            new WaitCommand(0.5),
-            new InstantCommand(() -> {
-                climber.setTargetAngle(0, 0);
-            })
-        ).schedule();
-    });
+    // OI.startClimb().rising().ifHigh(()->{
+    //     Commands.sequence(
+    //         new InstantCommand(() -> {
+    //             elevator.setElevatorPosition(Constants.Presets.liftClimb);
+    //             arm.setTargetAngle(Constants.Presets.armClimb, 0);
+    //         }),
+    //         new WaitCommand(0.5),
+    //         new InstantCommand(() -> {
+    //             climber.setTargetAngle(0, 0);
+    //         })
+    //     ).schedule();
+    // });
     
-    OI.ClimbStage0().rising().ifHigh(()->{
-        Commands.sequence(
-            new PrintCommand("UNOVERCENTERING------------------"),
-            new InstantCommand(()->{climber.setMotorPower(0.3);}),
-            new WaitCommand(0.7),
-            new InstantCommand(()->{climber.setMotorPower(-0.4);}),
-            new WaitCommand(0.4),
-            new InstantCommand(()->{climber.setMotorPower(0);})
-        ).schedule();
-        //climber.setTargetAngle(Constants.Presets.climberStage0, 0);
-    });
+    // OI.ClimbStage0().rising().ifHigh(()->{
+    //     Commands.sequence(
+    //         new PrintCommand("UNOVERCENTERING------------------"),
+    //         new InstantCommand(()->{climber.setMotorPower(0.3);}),
+    //         new WaitCommand(0.7),
+    //         new InstantCommand(()->{climber.setMotorPower(-0.4);}),
+    //         new WaitCommand(0.4),
+    //         new InstantCommand(()->{climber.setMotorPower(0);})
+    //     ).schedule();
+    //     //climber.setTargetAngle(Constants.Presets.climberStage0, 0);
+    // });
 
-    OI.ClimbStage1().rising().ifHigh(()->{
-        climber.setCurrentLimit(20);
-        climber.setTargetAngle(Constants.Presets.climberStage1, 0);
-    });
+    // OI.ClimbStage1().rising().ifHigh(()->{
+    //     climber.setCurrentLimit(20);
+    //     climber.setTargetAngle(Constants.Presets.climberStage1, 0);
+    // });
 
-    OI.ClimbStage2().rising().ifHigh(()->{
-        Commands.sequence(
-            new InstantCommand(()->{climber.setMotorBreak();}),
-            new InstantCommand(()->{climber.setCurrentLimit(80);}),
-            new InstantCommand(()->{climber.setTargetAngle(Constants.Presets.climberStage2, 0);}),
-            new WaitCommand(1.5),
-            new InstantCommand(()->{climber.setCurrentLimit(70);}),
-            new WaitCommand(0.1),
-            new InstantCommand(()->{climber.setCurrentLimit(60);}),
-            new WaitCommand(0.1),
-            new InstantCommand(()->{climber.setCurrentLimit(50);}),
-            new WaitCommand(0.1),
-            new InstantCommand(()->{climber.setCurrentLimit(40);}),
-            new WaitCommand(0.1),
-            new InstantCommand(()->{climber.setCurrentLimit(20);}),
-            new WaitCommand(0.1),
-            new InstantCommand(()->{climber.setCurrentLimit(0);})
-        ).schedule(); 
-    });
+    // OI.ClimbStage2().rising().ifHigh(()->{
+    //     Commands.sequence(
+    //         new InstantCommand(()->{climber.setMotorBreak();}),
+    //         new InstantCommand(()->{climber.setCurrentLimit(80);}),
+    //         new InstantCommand(()->{climber.setTargetAngle(Constants.Presets.climberStage2, 0);}),
+    //         new WaitCommand(1.5),
+    //         new InstantCommand(()->{climber.setCurrentLimit(70);}),
+    //         new WaitCommand(0.1),
+    //         new InstantCommand(()->{climber.setCurrentLimit(60);}),
+    //         new WaitCommand(0.1),
+    //         new InstantCommand(()->{climber.setCurrentLimit(50);}),
+    //         new WaitCommand(0.1),
+    //         new InstantCommand(()->{climber.setCurrentLimit(40);}),
+    //         new WaitCommand(0.1),
+    //         new InstantCommand(()->{climber.setCurrentLimit(20);}),
+    //         new WaitCommand(0.1),
+    //         new InstantCommand(()->{climber.setCurrentLimit(0);})
+    //     ).schedule(); 
+    // });
   }
 
   /**
