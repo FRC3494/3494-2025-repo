@@ -1,4 +1,4 @@
-## This the repository for 3494's 2025 robot Lambda!
+## FRC 3494 Quadrangles 2025 Repo - Lambda!
 
 ![Lambda scoring](./Lambda.jpg)
 
