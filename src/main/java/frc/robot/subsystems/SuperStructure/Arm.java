@@ -10,6 +10,8 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import org.littletonrobotics.junction.Logger;
@@ -21,13 +23,18 @@ public class Arm extends SubsystemBase {
   private double targetPosition;
   private RelativeEncoder encoder;
 
+  public boolean groundIntaking = false;
+  public Command bufferedCommand = null;
+
+  public boolean defenseMode = false;
+
   public Arm() {
     armMotor = new SparkFlex(Constants.Arm.armMotor, MotorType.kBrushless);
     armMotorConfig = new SparkFlexConfig();
     armMotorConfig.idleMode(IdleMode.kCoast);
     armMotorConfig.inverted(false);
     armMotorConfig.smartCurrentLimit(Constants.Arm.normalCurrentLimit);
-    armMotorConfig.closedLoop.pid(6, 0, 0);
+    armMotorConfig.closedLoop.pid(9, 0, 0);
     armMotorConfig.closedLoop.outputRange(
         -Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange); // -.45, .45);
     armMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
@@ -73,6 +80,7 @@ public class Arm extends SubsystemBase {
     Logger.recordOutput("Arm/Current-Limit", armMotor.configAccessor.getSmartCurrentLimit());
     Logger.recordOutput("Arm/Applied-Current", armMotor.getOutputCurrent());
     Logger.recordOutput("Arm/RPM", armMotor.getEncoder().getVelocity());
+    Logger.recordOutput("Arm/DefenseMode", defenseMode);
   }
 
   // public void setMotorPower(double power) {

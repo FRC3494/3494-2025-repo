@@ -55,26 +55,33 @@ public final class Constants {
 
   public static class Presets {
     public static double globalArmOffset = -0.005; // -0.01
-    public static double armIntake = 0.822; // -34.0;
+    public static double armIntake = 0.823; // 0.822; // -34.0;
     public static double armIntakeLow = 0.829;
+    public static double armIntakeAlt = 0.830;
     public static double armIntakeLowLow = 0.846;
-    public static double armCoral = 0.85; // -136.0;
+    public static double armCoral = 0.54; // -136.0;
 
+    public static double armSafePosition = 0.72;
+    public static double armProcessor = 0.53;
     public static double armOuttakeL1 = 0.875;
-    public static double armOuttakeL2 = 0.60; // -111.0;
+    public static double armOuttakeL2 = 0.605; // -111.0;
     public static double armOuttakeL2Auto = 0.60; // 0.595;
     public static double armOuttakeL3 = 0.62; // -106.0;
+    public static double armGroundTransfer = 0.94;
 
-    public static double armAlgeaL2 = 0.6125; // 0.6125; // 0.605
+    public static double armAlgeaL2 = 0.62; // 0.6125; // 0.605
     public static double armAlgeaL2Auto = 0.6125;
     public static double armAlgeaL3 = 0.627; // 0.585; // 0.58 // -116.0;
     public static double armBargeYeet = 0.65;
+    public static double armBargeStore = 0.85;
 
     public static double liftIntake = 0;
+    public static double liftIntakeAlt = 2.238;
     public static double liftOuttakeL2 = 20;
     public static double liftOuttakeL3 = 44.0;
-    public static double liftAlgeaL3 = 28.0;
+    public static double liftAlgeaL3 = 28.75;
     public static double liftAlgeaL2 = 3.7;
+    public static double liftAlgeaTeleopL2 = 0;
 
     public static double armLoliPop = 0.847;
 
@@ -89,6 +96,13 @@ public final class Constants {
 
     public static double L1armtest = 0.613; // 0.610
     public static double L1elevatorTest = 8.38;
+
+    public static double groundIntakeIntake = 0.03123521; // 0.0;//-19.6;
+    public static double groundIntakeHover = 0.0594; // 2.0;//-17;
+    public static double defenseDelay = 0.0;
+    public static double groundIntakeStore = 0.38142; // 28.0;//6;
+    public static double groundIntakeL1 = 0.26338; // 19.0;//0;
+    public static double groundIntakeStation = 0.3238; // 23.0;;// 3.28;
   }
 
   public static class OI {
@@ -99,6 +113,12 @@ public final class Constants {
     public static int bottomMagSensorDIO = 9;
     public static int leaderMotor = 12; // 12;
     public static int followerMotor = 13; // 13;
+  }
+
+  public static class GroundIntake {
+    public static int pivotMotor = 7;
+    public static int frontIntakeMotor = 11;
+    public static int backIntakeMotor = 10;
   }
 
   public static class Arm {
@@ -196,7 +216,7 @@ public final class Constants {
       public static final Pose2d[]
           leftLocations = { // Placeholder currently using the center positions
         new Pose2d(3.256, 4.222, new Rotation2d(0.0 - Math.PI / 2.0)), // 1
-        new Pose2d(4.040, 5.193, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)), // 2
+        new Pose2d(4.1, 5.2, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)), // 2 //4.040, 5.193
         new Pose2d(3.657, 3.050, new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3
         new Pose2d(5.009, 5.167, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)), // 4
         new Pose2d(5.211, 3.008, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5

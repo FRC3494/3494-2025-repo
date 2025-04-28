@@ -5,12 +5,6 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "L1"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "Red-Forward-L1"
@@ -20,12 +14,6 @@
           "type": "wait",
           "data": {
             "waitTime": 1.0
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Outtake"
           }
         },
         {

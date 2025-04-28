@@ -15,7 +15,7 @@ public class TeleopIntake extends Command {
   private Arm arm;
   double lastPower;
   private double armPower = 0;
-  private double lastIntakePower = -1;
+  private double lastIntakePower = 1;
   private boolean holding_algea = false;
   private Timer algeaTimer = new Timer();
 
@@ -48,12 +48,15 @@ public class TeleopIntake extends Command {
     else{
       AutoAlignDesitationDeterminer.placingAtL1 = false;
     }
-    if (arm.getTargetPosition() == Constants.Presets.armCoral+Constants.Presets.globalArmOffset){
+    if (arm.getTargetPosition() == Constants.Presets.armCoral+Constants.Presets.globalArmOffset ||arm.getTargetPosition() == Constants.Presets.armBargeStore+Constants.Presets.globalArmOffset ){
       arm.setPIDlimits(-0.8, 0.8);
       holding_algea = true;
       algeaTimer.start();
       System.out.println("limiting!!!!!!!!!");
-      if(arm.getAbsoluteTicks() > 0.7){
+      if(arm.getAbsoluteTicks() < 0.7){
+        arm.setPIDlimits(-0.4, 0.4);
+      }
+      if(arm.getAbsoluteTicks() > 0.7 &&arm.getTargetPosition() == Constants.Presets.armBargeStore+Constants.Presets.globalArmOffset){
         arm.setPIDlimits(-0.4, 0.4);
       }
     }
@@ -66,7 +69,7 @@ public class TeleopIntake extends Command {
     // else{
     //   arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
     // }
-    if(intakePower != lastIntakePower){
+    if(intakePower != lastIntakePower || OI.primaryController.getAButton()){
       intake.setSpeed(intakePower);
     }
     else if(holding_algea && OI.deadband(intakePower, 0.5) == 0){

@@ -17,15 +17,35 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "L3 Outtake Delayed"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "FirstPeice"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "FreeArm"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "L3 Outtake Delayed"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "FirstPeice"
+                }
+              }
+            ]
           }
         },
         {
@@ -107,25 +127,13 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.3
+                        "waitTime": 0.5
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "Algea Pos"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 2.0
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "L1"
+                        "name": "BargeStage0"
                       }
                     }
                   ]

@@ -325,10 +325,10 @@ public class Drive extends SubsystemBase {
         poseEstimator.addVisionMeasurement(
           m_LimeLight1.getMeasuremPosition(), m_LimeLight1.getMeasurementTimeStamp());
       }
-      // if (m_LimeLight2.measurmentValid() && !specialPoseEstimation) {
-      //   poseEstimator.addVisionMeasurement(
-      //     m_LimeLight2.getMeasuremPosition(), m_LimeLight2.getMeasurementTimeStamp());
-      // }
+      if (m_LimeLight2.measurmentValid() && !specialPoseEstimation) {
+        poseEstimator.addVisionMeasurement(
+          m_LimeLight2.getMeasuremPosition(), m_LimeLight2.getMeasurementTimeStamp());
+      }
 
       if (DriverStation.isDisabled()) {
         autoElapsedTime = null;
@@ -350,10 +350,10 @@ public class Drive extends SubsystemBase {
         return;
       }
 
-      // if (m_LimeLight3.measurmentValid() && !specialPoseEstimation) {
-      //   poseEstimator.addVisionMeasurement(
-      //         m_LimeLight3.getMeasuremPosition(), m_LimeLight3.getMeasurementTimeStamp());
-      // }
+      if (m_LimeLight3.measurmentValid() && !specialPoseEstimation) {
+        poseEstimator.addVisionMeasurement(
+              m_LimeLight3.getMeasuremPosition(), m_LimeLight3.getMeasurementTimeStamp());
+      }
     
     }
   }
