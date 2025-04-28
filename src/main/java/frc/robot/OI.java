@@ -44,30 +44,31 @@ public final class OI {
     return Sean_intake_power + Ashton_intake_power;
   }
 
-  public static BooleanEvent activateGroundIntake() {
-    // double Sean_intake_power =
-    //     deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
-    //         + deadband(primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND);
-    // return new BooleanEvent(eventLoop, ()->(Sean_intake_power<0));
-    return primaryController.rightTrigger(0.05, eventLoop);
-    // return primaryController.a(eventLoop);
-  }
+  // public static BooleanEvent activateGroundIntake() {
+  //   // double Sean_intake_power =
+  //   //     deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
+  //   //         + deadband(primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND);
+  //   // return new BooleanEvent(eventLoop, ()->(Sean_intake_power<0));
+  //   return primaryController.rightTrigger(0.05, eventLoop);
+  //   // return primaryController.a(eventLoop);
+  // }
 
-  public static BooleanEvent L1GroundIntake() {
-    return rightButtonBoard.button(8, eventLoop).or(rightButtonBoard.button(7, eventLoop));
-  }
+  // public static BooleanEvent L1GroundIntake() {
+  //   return rightButtonBoard.button(8, eventLoop).or(rightButtonBoard.button(7, eventLoop));
+  // }
 
+  // Doesn't seem to be used anywhere -Jiping
   public static BooleanEvent L1Outtake() {
     return leftButtonBoard.button(9, eventLoop);
   }
 
-  public static BooleanEvent groundIntakeIntake() {
-    return rightButtonBoard.button(9, eventLoop);
-  }
+  // public static BooleanEvent groundIntakeIntake() {
+  //   return rightButtonBoard.button(9, eventLoop);
+  // }
 
-  public static BooleanEvent groundIntakeOuttake() {
-    return rightButtonBoard.button(10, eventLoop);
-  }
+  // public static BooleanEvent groundIntakeOuttake() {
+  //   return rightButtonBoard.button(10, eventLoop);
+  // }
 
   public static double getElevatorPower() {
     // TODO: assign a button

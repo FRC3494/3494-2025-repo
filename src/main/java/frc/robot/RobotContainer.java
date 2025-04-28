@@ -416,6 +416,62 @@ public class RobotContainer {
                 arm.defenseMode = true;
                 groundIntake.hoverPosition = Constants.Presets.groundIntakeStore;
                 Constants.Presets.defenseDelay = 0.5;
+                if (arm.getTargetPosition()
+                    == Constants.Presets.armIntakeAlt + Constants.Presets.globalArmOffset) {
+                  Constants.Presets.defenseDelay = 1;
+                } else {
+                  Constants.Presets.defenseDelay = 0;
+                }
+
+                if (groundIntake.targetPosition == Constants.Presets.groundIntakeL1
+                    || groundIntake.targetPosition == Constants.Presets.groundIntakeStation
+                    || groundIntake.targetPosition == Constants.Presets.groundIntakeStore) {
+                  Constants.Presets.defenseDelay = 1;
+                } else {
+                  Constants.Presets.defenseDelay = 0;
+                }
+                Commands.sequence(
+                        new InstantCommand(
+                            () -> {
+                              arm.groundIntaking = true;
+                              if (arm.getTargetPosition()
+                                  == Constants.Presets.armIntakeAlt
+                                      + Constants.Presets.globalArmOffset) {
+                                elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
+                                // Constants.Presets.defenseDelay = 2;
+                              } else {
+                                elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                                // Constants.Presets.defenseDelay = 0;
+                              }
+
+                              arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                            }),
+                        new WaitCommand(Constants.Presets.defenseDelay / 2.0),
+                        new InstantCommand(
+                            () -> {
+                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
+                              groundIntake.setIntakePower(-0.85, 0.5);
+                            }),
+                        new WaitCommand(Constants.Presets.defenseDelay / 3.5),
+                        new InstantCommand(
+                            () -> {
+                              elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                              arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+                            }),
+                        new WaitCommand(1),
+                        new InstantCommand(
+                            () -> {
+                              elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                              arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                            }),
+                        new WaitCommand(Constants.Presets.defenseDelay / 3),
+                        new InstantCommand(
+                            () -> {
+                              groundIntake.setIntakePosition(groundIntake.hoverPosition);
+                              groundIntake.setIntakePower(0, 0);
+                              arm.groundIntaking = false;
+                            }))
+                    .schedule();
               } else {
                 arm.defenseMode = false;
                 groundIntake.hoverPosition = Constants.Presets.groundIntakeHover;
@@ -680,141 +736,72 @@ public class RobotContainer {
               }
             });
 
-    OI.activateGroundIntake()
-        .rising()
-        .ifHigh(
-            () -> {
-              if (arm.getTargetPosition()
-                  == Constants.Presets.armIntakeAlt + Constants.Presets.globalArmOffset) {
-                Constants.Presets.defenseDelay = 1;
-              } else {
-                Constants.Presets.defenseDelay = 0;
-              }
-              if (groundIntake.targetPosition == Constants.Presets.groundIntakeL1
-                  || groundIntake.targetPosition == Constants.Presets.groundIntakeStation
-                  || groundIntake.targetPosition == Constants.Presets.groundIntakeStore) {
-                Constants.Presets.defenseDelay = 1;
-              } else {
-                Constants.Presets.defenseDelay = 0;
-              }
+    // OI.L1GroundIntake()
+    //     .rising()
+    //     .ifHigh(
+    //         () -> {
+    //           Command l1gIntake =
+    //               Commands.sequence(
+    //                   new InstantCommand(
+    //                       () -> {
+    //                         elevator.setElevatorPosition(Constants.Presets.liftIntake);
+    //                         arm.setTargetAngle(Constants.Presets.armAlgeaL2, 0);
+    //                         groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
+    //                         groundIntake.setIntakePower(-0.85, -0.6);
+    //                       }));
+    //           if (!arm.groundIntaking) {
+    //             l1gIntake.schedule();
+    //           } else {
+    //             arm.bufferedCommand = l1gIntake;
+    //           }
+    //         });
+    // OI.L1GroundIntake()
+    //     .falling()
+    //     .ifHigh(
+    //         () -> {
+    //           Command l1gItnake =
+    //               Commands.sequence(
+    //                   // new InstantCommand(() -> {
+    //                   //     elevator.setElevatorPosition(Constants.Presets.liftIntake);
+    //                   //     arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+    //                   // }),
+    //                   // new WaitCommand(0.5),
+    //                   new InstantCommand(
+    //                       () -> {
+    //                         groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
+    //                         groundIntake.setIntakePower(0, 0);
+    //                       }));
+    //           if (!arm.groundIntaking) {
+    //             l1gItnake.schedule();
+    //           } else {
+    //             arm.bufferedCommand = l1gItnake;
+    //           }
+    //         });
 
-              Commands.sequence(
-                      new InstantCommand(
-                          () -> {
-                            arm.groundIntaking = true;
-                            if (arm.getTargetPosition()
-                                == Constants.Presets.armIntakeAlt
-                                    + Constants.Presets.globalArmOffset) {
-                              elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
-                              // Constants.Presets.defenseDelay = 2;
-                            } else {
-                              elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                              // Constants.Presets.defenseDelay = 0;
-                            }
-
-                            arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                          }),
-                      new WaitCommand(Constants.Presets.defenseDelay / 2.0),
-                      new InstantCommand(
-                          () -> {
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                            groundIntake.setIntakePower(-0.85, 0.5);
-                          }),
-                      new WaitCommand(Constants.Presets.defenseDelay / 3.5),
-                      new InstantCommand(
-                          () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                            arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
-                          }))
-                  .schedule();
-            });
-
-    OI.activateGroundIntake()
-        .falling()
-        .ifHigh(
-            () -> {
-              Commands.sequence(
-                      new InstantCommand(
-                          () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                            arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                          }),
-                      new WaitCommand(Constants.Presets.defenseDelay / 3),
-                      new InstantCommand(
-                          () -> {
-                            groundIntake.setIntakePosition(groundIntake.hoverPosition);
-                            groundIntake.setIntakePower(0, 0);
-                            arm.groundIntaking = false;
-                          }))
-                  .schedule();
-            });
-
-    OI.L1GroundIntake()
-        .rising()
-        .ifHigh(
-            () -> {
-              Command l1gIntake =
-                  Commands.sequence(
-                      new InstantCommand(
-                          () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                            arm.setTargetAngle(Constants.Presets.armAlgeaL2, 0);
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                            groundIntake.setIntakePower(-0.85, -0.6);
-                          }));
-              if (!arm.groundIntaking) {
-                l1gIntake.schedule();
-              } else {
-                arm.bufferedCommand = l1gIntake;
-              }
-            });
-    OI.L1GroundIntake()
-        .falling()
-        .ifHigh(
-            () -> {
-              Command l1gItnake =
-                  Commands.sequence(
-                      // new InstantCommand(() -> {
-                      //     elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                      //     arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                      // }),
-                      // new WaitCommand(0.5),
-                      new InstantCommand(
-                          () -> {
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
-                            groundIntake.setIntakePower(0, 0);
-                          }));
-              if (!arm.groundIntaking) {
-                l1gItnake.schedule();
-              } else {
-                arm.bufferedCommand = l1gItnake;
-              }
-            });
-
-    OI.groundIntakeOuttake()
-        .rising()
-        .ifHigh(
-            () -> {
-              groundIntake.setIntakePower(0.2, -0.5);
-            });
-    OI.groundIntakeOuttake()
-        .falling()
-        .ifHigh(
-            () -> {
-              groundIntake.setIntakePower(0, 0);
-            });
-    OI.groundIntakeIntake()
-        .rising()
-        .ifHigh(
-            () -> {
-              groundIntake.setIntakePower(-0.2, 0.5);
-            });
-    OI.groundIntakeIntake()
-        .falling()
-        .ifHigh(
-            () -> {
-              groundIntake.setIntakePower(0, 0);
-            });
+    // OI.groundIntakeOuttake()
+    //     .rising()
+    //     .ifHigh(
+    //         () -> {
+    //           groundIntake.setIntakePower(0.2, -0.5);
+    //         });
+    // OI.groundIntakeOuttake()
+    //     .falling()
+    //     .ifHigh(
+    //         () -> {
+    //           groundIntake.setIntakePower(0, 0);
+    //         });
+    // OI.groundIntakeIntake()
+    //     .rising()
+    //     .ifHigh(
+    //         () -> {
+    //           groundIntake.setIntakePower(-0.2, 0.5);
+    //         });
+    // OI.groundIntakeIntake()
+    //     .falling()
+    //     .ifHigh(
+    //         () -> {
+    //           groundIntake.setIntakePower(0, 0);
+    //         });
     // LOW INTAKE======================
     // OI.lowIntake().falling().ifHigh(()->{
     //     elevator.setElevatorPosition(Constants.Presets.liftIntake);
