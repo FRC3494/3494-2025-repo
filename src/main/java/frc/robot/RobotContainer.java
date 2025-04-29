@@ -415,50 +415,22 @@ public class RobotContainer {
               if (arm.defenseMode == false) {
                 arm.defenseMode = true;
                 groundIntake.hoverPosition = Constants.Presets.groundIntakeStore;
-                Constants.Presets.defenseDelay = 0.5;
-                if (arm.getTargetPosition()
-                    == Constants.Presets.armIntakeAlt + Constants.Presets.globalArmOffset) {
-                  Constants.Presets.defenseDelay = 1;
-                } else {
-                  Constants.Presets.defenseDelay = 0;
-                }
+                Constants.Presets.defenseDelay = 1;
+                // if (arm.getTargetPosition()
+                //     == Constants.Presets.armIntakeAlt + Constants.Presets.globalArmOffset) {
+                // Constants.Presets.defenseDelay = 1;
+                // } else {
+                //   Constants.Presets.defenseDelay = 0;
+                // }
 
-                if (groundIntake.targetPosition == Constants.Presets.groundIntakeL1
-                    || groundIntake.targetPosition == Constants.Presets.groundIntakeStation
-                    || groundIntake.targetPosition == Constants.Presets.groundIntakeStore) {
-                  Constants.Presets.defenseDelay = 1;
-                } else {
-                  Constants.Presets.defenseDelay = 0;
-                }
+                // if (groundIntake.targetPosition == Constants.Presets.groundIntakeL1
+                //     || groundIntake.targetPosition == Constants.Presets.groundIntakeStation
+                //     || groundIntake.targetPosition == Constants.Presets.groundIntakeStore) {
+                //   Constants.Presets.defenseDelay = 1;
+                // } else {
+                //   Constants.Presets.defenseDelay = 0;
+                // }
                 Commands.sequence(
-                        new InstantCommand(
-                            () -> {
-                              arm.groundIntaking = true;
-                              if (arm.getTargetPosition()
-                                  == Constants.Presets.armIntakeAlt
-                                      + Constants.Presets.globalArmOffset) {
-                                elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
-                                // Constants.Presets.defenseDelay = 2;
-                              } else {
-                                elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                                // Constants.Presets.defenseDelay = 0;
-                              }
-
-                              arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                            }),
-                        new WaitCommand(Constants.Presets.defenseDelay / 2.0),
-                        new InstantCommand(
-                            () -> {
-                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                              groundIntake.setIntakePower(-0.85, 0.5);
-                            }),
-                        new WaitCommand(Constants.Presets.defenseDelay / 3.5),
-                        new InstantCommand(
-                            () -> {
-                              elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                              arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
-                            }),
-                        new WaitCommand(1),
                         new InstantCommand(
                             () -> {
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);

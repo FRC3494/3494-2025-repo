@@ -151,6 +151,7 @@ public final class Constants {
     public static final double trackWidthX = 0.5222; // TODO: random Number
     public static final double trackWidthY = 0.574675;
 
+    // For auto align only, apparently
     public static final double maxLinearVelocity = 1; // TODO: I made this number up
     public static final double maxLinearAcceleration = 1.0; // TODO: I made this number up
     public static final double maxAngularVelocity = 3;
