@@ -152,10 +152,10 @@ public final class Constants {
     public static final double trackWidthY = 0.574675;
 
     // For auto align only, apparently
-    public static final double maxLinearVelocity = 1; // TODO: I made this number up
-    public static final double maxLinearAcceleration = 1.0; // TODO: I made this number up
-    public static final double maxAngularVelocity = 3;
-    public static final double maxAngularAcceleration = 5;
+    public static final double maxLinearVelocity = 3; // TODO: I made this number up
+    public static final double maxLinearAcceleration = 5.0; // TODO: I made this number up
+    public static final double maxAngularVelocity = 5;
+    public static final double maxAngularAcceleration = 8;
 
     public static final int PIGEON_PORT = 52;
     public static final int FRONT_LEFT_DRIVE_ID = 18; // 18

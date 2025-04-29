@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.commands.AutoIntakeDeadline;
 import frc.robot.commands.AutoIntakePower;
 import frc.robot.commands.BargFligIntake;
@@ -388,9 +389,14 @@ public class RobotContainer {
             () -> -controller.getLeftX(), // used to be -
             () -> -controller.getRightX())); // used to be -
     // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
-    // controller.y().onTrue(Commands.runOnce(()->{
-    //     AutoAlignDesitationDeterminer.seekingAlgea = !AutoAlignDesitationDeterminer.seekingAlgea;
-    // }));
+    controller
+        .y()
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  AutoAlignDesitationDeterminer.seekingAlgea =
+                      !AutoAlignDesitationDeterminer.seekingAlgea;
+                }));
     // controller.y().onFalse(Commands.runOnce(()->{
     //     AutoAlignDesitationDeterminer.seekingAlgea = false;
     // }));
@@ -416,20 +422,7 @@ public class RobotContainer {
                 arm.defenseMode = true;
                 groundIntake.hoverPosition = Constants.Presets.groundIntakeStore;
                 Constants.Presets.defenseDelay = 1;
-                // if (arm.getTargetPosition()
-                //     == Constants.Presets.armIntakeAlt + Constants.Presets.globalArmOffset) {
-                // Constants.Presets.defenseDelay = 1;
-                // } else {
-                //   Constants.Presets.defenseDelay = 0;
-                // }
 
-                // if (groundIntake.targetPosition == Constants.Presets.groundIntakeL1
-                //     || groundIntake.targetPosition == Constants.Presets.groundIntakeStation
-                //     || groundIntake.targetPosition == Constants.Presets.groundIntakeStore) {
-                //   Constants.Presets.defenseDelay = 1;
-                // } else {
-                //   Constants.Presets.defenseDelay = 0;
-                // }
                 Commands.sequence(
                         new InstantCommand(
                             () -> {
@@ -450,50 +443,53 @@ public class RobotContainer {
                 Constants.Presets.defenseDelay = 0.0;
               }
             });
-    // controller.
-    //     leftBumper()
-    //     .or(controller.rightBumper()).or(controller.x())
-    //     .onTrue(
-    //         Commands.runOnce(
-    //             () -> {
-    //               System.out.println("ALIGNING-------------------------------------------");
-    //               // DriveCommands.autoAlign(drive).execute();
-    //               System.out.println(drive.getDefaultCommand());
-    //               // ------------
+    controller
+        .leftBumper()
+        .or(controller.rightBumper())
+        .or(controller.x())
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  System.out.println("ALIGNING-------------------------------------------");
+                  // DriveCommands.autoAlign(drive).execute();
+                  System.out.println(drive.getDefaultCommand());
+                  // ------------
 
-    //               // -----------
-    //               drive.setDefaultCommand(
-    //                   DriveCommands.autoAlign(drive, controller.leftBumper().getAsBoolean(),
-    // controller.x().getAsBoolean()));
-    //               System.out.println(drive.getDefaultCommand());
+                  // -----------
+                  drive.setDefaultCommand(
+                      DriveCommands.autoAlign(
+                          drive, controller.leftBumper().getAsBoolean(), false));
+                  System.out.println(drive.getDefaultCommand());
 
-    //               // ------------
+                  // ------------
 
-    //     }));
-    // controller
-    //     .leftBumper()
-    //     .or(controller.rightBumper()).or(controller.x())
-    //     .onFalse(
-    //         Commands.runOnce(
-    //             () -> {
-    //               System.out.println("Stopping-------------------------------------------");
-    //               drive.setDefaultCommand(
-    //                   DriveCommands.joystickDrive(
-    //                       drive,
-    //                       () -> -controller.getLeftY(),
-    //                       () -> -controller.getLeftX(), // used to be -
-    //                       () -> -controller.getRightX()));
-    //             }));
-    // controller
-    //     .leftBumper()
-    //     .or(controller.rightBumper()).or(controller.x())
-    //     .onTrue(
-    //         Commands.runOnce(
-    //                 () ->
-    //                     drive.setPoseDummy(
-    //                         new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
-    //                 drive)
-    //             .ignoringDisable(true));
+                }));
+    controller
+        .leftBumper()
+        .or(controller.rightBumper())
+        // .or(controller.x())
+        .onFalse(
+            Commands.runOnce(
+                () -> {
+                  System.out.println("Stopping-------------------------------------------");
+                  drive.setDefaultCommand(
+                      DriveCommands.joystickDrive(
+                          drive,
+                          () -> -controller.getLeftY(),
+                          () -> -controller.getLeftX(), // used to be -
+                          () -> -controller.getRightX()));
+                }));
+    controller
+        .leftBumper()
+        .or(controller.rightBumper())
+        // .or(controller.x())
+        .onTrue(
+            Commands.runOnce(
+                    () ->
+                        drive.setPoseDummy(
+                            new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
+                    drive)
+                .ignoringDisable(true));
 
     // ======== L3 ============
     OI.L3Algea()
