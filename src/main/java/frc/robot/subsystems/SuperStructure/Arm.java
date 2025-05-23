@@ -1,7 +1,5 @@
 package frc.robot.subsystems.SuperStructure;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -12,10 +10,10 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import org.littletonrobotics.junction.Logger;
 
 public class Arm extends SubsystemBase {
   SparkFlex armMotor;
@@ -31,21 +29,26 @@ public class Arm extends SubsystemBase {
 
   public Arm() {
     armMotor = new SparkFlex(Constants.Arm.armMotor, MotorType.kBrushless);
+
+    encoder = armMotor.getEncoder();
+
     armMotorConfig = new SparkFlexConfig();
     armMotorConfig.idleMode(IdleMode.kCoast);
     armMotorConfig.inverted(false);
     armMotorConfig.smartCurrentLimit(Constants.Arm.normalCurrentLimit);
+
     armMotorConfig.closedLoop.pid(9, 0, 0);
     armMotorConfig.closedLoop.outputRange(
         -Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange); // -.45, .45);
     armMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
     armMotorConfig.closedLoopRampRate(0);
     armMotorConfig.openLoopRampRate(0);
-    encoder = armMotor.getEncoder();
+
     armMotorConfig.absoluteEncoder.inverted(false);
     armMotorConfig.absoluteEncoder.positionConversionFactor(1);
-    armMotorConfig.absoluteEncoder.zeroOffset(0);
+    armMotorConfig.absoluteEncoder.zeroOffset(Constants.Arm.ARM_OFFSET);
     armMotorConfig.absoluteEncoder.zeroCentered(false);
+
     armMotor.configure(
         armMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
