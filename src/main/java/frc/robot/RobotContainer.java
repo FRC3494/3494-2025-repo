@@ -332,13 +332,13 @@ public class RobotContainer {
            drive.rezeroModulesRelativeEncoders();
         }));
     OI.ToggleDefenseMode().rising().ifHigh(()->{
-        if(arm.defenseMode == false){
-            arm.defenseMode = true;
+        if(groundIntake.defenseMode == false){
+            groundIntake.defenseMode = true;
             groundIntake.hoverPosition = Constants.Presets.groundIntakeStore;
             Constants.Presets.defenseDelay = 0.5;
         }
         else{
-            arm.defenseMode = false;
+            groundIntake.defenseMode = false;
             groundIntake.hoverPosition = Constants.Presets.groundIntakeHover;
             Constants.Presets.defenseDelay = 0.0;
         }
