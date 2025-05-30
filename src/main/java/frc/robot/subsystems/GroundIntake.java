@@ -28,7 +28,10 @@ public class GroundIntake extends SubsystemBase {
   public double targetPosition = 99999.0;
   public double hoverPosition = Constants.Presets.groundIntakeHover;
 
+  public boolean intaking = false;
+
   public boolean defenseMode = false;
+  public double defenseDelay = 0.0;
 
   public GroundIntake() {
     pivotMotor = new SparkFlex(Constants.GroundIntake.pivotMotor, MotorType.kBrushless);
@@ -70,6 +73,17 @@ public class GroundIntake extends SubsystemBase {
   public void setIntakePower(double front, double back) {
     frontIntakeMotor.set(front);
     backIntakeMotor.set(back);
+  }
+
+  public void setDefenseMode(boolean defenseMode) {
+    this.defenseMode = defenseMode;
+    if (defenseMode) {
+      this.hoverPosition = Constants.Presets.groundIntakeStore;
+      this.defenseDelay = 0.5;
+    } else {
+      this.hoverPosition = Constants.Presets.groundIntakeHover;
+      this.defenseDelay = 0.0;
+    }
   }
 
   @Override
