@@ -99,7 +99,6 @@ public final class Constants {
 
     public static double groundIntakeIntake = 0.03123521; // 0.0;//-19.6;
     public static double groundIntakeHover = 0.0594; // 2.0;//-17;
-    public static double defenseDelay = 0.0;
     public static double groundIntakeStore = 0.38142; // 28.0;//6;
     public static double groundIntakeL1 = 0.26338; // 19.0;//0;
     public static double groundIntakeStation = 0.3238; // 23.0;;// 3.28;
@@ -119,6 +118,9 @@ public final class Constants {
     public static int pivotMotor = 7;
     public static int frontIntakeMotor = 11;
     public static int backIntakeMotor = 10;
+
+    public static double intakeFrontPower = 0.2;
+    public static double intakeBackPower = 0.5;
   }
 
   public static class Arm {

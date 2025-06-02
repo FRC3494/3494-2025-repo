@@ -13,8 +13,6 @@
 
 package frc.robot;
 
-import java.net.ContentHandler;
-
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -28,7 +26,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -548,16 +545,16 @@ public class RobotContainer {
 
     OI.activateGroundIntake().rising().ifHigh(()->{
         if(arm.getTargetPosition() == Constants.Presets.armIntakeAlt + Constants.Presets.globalArmOffset){
-            Constants.Presets.defenseDelay = 1;
+            groundIntake.defenseDelay = 1;
         }
         else{
-            Constants.Presets.defenseDelay = 0;
+            groundIntake.defenseDelay = 0;
         }
         if(groundIntake.targetPosition == Constants.Presets.groundIntakeL1 ||groundIntake.targetPosition == Constants.Presets.groundIntakeStation || groundIntake.targetPosition == Constants.Presets.groundIntakeStore){
-            Constants.Presets.defenseDelay = 1;
+            groundIntake.defenseDelay = 1;
         }
         else{
-            Constants.Presets.defenseDelay = 0;
+            groundIntake.defenseDelay = 0;
         }
         
         Commands.sequence(
@@ -576,14 +573,14 @@ public class RobotContainer {
                 
                
             }),
-            new WaitCommand(Constants.Presets.defenseDelay/2.0),
+            new WaitCommand(groundIntake.defenseDelay/2.0),
             new InstantCommand(() -> {
                 
                 groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
                 groundIntake.setIntakePower(-0.85, 0.5);
                 
             }),
-            new WaitCommand(Constants.Presets.defenseDelay/3.5),
+            new WaitCommand(groundIntake.defenseDelay/3.5),
             new InstantCommand(() -> {
                 elevator.setElevatorPosition(Constants.Presets.liftIntake);
                 arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
@@ -598,7 +595,7 @@ public class RobotContainer {
                 elevator.setElevatorPosition(Constants.Presets.liftIntake);
                 arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
             }),
-            new WaitCommand(Constants.Presets.defenseDelay/3),
+            new WaitCommand(groundIntake.defenseDelay/3),
             new InstantCommand(() -> {
                 groundIntake.setIntakePosition(groundIntake.hoverPosition);
                 groundIntake.setIntakePower(0, 0);

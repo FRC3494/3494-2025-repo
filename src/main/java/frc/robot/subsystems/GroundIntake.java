@@ -86,6 +86,10 @@ public class GroundIntake extends SubsystemBase {
     }
   }
 
+  public void setDefenseDelay(double delay) {
+    this.defenseDelay = delay;
+  }
+
   @Override
   public void periodic() {
     Logger.recordOutput("Ground-Intake/Pivot-Position", pivotMotor.getEncoder().getPosition());
