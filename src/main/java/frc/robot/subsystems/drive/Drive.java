@@ -45,11 +45,17 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.subsystems.limelights.Limelights;
+import frc.robot.util.LimelightHelpers;
 import frc.robot.util.LocalADStarAK;
 import frc.robot.util.SeanMathUtil;
+import frc.robot.util.LimelightHelpers.LimelightResults;
+import frc.robot.util.LimelightHelpers.LimelightTarget_Detector;
+import frc.robot.util.LimelightHelpers.LimelightTarget_Fiducial;
+import frc.robot.util.LimelightHelpers.RawDetection;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.locks.Lock;
@@ -89,6 +95,7 @@ public class Drive extends SubsystemBase {
   public Limelights m_LimeLight1 = new Limelights(this, "limelight-right");
   public Limelights m_LimeLight2 = new Limelights(this, "limelight-left");
   public Limelights m_LimeLight3 = new Limelights(this, "limelight-swerve");
+  
   public double rotationRate = 0;
   public boolean specialPoseEstimation = false;
   public double reefRadiusToSpecialPoseActivation = 3.0;
@@ -186,6 +193,7 @@ public class Drive extends SubsystemBase {
     m_LimeLight1.periodic();
     m_LimeLight2.periodic();
     m_LimeLight3.periodic();
+    getCoralYaw();
     odometryLock.lock(); // Prevents odometry updates while reading data
     gyroIO.updateInputs(gyroInputs);
 
@@ -467,6 +475,24 @@ public class Drive extends SubsystemBase {
    */
   public void addVisionMeasurement(Pose2d visionPose, double timestamp) {
     poseEstimator.addVisionMeasurement(visionPose, timestamp);
+  }
+  public void getCoralYaw(){
+  // LimelightResults targetPosX = LimelightHelpers.getLatestResults("limelight-coral");//LimelightHelpers.getTX("limelight-coral");
+  //  RawDetection[] detection = LimelightHelpers.getRawDetections("limelight-coral");
+  // //  try{
+  // //  System.out.println(detection[0]);
+  // //  }
+  // //  catch(Exception e){
+  // //   System.out.println("no detefctions");
+  // //  }
+  //  LimelightResults results = LimelightHelpers.getLatestResults("limelight-coral");
+  //  result.
+  // List<LimelightTarget_Fiducial> targets = results.targetingResults.targets_Fiducials;
+
+  // for (LimelightTarget_Fiducial target : targets) {
+  //     System.out.println("X Position (tx): " + target.tx);
+  // }
+
   }
 
   /** Returns the maximum linear speed in meters per sec. */
