@@ -494,7 +494,6 @@ public class RobotContainer {
     OI.Intake().rising().ifHigh(()->{
         Command intakeCommand = Commands.sequence(
             new InstantCommand(() -> {
-                
                 elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
                 arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
             }),
@@ -508,23 +507,19 @@ public class RobotContainer {
             new WaitCommand(0.25),
             new InstantCommand(() -> {
                 elevator.setElevatorPosition(Constants.Presets.liftIntakeAlt);
-                
             }));
             if(!groundIntake.intaking){
                 intakeCommand.schedule();
             }
             else{
                 arm.bufferedCommand = intakeCommand;
-            }         
-        
-        
+            }
     });
     // OI.Intake().rising().ifHigh(()->{
     //     elevator.setElevatorPosition(Constants.Presets.liftIntake);
     //     arm.setTargetAngle(Constants.Presets.armIntakeLow, 0);
     // });
     OI.Processor().rising().ifHigh(()->{
-
         elevator.setElevatorPosition(Constants.Presets.liftIntake);
         arm.setTargetAngle(Constants.Presets.armCoral, 0);
     });
@@ -566,10 +561,7 @@ public class RobotContainer {
                   elevator.setElevatorPosition(Constants.Presets.liftIntake);
                   // Constants.Presets.defenseDelay = 0;
               }
-              
               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-              
-              
           }),
           new WaitCommand(groundIntake.defenseDelay/2.0),
           groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake),
