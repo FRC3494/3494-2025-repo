@@ -13,6 +13,9 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -65,29 +68,47 @@ public class GroundIntake extends SubsystemBase {
         backIntakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
-  public void setIntakePosition(double position) {
-    pivotMotor.getClosedLoopController().setReference(position, SparkBase.ControlType.kPosition);
-    targetPosition = position;
+  public Command setIntakePosition(double position) {
+    return new InstantCommand(
+        () -> {
+          pivotMotor
+              .getClosedLoopController()
+              .setReference(position, SparkBase.ControlType.kPosition);
+          targetPosition = position;
+        });
   }
 
-  public void setIntakePower(double front, double back) {
-    frontIntakeMotor.set(front);
-    backIntakeMotor.set(back);
+  public Command setIntakePower(double front, double back) {
+    return new InstantCommand(
+        () -> {
+          frontIntakeMotor.set(front);
+          backIntakeMotor.set(back);
+        });
   }
 
-  public void setDefenseMode(boolean defenseMode) {
-    this.defenseMode = defenseMode;
-    if (defenseMode) {
-      this.hoverPosition = Constants.Presets.groundIntakeStore;
-      this.defenseDelay = 0.5;
-    } else {
-      this.hoverPosition = Constants.Presets.groundIntakeHover;
-      this.defenseDelay = 0.0;
-    }
+  public Command setDefenseMode(boolean defenseMode) {
+    return Commands.sequence(
+        new InstantCommand(
+            () -> {
+              this.defenseMode = defenseMode;
+            }),
+        new InstantCommand(
+            () -> {
+              if (defenseMode) {
+                this.hoverPosition = Constants.Presets.groundIntakeStore;
+                this.defenseDelay = 0.5;
+              } else {
+                this.hoverPosition = Constants.Presets.groundIntakeHover;
+                this.defenseDelay = 0.0;
+              }
+            }));
   }
 
-  public void setDefenseDelay(double delay) {
-    this.defenseDelay = delay;
+  public Command setIntaking(boolean intaking) {
+    return new InstantCommand(
+        () -> {
+          this.intaking = intaking;
+        });
   }
 
   @Override
