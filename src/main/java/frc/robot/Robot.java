@@ -1,4 +1,3 @@
-
 // Copyright 2021-2024 FRC 6328
 // http://github.com/Mechanical-Advantage
 //
@@ -170,7 +169,7 @@ public class Robot extends LoggedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    if(!robotContainer.arm.groundIntaking && robotContainer.arm.bufferedCommand != null){
+    if (!robotContainer.groundIntake.intaking && robotContainer.arm.bufferedCommand != null) {
       robotContainer.arm.bufferedCommand.schedule();
       robotContainer.arm.bufferedCommand = null;
     }
