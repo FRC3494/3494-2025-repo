@@ -40,8 +40,8 @@ public class GroundIntake extends SubsystemBase  {
         backIntakeMotorConfig = new SparkMaxConfig();
 
         pivotMotorConfig.smartCurrentLimit(45);
-        pivotMotorConfig.closedLoop.pid(8, 0, 0);
-        pivotMotorConfig.closedLoop.outputRange(-0.6, 0.6);
+        pivotMotorConfig.closedLoop.pidf(8, 0, 0, 0.4);
+        pivotMotorConfig.closedLoop.outputRange(-0.7, 0.7);
         pivotMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
     
         pivotMotorConfig.idleMode(IdleMode.kBrake);
