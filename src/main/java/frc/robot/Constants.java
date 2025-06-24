@@ -104,8 +104,8 @@ public final class Constants {
     public static double groundIntakeL1 = 0.36;
     public static double groundIntakeL1High = 0.29;
     public static double groundIntakeStation = 0.3238; // 23.0;;// 3.28;
-    
-    public static double groundIntakeJerk = 0.27; // 23.0;;// 3.28;
+
+    public static double groundIntakeJerk = 0.26; // 23.0;;// 3.28;
   }
 
   public static class OI {

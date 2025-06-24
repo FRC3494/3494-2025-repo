@@ -813,6 +813,12 @@ public class RobotContainer {
               }
             });
 
+    OI.L1Outtake().rising().ifHigh(()->{
+      groundIntake.setIntakePower(0.2, -0.5);
+    });
+    OI.L1Outtake().falling().ifHigh(()->{
+      groundIntake.setIntakePower(0, 0);
+    });
     OI.groundIntakeOuttake()
         .rising()
         .ifHigh(

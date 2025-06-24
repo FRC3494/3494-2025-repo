@@ -2,80 +2,79 @@ package frc.robot.subsystems;
 
 import org.littletonrobotics.junction.Logger;
 
-import com.google.googlejavaformat.Indent.Const;
 import com.revrobotics.spark.SparkBase;
-import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkFlexConfig;
-import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
-import frc.robot.Constants;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
-public class GroundIntake extends SubsystemBase  {
-    private SparkFlex pivotMotor;
-    private SparkFlexConfig pivotMotorConfig;
+public class GroundIntake extends SubsystemBase {
+  private SparkFlex pivotMotor;
+  private SparkFlexConfig pivotMotorConfig;
 
-    private SparkMax frontIntakeMotor;
-    private SparkMaxConfig frontIntakeMotorConfig;
-    private SparkMax backIntakeMotor;
-    private SparkMaxConfig backIntakeMotorConfig;
+  private SparkMax frontIntakeMotor;
+  private SparkMaxConfig frontIntakeMotorConfig;
+  private SparkMax backIntakeMotor;
+  private SparkMaxConfig backIntakeMotorConfig;
 
-    public double targetPosition = 99999.0;
-    public double hoverPosition = Constants.Presets.groundIntakeHover;
-   
+  public double targetPosition = 99999.0;
+  public double hoverPosition = Constants.Presets.groundIntakeHover;
 
-    public GroundIntake(){
-        pivotMotor = new SparkFlex(Constants.GroundIntake.pivotMotor, MotorType.kBrushless);
-        frontIntakeMotor = new SparkMax(Constants.GroundIntake.frontIntakeMotor, MotorType.kBrushless);
-        backIntakeMotor = new SparkMax(Constants.GroundIntake.backIntakeMotor, MotorType.kBrushless);
+  public GroundIntake() {
+    pivotMotor = new SparkFlex(Constants.GroundIntake.pivotMotor, MotorType.kBrushless);
+    frontIntakeMotor = new SparkMax(Constants.GroundIntake.frontIntakeMotor, MotorType.kBrushless);
+    backIntakeMotor = new SparkMax(Constants.GroundIntake.backIntakeMotor, MotorType.kBrushless);
 
-        pivotMotorConfig = new SparkFlexConfig();
-        frontIntakeMotorConfig = new SparkMaxConfig();
-        backIntakeMotorConfig = new SparkMaxConfig();
+    pivotMotorConfig = new SparkFlexConfig();
+    frontIntakeMotorConfig = new SparkMaxConfig();
+    backIntakeMotorConfig = new SparkMaxConfig();
 
-        pivotMotorConfig.smartCurrentLimit(45);
-        pivotMotorConfig.closedLoop.pidf(8, 0, 0, 0.4);
-        pivotMotorConfig.closedLoop.outputRange(-0.7, 0.7);
-        pivotMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
-    
-        pivotMotorConfig.idleMode(IdleMode.kBrake);
+    pivotMotorConfig.smartCurrentLimit(45);
+    pivotMotorConfig.closedLoop.pidf(8, 0, 0, 0.4);
+    pivotMotorConfig.closedLoop.outputRange(-0.7, 0.7);
+    pivotMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
 
-        frontIntakeMotorConfig.idleMode(IdleMode.kBrake);
-        frontIntakeMotorConfig.smartCurrentLimit(30);
-        frontIntakeMotorConfig.inverted(false);
+    pivotMotorConfig.idleMode(IdleMode.kBrake);
 
-        backIntakeMotorConfig.idleMode(IdleMode.kBrake);
-        backIntakeMotorConfig.smartCurrentLimit(30);
-        backIntakeMotorConfig.inverted(false);
+    frontIntakeMotorConfig.idleMode(IdleMode.kBrake);
+    frontIntakeMotorConfig.smartCurrentLimit(30);
+    frontIntakeMotorConfig.inverted(false);
 
-        pivotMotor.configure(
-            pivotMotorConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
-        frontIntakeMotor.configure(
-            frontIntakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-        backIntakeMotor.configure(
-                backIntakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    }
+    backIntakeMotorConfig.idleMode(IdleMode.kBrake);
+    backIntakeMotorConfig.smartCurrentLimit(30);
+    backIntakeMotorConfig.inverted(false);
 
-    public void setIntakePosition(double position) {
-        pivotMotor.getClosedLoopController().setReference(position, SparkBase.ControlType.kPosition);
-        targetPosition = position;
-    }
+    pivotMotor.configure(
+        pivotMotorConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+    frontIntakeMotor.configure(
+        frontIntakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    backIntakeMotor.configure(
+        backIntakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  }
 
-    public void setIntakePower(double front, double back){
-        frontIntakeMotor.set(front);
-        backIntakeMotor.set(back);
-    }
+  public void setIntakePosition(double position) {
+    pivotMotor.getClosedLoopController().setReference(position, SparkBase.ControlType.kPosition);
+    targetPosition = position;
+  }
 
-    @Override
+  public void setIntakePower(double front, double back) {
+    frontIntakeMotor.set(front);
+    backIntakeMotor.set(back);
+  }
+
+  @Override
   public void periodic() {
     Logger.recordOutput("Ground-Intake/Pivot-Position", pivotMotor.getEncoder().getPosition());
-    Logger.recordOutput("Ground-Intake/Pivot-Abs-Position", pivotMotor.getAbsoluteEncoder().getPosition());
+    Logger.recordOutput(
+        "Ground-Intake/Pivot-Abs-Position", pivotMotor.getAbsoluteEncoder().getPosition());
     Logger.recordOutput("Ground-Intake/Pivot-Target-Position", targetPosition);
     Logger.recordOutput("Ground-Intake/Pivot-Power", pivotMotor.getAppliedOutput());
     Logger.recordOutput("Ground-Intake/Pivot-Current", pivotMotor.getOutputCurrent());
@@ -85,7 +84,5 @@ public class GroundIntake extends SubsystemBase  {
 
     Logger.recordOutput("Ground-Intake/Back-Power", backIntakeMotor.getAppliedOutput());
     Logger.recordOutput("Ground-Intake/Back-Current", backIntakeMotor.getOutputCurrent());
-
-
   }
 }
