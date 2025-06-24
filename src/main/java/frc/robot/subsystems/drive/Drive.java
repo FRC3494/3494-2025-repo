@@ -15,6 +15,15 @@ package frc.robot.subsystems.drive;
 
 import static edu.wpi.first.units.Units.Volts;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Optional;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import org.littletonrobotics.junction.AutoLogOutput;
+import org.littletonrobotics.junction.Logger;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
@@ -22,6 +31,7 @@ import com.pathplanner.lib.config.RobotConfig;
 import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import com.pathplanner.lib.util.PathPlannerLogging;
+
 import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -43,15 +53,12 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
 import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.subsystems.limelights.Limelights;
+import frc.robot.util.LimelightHelpers;
+import frc.robot.util.LimelightHelpers.LimelightResults;
+import frc.robot.util.LimelightHelpers.LimelightTarget_Detector;
+import frc.robot.util.LimelightHelpers.RawDetection;
 import frc.robot.util.LocalADStarAK;
 import frc.robot.util.SeanMathUtil;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import org.littletonrobotics.junction.AutoLogOutput;
-import org.littletonrobotics.junction.Logger;
 
 public class Drive extends SubsystemBase {
 
@@ -84,6 +91,7 @@ public class Drive extends SubsystemBase {
   public Limelights m_LimeLight1 = new Limelights(this, "limelight-right");
   public Limelights m_LimeLight2 = new Limelights(this, "limelight-left");
   public Limelights m_LimeLight3 = new Limelights(this, "limelight-swerve");
+
   public double rotationRate = 0;
   public boolean specialPoseEstimation = false;
   public double reefRadiusToSpecialPoseActivation = 3.0;
@@ -468,6 +476,47 @@ public class Drive extends SubsystemBase {
    */
   public void addVisionMeasurement(Pose2d visionPose, double timestamp) {
     poseEstimator.addVisionMeasurement(visionPose, timestamp);
+  }
+
+  public void getCoralYaw() {
+    LimelightResults targetPosX =
+        LimelightHelpers.getLatestResults(
+            "limelight-coral"); // LimelightHelpers.getTX("limelight-coral");
+    RawDetection[] detections = LimelightHelpers.getRawDetections("limelight-coral");
+    // for(RawDetection detection_instance:detection){
+    //   detection_instance.
+    // }
+    // //  try{
+    // //  System.out.println(detection[0]);
+    // //  }
+    // //  catch(Exception e){
+    // //   System.out.println("no detefctions");
+    // //  }
+    LimelightResults results = LimelightHelpers.getLatestResults("limelight-coral");
+
+    if (results.valid) {
+      if (results.targets_Detector.length > 0) {
+        for (LimelightTarget_Detector detection : results.targets_Detector) {
+          System.out.println(
+              detection.className
+                  + " | "
+                  + detection.confidence
+                  + " | "
+                  + detection.ta
+                  + " | "
+                  + detection.tx
+                  + " | "
+                  + detection.ty);
+        }
+      }
+    }
+
+    // List<LimelightTarget_Fiducial> targets = results.targetingResults.targets_Fiducials;
+
+    // for (LimelightTarget_Fiducial target : targets) {
+    //   System.out.println("X Position (tx): " + target.tx);
+
+    // }
   }
 
   /** Returns the maximum linear speed in meters per sec. */
