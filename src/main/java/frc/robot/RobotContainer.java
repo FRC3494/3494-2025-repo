@@ -832,7 +832,7 @@ public class RobotContainer {
                             new WaitCommand(0.5),
                             new InstantCommand(
                               () -> {
-                                groundIntake.setIntakePower(0.25, -0.25);
+                                groundIntake.setIntakePower(0.2, -0.2); //0.25, -0.25
                                 
                               }),
                         new WaitCommand(0.1),

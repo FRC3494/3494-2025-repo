@@ -101,11 +101,11 @@ public final class Constants {
     public static double groundIntakeHover = 0.0594; // 2.0;//-17;
     public static double defenseDelay = 0.0;
     public static double groundIntakeStore = 0.38142; // 28.0;//6;
-    public static double groundIntakeL1 = 0.36;
+    public static double groundIntakeL1 = 0.36; // not bad: 0.36
     public static double groundIntakeL1High = 0.29;
     public static double groundIntakeStation = 0.3238; // 23.0;;// 3.28;
 
-    public static double groundIntakeJerk = 0.26; // 23.0;;// 3.28;
+    public static double groundIntakeJerk = 0.275; // not bad: 0.26   // 23.0;;// 3.28;
   }
 
   public static class OI {

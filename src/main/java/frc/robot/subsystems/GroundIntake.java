@@ -39,7 +39,7 @@ public class GroundIntake extends SubsystemBase {
 
     pivotMotorConfig.smartCurrentLimit(45);
     pivotMotorConfig.closedLoop.pidf(8, 0, 0, 0.4);
-    pivotMotorConfig.closedLoop.outputRange(-0.7, 0.7);
+    pivotMotorConfig.closedLoop.outputRange(-0.8, 0.8); // 0.7
     pivotMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
 
     pivotMotorConfig.idleMode(IdleMode.kBrake);
