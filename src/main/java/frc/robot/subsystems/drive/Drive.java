@@ -54,9 +54,6 @@ import frc.robot.Constants;
 import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.subsystems.limelights.Limelights;
 import frc.robot.util.LimelightHelpers;
-import frc.robot.util.LimelightHelpers.LimelightResults;
-import frc.robot.util.LimelightHelpers.LimelightTarget_Detector;
-import frc.robot.util.LimelightHelpers.RawDetection;
 import frc.robot.util.LocalADStarAK;
 import frc.robot.util.SeanMathUtil;
 
@@ -478,38 +475,34 @@ public class Drive extends SubsystemBase {
     poseEstimator.addVisionMeasurement(visionPose, timestamp);
   }
 
-  public void getCoralYaw() {
-    LimelightResults targetPosX =
-        LimelightHelpers.getLatestResults(
-            "limelight-coral"); // LimelightHelpers.getTX("limelight-coral");
-    RawDetection[] detections = LimelightHelpers.getRawDetections("limelight-coral");
-    // for(RawDetection detection_instance:detection){
-    //   detection_instance.
-    // }
-    // //  try{
-    // //  System.out.println(detection[0]);
-    // //  }
-    // //  catch(Exception e){
-    // //   System.out.println("no detefctions");
-    // //  }
-    LimelightResults results = LimelightHelpers.getLatestResults("limelight-coral");
+  public double getCoralYaw() {
+    double closestCoralYaw = LimelightHelpers.getTX("limelight-coral");
+    return Math.abs(closestCoralYaw) <= 0.15
+        ? 0
+        : Math.max(
+            Math.min((3 + -closestCoralYaw) / 40, 0.1),
+            -0.1); // This is the yaw of the closest coral tag
 
-    if (results.valid) {
-      if (results.targets_Detector.length > 0) {
-        for (LimelightTarget_Detector detection : results.targets_Detector) {
-          System.out.println(
-              detection.className
-                  + " | "
-                  + detection.confidence
-                  + " | "
-                  + detection.ta
-                  + " | "
-                  + detection.tx
-                  + " | "
-                  + detection.ty);
-        }
-      }
-    }
+    // LimelightResults results = LimelightHelpers.getLatestResults("limelight-coral");
+    // // System.out.println(LimelightHelpers.getJSONDump("limelight-coral"));
+    // // System.out.println(LimelightHelpers.getT2DArray("limelight-coral").length);
+    // // System.out.println(results.valid + " | " + results.targets_Detector.length);
+    // if (results.valid) {
+    //   if (results.targets_Detector.length > 0) {
+    //     for (LimelightTarget_Detector detection : results.targets_Detector) {
+    //       System.out.println(
+    //           detection.className
+    //               + " | "
+    //               + detection.confidence
+    //               + " | "
+    //               + detection.ta
+    //               + " | "
+    //               + detection.tx
+    //               + " | "
+    //               + detection.ty);
+    //     }
+    //   }
+    // }
 
     // List<LimelightTarget_Fiducial> targets = results.targetingResults.targets_Fiducials;
 

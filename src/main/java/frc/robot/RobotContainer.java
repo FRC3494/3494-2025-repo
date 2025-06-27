@@ -32,6 +32,7 @@ import frc.robot.commands.AutoIntakePower;
 import frc.robot.commands.BargFligIntake;
 import frc.robot.commands.Direction;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.MainDriveCommand;
 import frc.robot.commands.TeleopClimber;
 import frc.robot.commands.TeleopElevator;
 import frc.robot.commands.TeleopIntake;
@@ -386,7 +387,7 @@ public class RobotContainer {
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(), // used to be -
             () -> -controller.getRightX())); // used to be -
-    controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
+    // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
     controller
         .y()
         .onTrue(
@@ -475,6 +476,13 @@ public class RobotContainer {
                             new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
                     drive)
                 .ignoringDisable(true));
+
+    controller.b().onTrue(new InstantCommand(()-> {
+      MainDriveCommand.coralAligning = true;
+    }));
+    controller.b().onFalse(new InstantCommand(()-> {
+      MainDriveCommand.coralAligning = false;
+    }));
 
     // ======== L3 ============
     OI.L3Algea()
