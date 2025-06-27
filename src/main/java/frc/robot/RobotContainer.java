@@ -13,6 +13,7 @@
 
 package frc.robot;
 
+import com.google.googlejavaformat.Indent.Const;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -820,11 +821,35 @@ public class RobotContainer {
               }
             });
 
+    OI.L1Outtake().rising().ifHigh(()->{
+      groundIntake.setIntakePower(0.2, -0.5);
+    });
+    OI.L1Outtake().falling().ifHigh(()->{
+      groundIntake.setIntakePower(0, 0);
+    });
     OI.groundIntakeOuttake()
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0.2, -0.5);
+                Commands.sequence(
+                        new InstantCommand(
+                            () -> {
+                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
+                              
+                            }),
+                            new WaitCommand(0.5),
+                            new InstantCommand(
+                              () -> {
+                                groundIntake.setIntakePower(0.2, -0.2); //0.25, -0.25
+                                
+                              }),
+                        new WaitCommand(0.1),
+                        new InstantCommand(
+                            () -> {
+                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
+                            }))
+                    .schedule();
+              
             });
     OI.groundIntakeOuttake()
         .falling()
