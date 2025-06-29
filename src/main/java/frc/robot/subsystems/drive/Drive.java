@@ -17,6 +17,7 @@ import static edu.wpi.first.units.Units.Volts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -24,6 +25,10 @@ import java.util.concurrent.locks.ReentrantLock;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.config.ModuleConfig;
 import com.pathplanner.lib.config.PIDConstants;
@@ -475,16 +480,30 @@ public class Drive extends SubsystemBase {
     poseEstimator.addVisionMeasurement(visionPose, timestamp);
   }
 
-  public double getCoralYaw() {
-    double closestCoralYaw = LimelightHelpers.getTX("limelight-coral");
-    return Math.abs(closestCoralYaw) <= 0.15
+  public double getCoralYaw() throws JsonMappingException, JsonProcessingException {
+    // double closestCoralYaw = LimelightHelpers.getTX("limelight-coral");
+
+    String dump = LimelightHelpers.getJSONDump("limelight-coral");
+    ObjectMapper objectMapper = new ObjectMapper();
+    Iterator<JsonNode> detectorResults =
+        objectMapper.readTree(dump).path("Results").path("Detector").elements();
+    double closestCoralTx = 0.0;
+    double closestCoralTy = 100.0;
+    while (detectorResults.hasNext()) {
+      JsonNode result = detectorResults.next();
+      if (result.path("classID").asInt() == 1 && result.path("ty").asDouble() < closestCoralTy) {
+        closestCoralTx = result.path("tx").asDouble();
+        closestCoralTy = result.path("ty").asDouble();
+      }
+    }
+
+    return Math.abs(closestCoralTx) <= 0.15
         ? 0
         : Math.max(
-            Math.min((3 + -closestCoralYaw) / 40, 0.1),
+            Math.min((3 + -closestCoralTx) / 100, 0.1),
             -0.1); // This is the yaw of the closest coral tag
 
     // LimelightResults results = LimelightHelpers.getLatestResults("limelight-coral");
-    // // System.out.println(LimelightHelpers.getJSONDump("limelight-coral"));
     // // System.out.println(LimelightHelpers.getT2DArray("limelight-coral").length);
     // // System.out.println(results.valid + " | " + results.targets_Detector.length);
     // if (results.valid) {
