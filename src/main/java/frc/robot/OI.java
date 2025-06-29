@@ -54,7 +54,7 @@ public final class OI {
   }
 
   public static BooleanEvent L1GroundIntake() {
-    return rightButtonBoard.button(8, eventLoop).or(rightButtonBoard.button(7, eventLoop));
+    return rightButtonBoard.button(8, eventLoop).or(rightButtonBoard.button(7, eventLoop)).or(primaryController.a(eventLoop));
   }
 
   public static BooleanEvent L1GroundIntakeHigh() {
@@ -70,6 +70,7 @@ public final class OI {
   }
 
   public static BooleanEvent groundIntakeOuttake() {
+  
     return rightButtonBoard.button(10, eventLoop);
   }
 

@@ -96,6 +96,7 @@ public class Drive extends SubsystemBase {
 
   public double rotationRate = 0;
   public boolean specialPoseEstimation = false;
+  public boolean coralIntededforL1 = false;
   public double reefRadiusToSpecialPoseActivation = 3.0;
   double currentRadiusFromReef;
 
@@ -316,6 +317,8 @@ public class Drive extends SubsystemBase {
       }
       Logger.recordOutput("Drive/DistanceFromReef", currentRadiusFromReef);
       Logger.recordOutput("Drive/InSpecialMode", specialPoseEstimation);
+      Logger.recordOutput("Drive/ICoral-For-L1", coralIntededforL1);
+      Logger.recordOutput("Drive/ICoral-For-L1-AutopALign",AutoAlignDesitationDeterminer.placingAtL1);
       poseEstimator.setVisionMeasurementStdDevs(
           VecBuilder.fill(
               .1, .1,

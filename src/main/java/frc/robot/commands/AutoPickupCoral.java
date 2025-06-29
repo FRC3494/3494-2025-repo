@@ -1,0 +1,99 @@
+package frc.robot.commands;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.XboxController;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.OI;
+import frc.robot.subsystems.GroundIntake;
+import frc.robot.subsystems.SuperStructure.Arm;
+import frc.robot.subsystems.SuperStructure.Elevator;
+import frc.robot.subsystems.SuperStructure.Intake;
+import frc.robot.subsystems.drive.Drive;
+import frc.robot.Constants;
+
+public class AutoPickupCoral extends Command {
+    private Timer timer;
+    Drive drive;
+    Arm arm;
+    Elevator elevator;
+    Intake intake; 
+    GroundIntake groundIntake;
+    private double time;
+
+    public AutoPickupCoral(Drive drive, GroundIntake groundIntake, Arm arm, Elevator elevator, Intake intake,  double time) {
+        this.time = time;
+        this.drive = drive;
+        this.groundIntake = groundIntake;
+        this.arm = arm;
+        this.elevator = elevator;
+        this.intake = intake;
+        this.timer = new Timer();
+        this.timer.start();
+        addRequirements(drive);
+        addRequirements(groundIntake);
+        addRequirements(arm);
+        addRequirements(elevator);
+        addRequirements(intake);
+
+    }
+
+    @Override
+    public void initialize(){
+        elevator.setElevatorPosition(Constants.Presets.liftIntake);
+        groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
+        groundIntake.setIntakePower(-0.85, 0.5);
+        arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+
+
+    }
+    //DOCUMENT SPEED: work slow was: -0.5, and motor torque was 0.3
+    @Override
+    public void execute() {
+        double driveSpeed = 0.6;
+        // if(drivetrain.seesNote() == false){
+        //     driveSpeed = 0;
+        // }
+        System.out.println(time + "|" + timer.hasElapsed(time));
+        try {
+            drive.runVelocity(
+                ChassisSpeeds.fromRobotRelativeSpeeds(
+                    driveSpeed * drive.getMaxLinearSpeedMetersPerSec(),
+                    0 * drive.getMaxLinearSpeedMetersPerSec(),
+                    drive.getCoralYaw() * drive.getMaxAngularSpeedRadPerSec(), drive.getRotation()));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void end(boolean interupted) {
+        System.out.println("ENDING Note COMMAND");
+        drive.runVelocity(
+                ChassisSpeeds.fromRobotRelativeSpeeds(
+                    -0.2 * drive.getMaxLinearSpeedMetersPerSec(),
+                    0 * drive.getMaxLinearSpeedMetersPerSec(),
+                    0* drive.getMaxAngularSpeedRadPerSec(), drive.getRotation()));
+    }
+
+    @Override
+    public boolean isFinished() {
+        if (timer.hasElapsed(time)) {
+            return true;
+        }
+        // if(intake.hasNote()){return true;}
+        return false;
+
+        
+
+    }
+}

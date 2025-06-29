@@ -5,6 +5,9 @@ import java.util.function.DoubleSupplier;
 
 import org.littletonrobotics.junction.Logger;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -88,12 +91,17 @@ public class MainDriveCommand extends Command {
               omega * drive.getMaxAngularSpeedRadPerSec(),
               isFlipped ? drive.getRotation().plus(new Rotation2d(Math.PI)) : drive.getRotation()));
     } else {
-      drive.runVelocity(
-          ChassisSpeeds.fromFieldRelativeSpeeds(
-              linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
-              linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
-              drive.getCoralYaw() * drive.getMaxAngularSpeedRadPerSec(),
-              isFlipped ? drive.getRotation().plus(new Rotation2d(Math.PI)) : drive.getRotation()));
+      try {
+        drive.runVelocity(
+            ChassisSpeeds.fromFieldRelativeSpeeds(
+                linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
+                linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
+                drive.getCoralYaw() * drive.getMaxAngularSpeedRadPerSec(),
+                isFlipped ? drive.getRotation().plus(new Rotation2d(Math.PI)) : drive.getRotation()));
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } 
     }
 
     if (linearVelocity != null && pastLinearVelocity != null) {

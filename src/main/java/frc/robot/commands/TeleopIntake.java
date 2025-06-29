@@ -42,11 +42,9 @@ public class TeleopIntake extends Command {
     }
     if(arm.getTargetPosition() == Constants.Presets.L1armtest+Constants.Presets.globalArmOffset){
       intakePower *= 0.75;
-    }
-
-    
+    }    
     else{
-      AutoAlignDesitationDeterminer.placingAtL1 = false;
+      // AutoAlignDesitationDeterminer.placingAtL1 = false;
     }
     if (arm.getTargetPosition() == Constants.Presets.armCoral+Constants.Presets.globalArmOffset ||arm.getTargetPosition() == Constants.Presets.armBargeStore+Constants.Presets.globalArmOffset ){
       arm.setPIDlimits(-0.8, 0.8);

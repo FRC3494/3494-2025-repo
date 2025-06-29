@@ -50,7 +50,7 @@ public class AutoAlignDesitationDeterminer {
           
                  targetPose = Constants.Field.Reef.rightLocations[minIndex];
             }
-            if(placingAtL1){ //Rotates us to auto align to the other side if we are placing at L1, need to test if we can use the same reef postions or if I need to offset us a bit due to how accurate the odo is :)
+            if(placingAtL1){//Rotates us to auto align to the other side if we are placing at L1, need to test if we can use the same reef postions or if I need to offset us a bit due to how accurate the odo is :)
                 targetPose = new Pose2d(targetPose.getX(), targetPose.getY(), new Rotation2d(targetPose.getRotation().getRadians()+Math.PI));
                 Translation2d targetTrans = new Translation2d(targetPose.getX(),targetPose.getY());
                  Translation2d distanceFromReefCenter = Constants.Field.Reef.reefCenter.minus(targetTrans);

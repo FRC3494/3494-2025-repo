@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.commands.AutoIntakeDeadline;
 import frc.robot.commands.AutoIntakePower;
+import frc.robot.commands.AutoPickupCoral;
 import frc.robot.commands.BargFligIntake;
 import frc.robot.commands.Direction;
 import frc.robot.commands.DriveCommands;
@@ -123,6 +124,8 @@ public class RobotContainer {
     }
 
     // Set up auto routines
+    NamedCommands.registerCommand("VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 5));
+  
     NamedCommands.registerCommand(
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
     NamedCommands.registerCommand(
@@ -662,6 +665,9 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntakeAlt);
+                            arm.groundIntaking = false;
+                            drive.coralIntededforL1 = false;
+                            AutoAlignDesitationDeterminer.placingAtL1 = false;
                           }));
               if (!arm.groundIntaking) {
                 intakeCommand.schedule();
@@ -743,6 +749,8 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
                             arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+                            drive.coralIntededforL1 = false;
+                            AutoAlignDesitationDeterminer.placingAtL1 = false;
                           }))
                   .schedule();
             });
@@ -779,6 +787,8 @@ public class RobotContainer {
                             arm.setTargetAngle(Constants.Presets.armAlgeaL2, 0);
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
                             groundIntake.setIntakePower(-0.85, -0.6);
+                            drive.coralIntededforL1 = true;
+                            AutoAlignDesitationDeterminer.placingAtL1 = true;
                           }));
               if (!arm.groundIntaking) {
                 l1gIntake.schedule();
@@ -827,7 +837,7 @@ public class RobotContainer {
     OI.L1Outtake().falling().ifHigh(()->{
       groundIntake.setIntakePower(0, 0);
     });
-    OI.groundIntakeOuttake()
+    OI.groundIntakeOuttake().or(()->{return (drive.coralIntededforL1? controller.getLeftTriggerAxis()>=0.2: false);})
         .rising()
         .ifHigh(
             () -> {
