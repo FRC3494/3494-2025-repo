@@ -98,7 +98,7 @@ public final class Constants {
     public static double L1elevatorTest = 8.38;
 
     public static double groundIntakeIntake = 0.03123521; // 0.0;//-19.6;
-    public static double groundIntakeHover = 0.0594; // 2.0;//-17;
+    public static double groundIntakeHover = 0.05; // 2.0;//-17;
     public static double defenseDelay = 0.0;
     public static double groundIntakeStore = 0.38142; // 28.0;//6;
     public static double groundIntakeL1 = 0.36; // not bad: 0.36
@@ -144,7 +144,7 @@ public final class Constants {
   }
 
   public static class Drivetrain {
-    public static double L1autoAlignOffset = 0.1;
+    public static double L1autoAlignOffset = -0.1;
 
     public static double L1_GEAR_RATIO = (50.0 / 14.0) * (19.0 / 25.0) * (45.0 / 15.0);
     public static double L2_GEAR_RATIO = (50.0 / 14.0) * (17.0 / 27.0) * (45.0 / 15.0); // TODO

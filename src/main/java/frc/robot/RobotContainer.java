@@ -124,7 +124,7 @@ public class RobotContainer {
     }
 
     // Set up auto routines
-    NamedCommands.registerCommand("VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 5));
+    NamedCommands.registerCommand("VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2));
   
     NamedCommands.registerCommand(
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
@@ -133,6 +133,12 @@ public class RobotContainer {
         new InstantCommand(
             () -> {
               drive.setPose(new Pose2d(7.196, 5.058, new Rotation2d(Math.toRadians(180))));
+            }));
+    NamedCommands.registerCommand(
+        "Blue-Middle-Front-Set-Pose",
+        new InstantCommand(
+            () -> {
+              drive.setPose(new Pose2d(7.194, 7.634, new Rotation2d(Math.toRadians(-90))));
             }));
     NamedCommands.registerCommand(
         "Blue-Right-Fast-Set-Pose",
@@ -850,10 +856,10 @@ public class RobotContainer {
                             new WaitCommand(0.5),
                             new InstantCommand(
                               () -> {
-                                groundIntake.setIntakePower(0.2, -0.2); //0.25, -0.25
+                                groundIntake.setIntakePower(0.25, -0.25); //0.25, -0.25
                                 
                               }),
-                        new WaitCommand(0.1),
+                        new WaitCommand(0.0),
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);

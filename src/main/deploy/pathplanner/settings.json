@@ -4,9 +4,10 @@
   "holonomicMode": true,
   "pathFolders": [
     "Fast-Left-Side",
+    "Fast-Right-Side",
     "Left-Side",
     "Middle-Side",
-    "Fast-Right-Side",
+    "Middle-Ground-Intake",
     "Right-Side"
   ],
   "autoFolders": [],

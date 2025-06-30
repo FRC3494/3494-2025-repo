@@ -10,9 +10,11 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -24,23 +26,30 @@ public class GroundIntake extends SubsystemBase {
   private SparkMaxConfig frontIntakeMotorConfig;
   private SparkMax backIntakeMotor;
   private SparkMaxConfig backIntakeMotorConfig;
-
-  public double targetPosition = 99999.0;
+  
+  private PIDController pivotMotorPIDLoop = new PIDController(8, 0, 0);
+  public double targetPosition;
   public double hoverPosition = Constants.Presets.groundIntakeHover;
 
   public GroundIntake() {
     pivotMotor = new SparkFlex(Constants.GroundIntake.pivotMotor, MotorType.kBrushless);
     frontIntakeMotor = new SparkMax(Constants.GroundIntake.frontIntakeMotor, MotorType.kBrushless);
     backIntakeMotor = new SparkMax(Constants.GroundIntake.backIntakeMotor, MotorType.kBrushless);
-
+    
+    targetPosition = pivotMotor.getAbsoluteEncoder().getPosition();
     pivotMotorConfig = new SparkFlexConfig();
     frontIntakeMotorConfig = new SparkMaxConfig();
     backIntakeMotorConfig = new SparkMaxConfig();
 
     pivotMotorConfig.smartCurrentLimit(45);
-    pivotMotorConfig.closedLoop.pidf(8, 0, 0, 0.4);
-    pivotMotorConfig.closedLoop.outputRange(-0.8, 0.8); // 0.7
+    pivotMotorConfig.closedLoop.pidf(8.0,0, 0, 0.4);
+    pivotMotorConfig.closedLoop.outputRange(-0.8, 0.8); //0.8// 0.7
+ 
+    
+    
     pivotMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
+    pivotMotorConfig.closedLoop.maxMotion.allowedClosedLoopError(6.0);
+    
 
     pivotMotorConfig.idleMode(IdleMode.kBrake);
 
@@ -61,6 +70,7 @@ public class GroundIntake extends SubsystemBase {
   }
 
   public void setIntakePosition(double position) {
+    
     pivotMotor.getClosedLoopController().setReference(position, SparkBase.ControlType.kPosition);
     targetPosition = position;
   }
@@ -72,7 +82,17 @@ public class GroundIntake extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // double motorpower = pivotMotorPIDLoop.calculate(targetPosition, pivotMotor.getAbsoluteEncoder().getPosition());
+    // // motorpower = 0.4;
+    // motorpower = Math.max(motorpower, -0.8);
+    // motorpower = Math.min(motorpower, 0.8);
+    // motorpower = -motorpower;
+    // if(Math.abs(targetPosition-pivotMotor.getAbsoluteEncoder().getPosition())<0.015){
+    //   motorpower = 0;
+    // }
+    // pivotMotor.set(motorpower);
     Logger.recordOutput("Ground-Intake/Pivot-Position", pivotMotor.getEncoder().getPosition());
+    // Logger.recordOutput("Grount-Intake/PID-Power", motorpower);
     Logger.recordOutput(
         "Ground-Intake/Pivot-Abs-Position", pivotMotor.getAbsoluteEncoder().getPosition());
     Logger.recordOutput("Ground-Intake/Pivot-Target-Position", targetPosition);

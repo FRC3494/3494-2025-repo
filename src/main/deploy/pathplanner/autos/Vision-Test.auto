@@ -5,6 +5,12 @@
     "data": {
       "commands": [
         {
+          "type": "path",
+          "data": {
+            "pathName": "small-test"
+          }
+        },
+        {
           "type": "named",
           "data": {
             "name": "VisionCoralGrab"

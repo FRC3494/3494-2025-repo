@@ -319,6 +319,12 @@ public class Drive extends SubsystemBase {
       Logger.recordOutput("Drive/InSpecialMode", specialPoseEstimation);
       Logger.recordOutput("Drive/ICoral-For-L1", coralIntededforL1);
       Logger.recordOutput("Drive/ICoral-For-L1-AutopALign",AutoAlignDesitationDeterminer.placingAtL1);
+      try {
+        Logger.recordOutput("Drive/Rotation-Power-From-Vision",getCoralYaw());
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
       poseEstimator.setVisionMeasurementStdDevs(
           VecBuilder.fill(
               .1, .1,

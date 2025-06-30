@@ -3,6 +3,8 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
@@ -37,7 +39,7 @@ public class AutoPickupCoral extends Command {
         this.elevator = elevator;
         this.intake = intake;
         this.timer = new Timer();
-        this.timer.start();
+        
         addRequirements(drive);
         addRequirements(groundIntake);
         addRequirements(arm);
@@ -48,6 +50,9 @@ public class AutoPickupCoral extends Command {
 
     @Override
     public void initialize(){
+        this.timer.reset();
+        this.timer.start();
+        Logger.recordOutput("Drive/Searching", true);
         elevator.setElevatorPosition(Constants.Presets.liftIntake);
         groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
         groundIntake.setIntakePower(-0.85, 0.5);
@@ -58,21 +63,32 @@ public class AutoPickupCoral extends Command {
     //DOCUMENT SPEED: work slow was: -0.5, and motor torque was 0.3
     @Override
     public void execute() {
-        double driveSpeed = 0.6;
+        double driveSpeed = 0.25;
         // if(drivetrain.seesNote() == false){
         //     driveSpeed = 0;
         // }
         System.out.println(time + "|" + timer.hasElapsed(time));
+        Logger.recordOutput("Drive/Auto-Timer", timer.get());
+        double omegaRot;
         try {
+            omegaRot = drive.getCoralYaw();
+        } catch (JsonProcessingException e) {
+            omegaRot = 0.1;
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // drive.runVelocity(
+        // ChassisSpeeds.fromFieldRelativeSpeeds(
+        //     0 * drive.getMaxLinearSpeedMetersPerSec(),
+        //     -0.25 * drive.getMaxLinearSpeedMetersPerSec(),
+        //     omegaRot * drive.getMaxAngularSpeedRadPerSec(),
+        //     false ? drive.getRotation().plus(new Rotation2d(Math.PI)) : drive.getRotation()));
             drive.runVelocity(
                 ChassisSpeeds.fromRobotRelativeSpeeds(
                     driveSpeed * drive.getMaxLinearSpeedMetersPerSec(),
                     0 * drive.getMaxLinearSpeedMetersPerSec(),
-                    drive.getCoralYaw() * drive.getMaxAngularSpeedRadPerSec(), drive.getRotation()));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+                    omegaRot* drive.getMaxAngularSpeedRadPerSec(), drive.getRotation()));
+        
     }
 
     @Override
@@ -87,6 +103,7 @@ public class AutoPickupCoral extends Command {
 
     @Override
     public boolean isFinished() {
+        Logger.recordOutput("Drive/Searching", true);
         if (timer.hasElapsed(time)) {
             return true;
         }
