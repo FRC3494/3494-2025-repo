@@ -34,6 +34,7 @@ import frc.robot.commands.AutoPickupCoral;
 import frc.robot.commands.BargFligIntake;
 import frc.robot.commands.Direction;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.IntakeGroundCoral;
 import frc.robot.commands.MainDriveCommand;
 import frc.robot.commands.TeleopClimber;
 import frc.robot.commands.TeleopElevator;
@@ -81,7 +82,7 @@ public class RobotContainer {
     intake = new Intake();
     climber = new Climber();
     groundIntake = new GroundIntake();
-    // arm.setDefaultCommand(new TeleopArm(arm)); the intake command overrides this so for now its
+    // arm.setDefaultCommand(new TeleopArm(arm));// the intake command overrides this so for now its
     // content is going in the intake command
     elevator.setDefaultCommand(new TeleopElevator(elevator));
     intake.setDefaultCommand(new TeleopIntake(intake, arm));
@@ -124,8 +125,8 @@ public class RobotContainer {
     }
 
     // Set up auto routines
-    NamedCommands.registerCommand("VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2));
-  
+    NamedCommands.registerCommand("VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 1.5));
+    NamedCommands.registerCommand("IntakeGroundCoral", new IntakeGroundCoral(groundIntake, arm, elevator, intake));
     NamedCommands.registerCommand(
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
     NamedCommands.registerCommand(
@@ -222,6 +223,13 @@ public class RobotContainer {
                   elevator.setElevatorPosition(Constants.Presets.liftIntake);
                   arm.setTargetAngle(Constants.Presets.armAlgeaL2Auto, 0);
                 })));
+    NamedCommands.registerCommand(
+        "GroundIntakeDown",
+        Commands.sequence(
+            new InstantCommand(
+                () -> {
+                  groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
+                })));
     // NamedCommands.registerCommand(
     //     "HOLDALGEA", Commands.sequence(
     //         new InstantCommand(
@@ -251,7 +259,7 @@ public class RobotContainer {
         Commands.sequence(
             new InstantCommand(
                 () -> {
-                  elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
+                  elevator.setElevatorPosition(Constants.Presets.liftAlgeaL3Auto);
                   arm.setTargetAngle(Constants.Presets.armAlgeaL3, 0);
                 })));
     // Superstrucutre Intake Stuff-----------------------
@@ -748,7 +756,7 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                            groundIntake.setIntakePower(-0.85, 0.5);
+                            groundIntake.setIntakePower(-0.85, 0.85);
                           }),
                       new WaitCommand(Constants.Presets.defenseDelay / 3.5),
                       new InstantCommand(

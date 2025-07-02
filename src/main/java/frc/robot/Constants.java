@@ -65,12 +65,12 @@ public final class Constants {
     public static double armProcessor = 0.53;
     public static double armOuttakeL1 = 0.875;
     public static double armOuttakeL2 = 0.605; // -111.0;
-    public static double armOuttakeL2Auto = 0.60; // 0.595;
+    public static double armOuttakeL2Auto = 0.605; // 0.595;
     public static double armOuttakeL3 = 0.62; // -106.0;
-    public static double armGroundTransfer = 0.94;
+    public static double armGroundTransfer = 0.96;
 
     public static double armAlgeaL2 = 0.62; // 0.6125; // 0.605
-    public static double armAlgeaL2Auto = 0.6125;
+    public static double armAlgeaL2Auto = 0.62;
     public static double armAlgeaL3 = 0.627; // 0.585; // 0.58 // -116.0;
     public static double armBargeYeet = 0.65;
     public static double armBargeStore = 0.85;
@@ -78,8 +78,9 @@ public final class Constants {
     public static double liftIntake = 0;
     public static double liftIntakeAlt = 2.238;
     public static double liftOuttakeL2 = 20;
-    public static double liftOuttakeL3 = 44.0;
+    public static double liftOuttakeL3 = 46.0;
     public static double liftAlgeaL3 = 28.75;
+    public static double liftAlgeaL3Auto = 35.643;//
     public static double liftAlgeaL2 = 3.7;
     public static double liftAlgeaTeleopL2 = 0;
 
@@ -129,7 +130,7 @@ public final class Constants {
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double ARM_OFFSET = 0.5122203;
+    public static double ARM_OFFSET = 0.525;
 
     public static int normalCurrentLimit = 75;
   }

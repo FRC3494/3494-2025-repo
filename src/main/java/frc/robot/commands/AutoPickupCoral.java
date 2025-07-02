@@ -55,7 +55,8 @@ public class AutoPickupCoral extends Command {
         Logger.recordOutput("Drive/Searching", true);
         elevator.setElevatorPosition(Constants.Presets.liftIntake);
         groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-        groundIntake.setIntakePower(-0.85, 0.5);
+        groundIntake.setIntakePower(-0.85, 0.85);
+        intake.setSpeed(-0.75);
         arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
 
 
@@ -63,7 +64,7 @@ public class AutoPickupCoral extends Command {
     //DOCUMENT SPEED: work slow was: -0.5, and motor torque was 0.3
     @Override
     public void execute() {
-        double driveSpeed = 0.25;
+        double driveSpeed = -0.25;
         // if(drivetrain.seesNote() == false){
         //     driveSpeed = 0;
         // }
@@ -83,10 +84,12 @@ public class AutoPickupCoral extends Command {
         //     -0.25 * drive.getMaxLinearSpeedMetersPerSec(),
         //     omegaRot * drive.getMaxAngularSpeedRadPerSec(),
         //     false ? drive.getRotation().plus(new Rotation2d(Math.PI)) : drive.getRotation()));
+        double xspeed = Math.sin(drive.getRotation().getRadians())*driveSpeed;
+        double yspeed = Math.cos(drive.getRotation().getRadians())*driveSpeed;
             drive.runVelocity(
                 ChassisSpeeds.fromRobotRelativeSpeeds(
-                    driveSpeed * drive.getMaxLinearSpeedMetersPerSec(),
-                    0 * drive.getMaxLinearSpeedMetersPerSec(),
+                    xspeed * drive.getMaxLinearSpeedMetersPerSec(),
+                    yspeed * drive.getMaxLinearSpeedMetersPerSec(),
                     omegaRot* drive.getMaxAngularSpeedRadPerSec(), drive.getRotation()));
         
     }
@@ -107,6 +110,15 @@ public class AutoPickupCoral extends Command {
         if (timer.hasElapsed(time)) {
             return true;
         }
+        // try {
+        //     if(drive.getCoralYaw() == 0){
+        //         System.out.println("STOPPED BECUASE I DIDNT SEE A CORAL");
+        //         return true;
+        //     }
+        // } catch (JsonProcessingException e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
         // if(intake.hasNote()){return true;}
         return false;
 
