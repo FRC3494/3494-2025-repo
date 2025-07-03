@@ -18,6 +18,10 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+import com.playingwithfusion.TimeOfFlight;
+import com.playingwithfusion.TimeOfFlight.RangingMode;
+
+
 public class GroundIntake extends SubsystemBase {
   private SparkFlex pivotMotor;
   private SparkFlexConfig pivotMotorConfig;
@@ -30,6 +34,9 @@ public class GroundIntake extends SubsystemBase {
   private PIDController pivotMotorPIDLoop = new PIDController(8, 0, 0);
   public double targetPosition;
   public double hoverPosition = Constants.Presets.groundIntakeHover;
+
+  // Create instance of Time-Of_Flight driver for device 1
+  private final TimeOfFlight m_rangeSensor = new TimeOfFlight(Constants.GroundIntake.distanceSensorDeviceNumber);
 
   public GroundIntake() {
     pivotMotor = new SparkFlex(Constants.GroundIntake.pivotMotor, MotorType.kBrushless);
@@ -67,6 +74,10 @@ public class GroundIntake extends SubsystemBase {
         frontIntakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     backIntakeMotor.configure(
         backIntakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    // Configure time of flight sensor for short ranging mode and sample
+    // distance every 40 ms
+    m_rangeSensor.setRangingMode(RangingMode.Short, 40);
   }
 
   public void setIntakePosition(double position) {
@@ -91,6 +102,13 @@ public class GroundIntake extends SubsystemBase {
     //   motorpower = 0;
     // }
     // pivotMotor.set(motorpower);
+
+    double sensor_distance = m_rangeSensor.getRange();
+    double sensor_sdev = m_rangeSensor.getRangeSigma();
+    Logger.recordOutput("Ground-Intake/Distance-Sensor/Distance", sensor_distance);
+    Logger.recordOutput("Ground-Intake/Distance-Sensor/Sdev", sensor_sdev);
+    Logger.recordOutput("Ground-Intake/Distance-Sensor/Status", m_rangeSensor.getStatus());
+    
     Logger.recordOutput("Ground-Intake/Pivot-Position", pivotMotor.getEncoder().getPosition());
     // Logger.recordOutput("Grount-Intake/PID-Power", motorpower);
     Logger.recordOutput(

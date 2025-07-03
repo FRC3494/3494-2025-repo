@@ -123,6 +123,7 @@ public final class Constants {
     public static int pivotMotor = 7;
     public static int frontIntakeMotor = 11;
     public static int backIntakeMotor = 10;
+    public static int distanceSensorDeviceNumber = 1;
   }
 
   public static class Arm {
