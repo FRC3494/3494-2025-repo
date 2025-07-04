@@ -1,7 +1,8 @@
 package frc.robot.subsystems.climber;
 
-import com.revrobotics.spark.SparkMax;
 import org.littletonrobotics.junction.AutoLog;
+
+import com.revrobotics.spark.SparkMax;
 
 public class ClimberIO {
   SparkMax climberMotor;

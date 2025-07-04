@@ -56,7 +56,7 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     double Cavrg = currentAverage(intakeMotor.getOutputCurrent());
-    if (Cavrg >13) {
+    if (Cavrg > 13) {
       hasCoral = true;
     }
     Logger.recordOutput("Intake/Current-Average", Cavrg);

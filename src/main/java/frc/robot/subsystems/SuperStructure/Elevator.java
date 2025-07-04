@@ -12,7 +12,6 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -44,14 +43,11 @@ public class Elevator extends SubsystemBase {
     followerConfig.closedLoop.pid(0.8, 0, 0);
     followerConfig.closedLoop.outputRange(-0.8, 0.8);
     followerConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-    
-  
-    
+
     leaderConfig.idleMode(IdleMode.kBrake);
     followerConfig.idleMode(IdleMode.kBrake);
-    leaderConfig.inverted(true);//true
-    followerConfig.inverted(false);//true
-    
+    leaderConfig.inverted(true); // true
+    followerConfig.inverted(false); // true
 
     leaderMotor.configure(
         leaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -80,7 +76,7 @@ public class Elevator extends SubsystemBase {
 
     followerConfig.idleMode(newIdleMode);
     followerMotor.configure(
-            leaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        leaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   @Override
@@ -132,13 +128,14 @@ public class Elevator extends SubsystemBase {
   public double getTicks() {
     return followerMotor.getEncoder().getPosition();
   }
-  public void setPIDlimits(double lowerBound, double upperBound){
+
+  public void setPIDlimits(double lowerBound, double upperBound) {
     leaderConfig.closedLoop.outputRange(lowerBound, upperBound);
     leaderMotor.configure(
-      leaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    
+        leaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
     followerConfig.closedLoop.outputRange(lowerBound, upperBound);
     followerMotor.configure(
-      followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 }

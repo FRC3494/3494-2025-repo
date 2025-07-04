@@ -13,6 +13,11 @@
 
 package frc.robot.subsystems.drive;
 
+import java.util.OptionalDouble;
+import java.util.Queue;
+
+import org.littletonrobotics.junction.Logger;
+
 import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -21,14 +26,12 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
 import frc.robot.Constants;
-import java.util.OptionalDouble;
-import java.util.Queue;
-import org.littletonrobotics.junction.Logger;
 
 /**
  * Module IO implementation for SparkMax drive motor controller, SparkMax turn motor controller (NEO
@@ -111,7 +114,7 @@ public class ModuleIOSparkMax implements ModuleIO {
         throw new RuntimeException("Invalid module index");
     }
     driveSparkFlexConfig.voltageCompensation(12);
-    driveSparkFlexConfig.smartCurrentLimit(50);//40
+    driveSparkFlexConfig.smartCurrentLimit(50); // 40
     driveSparkFlexConfig.signals.primaryEncoderPositionPeriodMs(
         (int) (1000.0 / Module.ODOMETRY_FREQUENCY));
 
