@@ -65,12 +65,12 @@ public final class Constants {
     public static double armProcessor = 0.53;
     public static double armOuttakeL1 = 0.875;
     public static double armOuttakeL2 = 0.605; // -111.0;
-    public static double armOuttakeL2Auto = 0.60; // 0.595;
+    public static double armOuttakeL2Auto = 0.605; // 0.595;
     public static double armOuttakeL3 = 0.62; // -106.0;
-    public static double armGroundTransfer = 0.94;
+    public static double armGroundTransfer = 0.96;
 
     public static double armAlgeaL2 = 0.62; // 0.6125; // 0.605
-    public static double armAlgeaL2Auto = 0.6125;
+    public static double armAlgeaL2Auto = 0.62;
     public static double armAlgeaL3 = 0.627; // 0.585; // 0.58 // -116.0;
     public static double armBargeYeet = 0.65;
     public static double armBargeStore = 0.85;
@@ -78,8 +78,9 @@ public final class Constants {
     public static double liftIntake = 0;
     public static double liftIntakeAlt = 2.238;
     public static double liftOuttakeL2 = 20;
-    public static double liftOuttakeL3 = 44.0;
+    public static double liftOuttakeL3 = 46.0;
     public static double liftAlgeaL3 = 28.75;
+    public static double liftAlgeaL3Auto = 35.643; //
     public static double liftAlgeaL2 = 3.7;
     public static double liftAlgeaTeleopL2 = 0;
 
@@ -98,10 +99,13 @@ public final class Constants {
     public static double L1elevatorTest = 8.38;
 
     public static double groundIntakeIntake = 0.03123521; // 0.0;//-19.6;
-    public static double groundIntakeHover = 0.0594; // 2.0;//-17;
+    public static double groundIntakeHover = 0.05; // 2.0;//-17;
     public static double groundIntakeStore = 0.38142; // 28.0;//6;
-    public static double groundIntakeL1 = 0.26338; // 19.0;//0;
+    public static double groundIntakeL1 = 0.36; // not bad: 0.36
+    public static double groundIntakeL1High = 0.29;
     public static double groundIntakeStation = 0.3238; // 23.0;;// 3.28;
+
+    public static double groundIntakeJerk = 0.275; // not bad: 0.26   // 23.0;;// 3.28;
   }
 
   public static class OI {
@@ -118,6 +122,9 @@ public final class Constants {
     public static int pivotMotor = 7;
     public static int frontIntakeMotor = 11;
     public static int backIntakeMotor = 10;
+    public static int distanceSensorDeviceNumber = 31;
+
+    public static double CoralDistanceTheshold = 400;
 
     public static double intakeFrontPower = 0.2;
     public static double intakeBackPower = 0.5;
@@ -131,9 +138,9 @@ public final class Constants {
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double ARM_OFFSET = 0.5122203;
+    public static double ARM_OFFSET = 0.525;
 
-    public static int normalCurrentLimit = 30;//75;
+    public static int normalCurrentLimit = 30; // 75;
   }
 
   public static class Intake {
@@ -146,7 +153,7 @@ public final class Constants {
   }
 
   public static class Drivetrain {
-    public static double L1autoAlignOffset = 0.1;
+    public static double L1autoAlignOffset = -0.1;
 
     public static double L1_GEAR_RATIO = (50.0 / 14.0) * (19.0 / 25.0) * (45.0 / 15.0);
     public static double L2_GEAR_RATIO = (50.0 / 14.0) * (17.0 / 27.0) * (45.0 / 15.0); // TODO

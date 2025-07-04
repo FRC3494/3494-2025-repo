@@ -37,13 +37,14 @@ public final class OI {
 
     double Sean_intake_power =
         deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
-            + deadband(primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND)+ (primaryController.getAButton() ? -0.5: 0);
+            + deadband(primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND)
+            + (primaryController.getAButton() ? -0.5 : 0);
     double Ashton_intake_power =
         deadband(rightButtonBoard.getRawAxis(0), Constants.Intake.DEADBAND);
     return Sean_intake_power + Ashton_intake_power;
   }
 
-  public static BooleanEvent activateGroundIntake(){
+  public static BooleanEvent activateGroundIntake() {
     // double Sean_intake_power =
     //     deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
     //         + deadband(primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND);
@@ -51,19 +52,33 @@ public final class OI {
     return primaryController.rightTrigger(0.05, eventLoop);
     // return primaryController.a(eventLoop);
   }
-  public static BooleanEvent L1GroundIntake(){
-    return rightButtonBoard.button(8, eventLoop).or(rightButtonBoard.button(7, eventLoop));
+
+  public static BooleanEvent L1GroundIntake() {
+    return rightButtonBoard
+        .button(8, eventLoop)
+        .or(rightButtonBoard.button(7, eventLoop))
+        .or(primaryController.a(eventLoop));
   }
-  public static BooleanEvent L1Outtake(){
+
+  public static BooleanEvent L1GroundIntakeHigh() {
+    return rightButtonBoard.button(6, eventLoop);
+  }
+
+  public static BooleanEvent L1Outtake() {
     return leftButtonBoard.button(9, eventLoop);
   }
-  public static BooleanEvent groundIntakeIntake(){
+
+  public static BooleanEvent groundIntakeIntake() {
     return rightButtonBoard.button(9, eventLoop);
   }
-  public static BooleanEvent groundIntakeOuttake(){
+
+  public static BooleanEvent groundIntakeOuttake() {
     return rightButtonBoard.button(10, eventLoop);
   }
-  
+
+  public static BooleanEvent groundIntakeManualOut() {
+    return rightButtonBoard.button(8, eventLoop);
+  }
 
   public static double getElevatorPower() {
     // TODO: assign a button
@@ -87,9 +102,7 @@ public final class OI {
   public static BooleanEvent bargeYeet() {
     return leftButtonBoard.button(7, eventLoop);
   }
-  public static BooleanEvent bargeYeet2() {
-    return rightButtonBoard.button(4, eventLoop);
-  }
+
   public static BooleanEvent bargeStage() {
     return leftButtonBoard.button(9, eventLoop);
   }
@@ -137,6 +150,7 @@ public final class OI {
   public static BooleanEvent ClimbStage0() {
     return rightButtonBoard.button(5, eventLoop);
   }
+
   public static BooleanEvent ToggleDefenseMode() {
     return rightButtonBoard.button(5, eventLoop);
   }

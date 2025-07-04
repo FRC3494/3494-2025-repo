@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import org.littletonrobotics.junction.Logger;
 
+import com.playingwithfusion.TimeOfFlight;
+import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -13,6 +15,7 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -28,8 +31,13 @@ public class GroundIntake extends SubsystemBase {
   private SparkMax backIntakeMotor;
   private SparkMaxConfig backIntakeMotorConfig;
 
-  public double targetPosition = 99999.0;
+  private PIDController pivotMotorPIDLoop = new PIDController(8, 0, 0);
+  public double targetPosition;
   public double hoverPosition = Constants.Presets.groundIntakeHover;
+
+  // Create instance of Time-Of_Flight driver for device 1
+  private final TimeOfFlight m_rangeSensor =
+      new TimeOfFlight(Constants.GroundIntake.distanceSensorDeviceNumber);
 
   public boolean intaking = false;
 
@@ -41,14 +49,17 @@ public class GroundIntake extends SubsystemBase {
     frontIntakeMotor = new SparkMax(Constants.GroundIntake.frontIntakeMotor, MotorType.kBrushless);
     backIntakeMotor = new SparkMax(Constants.GroundIntake.backIntakeMotor, MotorType.kBrushless);
 
+    targetPosition = pivotMotor.getAbsoluteEncoder().getPosition();
     pivotMotorConfig = new SparkFlexConfig();
     frontIntakeMotorConfig = new SparkMaxConfig();
     backIntakeMotorConfig = new SparkMaxConfig();
 
     pivotMotorConfig.smartCurrentLimit(45);
-    pivotMotorConfig.closedLoop.pid(8, 0, 0);
-    pivotMotorConfig.closedLoop.outputRange(-0.6, 0.6);
+    pivotMotorConfig.closedLoop.pidf(8.0, 0, 0, 0.4);
+    pivotMotorConfig.closedLoop.outputRange(-0.8, 0.8); // 0.8// 0.7
+
     pivotMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
+    pivotMotorConfig.closedLoop.maxMotion.allowedClosedLoopError(6.0);
 
     pivotMotorConfig.idleMode(IdleMode.kBrake);
 
@@ -66,6 +77,10 @@ public class GroundIntake extends SubsystemBase {
         frontIntakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     backIntakeMotor.configure(
         backIntakeMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    // Configure time of flight sensor for short ranging mode and sample
+    // distance every 40 ms
+    m_rangeSensor.setRangingMode(RangingMode.Short, 40);
   }
 
   public Command setIntakePosition(double position) {
@@ -113,7 +128,27 @@ public class GroundIntake extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // double motorpower = pivotMotorPIDLoop.calculate(targetPosition,
+    // pivotMotor.getAbsoluteEncoder().getPosition());
+    // // motorpower = 0.4;
+    // motorpower = Math.max(motorpower, -0.8);
+    // motorpower = Math.min(motorpower, 0.8);
+    // motorpower = -motorpower;
+    // if(Math.abs(targetPosition-pivotMotor.getAbsoluteEncoder().getPosition())<0.015){
+    //   motorpower = 0;
+    // }
+    // pivotMotor.set(motorpower);
+
+    double sensor_distance = m_rangeSensor.getRange();
+    double sensor_sdev = m_rangeSensor.getRangeSigma();
+    Logger.recordOutput("Ground-Intake/Distance-Sensor/Distance", sensor_distance);
+    Logger.recordOutput("Ground-Intake/Distance-Sensor/Sdev", sensor_sdev);
+    Logger.recordOutput("Ground-Intake/Distance-Sensor/Status", m_rangeSensor.getStatus());
+
     Logger.recordOutput("Ground-Intake/Pivot-Position", pivotMotor.getEncoder().getPosition());
+    Logger.recordOutput(
+        "Ground-Intake/Pivot-Abs-Position", pivotMotor.getAbsoluteEncoder().getPosition());
+    // Logger.recordOutput("Grount-Intake/PID-Power", motorpower);
     Logger.recordOutput(
         "Ground-Intake/Pivot-Abs-Position", pivotMotor.getAbsoluteEncoder().getPosition());
     Logger.recordOutput("Ground-Intake/Pivot-Target-Position", targetPosition);
@@ -125,7 +160,9 @@ public class GroundIntake extends SubsystemBase {
 
     Logger.recordOutput("Ground-Intake/Back-Power", backIntakeMotor.getAppliedOutput());
     Logger.recordOutput("Ground-Intake/Back-Current", backIntakeMotor.getOutputCurrent());
+  }
 
-    Logger.recordOutput("Ground-Intake/DefenseMode", defenseMode);
+  public double getDistanceSensor() {
+    return m_rangeSensor.getRange();
   }
 }

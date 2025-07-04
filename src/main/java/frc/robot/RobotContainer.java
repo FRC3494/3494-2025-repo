@@ -32,9 +32,12 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.commands.AutoIntakeDeadline;
 import frc.robot.commands.AutoIntakePower;
+import frc.robot.commands.AutoPickupCoral;
 import frc.robot.commands.BargFligIntake;
 import frc.robot.commands.Direction;
 import frc.robot.commands.DriveCommands;
+import frc.robot.commands.IntakeGroundCoral;
+import frc.robot.commands.MainDriveCommand;
 import frc.robot.commands.TeleopClimber;
 import frc.robot.commands.TeleopElevator;
 import frc.robot.commands.TeleopIntake;
@@ -80,7 +83,7 @@ public class RobotContainer {
     intake = new Intake();
     climber = new Climber();
     groundIntake = new GroundIntake();
-    // arm.setDefaultCommand(new TeleopArm(arm)); the intake command overrides this so for now its
+    // arm.setDefaultCommand(new TeleopArm(arm));// the intake command overrides this so for now its
     // content is going in the intake command
     elevator.setDefaultCommand(new TeleopElevator(elevator));
     intake.setDefaultCommand(new TeleopIntake(intake, arm));
@@ -124,12 +127,29 @@ public class RobotContainer {
 
     // Set up auto routines
     NamedCommands.registerCommand(
+        "VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2));
+    NamedCommands.registerCommand(
+        "IntakeGroundCoral", new IntakeGroundCoral(groundIntake, arm, elevator, intake));
+    NamedCommands.registerCommand(
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
+
     NamedCommands.registerCommand(
         "Blue-Left-Set-Pose",
         new InstantCommand(
             () -> {
               drive.setPose(new Pose2d(7.196, 5.058, new Rotation2d(Math.toRadians(180))));
+            }));
+    NamedCommands.registerCommand(
+        "Blue-Middle-Front-Set-Pose",
+        new InstantCommand(
+            () -> {
+              drive.setPose(new Pose2d(7.194, 7.634, new Rotation2d(Math.toRadians(-90))));
+            }));
+    NamedCommands.registerCommand(
+        "Blue-Right-Middle-Front-Set-Pose",
+        new InstantCommand(
+            () -> {
+              drive.setPose(new Pose2d(7.194, 0.418, new Rotation2d(Math.toRadians(-90))));
             }));
     NamedCommands.registerCommand(
         "Blue-Right-Fast-Set-Pose",
@@ -187,8 +207,8 @@ public class RobotContainer {
             new InstantCommand(
                 () -> {
                   arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                }),
-            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStation)));
+                  groundIntake.setIntakePosition(Constants.Presets.groundIntakeStation);
+                })));
     NamedCommands.registerCommand(
         "L1",
         Commands.sequence(
@@ -212,6 +232,13 @@ public class RobotContainer {
                 () -> {
                   elevator.setElevatorPosition(Constants.Presets.liftIntake);
                   arm.setTargetAngle(Constants.Presets.armAlgeaL2Auto, 0);
+                })));
+    NamedCommands.registerCommand(
+        "GroundIntakeDown",
+        Commands.sequence(
+            new InstantCommand(
+                () -> {
+                  groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
                 })));
     // NamedCommands.registerCommand(
     //     "HOLDALGEA", Commands.sequence(
@@ -242,7 +269,7 @@ public class RobotContainer {
         Commands.sequence(
             new InstantCommand(
                 () -> {
-                  elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
+                  elevator.setElevatorPosition(Constants.Presets.liftAlgeaL3Auto);
                   arm.setTargetAngle(Constants.Presets.armAlgeaL3, 0);
                 })));
     // Superstrucutre Intake Stuff-----------------------
@@ -278,7 +305,10 @@ public class RobotContainer {
                 () -> {
                   elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
                 }),
-            groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover),
+            new InstantCommand(
+                () -> {
+                  groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
+                }),
             new WaitCommand(0.5),
             new InstantCommand(
                 () -> {
@@ -385,7 +415,7 @@ public class RobotContainer {
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(), // used to be -
             () -> -controller.getRightX())); // used to be -
-    controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
+    // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
     controller
         .y()
         .onTrue(
@@ -415,7 +445,15 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.setDefenseMode(!groundIntake.defenseMode).schedule();
+              if (groundIntake.defenseMode == false) {
+                groundIntake.defenseMode = true;
+                groundIntake.hoverPosition = Constants.Presets.groundIntakeStore;
+                groundIntake.defenseDelay = 0.5;
+              } else {
+                groundIntake.defenseMode = false;
+                groundIntake.hoverPosition = Constants.Presets.groundIntakeHover;
+                groundIntake.defenseDelay = 0.0;
+              }
             });
     controller
         .leftBumper()
@@ -466,6 +504,21 @@ public class RobotContainer {
                             new Pose2d(drive.getPose().getTranslation(), new Rotation2d())),
                     drive)
                 .ignoringDisable(true));
+
+    controller
+        .b()
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  MainDriveCommand.coralAligning = true;
+                }));
+    controller
+        .b()
+        .onFalse(
+            new InstantCommand(
+                () -> {
+                  MainDriveCommand.coralAligning = false;
+                }));
 
     // ======== L3 ============
     OI.L3Algea()
@@ -630,8 +683,11 @@ public class RobotContainer {
                             arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                           }),
                       new WaitCommand(0.25),
-                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeStation),
-                      groundIntake.setIntakePower(0, 0),
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStation);
+                            groundIntake.setIntakePower(0, 0);
+                          }),
                       new WaitCommand(0.5),
                       new InstantCommand(
                           () -> {
@@ -641,6 +697,9 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntakeAlt);
+                            groundIntake.intaking = false;
+                            drive.coralIntededforL1 = false;
+                            AutoAlignDesitationDeterminer.placingAtL1 = false;
                           }));
               if (!groundIntake.intaking) {
                 intakeCommand.schedule();
@@ -696,17 +755,17 @@ public class RobotContainer {
               }
 
               Commands.sequence(
-                      groundIntake.setIntaking(true),
                       new InstantCommand(
                           () -> {
+                            groundIntake.intaking = true;
                             if (arm.getTargetPosition()
                                 == Constants.Presets.armIntakeAlt
                                     + Constants.Presets.globalArmOffset) {
                               elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
-                              // Constants.Presets.defenseDelay = 2;
+                              // groundIntake.defenseDelay = 2;
                             } else {
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                              // Constants.Presets.defenseDelay = 0;
+                              // groundIntake.defenseDelay = 0;
                             }
 
                             arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
@@ -715,13 +774,15 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                            groundIntake.setIntakePower(-0.75, 0.5);
+                            groundIntake.setIntakePower(-0.85, 0.85);
                           }),
                       new WaitCommand(groundIntake.defenseDelay / 3.5),
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
                             arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+                            drive.coralIntededforL1 = false;
+                            AutoAlignDesitationDeterminer.placingAtL1 = false;
                           }))
                   .schedule();
             });
@@ -737,10 +798,12 @@ public class RobotContainer {
                             arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                           }),
                       new WaitCommand(groundIntake.defenseDelay / 3),
-                      groundIntake.setIntakePosition(groundIntake.hoverPosition),
-                      // TODO
-                      groundIntake.setIntaking(false),
-                      groundIntake.setIntakePower(0, 0))
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePosition(groundIntake.hoverPosition);
+                            groundIntake.setIntakePower(0, 0);
+                            groundIntake.intaking = false;
+                          }))
                   .schedule();
             });
 
@@ -754,9 +817,11 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
                             arm.setTargetAngle(Constants.Presets.armAlgeaL2, 0);
-                          }),
-                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake),
-                      groundIntake.setIntakePower(-0.75, -0.5));
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
+                            groundIntake.setIntakePower(-0.85, -0.6);
+                            drive.coralIntededforL1 = true;
+                            AutoAlignDesitationDeterminer.placingAtL1 = true;
+                          }));
               if (!groundIntake.intaking) {
                 l1gIntake.schedule();
               } else {
@@ -768,44 +833,102 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Command l1gItnake =
-                  Commands.sequence(
-                      // new InstantCommand(() -> {
-                      //     elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                      //     arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                      // }),
-                      // new WaitCommand(0.5),
-                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1),
-                      groundIntake.setIntakePower(0, 0));
+                  new InstantCommand(
+                      () -> {
+                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
+                        groundIntake.setIntakePower(0, 0);
+                      });
+
               if (!groundIntake.intaking) {
                 l1gItnake.schedule();
               } else {
                 arm.bufferedCommand = l1gItnake;
               }
             });
+    OI.L1GroundIntake()
+        .falling()
+        .ifHigh(
+            () -> {
+              Command l1GroundIntakeHigh =
+                  new InstantCommand(
+                      () -> {
+                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1High);
+                        groundIntake.setIntakePower(0, 0);
+                      });
 
-    OI.groundIntakeOuttake()
+              if (!groundIntake.intaking) {
+                l1GroundIntakeHigh.schedule();
+              } else {
+                arm.bufferedCommand = l1GroundIntakeHigh;
+              }
+            });
+
+    OI.L1Outtake()
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0.2, -0.5).schedule();
+              groundIntake.setIntakePower(0.2, -0.5);
+            });
+    OI.L1Outtake()
+        .falling()
+        .ifHigh(
+            () -> {
+              groundIntake.setIntakePower(0, 0);
+            });
+    OI.groundIntakeOuttake()
+        .or(
+            () -> {
+              return (drive.coralIntededforL1 ? controller.getLeftTriggerAxis() >= 0.2 : false);
+            })
+        .rising()
+        .ifHigh(
+            () -> {
+              Commands.sequence(
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
+                          }),
+                      new WaitCommand(0.5),
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePower(0.25, -0.25); // 0.25, -0.25
+                          }),
+                      new WaitCommand(0.0),
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
+                          }))
+                  .schedule();
             });
     OI.groundIntakeOuttake()
         .falling()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0, 0).schedule();
+              groundIntake.setIntakePower(0, 0);
             });
     OI.groundIntakeIntake()
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(-0.2, 0.5).schedule();
+              groundIntake.setIntakePower(-0.2, 0.5);
             });
     OI.groundIntakeIntake()
         .falling()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0, 0).schedule();
+              groundIntake.setIntakePower(0, 0);
+            });
+    OI.groundIntakeManualOut()
+        .rising()
+        .ifHigh(
+            () -> {
+              groundIntake.setIntakePower(0.2, -0.5);
+            });
+    OI.groundIntakeManualOut()
+        .falling()
+        .ifHigh(
+            () -> {
+              groundIntake.setIntakePower(0, 0);
             });
     // LOW INTAKE======================
     // OI.lowIntake().falling().ifHigh(()->{
@@ -904,73 +1027,6 @@ public class RobotContainer {
                           }))
                   .schedule();
             });
-    OI.bargeYeet2()
-        .rising()
-        .ifHigh(
-            () -> { // THE SECOND ONE!!!!!!!!!!!
-              Commands.sequence(
-                      new InstantCommand(
-                          () -> {
-                            arm.setCurrentLimit(90);
-                          }),
-                      // new InstantCommand(() -> {elevator.setPIDlimits(-1, 1);}),
-                      new InstantCommand(
-                          () -> {
-                            arm.setPIDlimits(-1, 1);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setPID(12, 0.0, 0.0);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            intake.setSpeed(0.5);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
-                          }),
-                      new WaitCommand(0.1),
-                      new InstantCommand(
-                          () -> {
-                            arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setPIDlimits(-1, 1);
-                          }),
-                      new WaitCommand(0.0),
-                      new InstantCommand(
-                          () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
-                          }),
-                      new BargFligIntake(arm, intake, Constants.Presets.armBargeYeetRelease),
-                      // new WaitCommand(0.39),//WORKED at 0.2
-                      // new InstantCommand(() -> {intake.setSpeed(-1);}),
-                      new WaitCommand(0.75),
-                      new InstantCommand(
-                          () -> {
-                            elevator.setPIDlimits(-0.8, 0.8);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setPID(9, 0, 0);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setPIDlimits(
-                                -Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setCurrentLimit(Constants.Arm.normalCurrentLimit);
-                          }))
-                  .schedule();
-            });
     // CLIMB===========================
     OI.startClimb()
         .rising()
@@ -981,8 +1037,8 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftClimb);
                             arm.setTargetAngle(Constants.Presets.armClimb, 0);
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
                           }),
-                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover),
                       new WaitCommand(0.5),
                       new InstantCommand(
                           () -> {
