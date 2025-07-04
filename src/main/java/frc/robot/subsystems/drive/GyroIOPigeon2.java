@@ -36,7 +36,7 @@ public class GyroIOPigeon2 implements GyroIO {
   private final StatusSignal<AngularVelocity> yawVelocity = pigeon.getAngularVelocityZWorld();
 
   public GyroIOPigeon2() {
-    
+
     // Pigeon2Configuration myConfiguratioon = new Pigeon2Configuration()
     // myConfiguratioon.GyroTrim.GyroScalarY
     // pigeon.getConfigurator().apply(new Pigeon2Configuration());

@@ -1,7 +1,6 @@
 package frc.robot.subsystems.SuperStructure;
 
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
@@ -14,7 +13,6 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import org.littletonrobotics.junction.Logger;
 
 public class Arm extends SubsystemBase {
   SparkFlex armMotor;
@@ -23,10 +21,7 @@ public class Arm extends SubsystemBase {
   private double targetPosition;
   private RelativeEncoder encoder;
 
-  public boolean groundIntaking = false;
   public Command bufferedCommand = null;
-
-  public boolean defenseMode = false;
 
   private final TrapezoidProfile.Constraints armConstraints =
       new TrapezoidProfile.Constraints(Constants.Arm.maxVelocity, Constants.Arm.maxAcceleration);
@@ -87,26 +82,23 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
-    double currentPosition = getAbsoluteTicks();
-
-    if (useProfiledPID) {
-      double output = profiledPID.calculate(currentPosition);
-      armMotor.set(output);
-    }
-    
-    // Logger.recordOutput("Arm/profiledPID", profiledPID.);
-    Logger.recordOutput("Arm/profiledPID", useProfiledPID);
-    Logger.recordOutput("Arm/Arm-Position", currentPosition);
-    Logger.recordOutput("Arm/Arm-Encoder-Position", armMotor.getAbsoluteEncoder().getPosition());
-    Logger.recordOutput("Arm/Target-Position", targetPosition);
-    Logger.recordOutput("Arm/ProfiledPID-Output", profiledPID.getSetpoint().position);
-    Logger.recordOutput("Arm/Manual-Power", manualPower);
-    Logger.recordOutput("Arm/Applied-Output", armMotor.getAppliedOutput());
-    Logger.recordOutput("Arm/Current-Limit", armMotor.configAccessor.getSmartCurrentLimit());
-    Logger.recordOutput("Arm/Applied-Current", armMotor.getOutputCurrent());
-    Logger.recordOutput("Arm/RPM", armMotor.getEncoder().getVelocity());
-    Logger.recordOutput("Arm/DefenseMode", defenseMode);
+    // Logger.recordOutput("Arm/Arm-Position", encoder.getPosition());
+    // Logger.recordOutput("Arm/Arm-Encoder-Position", armMotor.getAbsoluteEncoder().getPosition());
+    // Logger.recordOutput("Arm/Target-Position", targetPosition);
+    // Logger.recordOutput("Arm/Manual-Power", manualPower);
+    // Logger.recordOutput("Arm/Applied-Output", armMotor.getAppliedOutput());
+    // Logger.recordOutput("Arm/Current-Limit", armMotor.configAccessor.getSmartCurrentLimit());
+    // Logger.recordOutput("Arm/Applied-Current", armMotor.getOutputCurrent());
+    // Logger.recordOutput("Arm/RPM", armMotor.getEncoder().getVelocity());
+    // Logger.recordOutput("Arm/DefenseMode", defenseMode);
   }
+
+  // public void setMotorPower(double power) {
+  //   power = Math.max(Math.min(power, 1), -1);
+  //   manualPower = power;
+  //   // System.out.println(manualPower);
+  //   armMotor.set(manualPower);
+  // }
 
   public double getManualMotorPower() {
     return manualPower;
