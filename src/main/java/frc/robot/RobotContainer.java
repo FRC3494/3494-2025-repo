@@ -13,9 +13,11 @@
 
 package frc.robot;
 
-import com.google.googlejavaformat.Indent.Const;
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -52,7 +54,6 @@ import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -125,8 +126,10 @@ public class RobotContainer {
     }
 
     // Set up auto routines
-    NamedCommands.registerCommand("VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2));
-    NamedCommands.registerCommand("IntakeGroundCoral", new IntakeGroundCoral(groundIntake, arm, elevator, intake));
+    NamedCommands.registerCommand(
+        "VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 1.5));
+    NamedCommands.registerCommand(
+        "IntakeGroundCoral", new IntakeGroundCoral(groundIntake, arm, elevator, intake));
     NamedCommands.registerCommand(
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
     
@@ -502,12 +505,20 @@ public class RobotContainer {
                     drive)
                 .ignoringDisable(true));
 
-    controller.b().onTrue(new InstantCommand(()-> {
-      MainDriveCommand.coralAligning = true;
-    }));
-    controller.b().onFalse(new InstantCommand(()-> {
-      MainDriveCommand.coralAligning = false;
-    }));
+    controller
+        .b()
+        .onTrue(
+            new InstantCommand(
+                () -> {
+                  MainDriveCommand.coralAligning = true;
+                }));
+    controller
+        .b()
+        .onFalse(
+            new InstantCommand(
+                () -> {
+                  MainDriveCommand.coralAligning = false;
+                }));
 
     // ======== L3 ============
     OI.L3Algea()
@@ -839,11 +850,11 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Command l1GroundIntakeHigh =
-                      new InstantCommand(
-                          () -> {
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1High);
-                            groundIntake.setIntakePower(0, 0);
-                          });
+                  new InstantCommand(
+                      () -> {
+                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1High);
+                        groundIntake.setIntakePower(0, 0);
+                      });
 
               if (!arm.groundIntaking) {
                 l1GroundIntakeHigh.schedule();
@@ -852,35 +863,42 @@ public class RobotContainer {
               }
             });
 
-    OI.L1Outtake().rising().ifHigh(()->{
-      groundIntake.setIntakePower(0.2, -0.5);
-    });
-    OI.L1Outtake().falling().ifHigh(()->{
-      groundIntake.setIntakePower(0, 0);
-    });
-    OI.groundIntakeOuttake().or(()->{return (drive.coralIntededforL1? controller.getLeftTriggerAxis()>=0.2: false);})
+    OI.L1Outtake()
         .rising()
         .ifHigh(
             () -> {
-                Commands.sequence(
-                        new InstantCommand(
-                            () -> {
-                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
-                              
-                            }),
-                            new WaitCommand(0.5),
-                            new InstantCommand(
-                              () -> {
-                                groundIntake.setIntakePower(0.25, -0.25); //0.25, -0.25
-                                
-                              }),
-                        new WaitCommand(0.0),
-                        new InstantCommand(
-                            () -> {
-                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
-                            }))
-                    .schedule();
-              
+              groundIntake.setIntakePower(0.2, -0.5);
+            });
+    OI.L1Outtake()
+        .falling()
+        .ifHigh(
+            () -> {
+              groundIntake.setIntakePower(0, 0);
+            });
+    OI.groundIntakeOuttake()
+        .or(
+            () -> {
+              return (drive.coralIntededforL1 ? controller.getLeftTriggerAxis() >= 0.2 : false);
+            })
+        .rising()
+        .ifHigh(
+            () -> {
+              Commands.sequence(
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
+                          }),
+                      new WaitCommand(0.5),
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePower(0.25, -0.25); // 0.25, -0.25
+                          }),
+                      new WaitCommand(0.0),
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
+                          }))
+                  .schedule();
             });
     OI.groundIntakeOuttake()
         .falling()
@@ -895,6 +913,18 @@ public class RobotContainer {
               groundIntake.setIntakePower(-0.2, 0.5);
             });
     OI.groundIntakeIntake()
+        .falling()
+        .ifHigh(
+            () -> {
+              groundIntake.setIntakePower(0, 0);
+            });
+    OI.groundIntakeManualOut()
+        .rising()
+        .ifHigh(
+            () -> {
+              groundIntake.setIntakePower(0.2, -0.5);
+            });
+    OI.groundIntakeManualOut()
         .falling()
         .ifHigh(
             () -> {
