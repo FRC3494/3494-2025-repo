@@ -119,13 +119,6 @@ public class GroundIntake extends SubsystemBase {
             }));
   }
 
-  public Command setIntaking(boolean intaking) {
-    return new InstantCommand(
-        () -> {
-          this.intaking = intaking;
-        });
-  }
-
   @Override
   public void periodic() {
     // double motorpower = pivotMotorPIDLoop.calculate(targetPosition,
@@ -146,8 +139,6 @@ public class GroundIntake extends SubsystemBase {
     Logger.recordOutput("Ground-Intake/Distance-Sensor/Status", m_rangeSensor.getStatus());
 
     Logger.recordOutput("Ground-Intake/Pivot-Position", pivotMotor.getEncoder().getPosition());
-    Logger.recordOutput(
-        "Ground-Intake/Pivot-Abs-Position", pivotMotor.getAbsoluteEncoder().getPosition());
     // Logger.recordOutput("Grount-Intake/PID-Power", motorpower);
     Logger.recordOutput(
         "Ground-Intake/Pivot-Abs-Position", pivotMotor.getAbsoluteEncoder().getPosition());

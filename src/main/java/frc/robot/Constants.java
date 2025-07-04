@@ -125,9 +125,6 @@ public final class Constants {
     public static int distanceSensorDeviceNumber = 31;
 
     public static double CoralDistanceTheshold = 400;
-
-    public static double intakeFrontPower = 0.2;
-    public static double intakeBackPower = 0.5;
   }
 
   public static class Arm {
