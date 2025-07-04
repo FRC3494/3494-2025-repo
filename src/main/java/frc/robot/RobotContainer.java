@@ -127,12 +127,12 @@ public class RobotContainer {
 
     // Set up auto routines
     NamedCommands.registerCommand(
-        "VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 1.5));
+        "VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2));
     NamedCommands.registerCommand(
         "IntakeGroundCoral", new IntakeGroundCoral(groundIntake, arm, elevator, intake));
     NamedCommands.registerCommand(
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
-    
+
     NamedCommands.registerCommand(
         "Blue-Left-Set-Pose",
         new InstantCommand(
