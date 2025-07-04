@@ -151,6 +151,8 @@ public class GroundIntake extends SubsystemBase {
 
     Logger.recordOutput("Ground-Intake/Back-Power", backIntakeMotor.getAppliedOutput());
     Logger.recordOutput("Ground-Intake/Back-Current", backIntakeMotor.getOutputCurrent());
+
+    Logger.recordOutput("Ground-Intake/Defense-Mode", defenseMode);
   }
 
   public double getDistanceSensor() {

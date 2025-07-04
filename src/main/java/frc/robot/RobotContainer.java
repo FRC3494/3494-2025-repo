@@ -207,8 +207,8 @@ public class RobotContainer {
             new InstantCommand(
                 () -> {
                   arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                  groundIntake.setIntakePosition(Constants.Presets.groundIntakeStation);
-                })));
+                }),
+            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStation)));
     NamedCommands.registerCommand(
         "L1",
         Commands.sequence(
@@ -235,11 +235,7 @@ public class RobotContainer {
                 })));
     NamedCommands.registerCommand(
         "GroundIntakeDown",
-        Commands.sequence(
-            new InstantCommand(
-                () -> {
-                  groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
-                })));
+        Commands.sequence(groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover)));
     // NamedCommands.registerCommand(
     //     "HOLDALGEA", Commands.sequence(
     //         new InstantCommand(
@@ -305,10 +301,7 @@ public class RobotContainer {
                 () -> {
                   elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
                 }),
-            new InstantCommand(
-                () -> {
-                  groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
-                }),
+            groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover),
             new WaitCommand(0.5),
             new InstantCommand(
                 () -> {
@@ -683,11 +676,8 @@ public class RobotContainer {
                             arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                           }),
                       new WaitCommand(0.25),
-                      new InstantCommand(
-                          () -> {
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStation);
-                            groundIntake.setIntakePower(0, 0);
-                          }),
+                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeStation),
+                      groundIntake.setIntakePower(0, 0),
                       new WaitCommand(0.5),
                       new InstantCommand(
                           () -> {
@@ -772,11 +762,8 @@ public class RobotContainer {
                             arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                           }),
                       new WaitCommand(groundIntake.defenseDelay / 2.0),
-                      new InstantCommand(
-                          () -> {
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                            groundIntake.setIntakePower(-0.85, 0.5);
-                          }),
+                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake),
+                      groundIntake.setIntakePower(-0.85, 0.5),
                       new WaitCommand(groundIntake.defenseDelay / 3.5),
                       new InstantCommand(
                           () -> {
@@ -797,10 +784,10 @@ public class RobotContainer {
                             arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                           }),
                       new WaitCommand(groundIntake.defenseDelay / 3),
+                      groundIntake.setIntakePosition(groundIntake.hoverPosition),
+                      groundIntake.setIntakePower(0, 0),
                       new InstantCommand(
                           () -> {
-                            groundIntake.setIntakePosition(groundIntake.hoverPosition);
-                            groundIntake.setIntakePower(0, 0);
                             groundIntake.intaking = false;
                           }))
                   .schedule();
@@ -812,12 +799,12 @@ public class RobotContainer {
             () -> {
               Command l1gIntake =
                   Commands.sequence(
+                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake),
+                      groundIntake.setIntakePower(-0.85, -0.6),
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
                             arm.setTargetAngle(Constants.Presets.armAlgeaL2, 0);
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                            groundIntake.setIntakePower(-0.85, -0.6);
                             drive.coralIntededforL1 = true;
                             AutoAlignDesitationDeterminer.placingAtL1 = true;
                           }));
@@ -832,11 +819,9 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Command l1GroundIntakeHigh =
-                  new InstantCommand(
-                      () -> {
-                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1High);
-                        groundIntake.setIntakePower(0, 0);
-                      });
+                  Commands.sequence(
+                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1High),
+                      groundIntake.setIntakePower(0, 0));
 
               if (!groundIntake.intaking) {
                 l1GroundIntakeHigh.schedule();
@@ -848,13 +833,13 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0.2, -0.5);
+              groundIntake.setIntakePower(0.2, -0.5).schedule();
             });
     OI.L1Outtake()
         .falling()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0, 0);
+              groundIntake.setIntakePower(0, 0).schedule();
             });
     OI.groundIntakeOuttake()
         .or(
@@ -865,51 +850,42 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Commands.sequence(
-                      new InstantCommand(
-                          () -> {
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
-                          }),
+                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1),
                       new WaitCommand(0.5),
-                      new InstantCommand(
-                          () -> {
-                            groundIntake.setIntakePower(0.25, -0.25); // 0.25, -0.25
-                          }),
+                      groundIntake.setIntakePower(0.25, -0.25), // 0.25, -0.25
                       new WaitCommand(0.0),
-                      new InstantCommand(
-                          () -> {
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
-                          }))
+                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk))
                   .schedule();
             });
     OI.groundIntakeOuttake()
         .falling()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0, 0);
+              groundIntake.setIntakePower(0, 0).schedule();
             });
     OI.groundIntakeIntake()
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(-0.2, 0.5);
+              groundIntake.setIntakePower(-0.2, 0.5).schedule();
             });
     OI.groundIntakeIntake()
         .falling()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0, 0);
+              groundIntake.setIntakePower(0, 0).schedule();
             });
     OI.groundIntakeManualOut()
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0.2, -0.5);
+              groundIntake.setIntakePower(0.2, -0.5).schedule();
             });
     OI.groundIntakeManualOut()
         .falling()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0, 0);
+              groundIntake.setIntakePower(0, 0).schedule();
             });
     // LOW INTAKE======================
     // OI.lowIntake().falling().ifHigh(()->{
@@ -1018,8 +994,8 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftClimb);
                             arm.setTargetAngle(Constants.Presets.armClimb, 0);
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
                           }),
+                      groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover),
                       new WaitCommand(0.5),
                       new InstantCommand(
                           () -> {
