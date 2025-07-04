@@ -124,13 +124,16 @@ public final class Constants {
   }
 
   public static class Arm {
+    public static double maxVelocity = 3;
+    public static double maxAcceleration = 3;
+    public static double positionTolerance = 0.001;
     public static int armMotor = 15;
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
     public static double ARM_OFFSET = 0.5122203;
 
-    public static int normalCurrentLimit = 75;
+    public static int normalCurrentLimit = 30;//75;
   }
 
   public static class Intake {

@@ -87,6 +87,9 @@ public final class OI {
   public static BooleanEvent bargeYeet() {
     return leftButtonBoard.button(7, eventLoop);
   }
+  public static BooleanEvent bargeYeet2() {
+    return rightButtonBoard.button(4, eventLoop);
+  }
   public static BooleanEvent bargeStage() {
     return leftButtonBoard.button(9, eventLoop);
   }
