@@ -13,6 +13,8 @@
 
 package frc.robot.subsystems.drive;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -20,13 +22,11 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.util.Units;
 import frc.robot.Constants;
-import org.littletonrobotics.junction.Logger;
 
 public class Module {
   private static final double WHEEL_RADIUS =
       Units.inchesToMeters(
-          2.02368); // 2.0775374216272326);//2.50410195);//2.450789576520621);//1.6703883408404518
-  // inches//1.6723303021786367 inches //1.671774376846477);//2.031000299198190);
+          2.0025942377763206); // 2.02368);//2.0775374216272326);//2.50410195);//2.450789576520621);//1.6703883408404518 inches//1.6723303021786367 inches //1.671774376846477);//2.031000299198190);
   // Units.inchesToMeters(1.895796963450933);
   // Units.inchesToMeters(2.0);
   static final double ODOMETRY_FREQUENCY = 250.0;
