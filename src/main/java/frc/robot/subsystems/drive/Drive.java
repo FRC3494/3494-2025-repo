@@ -312,9 +312,9 @@ public class Drive extends SubsystemBase {
 
       }
       specialPoseEstimation = currentRadiusFromReef < 1.8;
-      // if (!m_LimeLight1.measurmentValid()) {
-      //   specialPoseEstimation = false; //TODO: this line says weather we go into megatag 1 when close to the reef
-      // }
+      if (!m_LimeLight1.measurmentValid()) {
+        specialPoseEstimation = false; //TODO: this line says weather we go into megatag 1 when close to the reef
+      }
       Logger.recordOutput("Drive/DistanceFromReef", currentRadiusFromReef);
       Logger.recordOutput("Drive/InSpecialMode", specialPoseEstimation);
       
