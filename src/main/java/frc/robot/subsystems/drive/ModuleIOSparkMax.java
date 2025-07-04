@@ -111,7 +111,7 @@ public class ModuleIOSparkMax implements ModuleIO {
         throw new RuntimeException("Invalid module index");
     }
     driveSparkFlexConfig.voltageCompensation(12);
-    driveSparkFlexConfig.smartCurrentLimit(50);//40
+    driveSparkFlexConfig.smartCurrentLimit(50); // 40
     driveSparkFlexConfig.signals.primaryEncoderPositionPeriodMs(
         (int) (1000.0 / Module.ODOMETRY_FREQUENCY));
 

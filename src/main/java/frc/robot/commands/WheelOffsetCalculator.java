@@ -23,7 +23,6 @@ public class WheelOffsetCalculator extends Command {
 
   @Override
   public void initialize() {
-    
 
     ArrayList<Rotation2d> positions = drive.getRawTurnEncoderPositions();
 

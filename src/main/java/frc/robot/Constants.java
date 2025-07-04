@@ -80,7 +80,7 @@ public final class Constants {
     public static double liftOuttakeL2 = 20;
     public static double liftOuttakeL3 = 46.0;
     public static double liftAlgeaL3 = 28.75;
-    public static double liftAlgeaL3Auto = 35.643;//
+    public static double liftAlgeaL3Auto = 35.643; //
     public static double liftAlgeaL2 = 3.7;
     public static double liftAlgeaTeleopL2 = 0;
 
