@@ -17,35 +17,15 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "named",
           "data": {
-            "commands": [
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "FreeArm"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "L2 Outtake"
-                      }
-                    }
-                  ]
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Red-Fast-1st-piece-left"
-                }
-              }
-            ]
+            "name": "L2 Outtake"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Red-1st-peice-left"
           }
         },
         {
@@ -57,7 +37,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.12
+            "waitTime": 0.3
           }
         },
         {
@@ -67,7 +47,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red-Fast-Intake-from-1st-piece"
+                  "pathName": "Red-Intake-from-1st-peice"
                 }
               },
               {
@@ -117,7 +97,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red-Fast-2nd-piece"
+                  "pathName": "Red-2nd-peice"
                 }
               },
               {
@@ -138,7 +118,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.25
+            "waitTime": 0.3
           }
         },
         {
@@ -149,18 +129,6 @@
                 "type": "sequential",
                 "data": {
                   "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.1
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Stop Intake"
-                      }
-                    },
                     {
                       "type": "wait",
                       "data": {
@@ -185,7 +153,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red-Fast-Intake-from-2nd-piece"
+                  "pathName": "Red-Intake-from-2nd-peice"
                 }
               }
             ]
@@ -210,7 +178,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red-Fast-3rd-piece"
+                  "pathName": "Red-3rd-peice"
                 }
               },
               {
@@ -231,7 +199,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.25
+            "waitTime": 0.35
           }
         },
         {
@@ -241,7 +209,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red-Fast-3rd-piece-algae"
+                  "pathName": "Red-3rd-peice-algea"
                 }
               },
               {
@@ -257,7 +225,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.2
+                        "waitTime": 0.25
                       }
                     },
                     {
@@ -281,39 +249,13 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.2
+            "waitTime": 0.25
           }
         },
         {
-          "type": "parallel",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Red-Fast-Gunit"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 1.5
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Algea Pos"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
+            "pathName": "Red-Gunit"
           }
         }
       ]
