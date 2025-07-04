@@ -1,15 +1,16 @@
 package frc.robot.subsystems.SuperStructure;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -23,13 +24,7 @@ public class Arm extends SubsystemBase {
 
   public Command bufferedCommand = null;
 
-  private final TrapezoidProfile.Constraints armConstraints =
-      new TrapezoidProfile.Constraints(Constants.Arm.maxVelocity, Constants.Arm.maxAcceleration);
-
-  private final ProfiledPIDController profiledPID =
-      new ProfiledPIDController(6.0, 0.0, 0.0, armConstraints);
-
-  private boolean useProfiledPID = false;
+  public boolean defenseMode = false;
 
   public Arm() {
     armMotor = new SparkFlex(Constants.Arm.armMotor, MotorType.kBrushless);
@@ -37,13 +32,13 @@ public class Arm extends SubsystemBase {
     encoder = armMotor.getEncoder();
 
     armMotorConfig = new SparkFlexConfig();
-    armMotorConfig.idleMode(IdleMode.kBrake);
+    armMotorConfig.idleMode(IdleMode.kCoast);
     armMotorConfig.inverted(false);
     armMotorConfig.smartCurrentLimit(Constants.Arm.normalCurrentLimit);
 
     armMotorConfig.closedLoop.pid(9, 0, 0);
     armMotorConfig.closedLoop.outputRange(
-        -Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
+        -Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange); // -.45, .45);
     armMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
     armMotorConfig.closedLoopRampRate(0);
     armMotorConfig.openLoopRampRate(0);
@@ -55,9 +50,6 @@ public class Arm extends SubsystemBase {
 
     armMotor.configure(
         armMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    profiledPID.setTolerance(Constants.Arm.positionTolerance);
-    profiledPID.setGoal(getAbsoluteTicks());
   }
 
   public void setBrakes(IdleMode neutralMode) {
@@ -68,16 +60,21 @@ public class Arm extends SubsystemBase {
 
   public void setTargetAngle(double ticks, double arbFFVoltage) {
     targetPosition = ticks + Constants.Presets.globalArmOffset;
-    profiledPID.setGoal(targetPosition);
-    useProfiledPID = true;
+
+    if (targetPosition < 0) {}
+
+    armMotor
+        .getClosedLoopController()
+        .setReference(
+            ticks + Constants.Presets.globalArmOffset,
+            SparkMax.ControlType.kPosition,
+            ClosedLoopSlot.kSlot0);
   }
 
   public void setPID(double p, double i, double d) {
-    profiledPID.setPID(p, i, d);
-  }
-
-  public void useBuiltInPID(boolean useBuiltIn) {
-    useProfiledPID = !useBuiltIn;
+    armMotorConfig.closedLoop.pid(p, i, d);
+    armMotor.configure(
+        armMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
   }
 
   @Override
@@ -109,6 +106,7 @@ public class Arm extends SubsystemBase {
   }
 
   public double getAbsoluteTicks() {
+    // return armMotor.getEncoder().getPosition();
     return armMotor.getAbsoluteEncoder().getPosition();
   }
 

@@ -93,7 +93,6 @@ public class Drive extends SubsystemBase {
   public Limelights m_LimeLight1 = new Limelights(this, "limelight-right");
   public Limelights m_LimeLight2 = new Limelights(this, "limelight-left");
   public Limelights m_LimeLight3 = new Limelights(this, "limelight-swerve");
-
   public double rotationRate = 0;
   public boolean specialPoseEstimation = false;
   public boolean coralIntededforL1 = false;
@@ -192,7 +191,6 @@ public class Drive extends SubsystemBase {
     m_LimeLight1.periodic();
     m_LimeLight2.periodic();
     m_LimeLight3.periodic();
-    getCoralYaw();
     odometryLock.lock(); // Prevents odometry updates while reading data
     gyroIO.updateInputs(gyroInputs);
 

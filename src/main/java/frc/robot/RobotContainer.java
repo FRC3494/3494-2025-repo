@@ -13,8 +13,11 @@
 
 package frc.robot;
 
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -51,7 +54,6 @@ import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -760,10 +762,10 @@ public class RobotContainer {
                                 == Constants.Presets.armIntakeAlt
                                     + Constants.Presets.globalArmOffset) {
                               elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
-                              // groundIntake.defenseDelay = 2;
+                              // Constants.Presets.defenseDelay = 2;
                             } else {
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                              // groundIntake.defenseDelay = 0;
+                              // Constants.Presets.defenseDelay = 0;
                             }
 
                             arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
@@ -772,15 +774,13 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                            groundIntake.setIntakePower(-0.85, 0.85);
+                            groundIntake.setIntakePower(-0.85, 0.5);
                           }),
                       new WaitCommand(groundIntake.defenseDelay / 3.5),
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
                             arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
-                            drive.coralIntededforL1 = false;
-                            AutoAlignDesitationDeterminer.placingAtL1 = false;
                           }))
                   .schedule();
             });
@@ -830,23 +830,6 @@ public class RobotContainer {
         .falling()
         .ifHigh(
             () -> {
-              Command l1gItnake =
-                  new InstantCommand(
-                      () -> {
-                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
-                        groundIntake.setIntakePower(0, 0);
-                      });
-
-              if (!groundIntake.intaking) {
-                l1gItnake.schedule();
-              } else {
-                arm.bufferedCommand = l1gItnake;
-              }
-            });
-    OI.L1GroundIntake()
-        .falling()
-        .ifHigh(
-            () -> {
               Command l1GroundIntakeHigh =
                   new InstantCommand(
                       () -> {
@@ -860,7 +843,6 @@ public class RobotContainer {
                 arm.bufferedCommand = l1GroundIntakeHigh;
               }
             });
-
     OI.L1Outtake()
         .rising()
         .ifHigh(
