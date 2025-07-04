@@ -21,7 +21,6 @@ import frc.robot.Constants;
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 
-
 public class GroundIntake extends SubsystemBase {
   private SparkFlex pivotMotor;
   private SparkFlexConfig pivotMotorConfig;
@@ -78,10 +77,10 @@ public class GroundIntake extends SubsystemBase {
     // Configure time of flight sensor for short ranging mode and sample
     // distance every 40 ms
     m_rangeSensor.setRangingMode(RangingMode.Short, 40);
+
   }
 
   public void setIntakePosition(double position) {
-    
     pivotMotor.getClosedLoopController().setReference(position, SparkBase.ControlType.kPosition);
     targetPosition = position;
   }
@@ -122,5 +121,8 @@ public class GroundIntake extends SubsystemBase {
 
     Logger.recordOutput("Ground-Intake/Back-Power", backIntakeMotor.getAppliedOutput());
     Logger.recordOutput("Ground-Intake/Back-Current", backIntakeMotor.getOutputCurrent());
+  }
+  public double getDistanceSensor(){
+    return m_rangeSensor.getRange();
   }
 }

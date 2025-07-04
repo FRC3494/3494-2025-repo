@@ -6,8 +6,9 @@
     "Fast-Left-Side",
     "Fast-Right-Side",
     "Left-Side",
-    "Middle-Side",
     "Middle-Ground-Intake",
+    "Middle-Side",
+    "Middle-Ground-Intake-Amp-Side",
     "Right-Side"
   ],
   "autoFolders": [],

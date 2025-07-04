@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.256,
-        "y": 3.894
+        "x": 3.276,
+        "y": 4.1
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.7167632450331123,
-        "y": 4.046792218543046
+        "x": 2.431168831168831,
+        "y": 4.042767857142857
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.8813948675496688,
-        "y": 4.141225165562914
+        "x": 1.5503533568904595,
+        "y": 2.745958480565371
       },
       "prevControl": {
-        "x": 2.5594630493678503,
-        "y": 4.171139938290187
+        "x": 1.775539615168605,
+        "y": 3.1818028514262973
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,11 +32,11 @@
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.48935064935064226,
+      "minWaypointRelativePos": 0.65,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
-        "maxAcceleration": 1.0,
+        "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -56,7 +56,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": -41.760299703898006
   },
   "reversed": false,
   "folder": "Middle-Ground-Intake",

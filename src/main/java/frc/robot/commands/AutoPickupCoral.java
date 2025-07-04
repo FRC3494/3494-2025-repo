@@ -107,7 +107,7 @@ public class AutoPickupCoral extends Command {
     @Override
     public boolean isFinished() {
         Logger.recordOutput("Drive/Searching", true);
-        if (timer.hasElapsed(time)) {
+        if (timer.hasElapsed(time) || groundIntake.getDistanceSensor()<Constants.GroundIntake.CoralDistanceTheshold) {
             return true;
         }
         // try {
