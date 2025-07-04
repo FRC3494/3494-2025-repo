@@ -1,12 +1,13 @@
 package frc.robot.commands;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.OI;
 import frc.robot.subsystems.SuperStructure.Arm;
 import frc.robot.subsystems.SuperStructure.Intake;
-import org.littletonrobotics.junction.Logger;
 
 public class TeleopIntake extends Command {
   private Intake intake;
@@ -44,7 +45,6 @@ public class TeleopIntake extends Command {
     } else {
       // AutoAlignDesitationDeterminer.placingAtL1 = false;
     }
-
     if (arm.getTargetPosition() == Constants.Presets.armCoral + Constants.Presets.globalArmOffset
         || arm.getTargetPosition()
             == Constants.Presets.armBargeStore + Constants.Presets.globalArmOffset) {

@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -9,7 +11,6 @@ import frc.robot.subsystems.SuperStructure.Arm;
 import frc.robot.subsystems.SuperStructure.Elevator;
 import frc.robot.subsystems.SuperStructure.Intake;
 import frc.robot.subsystems.drive.Drive;
-import org.littletonrobotics.junction.Logger;
 
 public class AutoPickupCoral extends Command {
   private Timer timer;
@@ -63,8 +64,8 @@ public class AutoPickupCoral extends Command {
     // }
     System.out.println(time + "|" + timer.hasElapsed(time));
     Logger.recordOutput("Drive/Auto-Timer", timer.get());
-    double omegaRot;
-    omegaRot = drive.getCoralYaw();
+    double omegaRot = drive.getCoralYaw();
+
     // drive.runVelocity(
     // ChassisSpeeds.fromFieldRelativeSpeeds(
     //     0 * drive.getMaxLinearSpeedMetersPerSec(),
