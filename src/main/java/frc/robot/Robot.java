@@ -13,6 +13,12 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.Threads;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.LoggedMitocandria;
+import frc.robot.subsystems.drive.ModuleIOSparkMax;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -20,13 +26,6 @@ import org.littletonrobotics.junction.inputs.LoggedPowerDistribution;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
-
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.Threads;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.LoggedMitocandria;
-import frc.robot.subsystems.drive.ModuleIOSparkMax;
 
 // import org.littletonrobotics.urcl.URCL;
 

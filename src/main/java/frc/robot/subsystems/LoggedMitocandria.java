@@ -1,10 +1,9 @@
 package frc.robot.subsystems;
 
-import org.littletonrobotics.junction.Logger;
-
 import au.grapplerobotics.CouldNotGetException;
 import au.grapplerobotics.MitoCANdria;
 import frc.robot.Constants;
+import org.littletonrobotics.junction.Logger;
 
 public class LoggedMitocandria {
   MitoCANdria mito;

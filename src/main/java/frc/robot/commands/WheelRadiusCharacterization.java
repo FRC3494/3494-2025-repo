@@ -8,10 +8,6 @@
 package frc.robot.commands;
 
 // import frc.robot.subsystems.drive.DriveMode;
-import java.util.function.DoubleSupplier;
-
-import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -20,6 +16,8 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.drive.Drive;
+import java.util.function.DoubleSupplier;
+import org.littletonrobotics.junction.Logger;
 
 public class WheelRadiusCharacterization extends Command {
   private static final double characterizationSpeed = 2.0;

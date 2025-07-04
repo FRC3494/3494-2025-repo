@@ -13,6 +13,9 @@
 
 package frc.robot.subsystems.drive;
 
+import com.revrobotics.REVLibError;
+import edu.wpi.first.wpilibj.Notifier;
+import edu.wpi.first.wpilibj.RobotController;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
@@ -20,13 +23,7 @@ import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Supplier;
-
 import javax.annotation.Nullable;
-
-import com.revrobotics.REVLibError;
-
-import edu.wpi.first.wpilibj.Notifier;
-import edu.wpi.first.wpilibj.RobotController;
 
 /**
  * Provides an interface for asynchronously reading high-frequency measurements to a set of queues.

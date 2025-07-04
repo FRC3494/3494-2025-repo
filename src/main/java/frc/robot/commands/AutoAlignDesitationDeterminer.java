@@ -1,14 +1,13 @@
 package frc.robot.commands;
 
-import java.util.Optional;
-import java.util.function.Supplier;
-
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants;
+import java.util.Optional;
+import java.util.function.Supplier;
 
 public class AutoAlignDesitationDeterminer {
   public static boolean placingAtL1 = false;
