@@ -99,7 +99,7 @@ public class AutoPickupCoral extends Command {
         System.out.println("ENDING Note COMMAND");
         drive.runVelocity(
                 ChassisSpeeds.fromRobotRelativeSpeeds(
-                    -0.2 * drive.getMaxLinearSpeedMetersPerSec(),
+                    0 * drive.getMaxLinearSpeedMetersPerSec(),
                     0 * drive.getMaxLinearSpeedMetersPerSec(),
                     0* drive.getMaxAngularSpeedRadPerSec(), drive.getRotation()));
     }
