@@ -67,7 +67,7 @@ public final class Constants {
     public static double armOuttakeL2 = 0.605; // -111.0;
     public static double armOuttakeL2Auto = 0.610; // 0.595;
     public static double armOuttakeL3 = 0.62; // -106.0;
-    public static double armGroundTransfer = 0.94;
+    public static double armGroundTransfer = 0.959;//0.944;
 
     public static double armAlgeaL2 = 0.62; // 0.6125; // 0.605
     public static double armAlgeaL2Auto = 0.62;
@@ -100,6 +100,7 @@ public final class Constants {
 
     public static double groundIntakeIntake = 0.03123521; // 0.0;//-19.6;
     public static double groundIntakeHover = 0.05; // 2.0;//-17;
+    public static double groundIntakePop = 0.075; // 2.0;//-17;
     public static double defenseDelay = 0.0;
     public static double groundIntakeStore = 0.38142; // 28.0;//6;
     public static double groundIntakeL1 = 0.36; // not bad: 0.36
