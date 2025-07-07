@@ -65,9 +65,9 @@ public final class Constants {
     public static double armProcessor = 0.53;
     public static double armOuttakeL1 = 0.875;
     public static double armOuttakeL2 = 0.605; // -111.0;
-    public static double armOuttakeL2Auto = 0.605; // 0.595;
+    public static double armOuttakeL2Auto = 0.610; // 0.595;
     public static double armOuttakeL3 = 0.62; // -106.0;
-    public static double armGroundTransfer = 0.96;
+    public static double armGroundTransfer = 0.959; // 0.944;
 
     public static double armAlgeaL2 = 0.62; // 0.6125; // 0.605
     public static double armAlgeaL2Auto = 0.62;
@@ -80,7 +80,7 @@ public final class Constants {
     public static double liftOuttakeL2 = 20;
     public static double liftOuttakeL3 = 46.0;
     public static double liftAlgeaL3 = 28.75;
-    public static double liftAlgeaL3Auto = 35.643; //
+    public static double liftAlgeaL3Auto = 37.0; // 35.643;//
     public static double liftAlgeaL2 = 3.7;
     public static double liftAlgeaTeleopL2 = 0;
 
@@ -100,6 +100,7 @@ public final class Constants {
 
     public static double groundIntakeIntake = 0.03123521; // 0.0;//-19.6;
     public static double groundIntakeHover = 0.05; // 2.0;//-17;
+    public static double groundIntakePop = 0.075; // 2.0;//-17;
     public static double defenseDelay = 0.0;
     public static double groundIntakeStore = 0.38142; // 28.0;//6;
     public static double groundIntakeL1 = 0.36; // not bad: 0.36
@@ -248,6 +249,18 @@ public final class Constants {
         new Pose2d(0.685, 6.703, new Rotation2d(-0.3 * Math.PI - Math.PI / 2.0)) // 9
       };
       public static final Translation2d reefCenter = new Translation2d(4.59, 4.026);
+    }
+  }
+
+  public static class Auto {
+    public static class AmpMidAuto {
+      public static Pose2d pos1 = new Pose2d(2.2, 3.184, new Rotation2d(Math.toRadians(-90)));
+      public static Pose2d algeaPluck =
+          new Pose2d(3.33, 3.894, new Rotation2d(Math.toRadians(-90)));
+      public static Pose2d pos2 = new Pose2d(3.3, 3.894, new Rotation2d(0.0 - Math.PI / 2.0));
+      public static Pose2d pos3 = new Pose2d(1.780, 2.703, new Rotation2d(Math.toRadians(-50)));
+      public static Pose2d pos4 = new Pose2d(2.041, 4.0, new Rotation2d(Math.toRadians(-90)));
+      public static Pose2d pos5 = new Pose2d(3.256, 4.222, new Rotation2d(Math.toRadians(-90)));
     }
   }
 }

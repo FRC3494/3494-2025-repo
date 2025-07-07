@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.revrobotics.spark.SparkBase;
@@ -12,10 +14,10 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import org.littletonrobotics.junction.Logger;
 
 public class GroundIntake extends SubsystemBase {
   private SparkFlex pivotMotor;
@@ -54,11 +56,11 @@ public class GroundIntake extends SubsystemBase {
     pivotMotorConfig.idleMode(IdleMode.kBrake);
 
     frontIntakeMotorConfig.idleMode(IdleMode.kBrake);
-    frontIntakeMotorConfig.smartCurrentLimit(30);
+    frontIntakeMotorConfig.smartCurrentLimit(45);
     frontIntakeMotorConfig.inverted(false);
 
     backIntakeMotorConfig.idleMode(IdleMode.kBrake);
-    backIntakeMotorConfig.smartCurrentLimit(30);
+    backIntakeMotorConfig.smartCurrentLimit(45);
     backIntakeMotorConfig.inverted(false);
 
     pivotMotor.configure(
@@ -85,6 +87,7 @@ public class GroundIntake extends SubsystemBase {
 
   @Override
   public void periodic() {
+
     // double motorpower = pivotMotorPIDLoop.calculate(targetPosition,
     // pivotMotor.getAbsoluteEncoder().getPosition());
     // // motorpower = 0.4;
@@ -115,6 +118,11 @@ public class GroundIntake extends SubsystemBase {
 
     Logger.recordOutput("Ground-Intake/Back-Power", backIntakeMotor.getAppliedOutput());
     Logger.recordOutput("Ground-Intake/Back-Current", backIntakeMotor.getOutputCurrent());
+
+    if (targetPosition == Constants.Presets.groundIntakeIntake
+        && sensor_distance < Constants.GroundIntake.CoralDistanceTheshold) {
+      setIntakePosition(Constants.Presets.groundIntakePop);
+    }
   }
 
   public double getDistanceSensor() {
