@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
     Logger.recordOutput("Intake/Intake-Power", intakeSpeed);
     intakeConfig = new SparkMaxConfig();
     intakeConfig.idleMode(IdleMode.kBrake);
-    intakeConfig.smartCurrentLimit(30);
+    intakeConfig.smartCurrentLimit(40);
     intakeConfig.inverted(false);
     intakeMotor = new SparkMax(Constants.Intake.intakeMotor, MotorType.kBrushless);
     intakeMotor.configure(
