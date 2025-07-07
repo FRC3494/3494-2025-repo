@@ -1,5 +1,7 @@
 package frc.robot.subsystems.SuperStructure;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -10,6 +12,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -79,15 +82,15 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // Logger.recordOutput("Arm/Arm-Position", encoder.getPosition());
-    // Logger.recordOutput("Arm/Arm-Encoder-Position", armMotor.getAbsoluteEncoder().getPosition());
-    // Logger.recordOutput("Arm/Target-Position", targetPosition);
-    // Logger.recordOutput("Arm/Manual-Power", manualPower);
-    // Logger.recordOutput("Arm/Applied-Output", armMotor.getAppliedOutput());
-    // Logger.recordOutput("Arm/Current-Limit", armMotor.configAccessor.getSmartCurrentLimit());
-    // Logger.recordOutput("Arm/Applied-Current", armMotor.getOutputCurrent());
-    // Logger.recordOutput("Arm/RPM", armMotor.getEncoder().getVelocity());
-    // Logger.recordOutput("Arm/DefenseMode", defenseMode);
+    Logger.recordOutput("Arm/Arm-Position", encoder.getPosition());
+    Logger.recordOutput("Arm/Arm-Encoder-Position", armMotor.getAbsoluteEncoder().getPosition());
+    Logger.recordOutput("Arm/Target-Position", targetPosition);
+    Logger.recordOutput("Arm/Manual-Power", manualPower);
+    Logger.recordOutput("Arm/Applied-Output", armMotor.getAppliedOutput());
+    Logger.recordOutput("Arm/Current-Limit", armMotor.configAccessor.getSmartCurrentLimit());
+    Logger.recordOutput("Arm/Applied-Current", armMotor.getOutputCurrent());
+    Logger.recordOutput("Arm/RPM", armMotor.getEncoder().getVelocity());
+    Logger.recordOutput("Arm/DefenseMode", defenseMode);
   }
 
   // public void setMotorPower(double power) {

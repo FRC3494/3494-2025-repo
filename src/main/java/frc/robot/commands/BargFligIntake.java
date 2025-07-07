@@ -20,6 +20,8 @@ public class BargFligIntake extends Command {
   @Override
   public void execute() {
     if (arm.getAbsoluteTicks() <= releaseThreshold) {
+      System.out.println(
+          "Outtaking!!!!!!!!!!!!!!!!!! ----------------------------------------------------------------------------------------------------");
       readyToOuttake = true;
       intake.setSpeed(-1);
     }

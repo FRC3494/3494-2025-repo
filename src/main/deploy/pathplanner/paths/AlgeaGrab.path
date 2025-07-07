@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 5.745,
+        "x": 5.744722762645914,
         "y": 4.175
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.744999999999999,
+        "x": 6.744722762645913,
         "y": 4.175
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Barge-Blue-FirstPiece"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Barge-Blue-AlgeaGrab"
     }
   ],
   "rotationTargets": [],
@@ -48,7 +48,7 @@
   "folder": "Middle-Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 89.35625428582465
+    "rotation": 90.56442505261074
   },
   "useDefaultConstraints": true
 }

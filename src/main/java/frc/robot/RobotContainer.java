@@ -13,8 +13,11 @@
 
 package frc.robot;
 
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -52,7 +55,6 @@ import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -330,19 +332,53 @@ public class RobotContainer {
                 () -> {
                   arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
                 })));
-    
-    NamedCommands.registerCommand("GOTOPos1", new AutoAutoAlign(drive, 1.8,  Constants.Auto.AmpMidAuto.pos1, 4.5, Constants.Drivetrain.maxLinearAcceleration, Constants.Drivetrain.maxLinearVelocity));//todo
-    NamedCommands.registerCommand("GOTOPos2", new AutoAutoAlign(drive, 2,  Constants.Auto.AmpMidAuto.pos2, 3.5, Constants.Drivetrain.maxLinearAcceleration*0.5, Constants.Drivetrain.maxAngularVelocity*0.3));//todo
-    NamedCommands.registerCommand("GOTOPos2pt2", new AutoAutoAlign(drive, 2.5,  Constants.Auto.AmpMidAuto.pos2,3.5, Constants.Drivetrain.maxLinearAcceleration*0.5, Constants.Drivetrain.maxAngularVelocity*0.3));//todo
-    NamedCommands.registerCommand("GOTOPluck", new AutoAutoAlign(drive, 0.25,  Constants.Auto.AmpMidAuto.algeaPluck));//todo
-    NamedCommands.registerCommand("GOTOPos3", new AutoAutoAlign(drive, 1.2,  Constants.Auto.AmpMidAuto.pos3));//todo
-    NamedCommands.registerCommand("GOTOPos4", new AutoAutoAlign(drive, 1.2,  Constants.Auto.AmpMidAuto.pos4));//todo
-    NamedCommands.registerCommand("GOTOPos5", new AutoAutoAlign(drive,2.5,  Constants.Auto.AmpMidAuto.pos5,3.5, Constants.Drivetrain.maxLinearAcceleration*0.3, Constants.Drivetrain.maxAngularVelocity*0.3));//todo
+
+    NamedCommands.registerCommand(
+        "GOTOPos1",
+        new AutoAutoAlign(
+            drive,
+            1.8,
+            Constants.Auto.AmpMidAuto.pos1,
+            4.5,
+            Constants.Drivetrain.maxLinearAcceleration,
+            Constants.Drivetrain.maxLinearVelocity)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPos2",
+        new AutoAutoAlign(
+            drive,
+            2,
+            Constants.Auto.AmpMidAuto.pos2,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.5,
+            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPos2pt2",
+        new AutoAutoAlign(
+            drive,
+            2.5,
+            Constants.Auto.AmpMidAuto.pos2,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.5,
+            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPluck", new AutoAutoAlign(drive, 0.25, Constants.Auto.AmpMidAuto.algeaPluck)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPos3", new AutoAutoAlign(drive, 1.2, Constants.Auto.AmpMidAuto.pos3)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPos4", new AutoAutoAlign(drive, 1.2, Constants.Auto.AmpMidAuto.pos4)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPos5",
+        new AutoAutoAlign(
+            drive,
+            2.5,
+            Constants.Auto.AmpMidAuto.pos5,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.3,
+            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
 
     NamedCommands.registerCommand( // THIS IS IN AUTO, IF YOU WANNA TUNE DONT RUN THIS ONE
         "Barge",
         Commands.sequence(
-
             new InstantCommand(
                 () -> {
                   arm.setCurrentLimit(85);
@@ -368,11 +404,6 @@ public class RobotContainer {
             new InstantCommand(
                 () -> {
                   arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
-                }),
-            new WaitCommand(0.0),
-            new InstantCommand(
-                () -> {
-                  elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
                 }),
             new BargFligIntake(arm, intake, Constants.Presets.armBargeYeetRelease),
             // new WaitCommand(0.39),//WORKED at 0.2
