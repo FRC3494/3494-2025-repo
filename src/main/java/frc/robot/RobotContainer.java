@@ -342,64 +342,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("GOTOPos5", new AutoAutoAlign(drive,2.5,  Constants.Auto.AmpMidAuto.pos5,3.5, Constants.Drivetrain.maxLinearAcceleration*0.3, Constants.Drivetrain.maxAngularVelocity*0.3));//todo
 
     NamedCommands.registerCommand( // THIS IS IN AUTO, IF YOU WANNA TUNE DONT RUN THIS ONE
-        "Barge",
-        Commands.sequence(
-
-            new InstantCommand(
-                () -> {
-                  arm.setCurrentLimit(85);
-                }),
-            // new InstantCommand(() -> {elevator.setPIDlimits(-1, 1);}),
-            new InstantCommand(
-                () -> {
-                  arm.setPIDlimits(-1, 1);
-                }),
-            new InstantCommand(
-                () -> {
-                  arm.setPID(12, 0.0, 0.0);
-                }),
-            new InstantCommand(
-                () -> {
-                  intake.setSpeed(0.5);
-                }),
-            new InstantCommand(
-                () -> {
-                  elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
-                }),
-            new WaitCommand(0.1),
-            new InstantCommand(
-                () -> {
-                  arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
-                }),
-            new WaitCommand(0.0),
-            new InstantCommand(
-                () -> {
-                  elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
-                }),
-            new BargFligIntake(arm, intake, Constants.Presets.armBargeYeetRelease),
-            // new WaitCommand(0.39),//WORKED at 0.2
-            // new InstantCommand(() -> {intake.setSpeed(-1);}),
-            new WaitCommand(0.75),
-            new InstantCommand(
-                () -> {
-                  elevator.setPIDlimits(-0.5, 0.5);
-                }),
-            new InstantCommand(
-                () -> {
-                  arm.setPID(6, 0, 0);
-                }),
-            new InstantCommand(
-                () -> {
-                  arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
-                }),
-            new InstantCommand(
-                () -> {
-                  arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
-                }),
-            new InstantCommand(
-                () -> {
-                  arm.setCurrentLimit(Constants.Arm.normalCurrentLimit);
-                })));
+        "Barge", getBargeCommand());
 
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
     // Set up SysId routines
@@ -982,87 +925,7 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              Commands.sequence(
-                      new InstantCommand(
-                          () -> {
-                            arm.setCurrentLimit(85);
-                          }),
-                      // new InstantCommand(() -> {elevator.setPIDlimits(-1, 1);}),
-                      new InstantCommand(
-                          () -> {
-                            arm.setPIDlimits(-1, 1);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setPID(12, 0.0, 0.0);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            intake.setSpeed(0.5);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
-                          }),
-                      new WaitCommand(0.1),
-                      new InstantCommand(
-                          () -> {
-                            arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setPIDlimits(-1, 1);
-                          }),
-                      new WaitCommand(0.0),
-                      new InstantCommand(
-                          () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
-                          }),
-                      new BargFligIntake(arm, intake, Constants.Presets.armBargeYeetRelease),
-                      // new WaitCommand(0.39),//WORKED at 0.2
-                      // new InstantCommand(() -> {intake.setSpeed(-1);}),
-                      new WaitCommand(0.75),
-                      new InstantCommand(
-                          () -> {
-                            elevator.setPIDlimits(-0.8, 0.8);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setPID(9, 0, 0);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setPIDlimits(
-                                -Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            arm.setCurrentLimit(Constants.Arm.normalCurrentLimit);
-                          }))
-                  .schedule();
-            });
-    // CLIMB===========================
-    OI.startClimb()
-        .rising()
-        .ifHigh(
-            () -> {
-              Commands.sequence(
-                      new InstantCommand(
-                          () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftClimb);
-                            arm.setTargetAngle(Constants.Presets.armClimb, 0);
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
-                          }),
-                      new WaitCommand(0.5),
-                      new InstantCommand(
-                          () -> {
-                            climber.setTargetAngle(0, 0);
-                          }))
-                  .schedule();
+              getBargeCommand().schedule();
             });
 
     // OI.ClimbStage0().rising().ifHigh(()->{
@@ -1147,5 +1010,69 @@ public class RobotContainer {
     System.out.println("Starting: " + command.getName());
 
     return command;
+  }
+
+  public Command getBargeCommand(){
+    return Commands.sequence(
+                      new InstantCommand(
+                          () -> {
+                            arm.setCurrentLimit(85);
+                          }),
+                      // new InstantCommand(() -> {elevator.setPIDlimits(-1, 1);}),
+                      new InstantCommand(
+                          () -> {
+                            arm.setPIDlimits(-1, 1);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            arm.setPID(12, 0.0, 0.0);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            intake.setSpeed(0.75);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
+                          }),
+                      new WaitCommand(0.1),
+                      new InstantCommand(
+                          () -> {
+                            arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            arm.setPIDlimits(-1, 1);
+                          }),
+                      new WaitCommand(0.0),
+                      new InstantCommand(
+                          () -> {
+                            elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
+                          }),
+                      new BargFligIntake(arm, intake, Constants.Presets.armBargeYeetRelease),
+                      // new WaitCommand(0.39),//WORKED at 0.2
+                      // new InstantCommand(() -> {intake.setSpeed(-1);}),
+                      new WaitCommand(0.75),
+                      new InstantCommand(
+                          () -> {
+                            elevator.setPIDlimits(-0.8, 0.8);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            arm.setPID(9, 0, 0);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            arm.setPIDlimits(
+                                -Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            arm.setCurrentLimit(Constants.Arm.normalCurrentLimit);
+                          }));
   }
 }

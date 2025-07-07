@@ -499,13 +499,13 @@ public class Drive extends SubsystemBase {
         objectMapper.readTree(dump).path("Results").path("Detector").elements();
     double closestCoralTx = 0.0;
     double closestCoralTy = 100.0;
-    while (detectorResults.hasNext()) {
-      JsonNode result = detectorResults.next();
-      if (result.path("classID").asInt() == 1 && result.path("ty").asDouble() < closestCoralTy) {
-        closestCoralTx = result.path("tx").asDouble();
-        closestCoralTy = result.path("ty").asDouble();
-      }
-    }
+    // while (detectorResults.hasNext()) {
+    //   JsonNode result = detectorResults.next();
+    //   if (result.path("classID").asInt() == 1 && result.path("ty").asDouble() < closestCoralTy) {
+    //     closestCoralTx = result.path("tx").asDouble();
+    //     closestCoralTy = result.path("ty").asDouble();
+    //   }
+    // }
 
     return Math.abs(closestCoralTx) <= 0.15
         ? 0
