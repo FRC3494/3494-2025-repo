@@ -12,7 +12,7 @@
         "y": 2.8207833567356495
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Barge-Red-Barge"
     },
     {
       "anchor": {
@@ -48,7 +48,7 @@
   "folder": "Middle-Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 107.45
+    "rotation": 107.447
   },
   "useDefaultConstraints": true
 }

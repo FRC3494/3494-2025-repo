@@ -12,7 +12,7 @@
         "y": 3.981
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Barge-Blue-AlgeaGrab"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Barge-Blue-Barge"
     }
   ],
   "rotationTargets": [],
@@ -48,7 +48,7 @@
   "folder": "Middle-Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 89.35625428582465
+    "rotation": 90.56442505261074
   },
   "useDefaultConstraints": false
 }
