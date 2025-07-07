@@ -23,6 +23,12 @@ public class AutoAutoAlign extends Command {
   private  ChassisSpeeds desiredSpeeds = null;
   private  Pose2d targetPos = null;
 
+  private double linearKp;
+  private double maxLinearAcceleration;
+  private double maxLinearVelocity;
+
+  private boolean isCustom = false;
+
   public AutoAutoAlign(Drive drive, double time, Pose2d targetPos) {
     this.drive = drive;
     this.timer = new Timer();
@@ -32,20 +38,44 @@ public class AutoAutoAlign extends Command {
     addRequirements(drive);
     
   }
+  public AutoAutoAlign(Drive drive, double time, Pose2d targetPos, double linearKp, double maxLinearAcceleration, double maxLinearVelocity) {
+    this.drive = drive;
+    this.timer = new Timer();
+    this.time = time;
+    this.targetPos = targetPos;
+    this.linearKp = linearKp;
+    this.maxLinearAcceleration = maxLinearAcceleration;
+    this.maxLinearVelocity = maxLinearVelocity;
+    this.isCustom = true;
+    addRequirements(drive);
+    
+  }
 
   @Override
   public void initialize(){
     timer.reset();
     timer.start();
     Supplier<Pose2d> onTheFly = getTargetPos();
-    autoAlignController =
-        new AutoAlignController(
-            drive,
-            onTheFly, // ampAlignedPose,
-            () -> {
-              return new Translation2d();
-            },
-            false);
+    if(isCustom){
+        autoAlignController =
+            new AutoAlignController(
+                drive,
+                onTheFly, // ampAlignedPose,
+                () -> {
+                return new Translation2d();
+                },
+                false, linearKp, maxLinearVelocity, maxLinearAcceleration);
+    }
+    else{
+        autoAlignController =
+            new AutoAlignController(
+                drive,
+                onTheFly, // ampAlignedPose,
+                () -> {
+                return new Translation2d();
+                },
+                false);
+        }
   }
 
   @Override

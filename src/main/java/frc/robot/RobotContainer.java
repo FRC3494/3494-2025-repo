@@ -333,13 +333,13 @@ public class RobotContainer {
                   arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
                 })));
     
-    NamedCommands.registerCommand("GOTOPos1", new AutoAutoAlign(drive, 2,  Constants.Auto.AmpMidAuto.pos1));//todo
-    NamedCommands.registerCommand("GOTOPos2", new AutoAutoAlign(drive, 2,  Constants.Auto.AmpMidAuto.pos2));//todo
-    NamedCommands.registerCommand("GOTOPos2pt2", new AutoAutoAlign(drive, 2.5,  Constants.Auto.AmpMidAuto.pos2));//todo
+    NamedCommands.registerCommand("GOTOPos1", new AutoAutoAlign(drive, 1.8,  Constants.Auto.AmpMidAuto.pos1, 4.5, Constants.Drivetrain.maxLinearAcceleration, Constants.Drivetrain.maxLinearVelocity));//todo
+    NamedCommands.registerCommand("GOTOPos2", new AutoAutoAlign(drive, 2,  Constants.Auto.AmpMidAuto.pos2, 3.5, Constants.Drivetrain.maxLinearAcceleration*0.5, Constants.Drivetrain.maxAngularVelocity*0.3));//todo
+    NamedCommands.registerCommand("GOTOPos2pt2", new AutoAutoAlign(drive, 2.5,  Constants.Auto.AmpMidAuto.pos2,3.5, Constants.Drivetrain.maxLinearAcceleration*0.5, Constants.Drivetrain.maxAngularVelocity*0.3));//todo
     NamedCommands.registerCommand("GOTOPluck", new AutoAutoAlign(drive, 0.25,  Constants.Auto.AmpMidAuto.algeaPluck));//todo
-    NamedCommands.registerCommand("GOTOPos3", new AutoAutoAlign(drive, 1.5,  Constants.Auto.AmpMidAuto.pos3));//todo
-    NamedCommands.registerCommand("GOTOPos4", new AutoAutoAlign(drive, 1.5,  Constants.Auto.AmpMidAuto.pos4));//todo
-    NamedCommands.registerCommand("GOTOPos5", new AutoAutoAlign(drive,2.5,  Constants.Auto.AmpMidAuto.pos5));//todo
+    NamedCommands.registerCommand("GOTOPos3", new AutoAutoAlign(drive, 1.2,  Constants.Auto.AmpMidAuto.pos3));//todo
+    NamedCommands.registerCommand("GOTOPos4", new AutoAutoAlign(drive, 1.2,  Constants.Auto.AmpMidAuto.pos4));//todo
+    NamedCommands.registerCommand("GOTOPos5", new AutoAutoAlign(drive,2.5,  Constants.Auto.AmpMidAuto.pos5,3.5, Constants.Drivetrain.maxLinearAcceleration*0.3, Constants.Drivetrain.maxAngularVelocity*0.3));//todo
 
     NamedCommands.registerCommand( // THIS IS IN AUTO, IF YOU WANNA TUNE DONT RUN THIS ONE
         "Barge",

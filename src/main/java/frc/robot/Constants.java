@@ -253,11 +253,11 @@ public final class Constants {
   }
   public static class Auto{
     public static class AmpMidAuto{
-      public static Pose2d pos1 = new Pose2d(1.983, 3.284, new Rotation2d(Math.toRadians(-90)));
+      public static Pose2d pos1 = new Pose2d(2.2, 3.184, new Rotation2d(Math.toRadians(-90)));
       public static Pose2d algeaPluck = new Pose2d(3.33, 3.894, new Rotation2d(Math.toRadians(-90)));
       public static Pose2d pos2 = new Pose2d(3.3, 3.894, new Rotation2d(0.0 - Math.PI / 2.0));
-      public static Pose2d pos3 = new Pose2d(1.780, 2.703, new Rotation2d(Math.toRadians(-45)));
-      public static Pose2d pos4 = new Pose2d(2.041, 4.025, new Rotation2d(Math.toRadians(-90)));
+      public static Pose2d pos3 = new Pose2d(1.780, 2.703, new Rotation2d(Math.toRadians(-50)));
+      public static Pose2d pos4 = new Pose2d(2.041, 4.0, new Rotation2d(Math.toRadians(-90)));
       public static Pose2d pos5 = new Pose2d(3.256, 4.222, new Rotation2d(Math.toRadians(-90)));
 
     }

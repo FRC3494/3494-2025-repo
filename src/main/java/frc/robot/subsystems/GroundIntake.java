@@ -61,11 +61,11 @@ public class GroundIntake extends SubsystemBase {
     pivotMotorConfig.idleMode(IdleMode.kBrake);
 
     frontIntakeMotorConfig.idleMode(IdleMode.kBrake);
-    frontIntakeMotorConfig.smartCurrentLimit(30);
+    frontIntakeMotorConfig.smartCurrentLimit(45);
     frontIntakeMotorConfig.inverted(false);
 
     backIntakeMotorConfig.idleMode(IdleMode.kBrake);
-    backIntakeMotorConfig.smartCurrentLimit(30);
+    backIntakeMotorConfig.smartCurrentLimit(45);
     backIntakeMotorConfig.inverted(false);
 
     pivotMotor.configure(
