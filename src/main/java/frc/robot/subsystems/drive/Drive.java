@@ -25,7 +25,6 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -499,22 +498,33 @@ public class Drive extends SubsystemBase {
     poseEstimator.addVisionMeasurement(visionPose, timestamp);
   }
 
-  public double getCoralYaw() throws JsonMappingException, JsonProcessingException {
+  public double getCoralYaw() {
     // double closestCoralYaw = LimelightHelpers.getTX("limelight-coral");
 
     String dump = LimelightHelpers.getJSONDump("limelight-coral");
     ObjectMapper objectMapper = new ObjectMapper();
-    JsonNode detectorResults = objectMapper.readTree(dump).path("Results").get("Detector");
+    JsonNode detectorResults;
+    try {
+      detectorResults = objectMapper.readTree(dump).path("Results").get("Detector");
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+      return 0;
+    }
     double closestCoralTx = 0.0;
     double closestCoralTy = 100.0;
-    
-    if (detectorResults.isArray()) {
-      for (JsonNode result : detectorResults) {
-        if (result.path("classID").asInt() == 1 && result.path("ty").asDouble() < closestCoralTy) {
-          closestCoralTx = result.path("tx").asDouble();
-          closestCoralTy = result.path("ty").asDouble();
+
+    try {
+      if (detectorResults.isArray()) {
+        for (JsonNode result : detectorResults) {
+          if (result.path("classID").asInt() == 1
+              && result.path("ty").asDouble() < closestCoralTy) {
+            closestCoralTx = result.path("tx").asDouble();
+            closestCoralTy = result.path("ty").asDouble();
+          }
         }
       }
+    } catch (Error e) {
+      // e.printStackTrace();
     }
 
     return Math.abs(closestCoralTx) <= 0.15
