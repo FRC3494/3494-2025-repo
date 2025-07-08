@@ -93,6 +93,7 @@ public class Drive extends SubsystemBase {
   public Limelights m_LimeLight1 = new Limelights(this, "limelight-right");
   public Limelights m_LimeLight2 = new Limelights(this, "limelight-left");
   public Limelights m_LimeLight3 = new Limelights(this, "limelight-swerve");
+  public Limelights m_LimeLight4 = new Limelights(this, "limelight-barge");
 
   public double rotationRate = 0;
   public boolean specialPoseEstimation = false;
@@ -192,6 +193,7 @@ public class Drive extends SubsystemBase {
     m_LimeLight1.periodic();
     m_LimeLight2.periodic();
     m_LimeLight3.periodic();
+    m_LimeLight4.periodic();
     odometryLock.lock(); // Prevents odometry updates while reading data
     gyroIO.updateInputs(gyroInputs);
 
@@ -336,10 +338,12 @@ public class Drive extends SubsystemBase {
         m_LimeLight1.setMegatag(true);
         m_LimeLight2.setMegatag(true);
         m_LimeLight3.setMegatag(true);
+        m_LimeLight4.setMegatag(true);
       } else {
         m_LimeLight1.setMegatag(false);
         m_LimeLight2.setMegatag(false);
         m_LimeLight3.setMegatag(false);
+        m_LimeLight4.setMegatag(false);
       }
 
       // Logger.recordOutput("Drive/limelight3Distance",
@@ -377,6 +381,10 @@ public class Drive extends SubsystemBase {
       if (m_LimeLight3.measurmentValid() && !specialPoseEstimation) {
         poseEstimator.addVisionMeasurement(
             m_LimeLight3.getMeasuremPosition(), m_LimeLight3.getMeasurementTimeStamp());
+      }
+      if (m_LimeLight4.measurmentValid() && !specialPoseEstimation) {
+        poseEstimator.addVisionMeasurement(
+            m_LimeLight4.getMeasuremPosition(), m_LimeLight4.getMeasurementTimeStamp());
       }
     }
   }

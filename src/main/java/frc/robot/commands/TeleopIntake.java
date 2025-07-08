@@ -18,6 +18,8 @@ public class TeleopIntake extends Command {
   private boolean holding_algea = false;
   private Timer algeaTimer = new Timer();
 
+  private boolean donePIdchange = false;
+
   public TeleopIntake(Intake intake, Arm arm) {
     this.intake = intake;
     this.arm = arm;
@@ -48,22 +50,25 @@ public class TeleopIntake extends Command {
     if (arm.getTargetPosition() == Constants.Presets.armCoral + Constants.Presets.globalArmOffset
         || arm.getTargetPosition()
             == Constants.Presets.armBargeStore + Constants.Presets.globalArmOffset) {
-      arm.setPIDlimits(-0.8, 0.8);
+      // arm.setPIDlimits(-0.8, 0.8);
       holding_algea = true;
-      algeaTimer.start();
-      System.out.println("limiting!!!!!!!!!");
-      if (arm.getAbsoluteTicks() < 0.7) {
-        arm.setPIDlimits(-0.4, 0.4);
-      }
-      if (arm.getAbsoluteTicks() > 0.7
+      // algeaTimer.start();
+      // System.out.println("limiting!!!!!!!!!");
+      // if (arm.getAbsoluteTicks() < 0.7) {
+
+      //   arm.setPIDlimits(-0.4, 0.4);
+      // }
+      if (arm.getAbsoluteTicks() > 0.7 && donePIdchange == false
           && arm.getTargetPosition()
               == Constants.Presets.armBargeStore + Constants.Presets.globalArmOffset) {
         arm.setPIDlimits(-0.4, 0.4);
+        donePIdchange = true;
       }
     } else {
       // arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
       algeaTimer.stop();
       holding_algea = false;
+      donePIdchange = false;
     }
 
     // else{
