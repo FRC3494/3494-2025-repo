@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.922,
-        "y": 2.904
+        "x": 10.105,
+        "y": 2.8218
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.528630122107401,
-        "y": 2.8207833567356495
+        "x": 10.71163012210741,
+        "y": 2.7385833567356497
       },
       "isLocked": false,
       "linkedName": "Middle-Barge-Red-Barge"
@@ -48,7 +48,7 @@
   "folder": "Middle-Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 107.447
+    "rotation": 135.04
   },
   "useDefaultConstraints": true
 }
