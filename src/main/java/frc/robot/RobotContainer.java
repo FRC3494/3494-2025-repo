@@ -1053,7 +1053,6 @@ public class RobotContainer {
             () -> {
               arm.setCurrentLimit(85);
             }),
-        // new InstantCommand(() -> {elevator.setPIDlimits(-1, 1);}),
         new InstantCommand(
             () -> {
               arm.setPIDlimits(-1, 1);
@@ -1064,7 +1063,7 @@ public class RobotContainer {
             }),
         new InstantCommand(
             () -> {
-              intake.setSpeed(0.75);
+              intake.setSpeed(0);//0.75
             }),
         new InstantCommand(
             () -> {
@@ -1085,7 +1084,7 @@ public class RobotContainer {
               elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
             }),
         new BargFligIntake(arm, intake, Constants.Presets.armBargeYeetRelease),
-        // new WaitCommand(0.39),//WORKED at 0.2
+        // new WaitCommand(0),//.39),//WORKED at 0.2
         // new InstantCommand(() -> {intake.setSpeed(-1);}),
         new WaitCommand(0.75),
         new InstantCommand(
