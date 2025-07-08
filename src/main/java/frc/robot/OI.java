@@ -34,7 +34,6 @@ public final class OI {
   }
 
   public static double getIntakePower() {
-
     double Sean_intake_power =
         deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
             + deadband(primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND)
@@ -54,18 +53,17 @@ public final class OI {
   }
 
   public static BooleanEvent L1GroundIntake() {
-    return rightButtonBoard
-        .button(8, eventLoop)
-        .or(rightButtonBoard.button(7, eventLoop))
-        .or(primaryController.a(eventLoop));
+    return rightButtonBoard.button(7, eventLoop).or(primaryController.a(eventLoop));
   }
 
   public static BooleanEvent L1GroundIntakeHigh() {
+    // not called
     return rightButtonBoard.button(6, eventLoop);
   }
 
+  // TODO: is this "New L1"?
   public static BooleanEvent L1Outtake() {
-    return leftButtonBoard.button(9, eventLoop);
+    return leftButtonBoard.button(10, eventLoop);
   }
 
   public static BooleanEvent groundIntakeIntake() {
@@ -108,18 +106,21 @@ public final class OI {
   }
 
   public static BooleanEvent lowIntake() {
+    // Not called
     return leftButtonBoard.button(10, eventLoop);
   }
 
   public static BooleanEvent lowLowIntake() {
+    // Not called
     return rightButtonBoard.button(2, eventLoop);
   }
 
+  // TODO: needs a button
   public static BooleanEvent lolipop() {
     return leftButtonBoard.button(3, eventLoop);
   }
 
-  public static BooleanEvent Intake() {
+  public static BooleanEvent feeder() {
     return leftButtonBoard.button(6, eventLoop);
   }
 
@@ -145,10 +146,6 @@ public final class OI {
 
   public static BooleanEvent startClimb() {
     return rightButtonBoard.button(1, eventLoop);
-  }
-
-  public static BooleanEvent ClimbStage0() {
-    return rightButtonBoard.button(5, eventLoop);
   }
 
   public static BooleanEvent ToggleDefenseMode() {
