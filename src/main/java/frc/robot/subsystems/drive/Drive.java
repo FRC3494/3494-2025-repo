@@ -17,7 +17,6 @@ import static edu.wpi.first.units.Units.Volts;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -497,17 +496,18 @@ public class Drive extends SubsystemBase {
 
     String dump = LimelightHelpers.getJSONDump("limelight-coral");
     ObjectMapper objectMapper = new ObjectMapper();
-    Iterator<JsonNode> detectorResults =
-        objectMapper.readTree(dump).path("Results").path("Detector").elements();
+    JsonNode detectorResults = objectMapper.readTree(dump).path("Results").get("Detector");
     double closestCoralTx = 0.0;
     double closestCoralTy = 100.0;
-    // while (detectorResults.hasNext()) {
-    //   JsonNode result = detectorResults.next();
-    //   if (result.path("classID").asInt() == 1 && result.path("ty").asDouble() < closestCoralTy) {
-    //     closestCoralTx = result.path("tx").asDouble();
-    //     closestCoralTy = result.path("ty").asDouble();
-    //   }
-    // }
+    
+    if (detectorResults.isArray()) {
+      for (JsonNode result : detectorResults) {
+        if (result.path("classID").asInt() == 1 && result.path("ty").asDouble() < closestCoralTy) {
+          closestCoralTx = result.path("tx").asDouble();
+          closestCoralTy = result.path("ty").asDouble();
+        }
+      }
+    }
 
     return Math.abs(closestCoralTx) <= 0.15
         ? 0
