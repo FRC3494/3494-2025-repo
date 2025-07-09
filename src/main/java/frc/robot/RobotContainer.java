@@ -200,13 +200,12 @@ public class RobotContainer {
         Commands.sequence(
             new InstantCommand(
                 () -> {
-                  elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
+                  groundIntake.setIntakePosition(Constants.Presets.groundIntakePop);
                 }),
             new WaitCommand(0.5),
             new InstantCommand(
                 () -> {
                   arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                  groundIntake.setIntakePosition(Constants.Presets.groundIntakeStation);
                 })));
     NamedCommands.registerCommand(
         "L1",
@@ -325,7 +324,7 @@ public class RobotContainer {
                 () -> {
                   arm.setTargetAngle(Constants.Presets.armBargeStore, 0);
                 }),
-            new WaitCommand(1.5),
+            new WaitCommand(0.5),
             new InstantCommand(
                 () -> {
                   arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);

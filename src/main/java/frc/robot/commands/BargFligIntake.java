@@ -15,6 +15,7 @@ public class BargFligIntake extends Command {
     this.releaseThreshold = releaseThreshold;
     this.arm = arm;
     this.intake = intake;
+    this.readyToOuttake = false;
   }
 
   @Override
@@ -22,8 +23,9 @@ public class BargFligIntake extends Command {
     if (arm.getAbsoluteTicks() <= releaseThreshold) {
       System.out.println(
           "Outtaking!!!!!!!!!!!!!!!!!! ----------------------------------------------------------------------------------------------------");
-      readyToOuttake = true;
-      intake.setSpeed(-1);
+          intake.setSpeed(-1);
+          readyToOuttake = true;
+      
     }
   }
 
