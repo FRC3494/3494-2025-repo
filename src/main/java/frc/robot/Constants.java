@@ -227,7 +227,7 @@ public final class Constants {
       public static final Pose2d[]
           leftLocations = { // Placeholder currently using the center positions
         new Pose2d(3.256, 4.222, new Rotation2d(0.0 - Math.PI / 2.0)), // 1
-        new Pose2d(4.1, 5.2, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)), // 2 //4.040, 5.193
+        new Pose2d(4.05, 5.15, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)), // 2 //4.040, 5.193
         new Pose2d(3.657, 3.050, new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3
         new Pose2d(5.009, 5.167, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)), // 4
         new Pose2d(5.211, 3.008, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5
