@@ -2,8 +2,6 @@ package frc.robot.commands;
 
 import org.littletonrobotics.junction.Logger;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -67,13 +65,7 @@ public class AutoPickupCoral extends Command {
     System.out.println(time + "|" + timer.hasElapsed(time));
     Logger.recordOutput("Drive/Auto-Timer", timer.get());
     double omegaRot;
-    try {
-      omegaRot = drive.getCoralYaw();
-    } catch (JsonProcessingException e) {
-      omegaRot = 0.1;
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    omegaRot = drive.getCoralYaw();
     // drive.runVelocity(
     // ChassisSpeeds.fromFieldRelativeSpeeds(
     //     0 * drive.getMaxLinearSpeedMetersPerSec(),
