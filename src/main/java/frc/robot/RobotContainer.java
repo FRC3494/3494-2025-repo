@@ -277,7 +277,7 @@ public class RobotContainer {
         Commands.sequence(
             new InstantCommand(
                 () -> {
-                  elevator.setElevatorPosition(Constants.Presets.liftAlgeaL3Auto);
+                  elevator.setElevatorPosition(Constants.Presets.liftAlgeaL3);
                   arm.setTargetAngle(Constants.Presets.armAlgeaL3, 0);
                 })));
     // Superstrucutre Intake Stuff-----------------------
@@ -336,7 +336,7 @@ public class RobotContainer {
         "GOTOPos1",
         new AutoAutoAlign(
             drive,
-            1.8,
+            2,
             Constants.Auto.AmpMidAuto.pos1,
             4.5,
             Constants.Drivetrain.maxLinearAcceleration,
@@ -1069,19 +1069,20 @@ public class RobotContainer {
     return Commands.sequence(
         new InstantCommand(
             () -> {
-              arm.setCurrentLimit(85);
+              arm.setCurrentLimit(75);
+              intake.setSpeed(0.5);
             }),
         new InstantCommand(
             () -> {
-              arm.setPIDlimits(-1, 1);
+              arm.setPIDlimits(-0.7, 0.7);
             }),
         new InstantCommand(
             () -> {
-              arm.setPID(12, 0.0, 0.0);
+              arm.setPID(8, 0.0, 0.0);
             }),
         new InstantCommand(
             () -> {
-              intake.setSpeed(0); // 0.75
+              intake.setSpeed(0.0); // 0.75
             }),
         new InstantCommand(
             () -> {
@@ -1094,7 +1095,7 @@ public class RobotContainer {
             }),
         new InstantCommand(
             () -> {
-              arm.setPIDlimits(-1, 1);
+              arm.setPIDlimits(-0.7, 0.7);
             }),
         new WaitCommand(0.0),
         new InstantCommand(
