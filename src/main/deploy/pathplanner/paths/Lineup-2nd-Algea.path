@@ -3,41 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0386925795053004,
-        "y": 2.4823984098939946
+        "x": 5.1553125,
+        "y": 5.037116477272727
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.0443743976871183,
-        "y": 2.442512046257631
+        "x": 5.753607954545455,
+        "y": 5.745099431818181
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Barge-Blue-2nd-Algea"
     },
     {
       "anchor": {
-        "x": 2.0412044701986756,
-        "y": 4.024999999999999
+        "x": 6.521420454545455,
+        "y": 5.0271448863636365
       },
       "prevControl": {
-        "x": -1.0097061258278148,
-        "y": 5.637624172185429
-      },
-      "nextControl": {
-        "x": 5.0921150662251655,
-        "y": 2.412375827814567
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.041,
-        "y": 4.0
-      },
-      "prevControl": {
-        "x": 3.570087334437085,
-        "y": 3.171895695364238
+        "x": 6.112585227272729,
+        "y": 5.565610795454545
       },
       "nextControl": null,
       "isLocked": false,
@@ -58,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": -28.644182898982745
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Middle-Side",
   "idealStartingState": {
-    "velocity": 0.0,
-    "rotation": -35.77572992780728
+    "velocity": 0,
+    "rotation": 151.60024922749028
   },
   "useDefaultConstraints": true
 }

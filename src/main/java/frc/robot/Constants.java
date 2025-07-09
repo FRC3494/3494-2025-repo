@@ -78,7 +78,7 @@ public final class Constants {
     public static double liftIntake = 0;
     public static double liftIntakeAlt = 2.238;
     public static double liftOuttakeL2 = 20;
-    public static double liftOuttakeL3 = 46.0;
+    public static double liftOuttakeL3 = 44.5;
     public static double liftAlgeaL3 = 28.75;
     public static double liftAlgeaL3Auto = 37.0; // 35.643;//
     public static double liftAlgeaL2 = 3.7;
@@ -93,7 +93,7 @@ public final class Constants {
     public static double climberStage1 = -28.0;
     public static double climberStage2 = -53.4;
 
-    public static double armBargeYeetRelease = 0.81; // 0.8;//0.7965;
+    public static double armBargeYeetRelease = 0.805;// 0.8075f// 0.8;//0.7965;
 
     public static double L1armtest = 0.613; // 0.610
     public static double L1elevatorTest = 8.38;
@@ -196,7 +196,7 @@ public final class Constants {
     public static final Translation2d ampCenter =
         new Translation2d(Units.inchesToMeters(72.455), fieldWidth);
     public static final Pose2d bargeSpot =
-        new Pose2d(7.3, 5.23, new Rotation2d(Math.toRadians(-38.00)));
+        new Pose2d(7.39, 5.4, new Rotation2d(Math.toRadians(-29.70)));
 
     // new Pose2d(7.4, 6.893, new Rotation2d(Math.toRadians(-135.0)));
 
