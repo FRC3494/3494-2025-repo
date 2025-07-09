@@ -648,6 +648,16 @@ public class RobotContainer {
     //                     elevator.setElevatorPosition(Constants.Presets.liftIntake);
     //                     arm.setTargetAngle(Constants.Presets.armOuttakeL1, 0);
     //                 })));
+    OI.armSafeMode()
+        .rising()
+        .ifHigh(
+            () -> {
+              new InstantCommand(
+                      () -> {
+                        arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                      })
+                  .schedule();
+            });
     OI.l1Test()
         .rising()
         .ifHigh(
@@ -811,7 +821,7 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                            arm.setTargetAngle(Constants.Presets.armAlgeaL2, 0);
+                            arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
                             groundIntake.setIntakePower(-0.85, -0.6);
                             drive.coralIntededforL1 = true;
