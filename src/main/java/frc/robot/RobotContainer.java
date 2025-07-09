@@ -13,8 +13,11 @@
 
 package frc.robot;
 
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -52,7 +55,6 @@ import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -971,6 +973,25 @@ public class RobotContainer {
     //     ).schedule();
     //     //climber.setTargetAngle(Constants.Presets.climberStage0, 0);
     // });
+
+    OI.startClimb()
+        .rising()
+        .ifHigh(
+            () -> {
+              Commands.sequence(
+                      new InstantCommand(
+                          () -> {
+                            elevator.setElevatorPosition(Constants.Presets.liftClimb);
+                            arm.setTargetAngle(Constants.Presets.armClimb, 0);
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
+                          }),
+                      new WaitCommand(0.5),
+                      new InstantCommand(
+                          () -> {
+                            climber.setTargetAngle(0, 0);
+                          }))
+                  .schedule();
+            });
 
     OI.ClimbStage1()
         .rising()
