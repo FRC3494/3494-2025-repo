@@ -93,7 +93,7 @@ public final class Constants {
     public static double climberStage1 = -28.0;
     public static double climberStage2 = -53.4;
 
-    public static double armBargeYeetRelease = 0.8075f; // 0.8;//0.7965;
+    public static double armBargeYeetRelease = 0.81; // 0.8;//0.7965;
 
     public static double L1armtest = 0.613; // 0.610
     public static double L1elevatorTest = 8.38;
@@ -134,7 +134,7 @@ public final class Constants {
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double ARM_OFFSET = 0.438;
+    public static double ARM_OFFSET = 0.458;//0.438 -> 
 
     public static int normalCurrentLimit = 75;
   }
@@ -171,22 +171,23 @@ public final class Constants {
     public static final int FRONT_LEFT_STEER_ID = 16; // 16
     public static final int FRONT_LEFT_TURN_ENCODER_ID =
         3; // 3public static final double FRONT_LEFT_OFFSET = Math.toRadians(22);
-    public static final double FRONT_LEFT_OFFSET = Math.toRadians(22);
+    public static final double FRONT_LEFT_OFFSET = Math.toRadians(22+180);
 
     public static final int FRONT_RIGHT_DRIVE_ID = 19; // 19
     public static final int FRONT_RIGHT_STEER_ID = 17; // 17
     public static final int FRONT_RIGHT_TURN_ENCODER_ID = 2; // 2
-    public static final double FRONT_RIGHT_OFFSET = Math.toRadians(60.2);
+    public static final double FRONT_RIGHT_OFFSET = Math.toRadians(60.2+180);
 
-    public static final int BACK_LEFT_DRIVE_ID = 30; // 30
+    public static final int BACK_LEFT_DRIVE_ID = 30; 
+    // 30
     public static final int BACK_LEFT_STEER_ID = 2; // 2
     public static final int BACK_LEFT_TURN_ENCODER_ID = 1; // 1
-    public static final double BACK_LEFT_OFFSET = Math.toRadians(86.6);
+    public static final double BACK_LEFT_OFFSET = Math.toRadians(86.6+180);
 
     public static final int BACK_RIGHT_DRIVE_ID = 1; // 1
     public static final int BACK_RIGHT_STEER_ID = 3; // 3
     public static final int BACK_RIGHT_TURN_ENCODER_ID = 0; // 0
-    public static final double BACK_RIGHT_OFFSET = Math.toRadians(329.6);
+    public static final double BACK_RIGHT_OFFSET = Math.toRadians(329.6+180);
   }
 
   public static class Field {
@@ -195,7 +196,7 @@ public final class Constants {
     public static final Translation2d ampCenter =
         new Translation2d(Units.inchesToMeters(72.455), fieldWidth);
     public static final Pose2d bargeSpot =
-        new Pose2d(7.44, 5.23, new Rotation2d(Math.toRadians(-44.96)));
+        new Pose2d(7.3, 5.23, new Rotation2d(Math.toRadians(-38.00)));
 
     // new Pose2d(7.4, 6.893, new Rotation2d(Math.toRadians(-135.0)));
 
@@ -229,10 +230,10 @@ public final class Constants {
           leftLocations = { // Placeholder currently using the center positions
         new Pose2d(3.256, 4.222, new Rotation2d(0.0 - Math.PI / 2.0)), // 1
         new Pose2d(4.05, 5.15, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)), // 2 //4.040, 5.193
-        new Pose2d(3.657, 3.050, new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3
-        new Pose2d(5.009, 5.167, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)), // 4
-        new Pose2d(5.211, 3.008, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5
-        new Pose2d(5.737, 4.112, new Rotation2d(Math.PI - Math.PI / 2.0)), // 6
+        new Pose2d(3.78, 3.080, new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3
+        new Pose2d(4.95, 5.18, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)), // 4
+        new Pose2d(5.23, 3.03, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5
+        new Pose2d(5.72, 4.17, new Rotation2d(Math.PI - Math.PI / 2.0)), // 6
         new Pose2d(6.001, 0.489, new Rotation2d(Math.PI / 2.0 - Math.PI / 2.0)), // 7
         new Pose2d(1.312, 0.948, new Rotation2d(0.3 * Math.PI - Math.PI / 2.0)), // 8
         new Pose2d(1.276, 7.124, new Rotation2d(-0.3 * Math.PI - Math.PI / 2.0)) // 9
@@ -243,9 +244,9 @@ public final class Constants {
         new Pose2d(3.256, 3.894, new Rotation2d(0.0 - Math.PI / 2.0)), // 1
         new Pose2d(3.760, 5.035, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)), // 2
         new Pose2d(3.988, 2.888, new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3
-        new Pose2d(5.297, 5.008, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)), // 4
-        new Pose2d(4.933, 2.837, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5
-        new Pose2d(5.700, 3.812, new Rotation2d(Math.PI - Math.PI / 2.0)), // 6
+        new Pose2d(5.23, 5.02, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)), // 4
+        new Pose2d(4.98, 2.88, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5
+        new Pose2d(5.71, 3.85, new Rotation2d(Math.PI - Math.PI / 2.0)), // 6
         new Pose2d(6.001, 0.489, new Rotation2d(Math.PI / 2.0 - Math.PI / 2.0)), // 7
         new Pose2d(1.702, 0.613, new Rotation2d(0.3 * Math.PI - Math.PI / 2.0)), // 8
         new Pose2d(0.685, 6.703, new Rotation2d(-0.3 * Math.PI - Math.PI / 2.0)) // 9
