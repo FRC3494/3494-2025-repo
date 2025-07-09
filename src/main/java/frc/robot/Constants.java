@@ -107,7 +107,7 @@ public final class Constants {
     public static double groundIntakeL1High = 0.29;
     public static double groundIntakeStation = 0.3238; // 23.0;;// 3.28;
 
-    public static double groundIntakeJerk = 0.275; // not bad: 0.26   // 23.0;;// 3.28;
+    public static double groundIntakeJerk =0.27;// 0.275; // not bad: 0.26   // 23.0;;// 3.28;
   }
 
   public static class OI {
@@ -264,6 +264,12 @@ public final class Constants {
       public static Pose2d pos3 = new Pose2d(1.780, 2.703, new Rotation2d(Math.toRadians(-50)));
       public static Pose2d pos4 = new Pose2d(2.041, 4.0, new Rotation2d(Math.toRadians(-90)));
       public static Pose2d pos5 = new Pose2d(3.256, 4.222, new Rotation2d(Math.toRadians(-90)));
+    }
+    public static class ThreePeiceCoolAuto {
+      public static Pose2d pos1 = new Pose2d(4.98, 2.88, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0));
+      public static Pose2d pos2 = new Pose2d(3.430, 1.547, new Rotation2d(Math.toRadians(-82.03)));
+      // public static Pose2d pos3 = new Pose2d(3.78, 3.080, new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3
+
     }
   }
 }

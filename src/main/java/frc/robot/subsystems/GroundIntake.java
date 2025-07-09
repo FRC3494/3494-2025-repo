@@ -48,7 +48,7 @@ public class GroundIntake extends SubsystemBase {
 
     pivotMotorConfig.smartCurrentLimit(45);
     pivotMotorConfig.closedLoop.pidf(8.0, 0, 0, 0.4);
-    pivotMotorConfig.closedLoop.outputRange(-0.8, 0.8); // 0.8// 0.7
+    pivotMotorConfig.closedLoop.outputRange(-0.9, 0.9); // 0.8// 0.7
 
     pivotMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
     pivotMotorConfig.closedLoop.maxMotion.allowedClosedLoopError(6.0);
@@ -127,5 +127,10 @@ public class GroundIntake extends SubsystemBase {
 
   public double getDistanceSensor() {
     return m_rangeSensor.getRange();
+  }
+  public void setIntakeCUrrentlim(int current){
+    pivotMotorConfig.smartCurrentLimit(current);
+    pivotMotor.configure(
+        pivotMotorConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
   }
 }
