@@ -892,8 +892,9 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
+                            groundIntake.setIntakeCUrrentlim(60);
                           }),
-                      new WaitCommand(0.5),
+                      new WaitCommand(0.3),
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePower(0.25, -0.25); // 0.25, -0.25
@@ -902,6 +903,11 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
+                          }),
+                          new WaitCommand(0.3),
+                          new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakeCUrrentlim(45);
                           }))
                   .schedule();
             });
