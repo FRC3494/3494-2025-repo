@@ -1211,37 +1211,13 @@ NamedCommands.registerCommand(
             () -> {
               arm.setCurrentLimit(75);
               intake.setSpeed(0.5);
-            }),
-        new InstantCommand(
-            () -> {
               arm.setPIDlimits(-0.7, 0.7);
-            }),
-        new InstantCommand(
-            () -> {
               arm.setPID(8, 0.0, 0.0);
-            }),
-        new InstantCommand(
-            () -> {
               intake.setSpeed(0.0); // 0.75
-            }),
-        new InstantCommand(
-            () -> {
               elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
-            }),
-        new WaitCommand(0.1),
-        new InstantCommand(
-            () -> {
               arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
             }),
-        new InstantCommand(
-            () -> {
-              arm.setPIDlimits(-0.7, 0.7);
-            }),
         new WaitCommand(0.0),
-        new InstantCommand(
-            () -> {
-              elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
-            }),
         new BargFligIntake(arm, intake, Constants.Presets.armBargeYeetRelease),
         // new WaitCommand(0),//.39),//WORKED at 0.2
         // new InstantCommand(() -> {intake.setSpeed(-1);}),
