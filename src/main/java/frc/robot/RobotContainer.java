@@ -703,6 +703,7 @@ NamedCommands.registerCommand(
             () -> {
               new InstantCommand(
                       () -> {
+                        elevator.setElevatorPosition(Constants.Presets.liftIntake);
                         arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                       })
                   .schedule();
@@ -996,7 +997,7 @@ NamedCommands.registerCommand(
             () -> {
               new InstantCommand(
                       () -> {
-                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
                       })
                   .schedule();
             });

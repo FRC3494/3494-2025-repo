@@ -523,7 +523,9 @@ public class Drive extends SubsystemBase {
           }
         }
       }
-    } catch (Error e) {
+    } catch (NullPointerException e) {
+      // e.printStackTrace();
+    } catch (Exception e) {
       // e.printStackTrace();
     }
 
