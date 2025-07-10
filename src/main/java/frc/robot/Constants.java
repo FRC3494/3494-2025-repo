@@ -57,7 +57,7 @@ public final class Constants {
     public static double globalArmOffset = -0.005; // -0.01
     public static double armIntake = 0.823; // 0.822; // -34.0;
     public static double armIntakeLow = 0.829;
-    public static double armIntakeAlt = 0.830;
+    public static double armIntakeAlt = 0.845; // 0.830
     public static double armIntakeLowLow = 0.846;
     public static double armCoral = 0.54; // -136.0;
 
@@ -76,7 +76,7 @@ public final class Constants {
     public static double armBargeStore = 0.85;
 
     public static double liftIntake = 0;
-    public static double liftIntakeAlt = 2.238;
+    public static double liftIntakeAlt = 10; // 2.238
     public static double liftOuttakeL2 = 20;
     public static double liftOuttakeL3 = 44.5;
     public static double liftAlgeaL3 = 28.75;
@@ -93,7 +93,7 @@ public final class Constants {
     public static double climberStage1 = -28.0;
     public static double climberStage2 = -53.4;
 
-    public static double armBargeYeetRelease = 0.805;// 0.8075f// 0.8;//0.7965;
+    public static double armBargeYeetRelease = 0.805; // 0.8075f// 0.8;//0.7965;
 
     public static double L1armtest = 0.613; // 0.610
     public static double L1elevatorTest = 8.38;
@@ -105,9 +105,9 @@ public final class Constants {
     public static double groundIntakeStore = 0.38142; // 28.0;//6;
     public static double groundIntakeL1 = 0.36; // not bad: 0.36
     public static double groundIntakeL1High = 0.29;
-    public static double groundIntakeStation = 0.3238; // 23.0;;// 3.28;
+    public static double groundIntakeStation = 0.31; // 0.3238
 
-    public static double groundIntakeJerk =0.27;// 0.275; // not bad: 0.26   // 23.0;;// 3.28;
+    public static double groundIntakeJerk = 0.27; // 0.275; // not bad: 0.26   // 23.0;;// 3.28;
   }
 
   public static class OI {
@@ -134,7 +134,7 @@ public final class Constants {
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double ARM_OFFSET = 0.458;//0.438 -> 
+    public static double ARM_OFFSET = 0.458; // 0.438 ->
 
     public static int normalCurrentLimit = 75;
   }
@@ -154,9 +154,10 @@ public final class Constants {
     public static double L1_GEAR_RATIO = (50.0 / 14.0) * (19.0 / 25.0) * (45.0 / 15.0);
     public static double L2_GEAR_RATIO = (50.0 / 14.0) * (17.0 / 27.0) * (45.0 / 15.0); // TODO
 
-    public static double rotationPower(double rawRotationPower){
+    public static double rotationPower(double rawRotationPower) {
       return Math.copySign(Math.pow(rawRotationPower, 2), rawRotationPower);
     }
+
     public static double driveBaseRadius() {
       return Math.hypot(trackWidthX / 2.0, trackWidthY / 2.0);
     }
@@ -174,23 +175,23 @@ public final class Constants {
     public static final int FRONT_LEFT_STEER_ID = 16; // 16
     public static final int FRONT_LEFT_TURN_ENCODER_ID =
         3; // 3public static final double FRONT_LEFT_OFFSET = Math.toRadians(22);
-    public static final double FRONT_LEFT_OFFSET = Math.toRadians(22+180);
+    public static final double FRONT_LEFT_OFFSET = Math.toRadians(22 + 180);
 
     public static final int FRONT_RIGHT_DRIVE_ID = 19; // 19
     public static final int FRONT_RIGHT_STEER_ID = 17; // 17
     public static final int FRONT_RIGHT_TURN_ENCODER_ID = 2; // 2
-    public static final double FRONT_RIGHT_OFFSET = Math.toRadians(60.2+180);
+    public static final double FRONT_RIGHT_OFFSET = Math.toRadians(60.2 + 180);
 
-    public static final int BACK_LEFT_DRIVE_ID = 30; 
+    public static final int BACK_LEFT_DRIVE_ID = 30;
     // 30
     public static final int BACK_LEFT_STEER_ID = 2; // 2
     public static final int BACK_LEFT_TURN_ENCODER_ID = 1; // 1
-    public static final double BACK_LEFT_OFFSET = Math.toRadians(86.6+180);
+    public static final double BACK_LEFT_OFFSET = Math.toRadians(86.6 + 180);
 
     public static final int BACK_RIGHT_DRIVE_ID = 1; // 1
     public static final int BACK_RIGHT_STEER_ID = 3; // 3
     public static final int BACK_RIGHT_TURN_ENCODER_ID = 0; // 0
-    public static final double BACK_RIGHT_OFFSET = Math.toRadians(329.6+180);
+    public static final double BACK_RIGHT_OFFSET = Math.toRadians(329.6 + 180);
   }
 
   public static class Field {
@@ -268,26 +269,41 @@ public final class Constants {
       public static Pose2d pos4 = new Pose2d(2.041, 4.0, new Rotation2d(Math.toRadians(-90)));
       public static Pose2d pos5 = new Pose2d(3.256, 4.222, new Rotation2d(Math.toRadians(-90)));
     }
+
     public static class AmpMidAutoRed {
-      public static Pose2d pos1 = new Pose2d(15.34505, 4.8678, new Rotation2d(Math.toRadians(-90+180)));
+      public static Pose2d pos1 =
+          new Pose2d(15.34505, 4.8678, new Rotation2d(Math.toRadians(-90 + 180)));
       public static Pose2d algeaPluck =
-          new Pose2d(14.21505, 4.1578, new Rotation2d(Math.toRadians(-90+180)));
-      public static Pose2d pos2 = new Pose2d(14.24505, 4.1578, new Rotation2d(0.0 - Math.PI / 2.0+Math.PI));
-      public static Pose2d pos3 = new Pose2d(15.76505, 5.3488, new Rotation2d(Math.toRadians(-50+180)));
-      public static Pose2d pos4 = new Pose2d(15.50405, 4.0518, new Rotation2d(Math.toRadians(-90+180)));
-      public static Pose2d pos5 = new Pose2d(14.28905, 3.8298, new Rotation2d(Math.toRadians(-90+180)));
+          new Pose2d(14.21505, 4.1578, new Rotation2d(Math.toRadians(-90 + 180)));
+      public static Pose2d pos2 =
+          new Pose2d(14.24505, 4.1578, new Rotation2d(0.0 - Math.PI / 2.0 + Math.PI));
+      public static Pose2d pos3 =
+          new Pose2d(15.76505, 5.3488, new Rotation2d(Math.toRadians(-50 + 180)));
+      public static Pose2d pos4 =
+          new Pose2d(15.50405, 4.0518, new Rotation2d(Math.toRadians(-90 + 180)));
+      public static Pose2d pos5 =
+          new Pose2d(14.28905, 3.8298, new Rotation2d(Math.toRadians(-90 + 180)));
     }
+
     public static class ThreePeiceCoolAuto {
-      public static Pose2d pos1 = new Pose2d(5.23, 5.02, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)); // 4
+      public static Pose2d pos1 =
+          new Pose2d(5.23, 5.02, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)); // 4
       public static Pose2d pos2 = new Pose2d(3.689, 6.393, new Rotation2d(Math.toRadians(-104.8)));
-      public static Pose2d pos3 = new Pose2d(4.05, 5.15, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)); // 2 //4.040, 5.193
+      public static Pose2d pos3 =
+          new Pose2d(
+              4.05, 5.15, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)); // 2 //4.040, 5.193
       public static Pose2d pos4 = new Pose2d(3.008, 5.986, new Rotation2d(Math.toRadians(-117.30)));
-      public static Pose2d pos5 = new Pose2d(3.760, 5.035, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)); //2
-      //pos6 is handled by path planner
-      public static Pose2d pos7 = new Pose2d(6.636, 7.040, new Rotation2d(Math.toRadians(-29.7-90)));
-      // public static Pose2d pos1 = new Pose2d(4.98, 2.88, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0));
-      // public static Pose2d pos2 = new Pose2d(3.430, 1.547, new Rotation2d(Math.toRadians(-82.03)));
-      // public static Pose2d pos3 = new Pose2d(3.78, 3.080, new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3
+      public static Pose2d pos5 =
+          new Pose2d(3.760, 5.035, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)); // 2
+      // pos6 is handled by path planner
+      public static Pose2d pos7 =
+          new Pose2d(6.636, 7.040, new Rotation2d(Math.toRadians(-29.7 - 90)));
+      // public static Pose2d pos1 = new Pose2d(4.98, 2.88, new Rotation2d(2 * Math.PI / 3.0 -
+      // Math.PI / 2.0));
+      // public static Pose2d pos2 = new Pose2d(3.430, 1.547, new
+      // Rotation2d(Math.toRadians(-82.03)));
+      // public static Pose2d pos3 = new Pose2d(3.78, 3.080, new Rotation2d(Math.PI / 3.0 - Math.PI
+      // / 2.0)), // 3
     }
   }
 }

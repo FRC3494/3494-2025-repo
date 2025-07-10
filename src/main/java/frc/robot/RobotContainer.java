@@ -386,8 +386,8 @@ public class RobotContainer {
             3.5,
             Constants.Drivetrain.maxLinearAcceleration * 0.3,
             Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
-//RED COMMANDS STUFFFFF
-NamedCommands.registerCommand(
+    // RED COMMANDS STUFFFFF
+    NamedCommands.registerCommand(
         "GOTOPos1Red",
         new AutoAutoAlign(
             drive,
@@ -415,7 +415,8 @@ NamedCommands.registerCommand(
             Constants.Drivetrain.maxLinearAcceleration * 0.5,
             Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
     NamedCommands.registerCommand(
-        "GOTOPluckRed", new AutoAutoAlign(drive, 0.25, Constants.Auto.AmpMidAutoRed.algeaPluck)); // todo
+        "GOTOPluckRed",
+        new AutoAutoAlign(drive, 0.25, Constants.Auto.AmpMidAutoRed.algeaPluck)); // todo
     NamedCommands.registerCommand(
         "GOTOPos3Red", new AutoAutoAlign(drive, 1.2, Constants.Auto.AmpMidAutoRed.pos3)); // todo
     NamedCommands.registerCommand(
@@ -429,64 +430,64 @@ NamedCommands.registerCommand(
             3.5,
             Constants.Drivetrain.maxLinearAcceleration * 0.3,
             Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
-//END OF RED COMMANDS STUFF
+    // END OF RED COMMANDS STUFF
 
-//START OF $PEICE TEST STUFF
-  NamedCommands.registerCommand(
-    "4-GOTOPos1",
-    new AutoAutoAlign(
-        drive,
-        1.75,
-        Constants.Auto.ThreePeiceCoolAuto.pos1,
-        3.5,
-        Constants.Drivetrain.maxLinearAcceleration * 0.4,
-        Constants.Drivetrain.maxAngularVelocity * 0.6)); 
-  NamedCommands.registerCommand(
-    "4-GOTOPos2",
-    new AutoAutoAlign(
-        drive,
-        1,
-        Constants.Auto.ThreePeiceCoolAuto.pos2,
-        3.5,
-        Constants.Drivetrain.maxLinearAcceleration * 0.4,
-        Constants.Drivetrain.maxAngularVelocity * 0.6)); 
-  NamedCommands.registerCommand(
-    "4-GOTOPos3",
-    new AutoAutoAlign(
-        drive,
-        2.5,
-        Constants.Auto.ThreePeiceCoolAuto.pos3,
-        3.5,
-        Constants.Drivetrain.maxLinearAcceleration * 0.4,
-        Constants.Drivetrain.maxAngularVelocity * 0.6)); 
-  NamedCommands.registerCommand(
-    "4-GOTOPos4",
-    new AutoAutoAlign(
-        drive,
-        1,
-        Constants.Auto.ThreePeiceCoolAuto.pos4,
-        3.5,
-        Constants.Drivetrain.maxLinearAcceleration * 0.4,
-        Constants.Drivetrain.maxAngularVelocity * 0.6)); 
-  NamedCommands.registerCommand(
-    "4-GOTOPos5",
-    new AutoAutoAlign(
-        drive,
-        2.5,
-        Constants.Auto.ThreePeiceCoolAuto.pos5,
-        3.5,
-        Constants.Drivetrain.maxLinearAcceleration * 0.4,
-        Constants.Drivetrain.maxAngularVelocity * 0.6)); 
-  NamedCommands.registerCommand(
-    "4-GOTOPos7",
-    new AutoAutoAlign(
-        drive,
-        2.5,
-        Constants.Auto.ThreePeiceCoolAuto.pos7,
-        3.5,
-        Constants.Drivetrain.maxLinearAcceleration * 0.4,
-        Constants.Drivetrain.maxAngularVelocity * 0.6)); 
-//
+    // START OF $PEICE TEST STUFF
+    NamedCommands.registerCommand(
+        "4-GOTOPos1",
+        new AutoAutoAlign(
+            drive,
+            1.75,
+            Constants.Auto.ThreePeiceCoolAuto.pos1,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.4,
+            Constants.Drivetrain.maxAngularVelocity * 0.6));
+    NamedCommands.registerCommand(
+        "4-GOTOPos2",
+        new AutoAutoAlign(
+            drive,
+            1,
+            Constants.Auto.ThreePeiceCoolAuto.pos2,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.4,
+            Constants.Drivetrain.maxAngularVelocity * 0.6));
+    NamedCommands.registerCommand(
+        "4-GOTOPos3",
+        new AutoAutoAlign(
+            drive,
+            2.5,
+            Constants.Auto.ThreePeiceCoolAuto.pos3,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.4,
+            Constants.Drivetrain.maxAngularVelocity * 0.6));
+    NamedCommands.registerCommand(
+        "4-GOTOPos4",
+        new AutoAutoAlign(
+            drive,
+            1,
+            Constants.Auto.ThreePeiceCoolAuto.pos4,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.4,
+            Constants.Drivetrain.maxAngularVelocity * 0.6));
+    NamedCommands.registerCommand(
+        "4-GOTOPos5",
+        new AutoAutoAlign(
+            drive,
+            2.5,
+            Constants.Auto.ThreePeiceCoolAuto.pos5,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.4,
+            Constants.Drivetrain.maxAngularVelocity * 0.6));
+    NamedCommands.registerCommand(
+        "4-GOTOPos7",
+        new AutoAutoAlign(
+            drive,
+            2.5,
+            Constants.Auto.ThreePeiceCoolAuto.pos7,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.4,
+            Constants.Drivetrain.maxAngularVelocity * 0.6));
+    //
     NamedCommands.registerCommand( // THIS IS IN AUTO, IF YOU WANNA TUNE DONT RUN THIS ONE
         "Barge", getBargeCommand());
 
@@ -521,8 +522,7 @@ NamedCommands.registerCommand(
             drive,
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(), // used to be -
-            () -> -Constants.Drivetrain.rotationPower(controller.getRightX()))
-            ); // used to be -
+            () -> -Constants.Drivetrain.rotationPower(controller.getRightX()))); // used to be -
     // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
     controller
         .y()
@@ -798,12 +798,12 @@ NamedCommands.registerCommand(
                   Commands.sequence(
                       new InstantCommand(
                           () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
                             arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                           }),
                       new WaitCommand(0.25),
                       new InstantCommand(
                           () -> {
+                            elevator.setElevatorPosition(Constants.Presets.liftIntakeAlt);
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeStation);
                             groundIntake.setIntakePower(0, 0);
                           }),
@@ -811,11 +811,6 @@ NamedCommands.registerCommand(
                       new InstantCommand(
                           () -> {
                             arm.setTargetAngle(Constants.Presets.armIntakeAlt, 0);
-                          }),
-                      new WaitCommand(0.25),
-                      new InstantCommand(
-                          () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftIntakeAlt);
                             arm.groundIntaking = false;
                             drive.coralIntededforL1 = false;
                             AutoAlignDesitationDeterminer.placingAtL1 = false;
