@@ -655,6 +655,7 @@ public class RobotContainer {
               new InstantCommand(
                       () -> {
                         arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                        elevator.setElevatorPosition(Constants.Presets.liftIntake);
                       })
                   .schedule();
             });
