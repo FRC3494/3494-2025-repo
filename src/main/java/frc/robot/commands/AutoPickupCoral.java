@@ -20,6 +20,7 @@ public class AutoPickupCoral extends Command {
   Intake intake;
   GroundIntake groundIntake;
   private double time;
+  public double driveSpeed = -0.25;
 
   public AutoPickupCoral(
       Drive drive,
@@ -34,6 +35,29 @@ public class AutoPickupCoral extends Command {
     this.arm = arm;
     this.elevator = elevator;
     this.intake = intake;
+    this.timer = new Timer();
+
+    addRequirements(drive);
+    addRequirements(groundIntake);
+    addRequirements(arm);
+    addRequirements(elevator);
+    addRequirements(intake);
+  }
+
+  public AutoPickupCoral(
+      Drive drive,
+      GroundIntake groundIntake,
+      Arm arm,
+      Elevator elevator,
+      Intake intake,
+      double time, double driveSpeed) {
+    this.time = time;
+    this.drive = drive;
+    this.groundIntake = groundIntake;
+    this.arm = arm;
+    this.elevator = elevator;
+    this.intake = intake;
+    this.driveSpeed = driveSpeed;
     this.timer = new Timer();
 
     addRequirements(drive);
@@ -58,7 +82,7 @@ public class AutoPickupCoral extends Command {
   // DOCUMENT SPEED: work slow was: -0.5, and motor torque was 0.3
   @Override
   public void execute() {
-    double driveSpeed = -0.25;
+    // double driveSpeed = -0.25;
     // if(drivetrain.seesNote() == false){
     //     driveSpeed = 0;
     // }

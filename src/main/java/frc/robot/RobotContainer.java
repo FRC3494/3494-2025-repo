@@ -130,6 +130,8 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2));
     NamedCommands.registerCommand(
+        "VisionCoralGrabFast", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2, -0.4));
+    NamedCommands.registerCommand(
         "IntakeGroundCoral", new IntakeGroundCoral(groundIntake, arm, elevator, intake));
     NamedCommands.registerCommand(
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
@@ -144,7 +146,7 @@ public class RobotContainer {
         "Blue-4-peice-test-set-Pose",
         new InstantCommand(
             () -> {
-              drive.setPose(new Pose2d(7.196, 5.058, new Rotation2d(Math.toRadians(180))));
+              drive.setPose(new Pose2d(7.196, 5.500, new Rotation2d(Math.toRadians(180))));
             }));
     NamedCommands.registerCommand(
         "Blue-Middle-Front-Set-Pose",
@@ -436,7 +438,7 @@ NamedCommands.registerCommand(
     "4-GOTOPos1",
     new AutoAutoAlign(
         drive,
-        1.75,
+        2.5,
         Constants.Auto.ThreePeiceCoolAuto.pos1,
         3.5,
         Constants.Drivetrain.maxLinearAcceleration * 0.4,
@@ -445,7 +447,7 @@ NamedCommands.registerCommand(
     "4-GOTOPos2",
     new AutoAutoAlign(
         drive,
-        1,
+        1.5,
         Constants.Auto.ThreePeiceCoolAuto.pos2,
         3.5,
         Constants.Drivetrain.maxLinearAcceleration * 0.4,
@@ -454,7 +456,7 @@ NamedCommands.registerCommand(
     "4-GOTOPos3",
     new AutoAutoAlign(
         drive,
-        2.5,
+        3,
         Constants.Auto.ThreePeiceCoolAuto.pos3,
         3.5,
         Constants.Drivetrain.maxLinearAcceleration * 0.4,
@@ -472,7 +474,7 @@ NamedCommands.registerCommand(
     "4-GOTOPos5",
     new AutoAutoAlign(
         drive,
-        2.5,
+        3,
         Constants.Auto.ThreePeiceCoolAuto.pos5,
         3.5,
         Constants.Drivetrain.maxLinearAcceleration * 0.4,
