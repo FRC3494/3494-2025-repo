@@ -948,7 +948,7 @@ public class RobotContainer {
             () -> {
               new InstantCommand(
                       () -> {
-                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
                       })
                   .schedule();
             });
