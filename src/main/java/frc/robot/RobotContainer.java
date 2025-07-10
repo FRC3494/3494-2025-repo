@@ -945,7 +945,11 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+              new InstantCommand(
+                      () -> {
+                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                      })
+                  .schedule();
             });
     // LOW INTAKE======================
     // OI.lowIntake().falling().ifHigh(()->{
