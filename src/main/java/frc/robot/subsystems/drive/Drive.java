@@ -525,8 +525,10 @@ public class Drive extends SubsystemBase {
       }
     } catch (NullPointerException e) {
       // e.printStackTrace();
+      return 0;
     } catch (Exception e) {
       // e.printStackTrace();
+      return 0;
     }
 
     return Math.abs(closestCoralTx) <= 0.15
