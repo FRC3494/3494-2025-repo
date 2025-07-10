@@ -458,7 +458,8 @@ NamedCommands.registerCommand(
             drive,
             () -> -controller.getLeftY(),
             () -> -controller.getLeftX(), // used to be -
-            () -> -controller.getRightX())); // used to be -
+            () -> -Constants.Drivetrain.rotationPower(controller.getRightX()))
+            ); // used to be -
     // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
     controller
         .y()

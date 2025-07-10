@@ -154,6 +154,9 @@ public final class Constants {
     public static double L1_GEAR_RATIO = (50.0 / 14.0) * (19.0 / 25.0) * (45.0 / 15.0);
     public static double L2_GEAR_RATIO = (50.0 / 14.0) * (17.0 / 27.0) * (45.0 / 15.0); // TODO
 
+    public static double rotationPower(double rawRotationPower){
+      return Math.copySign(Math.pow(rawRotationPower, 2), rawRotationPower);
+    }
     public static double driveBaseRadius() {
       return Math.hypot(trackWidthX / 2.0, trackWidthY / 2.0);
     }
