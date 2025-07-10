@@ -147,6 +147,12 @@ public class RobotContainer {
               drive.setPose(new Pose2d(7.194, 7.634, new Rotation2d(Math.toRadians(-90))));
             }));
     NamedCommands.registerCommand(
+        "Red-Right-Middle-Front-Set-Pose",
+        new InstantCommand(
+            () -> {
+              drive.setPose(new Pose2d(10.35105, 7.6338, new Rotation2d(Math.toRadians(90))));
+            }));
+    NamedCommands.registerCommand(
         "Blue-Right-Middle-Front-Set-Pose",
         new InstantCommand(
             () -> {
@@ -374,7 +380,50 @@ public class RobotContainer {
             3.5,
             Constants.Drivetrain.maxLinearAcceleration * 0.3,
             Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
-
+//RED COMMANDS STUFFFFF
+NamedCommands.registerCommand(
+        "GOTOPos1Red",
+        new AutoAutoAlign(
+            drive,
+            2,
+            Constants.Auto.AmpMidAutoRed.pos1,
+            4.5,
+            Constants.Drivetrain.maxLinearAcceleration,
+            Constants.Drivetrain.maxLinearVelocity)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPos2Red",
+        new AutoAutoAlign(
+            drive,
+            2,
+            Constants.Auto.AmpMidAutoRed.pos2,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.5,
+            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPos2pt2Red",
+        new AutoAutoAlign(
+            drive,
+            2.5,
+            Constants.Auto.AmpMidAutoRed.pos2,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.5,
+            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPluckRed", new AutoAutoAlign(drive, 0.25, Constants.Auto.AmpMidAutoRed.algeaPluck)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPos3Red", new AutoAutoAlign(drive, 1.2, Constants.Auto.AmpMidAutoRed.pos3)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPos4Red", new AutoAutoAlign(drive, 1.2, Constants.Auto.AmpMidAutoRed.pos4)); // todo
+    NamedCommands.registerCommand(
+        "GOTOPos5Red",
+        new AutoAutoAlign(
+            drive,
+            2.5,
+            Constants.Auto.AmpMidAutoRed.pos5,
+            3.5,
+            Constants.Drivetrain.maxLinearAcceleration * 0.3,
+            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+//END OF RED COMMANDS STUFF
     NamedCommands.registerCommand( // THIS IS IN AUTO, IF YOU WANNA TUNE DONT RUN THIS ONE
         "Barge", getBargeCommand());
 
