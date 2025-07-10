@@ -1225,21 +1225,8 @@ NamedCommands.registerCommand(
         new InstantCommand(
             () -> {
               elevator.setPIDlimits(-0.8, 0.8);
-            }),
-        new InstantCommand(
-            () -> {
               arm.setPID(9, 0, 0);
-            }),
-        new InstantCommand(
-            () -> {
-              arm.setTargetAngle(Constants.Presets.armBargeYeet, 0);
-            }),
-        new InstantCommand(
-            () -> {
               arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
-            }),
-        new InstantCommand(
-            () -> {
               arm.setCurrentLimit(Constants.Arm.normalCurrentLimit);
             }));
   }
