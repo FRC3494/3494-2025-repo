@@ -276,10 +276,11 @@ public class Drive extends SubsystemBase {
       // System.out.println(rawGyroRotation+ "|" +
       // poseEstimator.getEstimatedPosition().getRotation());
       // System.out.println("PRediodicing2");
-      Logger.recordOutput("Odo Yaw from gyro", rawGyroRotation.getDegrees());
+      Logger.recordOutput("Drive/OdoYawFromGyro", rawGyroRotation.getDegrees());
       poseEstimator.updateWithTime(sampleTimestamps[i], rawGyroRotation, modulePositions);
       Logger.recordOutput(
-          "Odo Yaw right after", poseEstimator.getEstimatedPosition().getRotation().getDegrees());
+          "Drive/OdoYawRightAfter",
+          poseEstimator.getEstimatedPosition().getRotation().getDegrees());
 
       // if (m_LimeLight1.measurmentValid()) {
       //   poseEstimator.setVisionMeasurementStdDevs(VecBuilder.fill(.1, .1, 9999999));
