@@ -119,6 +119,10 @@ public final class OI {
     return rightButtonBoard.button(6, eventLoop);
   }
 
+  public static BooleanEvent groundIntakeUp() {
+    return rightButtonBoard.button(4, eventLoop);
+  }
+
   // TODO: needs a button
   public static BooleanEvent lolipop() {
     return leftButtonBoard.button(3, eventLoop);

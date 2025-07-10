@@ -904,8 +904,8 @@ public class RobotContainer {
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
                           }),
-                          new WaitCommand(0.3),
-                          new InstantCommand(
+                      new WaitCommand(0.3),
+                      new InstantCommand(
                           () -> {
                             groundIntake.setIntakeCUrrentlim(45);
                           }))
@@ -940,6 +940,12 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               groundIntake.setIntakePower(0, 0);
+            });
+    OI.groundIntakeUp()
+        .rising()
+        .ifHigh(
+            () -> {
+              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
             });
     // LOW INTAKE======================
     // OI.lowIntake().falling().ifHigh(()->{
