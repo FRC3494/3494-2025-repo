@@ -278,10 +278,16 @@ public final class Constants {
       public static Pose2d pos5 = new Pose2d(14.28905, 3.8298, new Rotation2d(Math.toRadians(-90+180)));
     }
     public static class ThreePeiceCoolAuto {
-      public static Pose2d pos1 = new Pose2d(4.98, 2.88, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0));
-      public static Pose2d pos2 = new Pose2d(3.430, 1.547, new Rotation2d(Math.toRadians(-82.03)));
+      public static Pose2d pos1 = new Pose2d(5.23, 5.02, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)); // 4
+      public static Pose2d pos2 = new Pose2d(3.689, 6.393, new Rotation2d(Math.toRadians(-104.8)));
+      public static Pose2d pos3 = new Pose2d(4.05, 5.15, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)); // 2 //4.040, 5.193
+      public static Pose2d pos4 = new Pose2d(3.008, 5.986, new Rotation2d(Math.toRadians(-117.30)));
+      public static Pose2d pos5 = new Pose2d(3.760, 5.035, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)); //2
+      //pos6 is handled by path planner
+      public static Pose2d pos7 = new Pose2d(6.636, 7.040, new Rotation2d(Math.toRadians(-29.7-90)));
+      // public static Pose2d pos1 = new Pose2d(4.98, 2.88, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0));
+      // public static Pose2d pos2 = new Pose2d(3.430, 1.547, new Rotation2d(Math.toRadians(-82.03)));
       // public static Pose2d pos3 = new Pose2d(3.78, 3.080, new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3
-
     }
   }
 }
