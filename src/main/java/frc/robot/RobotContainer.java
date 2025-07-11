@@ -130,7 +130,7 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2));
     NamedCommands.registerCommand(
-        "VisionCoralGrabFast", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2, -0.4));
+        "VisionCoralGrabFast", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 4, -0.4));
     NamedCommands.registerCommand(
         "IntakeGroundCoral", new IntakeGroundCoral(groundIntake, arm, elevator, intake));
     NamedCommands.registerCommand(
@@ -447,7 +447,7 @@ NamedCommands.registerCommand(
     "4-GOTOPos2",
     new AutoAutoAlign(
         drive,
-        1.5,
+        0.5,
         Constants.Auto.ThreePeiceCoolAuto.pos2,
         3.5,
         Constants.Drivetrain.maxLinearAcceleration * 0.4,
@@ -465,7 +465,7 @@ NamedCommands.registerCommand(
     "4-GOTOPos4",
     new AutoAutoAlign(
         drive,
-        1,
+        0.5,
         Constants.Auto.ThreePeiceCoolAuto.pos4,
         3.5,
         Constants.Drivetrain.maxLinearAcceleration * 0.4,
