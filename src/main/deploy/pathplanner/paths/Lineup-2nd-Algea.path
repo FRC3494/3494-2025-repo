@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.1553125,
+        "y": 5.037116477272727
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 5.753607954545455,
+        "y": 5.745099431818181
+      },
+      "isLocked": false,
+      "linkedName": "Middle-Barge-Blue-2nd-Algea"
+    },
+    {
+      "anchor": {
+        "x": 6.268894867549669,
+        "y": 5.790169701986755
+      },
+      "prevControl": {
+        "x": 5.860059640276943,
+        "y": 6.328635611077663
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -42.709389957361566
+  },
+  "reversed": false,
+  "folder": "Middle-Side",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 151.6002492274903
+  },
+  "useDefaultConstraints": true
+}
