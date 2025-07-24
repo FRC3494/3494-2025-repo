@@ -168,21 +168,21 @@ public final class OI {
     return leftButtonBoard.button(5, eventLoop);
   }
 
-  // public static BooleanEvent startClimb() {
-  //   return rightButtonBoard.button(1, eventLoop);
-  // }
+  public static BooleanEvent startClimb() {
+    return rightButtonBoard.button(1, eventLoop);
+  }
 
   public static BooleanEvent ToggleDefenseMode() {
     return rightButtonBoard.button(5, eventLoop);
   }
 
-  // public static BooleanEvent ClimbStage1() {
-  //   return rightButtonBoard.button(2, eventLoop);
-  // }
+  public static BooleanEvent ClimbStage1() {
+    return rightButtonBoard.button(2, eventLoop);
+  }
 
-  // public static BooleanEvent ClimbStage2() {
-  //   return rightButtonBoard.button(3, eventLoop);
-  // }
+  public static BooleanEvent ClimbStage2() {
+    return rightButtonBoard.button(3, eventLoop);
+  }
 
   public static BooleanEvent l1Test() {
     return leftButtonBoard.button(10, eventLoop);
