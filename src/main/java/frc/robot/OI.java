@@ -53,9 +53,16 @@ public final class OI {
   }
 
   public static BooleanEvent L1GroundIntake() {
-    return rightButtonBoard.button(7, eventLoop).or(primaryController.a(eventLoop));
+    return (primaryController.a(eventLoop)).or(()->{
+      if((rightButtonBoard.getRawAxis(1)) > Constants.Intake.DEADBAND){
+        return true;
+      }
+      return false;
+    });
   }
-
+  public static BooleanEvent toggleDistanceSensor(){
+    return rightButtonBoard.button(7, eventLoop);
+  }
   public static BooleanEvent L1GroundIntakeHigh() {
     // not called
     return rightButtonBoard.button(6, eventLoop);
@@ -75,7 +82,9 @@ public final class OI {
   }
 
   public static BooleanEvent groundIntakeManualOut() {
-    return rightButtonBoard.button(8, eventLoop);
+    return rightButtonBoard.button(8, eventLoop).or(()->{
+      return (rightButtonBoard.getRawAxis(1)) < -Constants.Intake.DEADBAND;
+    });
   }
 
   public static double getElevatorPower() {

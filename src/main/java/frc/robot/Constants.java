@@ -66,12 +66,12 @@ public final class Constants {
     public static double armOuttakeL1 = 0.875;
     public static double armOuttakeL2 = 0.610; // 0.605; // -111.0;
     public static double armOuttakeL2Auto = 0.610; // 0.595;
-    public static double armOuttakeL3 = 0.62; // -106.0;
+    public static double armOuttakeL3 = 0.63; // -106.0;
     public static double armGroundTransfer = 0.959; // 0.944;
 
     public static double armAlgeaL2 = 0.62; // 0.6125; // 0.605
     public static double armAlgeaL2Auto = 0.62;
-    public static double armAlgeaL3 = 0.627; // 0.585; // 0.58 // -116.0;
+    public static double armAlgeaL3 = 0.632; // 0.585; // 0.58 // -116.0;
     public static double armBargeYeet = 0.65;
     public static double armBargeStore = 0.85;
 
@@ -99,10 +99,11 @@ public final class Constants {
     public static double L1elevatorTest = 8.38;
 
     public static double groundIntakeIntake = 0.03123521; // 0.0;//-19.6;
-    public static double groundIntakeHover = 0.05; // 2.0;//-17;
+    public static double groundIntakeHover = 0.05;
+    // 2.0;//-17;
     public static double groundIntakePop = 0.075; // 2.0;//-17;
     public static double defenseDelay = 0.0;
-    public static double groundIntakeStore = 0.38142; // 28.0;//6;
+    public static double groundIntakeStore = 0.31; // 28.0;//6;
     public static double groundIntakeL1 = 0.36; // not bad: 0.36
     public static double groundIntakeL1High = 0.29;
     public static double groundIntakeStation = 0.31; // 0.3238
@@ -134,7 +135,7 @@ public final class Constants {
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double ARM_OFFSET = 0.458; // 0.438 ->
+    public static double ARM_OFFSET = 0.3750; // 0.8909;//0.438 -> 0.458 //0.3804 ->
 
     public static int normalCurrentLimit = 75;
   }
@@ -233,8 +234,15 @@ public final class Constants {
       public static final Pose2d[]
           leftLocations = { // Placeholder currently using the center positions
         new Pose2d(3.256, 4.222, new Rotation2d(0.0 - Math.PI / 2.0)), // 1
-        new Pose2d(4.05, 5.15, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)), // 2 //4.040, 5.193
-        new Pose2d(3.78, 3.080, new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3
+        new Pose2d(
+            4.05,
+            5.15,
+            new Rotation2d(
+                -Math.PI / 3.0 - Math.PI / 2.0)), // 2 //4.040, 5.193 //beofre iri4.05, 5.15
+        new Pose2d(
+            3.78,
+            3.080,
+            new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3 //before iri3.78, 3.080
         new Pose2d(4.95, 5.18, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)), // 4
         new Pose2d(5.23, 3.03, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5
         new Pose2d(5.72, 4.17, new Rotation2d(Math.PI - Math.PI / 2.0)), // 6
@@ -245,11 +253,21 @@ public final class Constants {
 
       public static final Pose2d[]
           rightLocations = { // Placeholder currently using the center positions
-        new Pose2d(3.256, 3.894, new Rotation2d(0.0 - Math.PI / 2.0)), // 1
-        new Pose2d(3.760, 5.035, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)), // 2
-        new Pose2d(3.988, 2.888, new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3
+        new Pose2d(
+            3.256, 3.894, new Rotation2d(0.0 - Math.PI / 2.0)), // 1 //BEFORE IRI was 3.256, 3.894
+        new Pose2d(3.76, 5.035, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)), // 2 //3.76, 5.035
+        new Pose2d(
+            3.988,
+            2.888,
+            new Rotation2d(
+                Math.PI / 3.0
+                    - Math.PI
+                        / 2.0)), // 3 //before iri WHATTT  |old 3.988, 2.888 \when revert 3.96, 2.86
         new Pose2d(5.23, 5.02, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)), // 4
-        new Pose2d(4.98, 2.88, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5
+        new Pose2d(
+            4.98,
+            2.88,
+            new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5 before iri 4.98, 2.88
         new Pose2d(5.71, 3.85, new Rotation2d(Math.PI - Math.PI / 2.0)), // 6
         new Pose2d(6.001, 0.489, new Rotation2d(Math.PI / 2.0 - Math.PI / 2.0)), // 7
         new Pose2d(1.702, 0.613, new Rotation2d(0.3 * Math.PI - Math.PI / 2.0)), // 8
@@ -261,6 +279,7 @@ public final class Constants {
 
   public static class Auto {
     public static class AmpMidAuto {
+      public static Pose2d posSwing = new Pose2d(3.0, 1.75, new Rotation2d(Math.toRadians(-90)));
       public static Pose2d pos1 = new Pose2d(2.2, 3.184, new Rotation2d(Math.toRadians(-90)));
       public static Pose2d algeaPluck =
           new Pose2d(3.33, 3.894, new Rotation2d(Math.toRadians(-90)));
@@ -271,6 +290,8 @@ public final class Constants {
     }
 
     public static class AmpMidAutoRed {
+      public static Pose2d posSwing =
+          new Pose2d(14.54, 6.302, new Rotation2d(Math.toRadians(-90 + 180)));
       public static Pose2d pos1 =
           new Pose2d(15.34505, 4.8678, new Rotation2d(Math.toRadians(-90 + 180)));
       public static Pose2d algeaPluck =

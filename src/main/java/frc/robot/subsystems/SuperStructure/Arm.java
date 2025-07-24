@@ -87,7 +87,7 @@ public class Arm extends SubsystemBase {
     Logger.recordOutput("Arm/Target-Position", targetPosition);
     Logger.recordOutput("Arm/Manual-Power", manualPower);
     Logger.recordOutput("Arm/Applied-Output", armMotor.getAppliedOutput());
-    Logger.recordOutput("Arm/Current-Limit", armMotor.configAccessor.getSmartCurrentLimit());
+    // Logger.recordOutput("Arm/Current-Limit", armMotor.configAccessor.getSmartCurrentLimit());
     Logger.recordOutput("Arm/Applied-Current", armMotor.getOutputCurrent());
     Logger.recordOutput("Arm/RPM", armMotor.getEncoder().getVelocity());
     Logger.recordOutput("Arm/DefenseMode", defenseMode);

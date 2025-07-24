@@ -130,6 +130,9 @@ public class RobotContainer {
     NamedCommands.registerCommand(
         "VisionCoralGrab", new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2));
     NamedCommands.registerCommand(
+        "VisionCoralGrabFast",
+        new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 4, -0.4));
+    NamedCommands.registerCommand(
         "IntakeGroundCoral", new IntakeGroundCoral(groundIntake, arm, elevator, intake));
     NamedCommands.registerCommand(
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
@@ -144,7 +147,7 @@ public class RobotContainer {
         "Blue-4-peice-test-set-Pose",
         new InstantCommand(
             () -> {
-              drive.setPose(new Pose2d(7.196, 5.058, new Rotation2d(Math.toRadians(180))));
+              drive.setPose(new Pose2d(7.196, 5.500, new Rotation2d(Math.toRadians(180))));
             }));
     NamedCommands.registerCommand(
         "Blue-Middle-Front-Set-Pose",
@@ -204,6 +207,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("Intake", new AutoIntakePower(intake, -1));
     NamedCommands.registerCommand("Outtake", new AutoIntakePower(intake, 1));
     NamedCommands.registerCommand("Outtake Fast", new AutoIntakePower(intake, 0.75));
+    // NamedCommands.registerCommand("Outtake Slow", new AutoIntakePower(intake, 0.25));
     NamedCommands.registerCommand("Outtake Algea", new AutoIntakePower(intake, 1));
     NamedCommands.registerCommand("Outtake L1", new AutoIntakePower(intake, -0.3));
     NamedCommands.registerCommand("Intake Deadline", new AutoIntakeDeadline(intake));
@@ -343,16 +347,24 @@ public class RobotContainer {
                 () -> {
                   arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
                 })));
-
+    NamedCommands.registerCommand(
+        "GOTOPosSwing",
+        new AutoAutoAlign(
+            drive,
+            1,
+            Constants.Auto.AmpMidAuto.posSwing,
+            4.5,
+            Constants.Drivetrain.maxLinearAcceleration,
+            Constants.Drivetrain.maxAngularVelocity)); // todo
     NamedCommands.registerCommand(
         "GOTOPos1",
         new AutoAutoAlign(
             drive,
-            2,
+            1,
             Constants.Auto.AmpMidAuto.pos1,
             4.5,
             Constants.Drivetrain.maxLinearAcceleration,
-            Constants.Drivetrain.maxLinearVelocity)); // todo
+            Constants.Drivetrain.maxAngularVelocity)); // todo
     NamedCommands.registerCommand(
         "GOTOPos2",
         new AutoAutoAlign(
@@ -388,14 +400,23 @@ public class RobotContainer {
             Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
     // RED COMMANDS STUFFFFF
     NamedCommands.registerCommand(
+        "GOTOPosSwingRed",
+        new AutoAutoAlign(
+            drive,
+            1,
+            Constants.Auto.AmpMidAutoRed.posSwing,
+            4.5,
+            Constants.Drivetrain.maxLinearAcceleration,
+            Constants.Drivetrain.maxAngularVelocity)); // todo
+    NamedCommands.registerCommand(
         "GOTOPos1Red",
         new AutoAutoAlign(
             drive,
-            2,
+            1,
             Constants.Auto.AmpMidAutoRed.pos1,
             4.5,
             Constants.Drivetrain.maxLinearAcceleration,
-            Constants.Drivetrain.maxLinearVelocity)); // todo
+            4.8)); // todo
     NamedCommands.registerCommand(
         "GOTOPos2Red",
         new AutoAutoAlign(
@@ -437,7 +458,7 @@ public class RobotContainer {
         "4-GOTOPos1",
         new AutoAutoAlign(
             drive,
-            1.75,
+            2.5,
             Constants.Auto.ThreePeiceCoolAuto.pos1,
             3.5,
             Constants.Drivetrain.maxLinearAcceleration * 0.4,
@@ -446,7 +467,7 @@ public class RobotContainer {
         "4-GOTOPos2",
         new AutoAutoAlign(
             drive,
-            1,
+            0.5,
             Constants.Auto.ThreePeiceCoolAuto.pos2,
             3.5,
             Constants.Drivetrain.maxLinearAcceleration * 0.4,
@@ -455,7 +476,7 @@ public class RobotContainer {
         "4-GOTOPos3",
         new AutoAutoAlign(
             drive,
-            2.5,
+            3,
             Constants.Auto.ThreePeiceCoolAuto.pos3,
             3.5,
             Constants.Drivetrain.maxLinearAcceleration * 0.4,
@@ -464,7 +485,7 @@ public class RobotContainer {
         "4-GOTOPos4",
         new AutoAutoAlign(
             drive,
-            1,
+            0.5,
             Constants.Auto.ThreePeiceCoolAuto.pos4,
             3.5,
             Constants.Drivetrain.maxLinearAcceleration * 0.4,
@@ -473,7 +494,7 @@ public class RobotContainer {
         "4-GOTOPos5",
         new AutoAutoAlign(
             drive,
-            2.5,
+            3,
             Constants.Auto.ThreePeiceCoolAuto.pos5,
             3.5,
             Constants.Drivetrain.maxLinearAcceleration * 0.4,
@@ -562,6 +583,12 @@ public class RobotContainer {
                 groundIntake.hoverPosition = Constants.Presets.groundIntakeHover;
                 Constants.Presets.defenseDelay = 0.0;
               }
+            });
+    OI.toggleDistanceSensor()
+        .rising()
+        .ifHigh(
+            () -> {
+              groundIntake.wanttoPOP = !groundIntake.wanttoPOP;
             });
     controller
         .leftBumper()
@@ -867,38 +894,75 @@ public class RobotContainer {
               } else {
                 Constants.Presets.defenseDelay = 0;
               }
+              if (drive.coralIntededforL1) {
+                Commands.sequence(
+                        new InstantCommand(
+                            () -> {
+                              arm.groundIntaking = true;
+                              if (arm.getTargetPosition()
+                                  == Constants.Presets.armIntakeAlt
+                                      + Constants.Presets.globalArmOffset) {
+                                elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
+                                // Constants.Presets.defenseDelay = 2;
+                              } else {
+                                elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                                // Constants.Presets.defenseDelay = 0;
+                              }
 
-              Commands.sequence(
-                      new InstantCommand(
-                          () -> {
-                            arm.groundIntaking = true;
-                            if (arm.getTargetPosition()
-                                == Constants.Presets.armIntakeAlt
-                                    + Constants.Presets.globalArmOffset) {
-                              elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
-                              // Constants.Presets.defenseDelay = 2;
-                            } else {
+                              arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                            }),
+                        new WaitCommand(Constants.Presets.defenseDelay / 2.0),
+                        new InstantCommand(
+                            () -> {
+                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
+                            }),
+                        new WaitCommand(Constants.Presets.defenseDelay / 3.5),
+                        new InstantCommand(
+                            () -> {
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                              // Constants.Presets.defenseDelay = 0;
-                            }
+                              arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+                              drive.coralIntededforL1 = false;
+                              AutoAlignDesitationDeterminer.placingAtL1 = false;
+                            }),
+                        new WaitCommand(1),
+                        new InstantCommand(
+                            () -> {
+                              groundIntake.setIntakePower(-0.85, 0.85);
+                            }))
+                    .schedule();
+              } else {
+                Commands.sequence(
+                        new InstantCommand(
+                            () -> {
+                              arm.groundIntaking = true;
+                              if (arm.getTargetPosition()
+                                  == Constants.Presets.armIntakeAlt
+                                      + Constants.Presets.globalArmOffset) {
+                                elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
+                                // Constants.Presets.defenseDelay = 2;
+                              } else {
+                                elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                                // Constants.Presets.defenseDelay = 0;
+                              }
 
-                            arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                          }),
-                      new WaitCommand(Constants.Presets.defenseDelay / 2.0),
-                      new InstantCommand(
-                          () -> {
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                            groundIntake.setIntakePower(-0.85, 0.85);
-                          }),
-                      new WaitCommand(Constants.Presets.defenseDelay / 3.5),
-                      new InstantCommand(
-                          () -> {
-                            elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                            arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
-                            drive.coralIntededforL1 = false;
-                            AutoAlignDesitationDeterminer.placingAtL1 = false;
-                          }))
-                  .schedule();
+                              arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                            }),
+                        new WaitCommand(Constants.Presets.defenseDelay / 2.0),
+                        new InstantCommand(
+                            () -> {
+                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
+                              groundIntake.setIntakePower(-0.85, 0.85);
+                            }),
+                        new WaitCommand(Constants.Presets.defenseDelay / 3.5),
+                        new InstantCommand(
+                            () -> {
+                              elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                              arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+                              drive.coralIntededforL1 = false;
+                              AutoAlignDesitationDeterminer.placingAtL1 = false;
+                            }))
+                    .schedule();
+              }
             });
 
     OI.activateGroundIntake()
@@ -932,7 +996,7 @@ public class RobotContainer {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
                             arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                            groundIntake.setIntakePower(-0.85, -0.6);
+                            groundIntake.setIntakePower(-0.85, -0.6); // -0.85, -0.6
                             drive.coralIntededforL1 = true;
                             AutoAlignDesitationDeterminer.placingAtL1 = true;
                           }));
@@ -1016,6 +1080,7 @@ public class RobotContainer {
                       new WaitCommand(0.3),
                       new InstantCommand(
                           () -> {
+                            drive.coralIntededforL1 = false;
                             groundIntake.setIntakeCUrrentlim(45);
                           }))
                   .schedule();

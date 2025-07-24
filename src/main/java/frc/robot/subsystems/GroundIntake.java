@@ -27,7 +27,7 @@ public class GroundIntake extends SubsystemBase {
   private SparkMaxConfig frontIntakeMotorConfig;
   private SparkMax backIntakeMotor;
   private SparkMaxConfig backIntakeMotorConfig;
-
+  public boolean wanttoPOP = true;
   private PIDController pivotMotorPIDLoop = new PIDController(8, 0, 0);
   public double targetPosition;
   public double hoverPosition = Constants.Presets.groundIntakeHover;
@@ -102,8 +102,9 @@ public class GroundIntake extends SubsystemBase {
     double sensor_distance = m_rangeSensor.getRange();
     double sensor_sdev = m_rangeSensor.getRangeSigma();
     Logger.recordOutput("Ground-Intake/Distance-Sensor/Distance", sensor_distance);
-    Logger.recordOutput("Ground-Intake/Distance-Sensor/Sdev", sensor_sdev);
-    Logger.recordOutput("Ground-Intake/Distance-Sensor/Status", m_rangeSensor.getStatus());
+    // Logger.recordOutput("Ground-Intake/Distance-Sensor/Sdev", sensor_sdev);
+    // Logger.recordOutput("Ground-Intake/Distance-Sensor/Status", m_rangeSensor.getStatus());
+    Logger.recordOutput("Ground-Intake/Using-Distance-Sensor",wanttoPOP);
 
     Logger.recordOutput("Ground-Intake/Pivot-Position", pivotMotor.getEncoder().getPosition());
     // Logger.recordOutput("Grount-Intake/PID-Power", motorpower);
@@ -120,7 +121,7 @@ public class GroundIntake extends SubsystemBase {
     Logger.recordOutput("Ground-Intake/Back-Current", backIntakeMotor.getOutputCurrent());
 
     if (targetPosition == Constants.Presets.groundIntakeIntake
-        && sensor_distance < Constants.GroundIntake.CoralDistanceTheshold) {
+        && sensor_distance < Constants.GroundIntake.CoralDistanceTheshold && wanttoPOP) {
       setIntakePosition(Constants.Presets.groundIntakePop);
     }
   }
