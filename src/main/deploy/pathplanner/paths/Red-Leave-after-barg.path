@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 9.922,
-        "y": 2.904
+        "x": 10.155,
+        "y": 2.652
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.528630122107401,
-        "y": 2.8207833567356495
+        "x": 11.332971877270067,
+        "y": 2.106852078458668
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Barge-Red-Barge"
     },
     {
       "anchor": {
-        "x": 12.035749027237353,
-        "y": 2.5397373540856027
+        "x": 12.39,
+        "y": 3.0148
       },
       "prevControl": {
-        "x": 10.8833901701255,
-        "y": 2.3690168866734873
+        "x": 11.871513486339,
+        "y": 1.8183102444434966
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Red-2nd-Algea"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -36.25383773744478
+    "rotation": -28.399999999999977
   },
   "reversed": false,
   "folder": "Middle-Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 107.45
+    "rotation": 150.3
   },
   "useDefaultConstraints": true
 }

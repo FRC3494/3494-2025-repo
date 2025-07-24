@@ -56,14 +56,14 @@ public class Limelights {
       }
 
       // logAllFiducialsPose3d(limelightLeftMeasurment);
-      
+
       try {
-        Logger.recordOutput(limelightName+"/noTagsFound", noTagsFound);
-        Logger.recordOutput(limelightName+"/tooFarAway", tooFarAway);
-        Logger.recordOutput(limelightName+"/limelightLeftMeasurment", limelightLeftMeasurment);
+        Logger.recordOutput(limelightName + "/noTagsFound", noTagsFound);
+        Logger.recordOutput(limelightName + "/tooFarAway", tooFarAway);
+        Logger.recordOutput(limelightName + "/limelightLeftMeasurment", limelightLeftMeasurment);
         Logger.recordOutput(limelightName + "/Valid", validMeasurment);
+      } catch (Exception e) {
       }
-      catch(Exception e) {}
 
       if (leftLimelightEmpty || rotationRateTooHigh || noTagsFound || tooFarAway) {
         validMeasurment = false;
@@ -119,20 +119,17 @@ public class Limelights {
 
   private void logAllFiducialsPose3d(LimelightHelpers.PoseEstimate measurement) {
     try {
-      if (limelightLeftMeasurment != null){
+      if (limelightLeftMeasurment != null) {
 
-      RawFiducial[] asdf = limelightLeftMeasurment.rawFiducials();
+        RawFiducial[] asdf = limelightLeftMeasurment.rawFiducials();
 
-      Logger.recordOutput(
-          limelightName + "/SeenApriltags",
-          Arrays.stream(asdf).map(fid -> fid.id).toArray(String[]::new));
+        Logger.recordOutput(
+            limelightName + "/SeenApriltags",
+            Arrays.stream(asdf).map(fid -> fid.id).toArray(String[]::new));
 
-          } else {
-            Logger.recordOutput(
-              limelightName + "/SeenApriltags",
-             new String[] {}
-              );
-          }
+      } else {
+        Logger.recordOutput(limelightName + "/SeenApriltags", new String[] {});
+      }
 
     } catch (Exception e) {
       e.printStackTrace();

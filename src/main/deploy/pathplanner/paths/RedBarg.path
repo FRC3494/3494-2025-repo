@@ -12,20 +12,20 @@
         "y": 4.071
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Barge-Red-AlgeaGrab"
     },
     {
       "anchor": {
-        "x": 9.922,
-        "y": 2.904
+        "x": 10.155,
+        "y": 2.652
       },
       "prevControl": {
-        "x": 9.988035985411125,
-        "y": 3.65970622667872
+        "x": 10.221035985411138,
+        "y": 3.4077062266787204
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Barge-Red-Barge"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 107.447
+    "rotation": 150.3
   },
   "reversed": false,
   "folder": "Middle-Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.64400000000002
+    "rotation": -89.43600000000004
   },
   "useDefaultConstraints": false
 }

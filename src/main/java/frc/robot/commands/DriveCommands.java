@@ -13,21 +13,13 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import frc.robot.Constants;
 import frc.robot.subsystems.drive.AutoAlignController;
 import frc.robot.subsystems.drive.Drive;
-
-import java.util.Optional;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
@@ -83,25 +75,26 @@ public class DriveCommands {
     //               omega * drive.getMaxAngularSpeedRadPerSec(),
     //               isFlipped
     //                   ? drive.getRotation().plus(new Rotation2d(Math.PI))
-    //                   : drive.getRotation()));          
+    //                   : drive.getRotation()));
     //     },
     //     drive);
   }
 
   public static Command autoAlign(Drive drive, boolean leftSide, boolean barging) {
     System.out.println("REUESTED--------------------");
-    Supplier<Pose2d> onTheFly = AutoAlignDesitationDeterminer.destination(drive.getPose(), leftSide, barging);
-    if(leftSide){
+    Supplier<Pose2d> onTheFly =
+        AutoAlignDesitationDeterminer.destination(drive.getPose(), leftSide, barging);
+    if (leftSide) {
       drive.m_LimeLight1.setCropY(-1, 1);
       // drive.m_LimeLight1.setMegatag(true);
-    }
-    else{ drive.m_LimeLight1.setCropY(-1, 1);
-      // drive.m_LimeLight1.setMegatag(false); 
+    } else {
+      drive.m_LimeLight1.setCropY(-1, 1);
+      // drive.m_LimeLight1.setMegatag(false);
     }
     autoAlignController =
         new AutoAlignController(
             drive,
-            onTheFly,//ampAlignedPose,
+            onTheFly, // ampAlignedPose,
             () -> {
               return new Translation2d();
             },
@@ -118,5 +111,4 @@ public class DriveCommands {
   public void setDriveMode(DriveMode newDriveMode) {
     currentDriveMode = newDriveMode;
   }
-  
 }
