@@ -7,7 +7,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Red-Left-Set-Pose"
+            "name": "Blue-4-peice-test-set-Pose"
           }
         },
         {
@@ -17,15 +17,35 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "L2 Outtake"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Red-1st-peice-left"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "FreeArm"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "L2 Outtake"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "4-GOTOPos1"
+                }
+              }
+            ]
           }
         },
         {
@@ -37,7 +57,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.3
+            "waitTime": 0.12
           }
         },
         {
@@ -45,9 +65,47 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Red-Intake-from-1st-peice"
+                  "name": "4-GOTOPos2"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.4
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "IntakeGroundCoral"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "VisionCoralGrabFast"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "4-GOTOPos3"
                 }
               },
               {
@@ -63,47 +121,10 @@
                     {
                       "type": "named",
                       "data": {
-                        "name": "Intake Pos"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Intake"
+                        "name": "L3 Outtake Delayed"
                       }
                     }
                   ]
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.75
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake"
-          }
-        },
-        {
-          "type": "parallel",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Red-2nd-peice"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "L3 Outtake Delayed"
                 }
               }
             ]
@@ -118,13 +139,19 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.3
+            "waitTime": 0.25
           }
         },
         {
           "type": "parallel",
           "data": {
             "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "4-GOTOPos4"
+                }
+              },
               {
                 "type": "sequential",
                 "data": {
@@ -132,43 +159,25 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.5
+                        "waitTime": 0.3
                       }
                     },
                     {
                       "type": "named",
                       "data": {
-                        "name": "Intake"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Intake Pos"
+                        "name": "IntakeGroundCoral"
                       }
                     }
                   ]
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Red-Intake-from-2nd-peice"
                 }
               }
             ]
           }
         },
         {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.75
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "Intake"
+            "name": "VisionCoralGrabFast"
           }
         },
         {
@@ -176,15 +185,28 @@
           "data": {
             "commands": [
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "Red-3rd-peice"
+                  "name": "4-GOTOPos5"
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "L3 Outtake Delayed"
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.3
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "L3 Outtake Delayed"
+                      }
+                    }
+                  ]
                 }
               }
             ]
@@ -199,7 +221,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.35
+            "waitTime": 0.25
           }
         },
         {
@@ -209,7 +231,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Red-3rd-peice-algea"
+                  "pathName": "Fast-3rd-peice-algea"
                 }
               },
               {
@@ -225,7 +247,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 0.25
+                        "waitTime": 0.35
                       }
                     },
                     {
@@ -249,13 +271,39 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.25
+            "waitTime": 0.2
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "Red-Gunit"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "4-GOTOPos7"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Algea Pos"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         }
       ]

@@ -1,18 +1,15 @@
 package frc.robot.subsystems.SuperStructure;
 
-import java.util.ArrayList;
-
-import org.littletonrobotics.junction.Logger;
-
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import java.util.ArrayList;
+import org.littletonrobotics.junction.Logger;
 
 public class Intake extends SubsystemBase {
   private SparkMax intakeMotor;
@@ -27,7 +24,7 @@ public class Intake extends SubsystemBase {
     Logger.recordOutput("Intake/Intake-Power", intakeSpeed);
     intakeConfig = new SparkMaxConfig();
     intakeConfig.idleMode(IdleMode.kBrake);
-    intakeConfig.smartCurrentLimit(30);
+    intakeConfig.smartCurrentLimit(30);//was 40 on 7/9/25
     intakeConfig.inverted(false);
     intakeMotor = new SparkMax(Constants.Intake.intakeMotor, MotorType.kBrushless);
     intakeMotor.configure(
@@ -56,7 +53,7 @@ public class Intake extends SubsystemBase {
   @Override
   public void periodic() {
     double Cavrg = currentAverage(intakeMotor.getOutputCurrent());
-    if (Cavrg >13) {
+    if (Cavrg > 13) {
       hasCoral = true;
     }
     Logger.recordOutput("Intake/Current-Average", Cavrg);

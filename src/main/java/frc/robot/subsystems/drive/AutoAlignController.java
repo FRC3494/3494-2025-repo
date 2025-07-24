@@ -20,15 +20,15 @@ import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class AutoAlignController {
-  private static final double linearkP = 3.5; // 5.0; // 3.5;
+  private double linearkP = 3.5; // 5.0; // 3.5;
   private static final double linearkD = 0.0; // 3.0;
   private static final double thetakP = 7.0; // 7.0
   private static final double thetakD = 0.0;
   private static final double linearTolerance = 0.01;
   private static final double thetaTolerance = Units.degreesToRadians(1.0);
   private static final double toleranceTime = 0.5;
-  private static final double maxLinearVelocity = Constants.Drivetrain.maxLinearVelocity;
-  private static final double maxLinearAcceleration =
+  private double maxLinearVelocity = Constants.Drivetrain.maxLinearVelocity;
+  private double maxLinearAcceleration =
       Constants.Drivetrain.maxLinearAcceleration * 0.4;
   private static final double maxAngularVelocity = Constants.Drivetrain.maxAngularVelocity * 0.8;
   private static final double maxAngularAcceleration =
@@ -55,6 +55,30 @@ public class AutoAlignController {
       Supplier<Pose2d> poseSupplier,
       Supplier<Translation2d> feedforwardSupplier,
       boolean slowMode) {
+    this.poseSupplier = poseSupplier;
+    this.feedforwardSupplier = feedforwardSupplier;
+    this.slowMode = slowMode;
+    // Set up both controllers
+    linearController =
+        new ProfiledPIDController(linearkP, 0, linearkD, new TrapezoidProfile.Constraints(0, 0));
+    linearController.setTolerance(linearTolerance);
+    thetaController =
+        new ProfiledPIDController(thetakP, 0, thetakD, new TrapezoidProfile.Constraints(0, 0));
+    thetaController.enableContinuousInput(-Math.PI, Math.PI);
+    thetaController.setTolerance(thetaTolerance);
+    toleranceTimer.restart();
+    updateConstraints();
+    resetControllers(drive);
+  }
+
+  public AutoAlignController(
+      Drive drive,
+      Supplier<Pose2d> poseSupplier,
+      Supplier<Translation2d> feedforwardSupplier,
+      boolean slowMode, double linearP, double maxLinearVelocity, double maxLinearAcceleration) {
+    this.linearkP = linearP;
+    this.maxLinearAcceleration = maxLinearAcceleration;
+    this.maxLinearVelocity = maxLinearVelocity;
     this.poseSupplier = poseSupplier;
     this.feedforwardSupplier = feedforwardSupplier;
     this.slowMode = slowMode;

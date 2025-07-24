@@ -16,16 +16,16 @@
     },
     {
       "anchor": {
-        "x": 11.8,
+        "x": 11.9,
         "y": 3.877
       },
       "prevControl": {
-        "x": 11.066304210309726,
+        "x": 11.166304210309725,
         "y": 3.8990062852086567
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Middle-Barge-Red-FirstPiece"
     }
   ],
   "rotationTargets": [],

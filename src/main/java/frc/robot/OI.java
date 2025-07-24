@@ -34,7 +34,6 @@ public final class OI {
   }
 
   public static double getIntakePower() {
-
     double Sean_intake_power =
         deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
             + deadband(primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND)
@@ -44,31 +43,56 @@ public final class OI {
     return Sean_intake_power + Ashton_intake_power;
   }
 
-  // public static BooleanEvent activateGroundIntake() {
-  //   // double Sean_intake_power =
-  //   //     deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
-  //   //         + deadband(primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND);
-  //   // return new BooleanEvent(eventLoop, ()->(Sean_intake_power<0));
-  //   return primaryController.rightTrigger(0.05, eventLoop);
-  //   // return primaryController.a(eventLoop);
-  // }
-
-  // public static BooleanEvent L1GroundIntake() {
-  //   return rightButtonBoard.button(8, eventLoop).or(rightButtonBoard.button(7, eventLoop));
-  // }
-
-  // Doesn't seem to be used anywhere -Jiping
-  public static BooleanEvent L1Outtake() {
-    return leftButtonBoard.button(9, eventLoop);
+  public static BooleanEvent activateGroundIntake() {
+    // double Sean_intake_power =
+    //     deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
+    //         + deadband(primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND);
+    // return new BooleanEvent(eventLoop, ()->(Sean_intake_power<0));
+    return primaryController.rightTrigger(0.05, eventLoop);
+    // return primaryController.a(eventLoop);
   }
 
-  // public static BooleanEvent groundIntakeIntake() {
-  //   return rightButtonBoard.button(9, eventLoop);
-  // }
+  public static BooleanEvent L1GroundIntake() {
+    return (primaryController.a(eventLoop))
+        .or(
+            () -> {
+              if ((rightButtonBoard.getRawAxis(1)) > Constants.Intake.DEADBAND) {
+                return true;
+              }
+              return false;
+            });
+  }
 
-  // public static BooleanEvent groundIntakeOuttake() {
-  //   return rightButtonBoard.button(10, eventLoop);
-  // }
+  public static BooleanEvent toggleDistanceSensor() {
+    return rightButtonBoard.button(7, eventLoop);
+  }
+
+  public static BooleanEvent L1GroundIntakeHigh() {
+    // not called
+    return rightButtonBoard.button(6, eventLoop);
+  }
+
+  // TODO: is this "New L1"?
+  public static BooleanEvent L1Outtake() {
+    return leftButtonBoard.button(10, eventLoop);
+  }
+
+  public static BooleanEvent groundIntakeIntake() {
+    return rightButtonBoard.button(9, eventLoop);
+  }
+
+  public static BooleanEvent groundIntakeOuttake() {
+    return rightButtonBoard.button(10, eventLoop);
+  }
+
+  public static BooleanEvent groundIntakeManualOut() {
+    return rightButtonBoard
+        .button(8, eventLoop)
+        .or(
+            () -> {
+              return (rightButtonBoard.getRawAxis(1)) < -Constants.Intake.DEADBAND;
+            });
+  }
 
   public static double getElevatorPower() {
     // TODO: assign a button
@@ -98,18 +122,29 @@ public final class OI {
   }
 
   public static BooleanEvent lowIntake() {
+    // Not called
     return leftButtonBoard.button(10, eventLoop);
   }
 
   public static BooleanEvent lowLowIntake() {
+    // Not called
     return rightButtonBoard.button(2, eventLoop);
   }
 
+  public static BooleanEvent armSafeMode() {
+    return rightButtonBoard.button(6, eventLoop);
+  }
+
+  public static BooleanEvent groundIntakeUp() {
+    return rightButtonBoard.button(4, eventLoop);
+  }
+
+  // TODO: needs a button
   public static BooleanEvent lolipop() {
     return leftButtonBoard.button(3, eventLoop);
   }
 
-  public static BooleanEvent Intake() {
+  public static BooleanEvent feeder() {
     return leftButtonBoard.button(6, eventLoop);
   }
 
@@ -133,24 +168,21 @@ public final class OI {
     return leftButtonBoard.button(5, eventLoop);
   }
 
-  // public static BooleanEvent startClimb() {
-  //   return rightButtonBoard.button(1, eventLoop);
-  // }
+  public static BooleanEvent startClimb() {
+    return rightButtonBoard.button(1, eventLoop);
+  }
 
-  // public static BooleanEvent ClimbStage0() {
-  //   return rightButtonBoard.button(5, eventLoop);
-  // }
   public static BooleanEvent ToggleDefenseMode() {
     return rightButtonBoard.button(5, eventLoop);
   }
 
-  // public static BooleanEvent ClimbStage1() {
-  //   return rightButtonBoard.button(2, eventLoop);
-  // }
+  public static BooleanEvent ClimbStage1() {
+    return rightButtonBoard.button(2, eventLoop);
+  }
 
-  // public static BooleanEvent ClimbStage2() {
-  //   return rightButtonBoard.button(3, eventLoop);
-  // }
+  public static BooleanEvent ClimbStage2() {
+    return rightButtonBoard.button(3, eventLoop);
+  }
 
   public static BooleanEvent l1Test() {
     return leftButtonBoard.button(10, eventLoop);
