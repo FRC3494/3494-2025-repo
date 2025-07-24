@@ -55,7 +55,7 @@ public final class Constants {
 
   public static class Presets {
     public static double globalArmOffset = -0.005; // -0.01
-    public static double armIntake = 0.823; // 0.822; // -34.0;
+    public static double armIntake = 0.823;//0.822; // -34.0;
     public static double armIntakeLow = 0.829;
     public static double armIntakeAlt = 0.830;
     public static double armIntakeLowLow = 0.846;
@@ -69,9 +69,9 @@ public final class Constants {
     public static double armOuttakeL3 = 0.62; // -106.0;
     public static double armGroundTransfer = 0.94;
 
-    public static double armAlgeaL2 = 0.62; // 0.6125; // 0.605
+    public static double armAlgeaL2 = 0.62;//0.6125; // 0.605
     public static double armAlgeaL2Auto = 0.6125;
-    public static double armAlgeaL3 = 0.627; // 0.585; // 0.58 // -116.0;
+    public static double armAlgeaL3 = 0.627;//0.585; // 0.58 // -116.0;
     public static double armBargeYeet = 0.65;
     public static double armBargeStore = 0.85;
 
@@ -97,12 +97,12 @@ public final class Constants {
     public static double L1armtest = 0.613; // 0.610
     public static double L1elevatorTest = 8.38;
 
-    public static double groundIntakeIntake = 0.03123521; // 0.0;//-19.6;
-    public static double groundIntakeHover = 0.0594; // 2.0;//-17;
+    public static double groundIntakeIntake = 0.03123521;//0.0;//-19.6;
+    public static double groundIntakeHover = 0.0594;//2.0;//-17;
     public static double defenseDelay = 0.0;
-    public static double groundIntakeStore = 0.38142; // 28.0;//6;
-    public static double groundIntakeL1 = 0.26338; // 19.0;//0;
-    public static double groundIntakeStation = 0.3238; // 23.0;;// 3.28;
+    public static double groundIntakeStore = 0.38142;//28.0;//6;
+    public static double groundIntakeL1 = 0.26338;//19.0;//0;
+    public static double groundIntakeStation =0.3238;//23.0;;// 3.28;
   }
 
   public static class OI {
@@ -114,24 +114,19 @@ public final class Constants {
     public static int leaderMotor = 12; // 12;
     public static int followerMotor = 13; // 13;
   }
-
   public static class GroundIntake {
     public static int pivotMotor = 7;
     public static int frontIntakeMotor = 11;
     public static int backIntakeMotor = 10;
+
   }
 
   public static class Arm {
-    public static double maxVelocity = 3;
-    public static double maxAcceleration = 3;
-    public static double positionTolerance = 0.001;
     public static int armMotor = 15;
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double ARM_OFFSET = 0.5122203;
-
-    public static int normalCurrentLimit = 30;//75;
+    public static int normalCurrentLimit = 75;
   }
 
   public static class Intake {
@@ -189,9 +184,7 @@ public final class Constants {
     public static final double fieldWidth = Units.inchesToMeters(317); // 26ft 6in
     public static final Translation2d ampCenter =
         new Translation2d(Units.inchesToMeters(72.455), fieldWidth);
-    public static final Pose2d bargeSpot =
-        new Pose2d(7.4, 6.893, new Rotation2d(Math.toRadians(-135.0)));
-
+    public static final Pose2d bargeSpot = new Pose2d(7.4, 6.893, new Rotation2d(Math.toRadians(-135.0)));
     public static class Reef {
       //       6
       //     ----
