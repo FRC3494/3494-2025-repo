@@ -126,8 +126,6 @@ public final class Constants {
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double ARM_OFFSET = 0.5122203;
-
     public static int normalCurrentLimit = 75;
   }
 
