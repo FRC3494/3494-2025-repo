@@ -40,9 +40,22 @@
                 }
               },
               {
-                "type": "named",
+                "type": "sequential",
                 "data": {
-                  "name": "GOTOPos1"
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GOTOPosSwing"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "GOTOPos1"
+                      }
+                    }
+                  ]
                 }
               }
             ]

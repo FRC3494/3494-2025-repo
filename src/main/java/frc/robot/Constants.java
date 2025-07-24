@@ -57,7 +57,7 @@ public final class Constants {
     public static double globalArmOffset = -0.005; // -0.01
     public static double armIntake = 0.823; // 0.822; // -34.0;
     public static double armIntakeLow = 0.829;
-    public static double armIntakeAlt = 0.830;
+    public static double armIntakeAlt = 0.845; // 0.830
     public static double armIntakeLowLow = 0.846;
     public static double armCoral = 0.54; // -136.0;
 
@@ -66,7 +66,7 @@ public final class Constants {
     public static double armOuttakeL1 = 0.875;
     public static double armOuttakeL2 = 0.610; // 0.605; // -111.0;
     public static double armOuttakeL2Auto = 0.610; // 0.595;
-    public static double armOuttakeL3 = 0.62; // -106.0;
+    public static double armOuttakeL3 = 0.63; // -106.0;
     public static double armGroundTransfer = 0.959; // 0.944;
 
     public static double armAlgeaL2 = 0.62; // 0.6125; // 0.605
@@ -76,7 +76,7 @@ public final class Constants {
     public static double armBargeStore = 0.85;
 
     public static double liftIntake = 0;
-    public static double liftIntakeAlt = 2.238;
+    public static double liftIntakeAlt = 10; // 2.238
     public static double liftOuttakeL2 = 20;
     public static double liftOuttakeL3 = 44.5;
     public static double liftAlgeaL3 = 28.75;
@@ -99,13 +99,14 @@ public final class Constants {
     public static double L1elevatorTest = 8.38;
 
     public static double groundIntakeIntake = 0.03123521; // 0.0;//-19.6;
-    public static double groundIntakeHover = 0.05; // 2.0;//-17;
+    public static double groundIntakeHover = 0.05; 
+    // 2.0;//-17;
     public static double groundIntakePop = 0.075; // 2.0;//-17;
     public static double defenseDelay = 0.0;
-    public static double groundIntakeStore = 0.38142; // 28.0;//6;
+    public static double groundIntakeStore = 0.31; // 28.0;//6;
     public static double groundIntakeL1 = 0.36; // not bad: 0.36
     public static double groundIntakeL1High = 0.29;
-    public static double groundIntakeStation = 0.3238; // 23.0;;// 3.28;
+    public static double groundIntakeStation = 0.31; // 0.3238
 
     public static double groundIntakeJerk =0.27;// 0.275; // not bad: 0.26   // 23.0;;// 3.28;
   }
@@ -201,6 +202,7 @@ public final class Constants {
     public static final Pose2d bargeSpot =
         new Pose2d(7.39, 5.4, new Rotation2d(Math.toRadians(-29.70)));
 
+        
     // new Pose2d(7.4, 6.893, new Rotation2d(Math.toRadians(-135.0)));
 
     public static class Reef {
@@ -270,6 +272,7 @@ public final class Constants {
       public static Pose2d pos5 = new Pose2d(3.256, 4.222, new Rotation2d(Math.toRadians(-90)));
     }
     public static class AmpMidAutoRed {
+      public static Pose2d posSwing = new Pose2d(14.54, 6.302, new Rotation2d(Math.toRadians(-90+180)));
       public static Pose2d pos1 = new Pose2d(15.34505, 4.8678, new Rotation2d(Math.toRadians(-90+180)));
       public static Pose2d algeaPluck =
           new Pose2d(14.21505, 4.1578, new Rotation2d(Math.toRadians(-90+180)));

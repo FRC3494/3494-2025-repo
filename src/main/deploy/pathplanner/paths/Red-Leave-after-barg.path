@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 10.155,
-        "y": 2.8218
+        "y": 2.652
       },
       "prevControl": null,
       "nextControl": {
-        "x": 10.761630122107409,
-        "y": 2.7385833567356497
+        "x": 11.332971877270067,
+        "y": 2.106852078458668
       },
       "isLocked": false,
       "linkedName": "Middle-Barge-Red-Barge"
@@ -20,8 +20,8 @@
         "y": 3.0148
       },
       "prevControl": {
-        "x": 11.237641142888148,
-        "y": 2.8440795325878847
+        "x": 11.871513486339,
+        "y": 1.8183102444434966
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "Middle-Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 151.0
+    "rotation": 150.3
   },
   "useDefaultConstraints": true
 }

@@ -77,10 +77,10 @@ public class TeleopIntake extends Command {
     if (intakePower != lastIntakePower || OI.primaryController.getAButton()) {
       intake.setSpeed(intakePower);
     }
-    // else if(holding_algea && OI.deadband(intakePower, 0.5) == 0){
-    //   boolean isIntaking =  ((int) (algeaTimer.get()*10))%2 ==1;
-    //   intake.setSpeed(((isIntaking) ? 1: 0));
-    // }
+    else if(holding_algea && OI.deadband(intakePower, 0.5) == 0){
+      boolean isIntaking =  ((int) (algeaTimer.get()*10))%2 ==1;
+      intake.setSpeed(((isIntaking) ? 1: 0));
+    }
     lastIntakePower = intakePower;
 
     Logger.recordOutput("Intake/Intake-Power-Command", -1 * Math.pow(OI.getIntakePower(), 2));

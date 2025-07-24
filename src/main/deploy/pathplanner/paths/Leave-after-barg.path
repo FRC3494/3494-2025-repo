@@ -4,12 +4,12 @@
     {
       "anchor": {
         "x": 7.39,
-        "y": 5.23
+        "y": 5.15
       },
       "prevControl": null,
       "nextControl": {
         "x": 6.212301136363636,
-        "y": 5.775014204545455
+        "y": 5.695014204545455
       },
       "isLocked": false,
       "linkedName": "Middle-Barge-Blue-Barge"
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 151.60024922749028
+    "rotation": 151.6002492274903
   },
   "reversed": false,
   "folder": "Middle-Side",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -29.000000000000004
+    "rotation": -29.699999999999996
   },
   "useDefaultConstraints": true
 }
