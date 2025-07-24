@@ -1,5 +1,7 @@
 package frc.robot.subsystems.SuperStructure;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -14,7 +16,6 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import org.littletonrobotics.junction.Logger;
 
 public class Arm extends SubsystemBase {
   SparkFlex armMotor;
