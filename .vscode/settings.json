@@ -77,5 +77,6 @@
       "source.fixAll.spotlessGradle": "explicit"
     }
   },
-  "java.compile.nullAnalysis.mode": "automatic"
+  "java.compile.nullAnalysis.mode": "automatic",
+  "cSpell.words": ["AUTOALIGN"]
 }

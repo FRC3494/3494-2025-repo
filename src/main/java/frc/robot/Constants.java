@@ -46,6 +46,15 @@ public final class Constants {
     REPLAY
   }
 
+  public static final DriveMode DRIVE_MODE = DriveMode.NORMAL;
+
+  public static enum DriveMode {
+    NORMAL,
+    DEMO,
+    DEMO_AUTOALIGN,
+    TRAINING,
+  }
+
   public static class Mitocandria {
     public static final int MITOCANDRIA_CAN_ID = 50;
 
@@ -166,10 +175,13 @@ public final class Constants {
     public static final double trackWidthX = 0.5222; // TODO: random Number
     public static final double trackWidthY = 0.574675;
 
-    public static final double maxLinearVelocity = 4.5; // TODO: I made this number up
-    public static final double maxLinearAcceleration = 9.0; // TODO: I made this number up
-    public static final double maxAngularVelocity = 6;
-    public static final double maxAngularAcceleration = 12;
+    public static final double maxLinearVelocity =
+        DRIVE_MODE == DriveMode.DEMO_AUTOALIGN ? 1.0 : 4.5; // TODO: I made this number up
+    public static final double maxLinearAcceleration =
+        DRIVE_MODE == DriveMode.DEMO_AUTOALIGN ? 1.0 : 9.0; // TODO: I made this number up
+    public static final double maxAngularVelocity = DRIVE_MODE == DriveMode.DEMO_AUTOALIGN ? 3 : 6;
+    public static final double maxAngularAcceleration =
+        DRIVE_MODE == DriveMode.DEMO_AUTOALIGN ? 5 : 12;
 
     public static final int PIGEON_PORT = 52;
     public static final int FRONT_LEFT_DRIVE_ID = 18; // 18

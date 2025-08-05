@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Constants.DriveMode;
 import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.commands.AutoAutoAlign;
 import frc.robot.commands.AutoIntakeDeadline;
@@ -590,44 +591,46 @@ public class RobotContainer {
             () -> {
               groundIntake.wanttoPOP = !groundIntake.wanttoPOP;
             });
-    controller
-        .leftBumper()
-        .or(controller.rightBumper())
-        .or(controller.x())
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  System.out.println("ALIGNING-------------------------------------------");
-                  // DriveCommands.autoAlign(drive).execute();
-                  System.out.println(drive.getDefaultCommand());
-                  // ------------
+    if (Constants.DRIVE_MODE != DriveMode.DEMO) {
+      controller
+          .leftBumper()
+          .or(controller.rightBumper())
+          .or(controller.x())
+          .onTrue(
+              Commands.runOnce(
+                  () -> {
+                    System.out.println("ALIGNING-------------------------------------------");
+                    // DriveCommands.autoAlign(drive).execute();
+                    System.out.println(drive.getDefaultCommand());
+                    // ------------
 
-                  // -----------
-                  drive.setDefaultCommand(
-                      DriveCommands.autoAlign(
-                          drive,
-                          controller.leftBumper().getAsBoolean(),
-                          controller.x().getAsBoolean()));
-                  System.out.println(drive.getDefaultCommand());
+                    // -----------
+                    drive.setDefaultCommand(
+                        DriveCommands.autoAlign(
+                            drive,
+                            controller.leftBumper().getAsBoolean(),
+                            controller.x().getAsBoolean()));
+                    System.out.println(drive.getDefaultCommand());
 
-                  // ------------
+                    // ------------
 
-                }));
-    controller
-        .leftBumper()
-        .or(controller.rightBumper())
-        .or(controller.x())
-        .onFalse(
-            Commands.runOnce(
-                () -> {
-                  System.out.println("Stopping-------------------------------------------");
-                  drive.setDefaultCommand(
-                      DriveCommands.joystickDrive(
-                          drive,
-                          () -> -controller.getLeftY(),
-                          () -> -controller.getLeftX(), // used to be -
-                          () -> -controller.getRightX()));
-                }));
+                  }));
+      controller
+          .leftBumper()
+          .or(controller.rightBumper())
+          .or(controller.x())
+          .onFalse(
+              Commands.runOnce(
+                  () -> {
+                    System.out.println("Stopping-------------------------------------------");
+                    drive.setDefaultCommand(
+                        DriveCommands.joystickDrive(
+                            drive,
+                            () -> -controller.getLeftY(),
+                            () -> -controller.getLeftX(), // used to be -
+                            () -> -controller.getRightX()));
+                  }));
+    }
     controller
         .leftBumper()
         .or(controller.rightBumper())
