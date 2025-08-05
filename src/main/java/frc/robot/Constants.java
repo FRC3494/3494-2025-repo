@@ -50,9 +50,9 @@ public final class Constants {
 
   public static enum DriveMode {
     NORMAL,
-    DEMO,
-    DEMO_AUTOALIGN,
-    TRAINING,
+    DEMO, // Demo without autoalign
+    DEMO_AUTOALIGN, // Demo with autoalign
+    TRAINING, // Training new drivers
   }
 
   public static class Mitocandria {
