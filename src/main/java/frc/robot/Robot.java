@@ -13,12 +13,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.Threads;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.LoggedMitocandria;
-import frc.robot.subsystems.drive.ModuleIOSparkMax;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -26,6 +20,16 @@ import org.littletonrobotics.junction.inputs.LoggedPowerDistribution;
 import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
+
+import edu.wpi.first.net.WebServer;
+import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.Threads;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.LoggedMitocandria;
+import frc.robot.subsystems.drive.ModuleIOSparkMax;
+import frc.robot.util.Elastic;
 
 // import org.littletonrobotics.urcl.URCL;
 
@@ -63,6 +67,9 @@ public class Robot extends LoggedRobot {
         Logger.recordMetadata("GitDirty", "Unknown");
         break;
     }
+
+    // Make Elastic layout available to DS
+    WebServer.start(5800, Filesystem.getDeployDirectory().getPath());
 
     // Set up data receivers & replay source
     switch (Constants.currentMode) {
@@ -141,6 +148,7 @@ public class Robot extends LoggedRobot {
     robotContainer.drive.rezeroModulesRelativeEncoders(); // re-zero on auto init
     // robotContainer.drive.canReadTags = true;
     autonomousCommand = robotContainer.getAutonomousCommand();
+    Elastic.selectTab("Autonomous");
     // // schedule the autonomous command (example)
     if (autonomousCommand != null) {
       autonomousCommand.schedule();
@@ -160,6 +168,7 @@ public class Robot extends LoggedRobot {
     // this line or comment it out.
     // robotContainer.drive.canReadTags = true;
     ModuleIOSparkMax.setGearRatio(Constants.Drivetrain.L2_GEAR_RATIO);
+    Elastic.selectTab("Teleoperated");
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
