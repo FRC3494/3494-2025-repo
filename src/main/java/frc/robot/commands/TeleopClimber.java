@@ -1,9 +1,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.OI;
 import frc.robot.subsystems.climber.Climber;
-import org.littletonrobotics.junction.Logger;
 
 public class TeleopClimber extends Command {
   Climber climber;
@@ -16,8 +14,8 @@ public class TeleopClimber extends Command {
 
   @Override
   public void execute() {
-    climberPower = OI.deadband(OI.getClimberPower(), 0.05);
-    Logger.recordOutput("Climber/Manual-Power-Command", climberPower);
+    // climberPower = OI.deadband(OI.getClimberPower(), 0.05);
+    // Logger.recordOutput("Climber/Manual-Power-Command", climberPower);
     // if(climberPower != 0 || (climber.getManualMotorPower() != 0 && climberPower == 0)){
     //
     // climber.setTargetAngle(climber.getTargetPosition()+climberPower*Constants.Climber.manualPowerPOS, climberPower);

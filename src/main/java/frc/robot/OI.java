@@ -106,11 +106,11 @@ public final class OI {
   //   return leftPower + rightPower;
   // }
 
-  public static double getClimberPower() {
-    double upPower = (primaryController.povUp(eventLoop).getAsBoolean() ? 0.5 : 0.0);
-    double downPower = (primaryController.povDown(eventLoop).getAsBoolean() ? -0.25 : 0.0);
-    return upPower + downPower;
-  }
+  // public static double getClimberPower() {
+  //   double upPower = (primaryController.povUp(eventLoop).getAsBoolean() ? 0.5 : 0.0);
+  //   double downPower = (primaryController.povDown(eventLoop).getAsBoolean() ? -0.25 : 0.0);
+  //   return upPower + downPower;
+  // }
 
   public static BooleanEvent bargeYeet() {
     return leftButtonBoard.button(7, eventLoop);
