@@ -546,17 +546,7 @@ public class RobotContainer {
             () -> -controller.getLeftX(), // used to be -
             () -> -Constants.Drivetrain.rotationPower(controller.getRightX()))); // used to be -
     // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
-    controller
-        .y()
-        .onTrue(
-            Commands.runOnce(
-                () -> {
-                  AutoAlignDesitationDeterminer.seekingAlgea =
-                      !AutoAlignDesitationDeterminer.seekingAlgea;
-                }));
-    // controller.y().onFalse(Commands.runOnce(()->{
-    //     AutoAlignDesitationDeterminer.seekingAlgea = false;
-    // }));
+
     controller
         .back()
         .onTrue(
@@ -600,20 +590,15 @@ public class RobotContainer {
               Commands.runOnce(
                   () -> {
                     System.out.println("ALIGNING-------------------------------------------");
-                    // DriveCommands.autoAlign(drive).execute();
                     System.out.println(drive.getDefaultCommand());
-                    // ------------
-
-                    // -----------
                     drive.setDefaultCommand(
                         DriveCommands.autoAlign(
                             drive,
                             controller.leftBumper().getAsBoolean(),
-                            controller.x().getAsBoolean()));
+                            controller.x().getAsBoolean(),
+                            controller.leftBumper().getAsBoolean()
+                                && controller.rightBumper().getAsBoolean()));
                     System.out.println(drive.getDefaultCommand());
-
-                    // ------------
-
                   }));
       controller
           .leftBumper()

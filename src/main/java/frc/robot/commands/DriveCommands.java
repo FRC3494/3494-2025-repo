@@ -13,6 +13,9 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -20,8 +23,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.subsystems.drive.AutoAlignController;
 import frc.robot.subsystems.drive.Drive;
-import java.util.function.DoubleSupplier;
-import java.util.function.Supplier;
 
 public class DriveCommands {
   private static final double DEADBAND = 0.1;
@@ -80,10 +81,11 @@ public class DriveCommands {
     //     drive);
   }
 
-  public static Command autoAlign(Drive drive, boolean leftSide, boolean barging) {
+  public static Command autoAlign(
+      Drive drive, boolean leftSide, boolean barging, boolean seekingAlgae) {
     System.out.println("REUESTED--------------------");
     Supplier<Pose2d> onTheFly =
-        AutoAlignDesitationDeterminer.destination(drive.getPose(), leftSide, barging);
+        AutoAlignDesitationDeterminer.destination(drive.getPose(), leftSide, barging, seekingAlgae);
     if (leftSide) {
       drive.m_LimeLight1.setCropY(-1, 1);
       // drive.m_LimeLight1.setMegatag(true);

@@ -1,20 +1,20 @@
 package frc.robot.commands;
 
+import java.util.Optional;
+import java.util.function.Supplier;
+
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import frc.robot.Constants;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 public class AutoAlignDesitationDeterminer {
   public static boolean placingAtL1 = false;
-  public static boolean seekingAlgea = false;
 
   public static Supplier<Pose2d> destination(
-      Pose2d robotPosition, boolean leftSide, boolean barging) {
+      Pose2d robotPosition, boolean leftSide, boolean barging, boolean seekingAlgae) {
     Supplier<Pose2d> targetSupplier =
         () -> {
           double distance;
@@ -61,7 +61,7 @@ public class AutoAlignDesitationDeterminer {
                     distanceFromReefCenter.times(Constants.Drivetrain.L1autoAlignOffset));
             targetPose =
                 new Pose2d(targetTrans, new Rotation2d(targetPose.getRotation().getRadians()));
-          } else if (seekingAlgea) { // if we want algea just average the left and righ positions
+          } else if (seekingAlgae) { // if we want algea just average the left and righ positions
             Pose2d leftPos = Constants.Field.Reef.leftLocations[minIndex];
             Pose2d rightPos = Constants.Field.Reef.rightLocations[minIndex];
             Pose2d averagePos =

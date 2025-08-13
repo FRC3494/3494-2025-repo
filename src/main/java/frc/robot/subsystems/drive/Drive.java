@@ -319,7 +319,6 @@ public class Drive extends SubsystemBase {
       }
       Logger.recordOutput("Drive/DistanceFromReef", currentRadiusFromReef);
       Logger.recordOutput("Drive/InSpecialMode", specialPoseEstimation);
-      Logger.recordOutput("Drive/Algea-Mode", AutoAlignDesitationDeterminer.seekingAlgea);
       Logger.recordOutput("Drive/ICoral-For-L1", coralIntededforL1);
       Logger.recordOutput(
           "Drive/ICoral-For-L1-AutopALign", AutoAlignDesitationDeterminer.placingAtL1);
