@@ -58,7 +58,8 @@ public class TeleopIntake extends Command {
 
       //   arm.setPIDlimits(-0.4, 0.4);
       // }
-      if (arm.getAbsoluteTicks() > 0.7 && donePIdchange == false
+      if (arm.getAbsoluteTicks() > 0.7
+          && donePIdchange == false
           && arm.getTargetPosition()
               == Constants.Presets.armBargeStore + Constants.Presets.globalArmOffset) {
         arm.setPIDlimits(-0.4, 0.4);
@@ -76,26 +77,25 @@ public class TeleopIntake extends Command {
     // }
     if (intakePower != lastIntakePower || OI.primaryController.getAButton()) {
       intake.setSpeed(intakePower);
-    }
-    else if(holding_algea && OI.deadband(intakePower, 0.5) == 0){
-      boolean isIntaking =  ((int) (algeaTimer.get()*10))%2 ==1;
-      intake.setSpeed(((isIntaking) ? 1: 0));
+    } else if (holding_algea && OI.deadband(intakePower, 0.5) == 0) {
+      boolean isIntaking = ((int) (algeaTimer.get() * 10)) % 2 == 1;
+      intake.setSpeed(((isIntaking) ? 1 : 0));
     }
     lastIntakePower = intakePower;
 
     Logger.recordOutput("Intake/Intake-Power-Command", -1 * Math.pow(OI.getIntakePower(), 2));
 
-    armPower = OI.deadband(OI.getArmPower(), 0.05);
-    Logger.recordOutput("Arm/Manual-Power-Command", armPower);
-    if (armPower != 0 || (arm.getManualMotorPower() != 0 && armPower == 0)) {
-      // arm.setMotorPower(armPower*0.2);
-      Logger.recordOutput("Arm/Manual-index-Command", armPower * Constants.Arm.manualPowerPOS);
-      arm.setTargetAngle(
-          arm.getTargetPosition()
-              + armPower * Constants.Arm.manualPowerPOS
-              - Constants.Presets.globalArmOffset,
-          0);
-    }
+    // armPower = OI.deadband(OI.getArmPower(), 0.05);
+    // Logger.recordOutput("Arm/Manual-Power-Command", armPower);
+    // if (armPower != 0 || (arm.getManualMotorPower() != 0 && armPower == 0)) {
+    //   // arm.setMotorPower(armPower*0.2);
+    //   Logger.recordOutput("Arm/Manual-index-Command", armPower * Constants.Arm.manualPowerPOS);
+    //   arm.setTargetAngle(
+    //       arm.getTargetPosition()
+    //           + armPower * Constants.Arm.manualPowerPOS
+    //           - Constants.Presets.globalArmOffset,
+    //       0);
+    // }
   }
 
   public boolean isFinished() {

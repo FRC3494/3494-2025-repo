@@ -53,16 +53,20 @@ public final class OI {
   }
 
   public static BooleanEvent L1GroundIntake() {
-    return (primaryController.a(eventLoop)).or(()->{
-      if((rightButtonBoard.getRawAxis(1)) > Constants.Intake.DEADBAND){
-        return true;
-      }
-      return false;
-    });
+    return (primaryController.a(eventLoop))
+        .or(
+            () -> {
+              if ((rightButtonBoard.getRawAxis(1)) > Constants.Intake.DEADBAND) {
+                return true;
+              }
+              return false;
+            });
   }
-  public static BooleanEvent toggleDistanceSensor(){
+
+  public static BooleanEvent toggleDistanceSensor() {
     return rightButtonBoard.button(7, eventLoop);
   }
+
   public static BooleanEvent L1GroundIntakeHigh() {
     // not called
     return rightButtonBoard.button(6, eventLoop);
@@ -82,23 +86,25 @@ public final class OI {
   }
 
   public static BooleanEvent groundIntakeManualOut() {
-    return rightButtonBoard.button(8, eventLoop).or(()->{
-      return (rightButtonBoard.getRawAxis(1)) < -Constants.Intake.DEADBAND;
-    });
+    return rightButtonBoard
+        .button(8, eventLoop)
+        .or(
+            () -> {
+              return (rightButtonBoard.getRawAxis(1)) < -Constants.Intake.DEADBAND;
+            });
   }
 
-  public static double getElevatorPower() {
-    // TODO: assign a button
-    double upPower = (primaryController.povUp(eventLoop).getAsBoolean() ? -0.5 : 0.0);
-    double downPower = (primaryController.povDown(eventLoop).getAsBoolean() ? 0.5 : 0.0);
-    return upPower + downPower;
-  }
+  // public static double getElevatorPower() {
+  //   double upPower = (primaryController.povUp(eventLoop).getAsBoolean() ? -0.5 : 0.0);
+  //   double downPower = (primaryController.povDown(eventLoop).getAsBoolean() ? 0.5 : 0.0);
+  //   return upPower + downPower;
+  // }
 
-  public static double getArmPower() {
-    double leftPower = (primaryController.povLeft(eventLoop).getAsBoolean() ? 1 : 0.0);
-    double rightPower = (primaryController.povRight(eventLoop).getAsBoolean() ? -1 : 0.0);
-    return leftPower + rightPower;
-  }
+  // public static double getArmPower() {
+  //   double leftPower = (primaryController.povLeft(eventLoop).getAsBoolean() ? 1 : 0.0);
+  //   double rightPower = (primaryController.povRight(eventLoop).getAsBoolean() ? -1 : 0.0);
+  //   return leftPower + rightPower;
+  // }
 
   public static double getClimberPower() {
     double upPower = (primaryController.povUp(eventLoop).getAsBoolean() ? 0.5 : 0.0);
