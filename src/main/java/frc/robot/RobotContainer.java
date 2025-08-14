@@ -891,6 +891,7 @@ public class RobotContainer {
               }
               if (drive.coralIntededforL1) {
                 Commands.sequence(
+                        leds.setPattern(LEDPattern.INTAKING),
                         new InstantCommand(
                             () -> {
                               arm.groundIntaking = true;
@@ -927,6 +928,7 @@ public class RobotContainer {
                     .schedule();
               } else {
                 Commands.sequence(
+                        leds.setPattern(LEDPattern.INTAKING),
                         new InstantCommand(
                             () -> {
                               arm.groundIntaking = true;
@@ -986,6 +988,7 @@ public class RobotContainer {
             () -> {
               Command l1gIntake =
                   Commands.sequence(
+                      leds.setPattern(LEDPattern.INTAKING),
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
