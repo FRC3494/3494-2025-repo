@@ -15,6 +15,7 @@ public class AutoAlignDesitationDeterminer {
 
   public static Supplier<Pose2d> destination(
       Pose2d robotPosition, boolean leftSide, boolean barging, boolean seekingAlgae) {
+    System.out.println(leftSide + "  |  " + barging + "  |  " + seekingAlgae);
     Supplier<Pose2d> targetSupplier =
         () -> {
           double distance;
