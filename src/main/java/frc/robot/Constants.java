@@ -53,6 +53,7 @@ public final class Constants {
     DEMO, // Demo without autoalign
     DEMO_AUTOALIGN, // Demo with autoalign
     TRAINING, // Training new drivers
+    TRAINING_AUTOALIGN, // Training new drivers with autoalign
   }
 
   public static class Mitocandria {

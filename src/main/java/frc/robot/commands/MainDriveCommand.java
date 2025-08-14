@@ -37,7 +37,8 @@ public class MainDriveCommand extends Command {
       switch (Constants.DRIVE_MODE) {
         case NORMAL -> 1.0;
         case DEMO, DEMO_AUTOALIGN -> 0.5;
-        case TRAINING -> 0.5;
+        case TRAINING -> 0.75;
+        case TRAINING_AUTOALIGN -> 0.75;
       };
 
   public MainDriveCommand(
