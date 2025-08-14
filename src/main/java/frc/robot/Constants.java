@@ -207,6 +207,23 @@ public final class Constants {
     public static final double BACK_RIGHT_OFFSET = Math.toRadians(147.9);
   }
 
+  public static class LEDs {
+    public static final int LED_PWM_ID = 0;
+
+    public enum LEDPattern {
+      NONE(0.0),
+      HAS_GAMEPIECE(-0.41),
+      DEPOSIT(-0.85),
+      INTAKING(-0.49);
+
+      public final double value;
+
+      private LEDPattern(double value) {
+        this.value = value;
+      }
+    }
+  }
+
   public static class Field {
     public static final double fieldLength = Units.inchesToMeters(690.875); // 57 ft 6 and 7/8 in
     public static final double fieldWidth = Units.inchesToMeters(317); // 26ft 6in

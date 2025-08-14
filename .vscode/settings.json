@@ -78,5 +78,5 @@
     }
   },
   "java.compile.nullAnalysis.mode": "automatic",
-  "cSpell.words": ["AUTOALIGN", "Teleoperated"]
+  "cSpell.words": ["AUTOALIGN", "GAMEPIECE", "Teleoperated"]
 }

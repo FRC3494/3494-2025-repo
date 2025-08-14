@@ -30,6 +30,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.DriveMode;
+import frc.robot.Constants.LEDs.LEDPattern;
 import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.commands.AutoAutoAlign;
 import frc.robot.commands.AutoIntakeDeadline;
@@ -46,6 +47,7 @@ import frc.robot.commands.TeleopIntake;
 import frc.robot.commands.WheelOffsetCalculator;
 import frc.robot.commands.WheelRadiusCharacterization;
 import frc.robot.subsystems.GroundIntake;
+import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.SuperStructure.Arm;
 import frc.robot.subsystems.SuperStructure.Elevator;
 import frc.robot.subsystems.SuperStructure.Intake;
@@ -71,6 +73,7 @@ public class RobotContainer {
   public final Arm arm;
   public final Climber climber;
   public final GroundIntake groundIntake;
+  public final LEDs leds;
 
   // Controller
   private final CommandXboxController controller = new CommandXboxController(0);
@@ -85,6 +88,7 @@ public class RobotContainer {
     intake = new Intake();
     climber = new Climber();
     groundIntake = new GroundIntake();
+    leds = new LEDs();
     // arm.setDefaultCommand(new TeleopArm(arm));// the intake command overrides this so for now its
     // content is going in the intake command
     elevator.setDefaultCommand(new TeleopElevator(elevator));
@@ -546,6 +550,9 @@ public class RobotContainer {
             () -> -controller.getLeftX(), // used to be -
             () -> -Constants.Drivetrain.rotationPower(controller.getRightX()))); // used to be -
     // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
+
+    controller.y().onTrue(leds.setPattern(LEDPattern.INTAKING));
+    controller.y().onFalse(leds.setPattern(LEDPattern.DEPOSIT));
 
     controller
         .back()
