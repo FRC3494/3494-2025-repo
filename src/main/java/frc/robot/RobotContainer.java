@@ -588,7 +588,7 @@ public class RobotContainer {
             () -> {
               groundIntake.wanttoPOP = !groundIntake.wanttoPOP;
             });
-    if (Constants.DRIVE_MODE != DriveMode.DEMO) {
+    if (Constants.DRIVE_MODE != DriveMode.DEMO && Constants.DRIVE_MODE != DriveMode.TRAINING) {
       controller
           .leftBumper()
           .or(controller.rightBumper())
