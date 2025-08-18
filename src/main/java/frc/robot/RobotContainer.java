@@ -37,7 +37,6 @@ import frc.robot.commands.AutoIntakeDeadline;
 import frc.robot.commands.AutoIntakePower;
 import frc.robot.commands.AutoPickupCoral;
 import frc.robot.commands.BargFligIntake;
-import frc.robot.commands.Direction;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.IntakeGroundCoral;
 import frc.robot.commands.MainDriveCommand;
@@ -46,6 +45,9 @@ import frc.robot.commands.TeleopElevator;
 import frc.robot.commands.TeleopIntake;
 import frc.robot.commands.WheelOffsetCalculator;
 import frc.robot.commands.WheelRadiusCharacterization;
+import frc.robot.commands.deadlines.ArmPositionDeadline;
+import frc.robot.commands.enums.ComparisonDirection;
+import frc.robot.commands.enums.Direction;
 import frc.robot.subsystems.GroundIntake;
 import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.SuperStructure.Arm;
@@ -920,7 +922,10 @@ public class RobotContainer {
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
                             }),
-                        new WaitCommand(1),
+                        new ArmPositionDeadline(
+                            arm,
+                            Constants.Presets.armGroundTransfer,
+                            ComparisonDirection.GREATER_THAN),
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePower(-0.85, 0.85);
@@ -948,7 +953,6 @@ public class RobotContainer {
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                              groundIntake.setIntakePower(-0.85, 0.85);
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 3.5),
                         new InstantCommand(
@@ -957,6 +961,14 @@ public class RobotContainer {
                               arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
+                            }),
+                        new ArmPositionDeadline(
+                            arm,
+                            Constants.Presets.armGroundTransfer,
+                            ComparisonDirection.GREATER_THAN),
+                        new InstantCommand(
+                            () -> {
+                              groundIntake.setIntakePower(-0.85, 0.85);
                             }))
                     .schedule();
               }
