@@ -967,6 +967,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Commands.sequence(
+                      leds.setPattern(LEDPattern.NONE),
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
