@@ -213,7 +213,7 @@ public final class Constants {
 
     public enum LEDPattern {
       DISABLED(0.0),
-      NONE(0.0),
+      NONE(0.75),
       HAS_GAMEPIECE(0.71),
       DEPOSITED(0.69),
       INTAKING(0.59);

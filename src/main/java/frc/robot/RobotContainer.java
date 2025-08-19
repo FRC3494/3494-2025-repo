@@ -554,7 +554,7 @@ public class RobotContainer {
     // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
     controller.y().onTrue(leds.setPattern(LEDPattern.INTAKING));
-    controller.y().onFalse(leds.setPattern(LEDPattern.DEPOSIT));
+    controller.y().onFalse(leds.setPattern(LEDPattern.DEPOSITED));
 
     controller
         .back()
@@ -911,6 +911,8 @@ public class RobotContainer {
                               }
 
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                              System.out.println(
+                                  "Arm safe position-------------------------------------------------------------");
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 2.0),
                         new InstantCommand(
@@ -927,6 +929,7 @@ public class RobotContainer {
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
                             }),
+                        new WaitCommand(1),
                         new ArmPositionDeadline(
                             arm,
                             Constants.Presets.armGroundTransfer,
@@ -938,7 +941,12 @@ public class RobotContainer {
                     .schedule();
               } else {
                 Commands.sequence(
-                        leds.setPattern(LEDPattern.INTAKING),
+                        // leds.setPattern(LEDPattern.INTAKING),
+                        new InstantCommand(
+                            () -> {
+                              System.out.println(
+                                  "First instantcommand---------------------------------------------------");
+                            }),
                         new InstantCommand(
                             () -> {
                               arm.groundIntaking = true;
@@ -953,10 +961,30 @@ public class RobotContainer {
                               }
 
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                              System.out.println(
+                                  "Arm safe position-------------------------------------------------------------");
+                              System.out.println(Constants.Presets.defenseDelay / 2.0);
+                              System.out.println("testttttttttttttttttttt");
+                            }),
+                        new InstantCommand(
+                            () -> {
+                              System.out.println("What is happeninng");
+                            }),
+                        new InstantCommand(
+                            () -> {
+                              System.out.println(
+                                  "Before wait-----------------------------------------------------------------");
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 2.0),
                         new InstantCommand(
                             () -> {
+                              System.out.println(
+                                  "After wait-----------------------------------------------------------------");
+                            }),
+                        new InstantCommand(
+                            () -> {
+                              System.out.println(
+                                  "Set ground intake position-------------------------------------------------------------");
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 3.5),
