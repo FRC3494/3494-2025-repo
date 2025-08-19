@@ -878,6 +878,8 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
+              System.out.println(
+                  "Ground Intake Activated ---------------------------------------------------------------------");
               if (arm.getTargetPosition()
                   == Constants.Presets.armIntakeAlt + Constants.Presets.globalArmOffset) {
                 Constants.Presets.defenseDelay = 1;
@@ -891,6 +893,7 @@ public class RobotContainer {
               } else {
                 Constants.Presets.defenseDelay = 0;
               }
+              System.out.println(drive.coralIntededforL1);
               if (drive.coralIntededforL1) {
                 Commands.sequence(
                         leds.setPattern(LEDPattern.INTAKING),
@@ -917,6 +920,8 @@ public class RobotContainer {
                         new WaitCommand(Constants.Presets.defenseDelay / 3.5),
                         new InstantCommand(
                             () -> {
+                              System.out.println(
+                                  "Before arm deadline---------------------------------------------------------");
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
                               arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
                               drive.coralIntededforL1 = false;
@@ -925,7 +930,7 @@ public class RobotContainer {
                         new ArmPositionDeadline(
                             arm,
                             Constants.Presets.armGroundTransfer,
-                            ComparisonDirection.GREATER_THAN),
+                            ComparisonDirection.LESS_THAN),
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePower(-0.85, 0.85);
@@ -957,6 +962,8 @@ public class RobotContainer {
                         new WaitCommand(Constants.Presets.defenseDelay / 3.5),
                         new InstantCommand(
                             () -> {
+                              System.out.println(
+                                  "Before arm deadline---------------------------------------------------------");
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
                               arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
                               drive.coralIntededforL1 = false;
@@ -965,7 +972,7 @@ public class RobotContainer {
                         new ArmPositionDeadline(
                             arm,
                             Constants.Presets.armGroundTransfer,
-                            ComparisonDirection.GREATER_THAN),
+                            ComparisonDirection.LESS_THAN),
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePower(-0.85, 0.85);
