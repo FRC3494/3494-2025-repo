@@ -136,7 +136,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void disabledInit() {
     // robotContainer.drive.canReadTags = false;
-    robotContainer.leds.setPattern(LEDPattern.DISABLED);
+    robotContainer.leds.setPattern(LEDPattern.DISABLED).schedule();
   }
 
   /** This function is called periodically when disabled. */
@@ -148,7 +148,7 @@ public class Robot extends LoggedRobot {
   public void autonomousInit() {
     ModuleIOSparkMax.setGearRatio(Constants.Drivetrain.L2_GEAR_RATIO);
     robotContainer.drive.rezeroModulesRelativeEncoders(); // re-zero on auto init
-    robotContainer.leds.setPattern(LEDPattern.NONE);
+    robotContainer.leds.setPattern(LEDPattern.NONE).schedule();
     // robotContainer.drive.canReadTags = true;
     autonomousCommand = robotContainer.getAutonomousCommand();
     Elastic.selectTab("Autonomous");
@@ -171,7 +171,7 @@ public class Robot extends LoggedRobot {
     // this line or comment it out.
     // robotContainer.drive.canReadTags = true;
     ModuleIOSparkMax.setGearRatio(Constants.Drivetrain.L2_GEAR_RATIO);
-    robotContainer.leds.setPattern(LEDPattern.NONE);
+    robotContainer.leds.setPattern(LEDPattern.NONE).schedule();
     Elastic.selectTab("Teleoperated");
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
