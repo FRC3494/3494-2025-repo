@@ -38,6 +38,7 @@ import frc.robot.commands.AutoIntakePower;
 import frc.robot.commands.AutoPickupCoral;
 import frc.robot.commands.BargFligIntake;
 import frc.robot.commands.Direction;
+import frc.robot.commands.DistanceSensorDeadline;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.IntakeGroundCoral;
 import frc.robot.commands.MainDriveCommand;
@@ -92,7 +93,7 @@ public class RobotContainer {
     // arm.setDefaultCommand(new TeleopArm(arm));// the intake command overrides this so for now its
     // content is going in the intake command
     elevator.setDefaultCommand(new TeleopElevator(elevator));
-    intake.setDefaultCommand(new TeleopIntake(intake, arm));
+    intake.setDefaultCommand(new TeleopIntake(intake, arm, leds));
     // arm.setDefaultCommand(new TeleopIntake(intake, arm));
     climber.setDefaultCommand(new TeleopClimber(climber));
 
@@ -960,6 +961,10 @@ public class RobotContainer {
                             }))
                     .schedule();
               }
+              Commands.sequence(
+                      new DistanceSensorDeadline(groundIntake),
+                      leds.setPattern(LEDPattern.HAS_GAMEPIECE))
+                  .schedule();
             });
 
     OI.activateGroundIntake()
@@ -998,7 +1003,10 @@ public class RobotContainer {
                             groundIntake.setIntakePower(-0.85, -0.6); // -0.85, -0.6
                             drive.coralIntededforL1 = true;
                             AutoAlignDesitationDeterminer.placingAtL1 = true;
-                          }));
+                          }),
+                      Commands.sequence(
+                          new DistanceSensorDeadline(groundIntake),
+                          leds.setPattern(LEDPattern.HAS_GAMEPIECE)));
               if (!arm.groundIntaking) {
                 l1gIntake.schedule();
               } else {
@@ -1061,6 +1069,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Commands.sequence(
+                      leds.setPattern(LEDPattern.DEPOSIT),
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
@@ -1089,6 +1098,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               groundIntake.setIntakePower(0, 0);
+              leds.setPattern(LEDPattern.NONE).schedule();
             });
     OI.groundIntakeIntake()
         .rising()

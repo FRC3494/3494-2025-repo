@@ -212,6 +212,7 @@ public final class Constants {
     public static final int LED_PWM_ID = 0;
 
     public enum LEDPattern {
+      DISABLED(0.0),
       NONE(0.0),
       HAS_GAMEPIECE(-0.41),
       DEPOSIT(-0.85),

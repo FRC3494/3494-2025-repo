@@ -5,13 +5,16 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.LEDs.LEDPattern;
 import frc.robot.OI;
+import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.SuperStructure.Arm;
 import frc.robot.subsystems.SuperStructure.Intake;
 
 public class TeleopIntake extends Command {
   private Intake intake;
   private Arm arm;
+  private LEDs leds;
   double lastPower;
   private double armPower = 0;
   private double lastIntakePower = 1;
@@ -20,11 +23,13 @@ public class TeleopIntake extends Command {
 
   private boolean donePIdchange = false;
 
-  public TeleopIntake(Intake intake, Arm arm) {
+  public TeleopIntake(Intake intake, Arm arm, LEDs leds) {
     this.intake = intake;
     this.arm = arm;
+    this.leds = leds;
     addRequirements(intake);
     addRequirements(arm);
+    addRequirements(leds);
   }
 
   @Override
@@ -70,6 +75,20 @@ public class TeleopIntake extends Command {
       algeaTimer.stop();
       holding_algea = false;
       donePIdchange = false;
+    }
+
+    // TODO: this assumes positive power is coral outtake
+    if ((arm.getTargetPosition()
+            == Constants.Presets.armOuttakeL1 + Constants.Presets.globalArmOffset)
+        || (arm.getTargetPosition()
+            == Constants.Presets.armOuttakeL2 + Constants.Presets.globalArmOffset)
+        || (arm.getTargetPosition()
+            == Constants.Presets.armOuttakeL3 + Constants.Presets.globalArmOffset)) {
+      if (intakePower > 0) {
+        leds.setPattern(LEDPattern.DEPOSIT).schedule();
+      } else if (lastIntakePower > 0 && OI.getIntakePower() == 0) {
+        leds.setPattern(LEDPattern.NONE).schedule();
+      }
     }
 
     // else{
