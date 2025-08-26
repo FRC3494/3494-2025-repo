@@ -957,17 +957,9 @@ public class RobotContainer {
                               }
 
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                              System.out.println(
-                                  "Arm safe position v2-------------------------------------------------------------");
                               System.out.println(Constants.Presets.defenseDelay / 2.0);
-                              System.out.println("v2   testttttttttttttttttttt");
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 2.0),
-                        new InstantCommand(
-                            () -> {
-                              System.out.println(
-                                  "After wait v2-----------------------------------------------------------------");
-                            }),
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
@@ -975,8 +967,6 @@ public class RobotContainer {
                         new WaitCommand(Constants.Presets.defenseDelay / 3.5),
                         new InstantCommand(
                             () -> {
-                              System.out.println(
-                                  "After 2nd wait v2 ------------------------------------------------------------");
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
                               arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
                               drive.coralIntededforL1 = false;
@@ -989,8 +979,6 @@ public class RobotContainer {
                             }),
                         new InstantCommand(
                             () -> {
-                              System.out.println(
-                                  "After WaitUntil -----------------------------------------------------------");
                               groundIntake.setIntakePower(-0.85, 0.85);
                             }))
                     .schedule();
