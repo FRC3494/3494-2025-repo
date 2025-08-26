@@ -93,7 +93,7 @@ public class RobotContainer {
     // arm.setDefaultCommand(new TeleopArm(arm));// the intake command overrides this so for now its
     // content is going in the intake command
     elevator.setDefaultCommand(new TeleopElevator(elevator));
-    intake.setDefaultCommand(new TeleopIntake(intake, arm));
+    intake.setDefaultCommand(new TeleopIntake(intake, arm, leds));
     // arm.setDefaultCommand(new TeleopIntake(intake, arm));
     climber.setDefaultCommand(new TeleopClimber(climber));
 
@@ -552,9 +552,6 @@ public class RobotContainer {
             () -> -Constants.Drivetrain.rotationPower(controller.getRightX()))); // used to be -
     // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
-    controller.y().onTrue(leds.setPattern(LEDPattern.INTAKING));
-    controller.y().onFalse(leds.setPattern(LEDPattern.DEPOSITED));
-
     controller
         .back()
         .onTrue(
@@ -977,6 +974,14 @@ public class RobotContainer {
                             }))
                     .schedule();
               }
+              Commands.sequence(
+                      new WaitUntilCommand(
+                          () -> {
+                            return groundIntake.getDistanceSensor()
+                                <= Constants.GroundIntake.CoralDistanceTheshold;
+                          }),
+                      leds.setPattern(LEDPattern.HAS_GAMEPIECE))
+                  .schedule();
             });
 
     OI.activateGroundIntake()
@@ -984,7 +989,6 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Commands.sequence(
-                      leds.setPattern(LEDPattern.NONE),
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
@@ -1015,7 +1019,14 @@ public class RobotContainer {
                             groundIntake.setIntakePower(-0.85, -0.6); // -0.85, -0.6
                             drive.coralIntededforL1 = true;
                             AutoAlignDesitationDeterminer.placingAtL1 = true;
-                          }));
+                          }),
+                      new WaitUntilCommand(
+                          () -> {
+                            return groundIntake.getDistanceSensor()
+                                <= Constants.GroundIntake.CoralDistanceTheshold;
+                          }),
+                      leds.setPattern(LEDPattern.HAS_GAMEPIECE));
+
               if (!arm.groundIntaking) {
                 l1gIntake.schedule();
               } else {
@@ -1078,6 +1089,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Commands.sequence(
+                      leds.setPattern(LEDPattern.DEPOSITED),
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
@@ -1106,6 +1118,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               groundIntake.setIntakePower(0, 0);
+              leds.setPattern(LEDPattern.NONE).schedule();
             });
     OI.groundIntakeIntake()
         .rising()
