@@ -21,12 +21,13 @@ public class LEDs extends SubsystemBase {
 
   public Command setPattern(LEDPattern pattern) {
     return new InstantCommand(
-        () -> {
-          if (this.pattern != pattern) {
-            this.pattern = pattern;
-            led.set(pattern.value);
-          }
-        });
+            () -> {
+              if (this.pattern != pattern) {
+                this.pattern = pattern;
+                led.set(pattern.value);
+              }
+            })
+        .ignoringDisable(true);
   }
 
   @Override

@@ -212,10 +212,11 @@ public final class Constants {
     public static final int LED_PWM_ID = 0;
 
     public enum LEDPattern {
-      NONE(0.0),
-      HAS_GAMEPIECE(-0.41),
-      DEPOSIT(-0.85),
-      INTAKING(-0.49);
+      DISABLED(0.0),
+      NONE(0.75), // Solid Dark Green
+      HAS_GAMEPIECE(0.69), // Solid Yellow
+      DEPOSITED(0.65), // Solid Orange
+      INTAKING(0.59); // Solid Dark Red
 
       public final double value;
 

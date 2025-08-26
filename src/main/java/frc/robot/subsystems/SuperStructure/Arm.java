@@ -108,6 +108,10 @@ public class Arm extends SubsystemBase {
     return targetPosition;
   }
 
+  public double getPosition() {
+    return encoder.getPosition();
+  }
+
   public void setPIDlimits(double lowerBound, double upperBound) {
     armMotorConfig.closedLoop.outputRange(lowerBound, upperBound);
     armMotor.configure(
