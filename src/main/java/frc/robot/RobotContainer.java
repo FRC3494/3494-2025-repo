@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.DriveMode;
@@ -941,12 +942,7 @@ public class RobotContainer {
                     .schedule();
               } else {
                 Commands.sequence(
-                        // leds.setPattern(LEDPattern.INTAKING),
-                        new InstantCommand(
-                            () -> {
-                              System.out.println(
-                                  "First instantcommand---------------------------------------------------");
-                            }),
+                        leds.setPattern(LEDPattern.INTAKING),
                         new InstantCommand(
                             () -> {
                               arm.groundIntaking = true;
@@ -962,47 +958,39 @@ public class RobotContainer {
 
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                               System.out.println(
-                                  "Arm safe position-------------------------------------------------------------");
+                                  "Arm safe position v2-------------------------------------------------------------");
                               System.out.println(Constants.Presets.defenseDelay / 2.0);
-                              System.out.println("testttttttttttttttttttt");
-                            }),
-                        new InstantCommand(
-                            () -> {
-                              System.out.println("What is happeninng");
-                            }),
-                        new InstantCommand(
-                            () -> {
-                              System.out.println(
-                                  "Before wait-----------------------------------------------------------------");
+                              System.out.println("v2   testttttttttttttttttttt");
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 2.0),
                         new InstantCommand(
                             () -> {
                               System.out.println(
-                                  "After wait-----------------------------------------------------------------");
+                                  "After wait v2-----------------------------------------------------------------");
                             }),
                         new InstantCommand(
                             () -> {
-                              System.out.println(
-                                  "Set ground intake position-------------------------------------------------------------");
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 3.5),
                         new InstantCommand(
                             () -> {
                               System.out.println(
-                                  "Before arm deadline---------------------------------------------------------");
+                                  "After 2nd wait v2 ------------------------------------------------------------");
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
                               arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
                             }),
-                        new ArmPositionDeadline(
-                            arm,
-                            Constants.Presets.armGroundTransfer,
-                            ComparisonDirection.LESS_THAN),
+                        new WaitUntilCommand(
+                            () -> {
+                              return arm.getPosition()
+                                  >= (Constants.Presets.armGroundTransfer - 0.05);
+                            }),
                         new InstantCommand(
                             () -> {
+                              System.out.println(
+                                  "After WaitUntil -----------------------------------------------------------");
                               groundIntake.setIntakePower(-0.85, 0.85);
                             }))
                     .schedule();
