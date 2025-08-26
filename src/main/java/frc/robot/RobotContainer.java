@@ -46,8 +46,6 @@ import frc.robot.commands.TeleopElevator;
 import frc.robot.commands.TeleopIntake;
 import frc.robot.commands.WheelOffsetCalculator;
 import frc.robot.commands.WheelRadiusCharacterization;
-import frc.robot.commands.deadlines.ArmPositionDeadline;
-import frc.robot.commands.enums.ComparisonDirection;
 import frc.robot.commands.enums.Direction;
 import frc.robot.subsystems.GroundIntake;
 import frc.robot.subsystems.LEDs;
@@ -912,8 +910,6 @@ public class RobotContainer {
                               }
 
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                              System.out.println(
-                                  "Arm safe position-------------------------------------------------------------");
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 2.0),
                         new InstantCommand(
@@ -923,18 +919,16 @@ public class RobotContainer {
                         new WaitCommand(Constants.Presets.defenseDelay / 3.5),
                         new InstantCommand(
                             () -> {
-                              System.out.println(
-                                  "Before arm deadline---------------------------------------------------------");
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
                               arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
                             }),
-                        new WaitCommand(1),
-                        new ArmPositionDeadline(
-                            arm,
-                            Constants.Presets.armGroundTransfer,
-                            ComparisonDirection.LESS_THAN),
+                        new WaitUntilCommand(
+                            () -> {
+                              return arm.getPosition()
+                                  >= (Constants.Presets.armGroundTransfer - 0.05);
+                            }),
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePower(-0.85, 0.85);
