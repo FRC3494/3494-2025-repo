@@ -552,9 +552,6 @@ public class RobotContainer {
             () -> -Constants.Drivetrain.rotationPower(controller.getRightX()))); // used to be -
     // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
-    controller.y().onTrue(leds.setPattern(LEDPattern.INTAKING));
-    controller.y().onFalse(leds.setPattern(LEDPattern.DEPOSITED));
-
     controller
         .back()
         .onTrue(
@@ -992,7 +989,6 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Commands.sequence(
-                      leds.setPattern(LEDPattern.NONE),
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);

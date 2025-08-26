@@ -77,7 +77,7 @@ public class TeleopIntake extends Command {
       donePIdchange = false;
     }
 
-    // TODO: this assumes positive power is coral outtake
+    // Positive power is coral outtake
     if ((arm.getTargetPosition()
             == Constants.Presets.armOuttakeL1 + Constants.Presets.globalArmOffset)
         || (arm.getTargetPosition()
@@ -85,7 +85,7 @@ public class TeleopIntake extends Command {
         || (arm.getTargetPosition()
             == Constants.Presets.armOuttakeL3 + Constants.Presets.globalArmOffset)) {
       if (intakePower > 0) {
-        leds.setPattern(LEDPattern.DEPOSIT).schedule();
+        leds.setPattern(LEDPattern.DEPOSITED).schedule();
       } else if (lastIntakePower > 0 && OI.getIntakePower() == 0) {
         leds.setPattern(LEDPattern.NONE).schedule();
       }
