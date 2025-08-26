@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.DriveMode;
@@ -45,8 +46,6 @@ import frc.robot.commands.TeleopElevator;
 import frc.robot.commands.TeleopIntake;
 import frc.robot.commands.WheelOffsetCalculator;
 import frc.robot.commands.WheelRadiusCharacterization;
-import frc.robot.commands.deadlines.ArmPositionDeadline;
-import frc.robot.commands.enums.ComparisonDirection;
 import frc.robot.commands.enums.Direction;
 import frc.robot.subsystems.GroundIntake;
 import frc.robot.subsystems.LEDs;
@@ -94,7 +93,7 @@ public class RobotContainer {
     // arm.setDefaultCommand(new TeleopArm(arm));// the intake command overrides this so for now its
     // content is going in the intake command
     elevator.setDefaultCommand(new TeleopElevator(elevator));
-    intake.setDefaultCommand(new TeleopIntake(intake, arm));
+    intake.setDefaultCommand(new TeleopIntake(intake, arm, leds));
     // arm.setDefaultCommand(new TeleopIntake(intake, arm));
     climber.setDefaultCommand(new TeleopClimber(climber));
 
@@ -553,9 +552,6 @@ public class RobotContainer {
             () -> -Constants.Drivetrain.rotationPower(controller.getRightX()))); // used to be -
     // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
-    controller.y().onTrue(leds.setPattern(LEDPattern.INTAKING));
-    controller.y().onFalse(leds.setPattern(LEDPattern.DEPOSITED));
-
     controller
         .back()
         .onTrue(
@@ -911,8 +907,6 @@ public class RobotContainer {
                               }
 
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                              System.out.println(
-                                  "Arm safe position-------------------------------------------------------------");
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 2.0),
                         new InstantCommand(
@@ -922,18 +916,16 @@ public class RobotContainer {
                         new WaitCommand(Constants.Presets.defenseDelay / 3.5),
                         new InstantCommand(
                             () -> {
-                              System.out.println(
-                                  "Before arm deadline---------------------------------------------------------");
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
                               arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
                             }),
-                        new WaitCommand(1),
-                        new ArmPositionDeadline(
-                            arm,
-                            Constants.Presets.armGroundTransfer,
-                            ComparisonDirection.LESS_THAN),
+                        new WaitUntilCommand(
+                            () -> {
+                              return arm.getPosition()
+                                  >= (Constants.Presets.armGroundTransfer - 0.05);
+                            }),
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePower(-0.85, 0.85);
@@ -941,12 +933,7 @@ public class RobotContainer {
                     .schedule();
               } else {
                 Commands.sequence(
-                        // leds.setPattern(LEDPattern.INTAKING),
-                        new InstantCommand(
-                            () -> {
-                              System.out.println(
-                                  "First instantcommand---------------------------------------------------");
-                            }),
+                        leds.setPattern(LEDPattern.INTAKING),
                         new InstantCommand(
                             () -> {
                               arm.groundIntaking = true;
@@ -961,52 +948,40 @@ public class RobotContainer {
                               }
 
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                              System.out.println(
-                                  "Arm safe position-------------------------------------------------------------");
                               System.out.println(Constants.Presets.defenseDelay / 2.0);
-                              System.out.println("testttttttttttttttttttt");
-                            }),
-                        new InstantCommand(
-                            () -> {
-                              System.out.println("What is happeninng");
-                            }),
-                        new InstantCommand(
-                            () -> {
-                              System.out.println(
-                                  "Before wait-----------------------------------------------------------------");
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 2.0),
                         new InstantCommand(
                             () -> {
-                              System.out.println(
-                                  "After wait-----------------------------------------------------------------");
-                            }),
-                        new InstantCommand(
-                            () -> {
-                              System.out.println(
-                                  "Set ground intake position-------------------------------------------------------------");
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 3.5),
                         new InstantCommand(
                             () -> {
-                              System.out.println(
-                                  "Before arm deadline---------------------------------------------------------");
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
                               arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
                             }),
-                        new ArmPositionDeadline(
-                            arm,
-                            Constants.Presets.armGroundTransfer,
-                            ComparisonDirection.LESS_THAN),
+                        new WaitUntilCommand(
+                            () -> {
+                              return arm.getPosition()
+                                  >= (Constants.Presets.armGroundTransfer - 0.05);
+                            }),
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePower(-0.85, 0.85);
                             }))
                     .schedule();
               }
+              Commands.sequence(
+                      new WaitUntilCommand(
+                          () -> {
+                            return groundIntake.getDistanceSensor()
+                                <= Constants.GroundIntake.CoralDistanceTheshold;
+                          }),
+                      leds.setPattern(LEDPattern.HAS_GAMEPIECE))
+                  .schedule();
             });
 
     OI.activateGroundIntake()
@@ -1014,7 +989,6 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Commands.sequence(
-                      leds.setPattern(LEDPattern.NONE),
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
@@ -1045,7 +1019,14 @@ public class RobotContainer {
                             groundIntake.setIntakePower(-0.85, -0.6); // -0.85, -0.6
                             drive.coralIntededforL1 = true;
                             AutoAlignDesitationDeterminer.placingAtL1 = true;
-                          }));
+                          }),
+                      new WaitUntilCommand(
+                          () -> {
+                            return groundIntake.getDistanceSensor()
+                                <= Constants.GroundIntake.CoralDistanceTheshold;
+                          }),
+                      leds.setPattern(LEDPattern.HAS_GAMEPIECE));
+
               if (!arm.groundIntaking) {
                 l1gIntake.schedule();
               } else {
@@ -1108,6 +1089,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Commands.sequence(
+                      leds.setPattern(LEDPattern.DEPOSITED),
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
@@ -1136,6 +1118,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               groundIntake.setIntakePower(0, 0);
+              leds.setPattern(LEDPattern.NONE).schedule();
             });
     OI.groundIntakeIntake()
         .rising()
