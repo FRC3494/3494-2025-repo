@@ -38,8 +38,6 @@ import frc.robot.commands.AutoIntakeDeadline;
 import frc.robot.commands.AutoIntakePower;
 import frc.robot.commands.AutoPickupCoral;
 import frc.robot.commands.BargFligIntake;
-import frc.robot.commands.Direction;
-import frc.robot.commands.DistanceSensorDeadline;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.IntakeGroundCoral;
 import frc.robot.commands.MainDriveCommand;
@@ -48,6 +46,7 @@ import frc.robot.commands.TeleopElevator;
 import frc.robot.commands.TeleopIntake;
 import frc.robot.commands.WheelOffsetCalculator;
 import frc.robot.commands.WheelRadiusCharacterization;
+import frc.robot.commands.enums.Direction;
 import frc.robot.subsystems.GroundIntake;
 import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.SuperStructure.Arm;
@@ -554,7 +553,7 @@ public class RobotContainer {
     // controller.b().onTrue(Commands.runOnce(drive::stopWithX, drive));
 
     controller.y().onTrue(leds.setPattern(LEDPattern.INTAKING));
-    controller.y().onFalse(leds.setPattern(LEDPattern.DEPOSIT));
+    controller.y().onFalse(leds.setPattern(LEDPattern.DEPOSITED));
 
     controller
         .back()
@@ -878,6 +877,8 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
+              System.out.println(
+                  "Ground Intake Activated ---------------------------------------------------------------------");
               if (arm.getTargetPosition()
                   == Constants.Presets.armIntakeAlt + Constants.Presets.globalArmOffset) {
                 Constants.Presets.defenseDelay = 1;
@@ -891,6 +892,7 @@ public class RobotContainer {
               } else {
                 Constants.Presets.defenseDelay = 0;
               }
+              System.out.println(drive.coralIntededforL1);
               if (drive.coralIntededforL1) {
                 Commands.sequence(
                         leds.setPattern(LEDPattern.INTAKING),
@@ -922,7 +924,11 @@ public class RobotContainer {
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
                             }),
-                        new WaitCommand(1),
+                        new WaitUntilCommand(
+                            () -> {
+                              return arm.getPosition()
+                                  >= (Constants.Presets.armGroundTransfer - 0.05);
+                            }),
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePower(-0.85, 0.85);
@@ -945,12 +951,12 @@ public class RobotContainer {
                               }
 
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                              System.out.println(Constants.Presets.defenseDelay / 2.0);
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 2.0),
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-                              groundIntake.setIntakePower(-0.85, 0.85);
                             }),
                         new WaitCommand(Constants.Presets.defenseDelay / 3.5),
                         new InstantCommand(
@@ -959,6 +965,15 @@ public class RobotContainer {
                               arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
+                            }),
+                        new WaitUntilCommand(
+                            () -> {
+                              return arm.getPosition()
+                                  >= (Constants.Presets.armGroundTransfer - 0.05);
+                            }),
+                        new InstantCommand(
+                            () -> {
+                              groundIntake.setIntakePower(-0.85, 0.85);
                             }))
                     .schedule();
               }
@@ -1009,9 +1024,13 @@ public class RobotContainer {
                             drive.coralIntededforL1 = true;
                             AutoAlignDesitationDeterminer.placingAtL1 = true;
                           }),
-                      Commands.sequence(
-                          new DistanceSensorDeadline(groundIntake),
-                          leds.setPattern(LEDPattern.HAS_GAMEPIECE)));
+                      new WaitUntilCommand(
+                          () -> {
+                            return groundIntake.getDistanceSensor()
+                                <= Constants.GroundIntake.CoralDistanceTheshold;
+                          }),
+                      leds.setPattern(LEDPattern.HAS_GAMEPIECE));
+
               if (!arm.groundIntaking) {
                 l1gIntake.schedule();
               } else {
@@ -1074,7 +1093,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Commands.sequence(
-                      leds.setPattern(LEDPattern.DEPOSIT),
+                      leds.setPattern(LEDPattern.DEPOSITED),
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
