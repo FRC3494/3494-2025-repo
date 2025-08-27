@@ -570,21 +570,32 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              if (arm.defenseMode == false) {
-                arm.defenseMode = true;
-                groundIntake.hoverPosition = Constants.Presets.groundIntakeStore;
-                Constants.Presets.defenseDelay = 0.5;
-              } else {
-                arm.defenseMode = false;
-                groundIntake.hoverPosition = Constants.Presets.groundIntakeHover;
-                Constants.Presets.defenseDelay = 0.0;
-              }
+              new InstantCommand(
+                      () -> {
+                        if (arm.defenseMode == false) {
+                          arm.defenseMode = true;
+                          groundIntake.hoverPosition = Constants.Presets.groundIntakeStore;
+                          Constants.Presets.defenseDelay = 0.5;
+                        } else {
+                          arm.defenseMode = false;
+                          groundIntake.hoverPosition = Constants.Presets.groundIntakeHover;
+                          Constants.Presets.defenseDelay = 0.0;
+                        }
+                      })
+                  .ignoringDisable(false)
+                  .schedule();
+              ;
             });
     OI.toggleDistanceSensor()
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.wanttoPOP = !groundIntake.wanttoPOP;
+              new InstantCommand(
+                      () -> {
+                        groundIntake.wanttoPOP = !groundIntake.wanttoPOP;
+                      })
+                  .ignoringDisable(false)
+                  .schedule();
             });
     if (Constants.DRIVE_MODE != DriveMode.DEMO && Constants.DRIVE_MODE != DriveMode.TRAINING) {
       controller
