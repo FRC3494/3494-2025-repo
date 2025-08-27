@@ -570,41 +570,82 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              if (arm.defenseMode == false) {
-                arm.defenseMode = true;
-                groundIntake.hoverPosition = Constants.Presets.groundIntakeStore;
-                Constants.Presets.defenseDelay = 0.5;
-              } else {
-                arm.defenseMode = false;
-                groundIntake.hoverPosition = Constants.Presets.groundIntakeHover;
-                Constants.Presets.defenseDelay = 0.0;
-              }
+              new InstantCommand(
+                      () -> {
+                        if (arm.defenseMode == false) {
+                          arm.defenseMode = true;
+                          groundIntake.hoverPosition = Constants.Presets.groundIntakeStore;
+                          Constants.Presets.defenseDelay = 0.5;
+                        } else {
+                          arm.defenseMode = false;
+                          groundIntake.hoverPosition = Constants.Presets.groundIntakeHover;
+                          Constants.Presets.defenseDelay = 0.0;
+                        }
+                      })
+                  .ignoringDisable(false)
+                  .schedule();
+              ;
             });
     OI.toggleDistanceSensor()
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.wanttoPOP = !groundIntake.wanttoPOP;
+              new InstantCommand(
+                      () -> {
+                        groundIntake.wanttoPOP = !groundIntake.wanttoPOP;
+                      })
+                  .ignoringDisable(false)
+                  .schedule();
             });
+
     if (Constants.DRIVE_MODE != DriveMode.DEMO && Constants.DRIVE_MODE != DriveMode.TRAINING) {
+      // Coral Align
       controller
           .leftBumper()
-          .or(controller.rightBumper())
-          .or(controller.x())
+          .and(controller.rightBumper().negate())
+          .or(controller.rightBumper().and(controller.leftBumper().negate()))
           .onTrue(
               Commands.runOnce(
                   () -> {
-                    System.out.println("ALIGNING-------------------------------------------");
+                    System.out.println("ALIGNING CORAL-------------------------------------------");
+                    System.out.println(drive.getDefaultCommand());
+                    drive.setDefaultCommand(
+                        DriveCommands.autoAlign(
+                            drive, controller.leftBumper().getAsBoolean(), false, false));
+                    System.out.println(drive.getDefaultCommand());
+                  }));
+
+      // Algae Align
+      controller
+          .leftBumper()
+          .and(controller.rightBumper())
+          .onTrue(
+              Commands.runOnce(
+                  () -> {
+                    System.out.println("ALIGNING ALGAE-------------------------------------------");
+                    System.out.println(drive.getDefaultCommand());
+                    drive.setDefaultCommand(DriveCommands.autoAlign(drive, false, false, true));
+                    System.out.println(drive.getDefaultCommand());
+                  }));
+
+      // Barge Align
+      controller
+          .x()
+          .onTrue(
+              Commands.runOnce(
+                  () -> {
+                    System.out.println("ALIGNING BARGE-------------------------------------------");
                     System.out.println(drive.getDefaultCommand());
                     drive.setDefaultCommand(
                         DriveCommands.autoAlign(
                             drive,
-                            controller.leftBumper().getAsBoolean(),
-                            controller.x().getAsBoolean(),
+                            false,
+                            true,
                             controller.leftBumper().getAsBoolean()
                                 && controller.rightBumper().getAsBoolean()));
                     System.out.println(drive.getDefaultCommand());
                   }));
+
       controller
           .leftBumper()
           .or(controller.rightBumper())
