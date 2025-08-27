@@ -9,7 +9,7 @@
         "containers": [
           {
             "title": "Auto Choices",
-            "x": 0.0,
+            "x": 256.0,
             "y": 384.0,
             "width": 384.0,
             "height": 128.0,
@@ -34,8 +34,8 @@
           },
           {
             "title": "Alerts",
-            "x": 1024.0,
-            "y": 128.0,
+            "x": 1280.0,
+            "y": 0.0,
             "width": 256.0,
             "height": 384.0,
             "type": "Alerts",
@@ -82,8 +82,8 @@
           },
           {
             "title": "Alerts",
-            "x": 1024.0,
-            "y": 128.0,
+            "x": 1280.0,
+            "y": 0.0,
             "width": 256.0,
             "height": 384.0,
             "type": "Alerts",
@@ -111,9 +111,9 @@
           {
             "title": "DefenseMode",
             "x": 0.0,
-            "y": 384.0,
+            "y": 256.0,
             "width": 128.0,
-            "height": 128.0,
+            "height": 256.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/AdvantageKit/RealOutputs/Arm/DefenseMode",
@@ -127,7 +127,7 @@
           },
           {
             "title": "ICoral-For-L1",
-            "x": 256.0,
+            "x": 512.0,
             "y": 384.0,
             "width": 128.0,
             "height": 128.0,
@@ -144,7 +144,7 @@
           },
           {
             "title": "Distance",
-            "x": 512.0,
+            "x": 256.0,
             "y": 384.0,
             "width": 128.0,
             "height": 128.0,
@@ -158,7 +158,7 @@
           },
           {
             "title": "Using-Distance-Sensor",
-            "x": 512.0,
+            "x": 256.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -175,7 +175,7 @@
           },
           {
             "title": "Pattern",
-            "x": 256.0,
+            "x": 512.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -191,7 +191,7 @@
             "title": "limelight-barge",
             "x": 640.0,
             "y": 128.0,
-            "width": 384.0,
+            "width": 512.0,
             "height": 384.0,
             "type": "Camera Stream",
             "properties": {
@@ -209,22 +209,53 @@
         "layouts": [],
         "containers": [
           {
-            "title": "Arm-Position",
+            "title": "Arm-Encoder-Position",
             "x": 0.0,
-            "y": 128.0,
+            "y": 0.0,
             "width": 128.0,
             "height": 128.0,
             "type": "Text Display",
             "properties": {
-              "topic": "/AdvantageKit/RealOutputs/Arm/Arm-Position",
+              "topic": "/AdvantageKit/RealOutputs/Arm/Arm-Encoder-Position",
               "period": 0.06,
               "data_type": "double",
               "show_submit_button": false
             }
           },
           {
-            "title": "Target-Position",
+            "title": "DefenseMode",
+            "x": 256.0,
+            "y": 384.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Arm/DefenseMode",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Arm-Current",
             "x": 128.0,
+            "y": 0.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Arm/Applied-Current",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Arm-Target-Position",
+            "x": 0.0,
             "y": 128.0,
             "width": 128.0,
             "height": 128.0,
@@ -237,9 +268,51 @@
             }
           },
           {
-            "title": "Target-Position",
-            "x": 128.0,
+            "title": "ClimberCurrent",
+            "x": 512.0,
             "y": 384.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Climber/ClimberCurrent",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Arm-Output",
+            "x": 128.0,
+            "y": 128.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Arm/Applied-Output",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Lift-Sensor-Tripped",
+            "x": 384.0,
+            "y": 128.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Elevator/Sensor-Tripped",
+              "period": 0.06,
+              "data_type": "string",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Lift-Target-Position",
+            "x": 512.0,
+            "y": 128.0,
             "width": 128.0,
             "height": 128.0,
             "type": "Text Display",
@@ -251,51 +324,40 @@
             }
           },
           {
-            "title": "Encoder-Position",
+            "title": "Distance-Sensor",
+            "x": 128.0,
+            "y": 384.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Distance-Sensor/Distance",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
+            }
+          },
+          {
+            "title": "Using-Distance-Sensor",
             "x": 0.0,
             "y": 384.0,
             "width": 128.0,
             "height": 128.0,
-            "type": "Text Display",
+            "type": "Boolean Box",
             "properties": {
-              "topic": "/AdvantageKit/RealOutputs/Elevator/Encoder-Position",
+              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Using-Distance-Sensor",
               "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
+              "data_type": "boolean",
+              "true_color": 4283215696,
+              "false_color": 4294198070,
+              "true_icon": "None",
+              "false_icon": "None"
             }
           },
           {
-            "title": "Back-Power",
+            "title": "G-Pivot-Position",
             "x": 384.0,
-            "y": 384.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Back-Power",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
-            }
-          },
-          {
-            "title": "Front-Power",
-            "x": 512.0,
-            "y": 384.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Front-Power",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
-            }
-          },
-          {
-            "title": "Pivot-Position",
-            "x": 640.0,
-            "y": 384.0,
+            "y": 0.0,
             "width": 128.0,
             "height": 128.0,
             "type": "Text Display",
@@ -307,9 +369,9 @@
             }
           },
           {
-            "title": "Pivot-Target-Position",
-            "x": 768.0,
-            "y": 384.0,
+            "title": "G-Pivot-Target-Position",
+            "x": 512.0,
+            "y": 0.0,
             "width": 128.0,
             "height": 128.0,
             "type": "Text Display",
@@ -321,23 +383,9 @@
             }
           },
           {
-            "title": "Intake-Power",
-            "x": 256.0,
-            "y": 128.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/AdvantageKit/RealOutputs/Intake/Intake-Power",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
-            }
-          },
-          {
             "title": "Pattern",
-            "x": 512.0,
-            "y": 128.0,
+            "x": 384.0,
+            "y": 384.0,
             "width": 128.0,
             "height": 128.0,
             "type": "Text Display",
@@ -346,6 +394,58 @@
               "period": 0.06,
               "data_type": "string",
               "show_submit_button": false
+            }
+          },
+          {
+            "title": "limelight-barge",
+            "x": 640.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 256.0,
+            "type": "Camera Stream",
+            "properties": {
+              "topic": "/CameraPublisher/limelight-barge",
+              "period": 0.06,
+              "rotation_turns": 0
+            }
+          },
+          {
+            "title": "limelight-coral",
+            "x": 896.0,
+            "y": 0.0,
+            "width": 256.0,
+            "height": 256.0,
+            "type": "Camera Stream",
+            "properties": {
+              "topic": "/CameraPublisher/limelight-coral",
+              "period": 0.06,
+              "rotation_turns": 0
+            }
+          },
+          {
+            "title": "limelight-right",
+            "x": 640.0,
+            "y": 256.0,
+            "width": 256.0,
+            "height": 256.0,
+            "type": "Camera Stream",
+            "properties": {
+              "topic": "/CameraPublisher/limelight-right",
+              "period": 0.06,
+              "rotation_turns": 0
+            }
+          },
+          {
+            "title": "limelight-swerve",
+            "x": 896.0,
+            "y": 256.0,
+            "width": 256.0,
+            "height": 256.0,
+            "type": "Camera Stream",
+            "properties": {
+              "topic": "/CameraPublisher/limelight-swerve",
+              "period": 0.06,
+              "rotation_turns": 0
             }
           }
         ]
