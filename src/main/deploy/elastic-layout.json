@@ -104,8 +104,8 @@
               "period": 0.06,
               "data_type": "double",
               "time_display_mode": "Minutes and Seconds",
-              "red_start_time": 15,
-              "yellow_start_time": 30
+              "red_start_time": 20,
+              "yellow_start_time": 45
             }
           },
           {
@@ -119,10 +119,10 @@
               "topic": "/AdvantageKit/RealOutputs/Arm/DefenseMode",
               "period": 0.06,
               "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
+              "true_color": 4278255360,
+              "false_color": 4294901760,
               "true_icon": "None",
-              "false_icon": "None"
+              "false_icon": "X"
             }
           },
           {
@@ -136,41 +136,10 @@
               "topic": "/AdvantageKit/RealOutputs/Drive/ICoral-For-L1",
               "period": 0.06,
               "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
+              "true_color": 4278255360,
+              "false_color": 4294901760,
               "true_icon": "None",
-              "false_icon": "None"
-            }
-          },
-          {
-            "title": "Distance",
-            "x": 256.0,
-            "y": 384.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Distance-Sensor/Distance",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
-            }
-          },
-          {
-            "title": "Using-Distance-Sensor",
-            "x": 256.0,
-            "y": 256.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Boolean Box",
-            "properties": {
-              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Using-Distance-Sensor",
-              "period": 0.06,
-              "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
-              "true_icon": "None",
-              "false_icon": "None"
+              "false_icon": "X"
             }
           },
           {
@@ -199,6 +168,40 @@
               "period": 0.06,
               "rotation_turns": 0
             }
+          },
+          {
+            "title": "Using-Distance-Sensor",
+            "x": 256.0,
+            "y": 256.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Distance-Sensor/Using-Distance-Sensor",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4278255360,
+              "false_color": 4294901760,
+              "true_icon": "Checkmark",
+              "false_icon": "None"
+            }
+          },
+          {
+            "title": "Dist-Tripped",
+            "x": 256.0,
+            "y": 384.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Distance-Sensor/Tripped",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4278255360,
+              "false_color": 4294901760,
+              "true_icon": "None",
+              "false_icon": "X"
+            }
           }
         ]
       }
@@ -224,7 +227,7 @@
           },
           {
             "title": "DefenseMode",
-            "x": 256.0,
+            "x": 640.0,
             "y": 384.0,
             "width": 128.0,
             "height": 128.0,
@@ -233,10 +236,10 @@
               "topic": "/AdvantageKit/RealOutputs/Arm/DefenseMode",
               "period": 0.06,
               "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
+              "true_color": 4278255360,
+              "false_color": 4294901760,
               "true_icon": "None",
-              "false_icon": "None"
+              "false_icon": "X"
             }
           },
           {
@@ -269,7 +272,7 @@
           },
           {
             "title": "ClimberCurrent",
-            "x": 512.0,
+            "x": 384.0,
             "y": 384.0,
             "width": 128.0,
             "height": 128.0,
@@ -338,23 +341,6 @@
             }
           },
           {
-            "title": "Using-Distance-Sensor",
-            "x": 0.0,
-            "y": 384.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Boolean Box",
-            "properties": {
-              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Using-Distance-Sensor",
-              "period": 0.06,
-              "data_type": "boolean",
-              "true_color": 4283215696,
-              "false_color": 4294198070,
-              "true_icon": "None",
-              "false_icon": "None"
-            }
-          },
-          {
             "title": "G-Pivot-Position",
             "x": 384.0,
             "y": 0.0,
@@ -384,7 +370,7 @@
           },
           {
             "title": "Pattern",
-            "x": 384.0,
+            "x": 512.0,
             "y": 384.0,
             "width": 128.0,
             "height": 128.0,
@@ -398,7 +384,7 @@
           },
           {
             "title": "limelight-barge",
-            "x": 640.0,
+            "x": 768.0,
             "y": 0.0,
             "width": 256.0,
             "height": 256.0,
@@ -411,7 +397,7 @@
           },
           {
             "title": "limelight-coral",
-            "x": 896.0,
+            "x": 1024.0,
             "y": 0.0,
             "width": 256.0,
             "height": 256.0,
@@ -424,7 +410,7 @@
           },
           {
             "title": "limelight-right",
-            "x": 640.0,
+            "x": 768.0,
             "y": 256.0,
             "width": 256.0,
             "height": 256.0,
@@ -437,7 +423,7 @@
           },
           {
             "title": "limelight-swerve",
-            "x": 896.0,
+            "x": 1024.0,
             "y": 256.0,
             "width": 256.0,
             "height": 256.0,
@@ -446,6 +432,40 @@
               "topic": "/CameraPublisher/limelight-swerve",
               "period": 0.06,
               "rotation_turns": 0
+            }
+          },
+          {
+            "title": "Dist-Tripped",
+            "x": 256.0,
+            "y": 384.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Distance-Sensor/Tripped",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4278255360,
+              "false_color": 4294901760,
+              "true_icon": "None",
+              "false_icon": "X"
+            }
+          },
+          {
+            "title": "Using-Distance-Sensor",
+            "x": 0.0,
+            "y": 384.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Distance-Sensor/Using-Distance-Sensor",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4278255360,
+              "false_color": 4294901760,
+              "true_icon": "Checkmark",
+              "false_icon": "None"
             }
           }
         ]

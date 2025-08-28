@@ -50,7 +50,8 @@ public class AutoPickupCoral extends Command {
       Arm arm,
       Elevator elevator,
       Intake intake,
-      double time, double driveSpeed) {
+      double time,
+      double driveSpeed) {
     this.time = time;
     this.drive = drive;
     this.groundIntake = groundIntake;
@@ -120,8 +121,7 @@ public class AutoPickupCoral extends Command {
   @Override
   public boolean isFinished() {
     Logger.recordOutput("Drive/Searching", true);
-    if (timer.hasElapsed(time)
-        || groundIntake.getDistanceSensor() < Constants.GroundIntake.CoralDistanceTheshold) {
+    if (timer.hasElapsed(time) || groundIntake.getDistanceSensorTripped()) {
       return true;
     }
     // try {

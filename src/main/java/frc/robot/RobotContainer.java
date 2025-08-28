@@ -1018,8 +1018,7 @@ public class RobotContainer {
               Commands.sequence(
                       new WaitUntilCommand(
                           () -> {
-                            return groundIntake.getDistanceSensor()
-                                <= Constants.GroundIntake.CoralDistanceTheshold;
+                            return groundIntake.getDistanceSensorTripped();
                           }),
                       leds.setPattern(LEDPattern.HAS_GAMEPIECE))
                   .schedule();
@@ -1063,8 +1062,7 @@ public class RobotContainer {
                           }),
                       new WaitUntilCommand(
                           () -> {
-                            return groundIntake.getDistanceSensor()
-                                <= Constants.GroundIntake.CoralDistanceTheshold;
+                            return groundIntake.getDistanceSensorTripped();
                           }),
                       leds.setPattern(LEDPattern.HAS_GAMEPIECE));
 

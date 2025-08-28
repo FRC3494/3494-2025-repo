@@ -104,7 +104,8 @@ public class GroundIntake extends SubsystemBase {
     Logger.recordOutput("Ground-Intake/Distance-Sensor/Distance", sensor_distance);
     // Logger.recordOutput("Ground-Intake/Distance-Sensor/Sdev", sensor_sdev);
     // Logger.recordOutput("Ground-Intake/Distance-Sensor/Status", m_rangeSensor.getStatus());
-    Logger.recordOutput("Ground-Intake/Using-Distance-Sensor",wanttoPOP);
+    Logger.recordOutput("Ground-Intake/Distance-Sensor/Using-Distance-Sensor", wanttoPOP);
+    Logger.recordOutput("Ground-Intake/Distance-Sensor/Tripped", getDistanceSensorTripped());
 
     Logger.recordOutput("Ground-Intake/Pivot-Position", pivotMotor.getEncoder().getPosition());
     // Logger.recordOutput("Grount-Intake/PID-Power", motorpower);
@@ -121,7 +122,8 @@ public class GroundIntake extends SubsystemBase {
     Logger.recordOutput("Ground-Intake/Back-Current", backIntakeMotor.getOutputCurrent());
 
     if (targetPosition == Constants.Presets.groundIntakeIntake
-        && sensor_distance < Constants.GroundIntake.CoralDistanceTheshold && wanttoPOP) {
+        && getDistanceSensorTripped()
+        && wanttoPOP) {
       setIntakePosition(Constants.Presets.groundIntakePop);
     }
   }
@@ -129,7 +131,12 @@ public class GroundIntake extends SubsystemBase {
   public double getDistanceSensor() {
     return m_rangeSensor.getRange();
   }
-  public void setIntakeCUrrentlim(int current){
+
+  public boolean getDistanceSensorTripped() {
+    return getDistanceSensor() <= Constants.GroundIntake.CoralDistanceTheshold;
+  }
+
+  public void setIntakeCUrrentlim(int current) {
     pivotMotorConfig.smartCurrentLimit(current);
     pivotMotor.configure(
         pivotMotorConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
