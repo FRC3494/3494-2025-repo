@@ -213,9 +213,9 @@ public final class Constants {
 
     public enum LEDPattern {
       DISABLED(0.0),
-      NONE(0.75), // Solid Dark Green
-      HAS_GAMEPIECE(0.69), // Solid Yellow
-      DEPOSITED(0.65), // Solid Orange
+      NONE(0.65), // Solid Orange
+      HAS_GAMEPIECE(0.75), // Solid Dark Green
+      DEPOSITED(0.69), // Solid Yellow
       INTAKING(0.59); // Solid Dark Red
 
       public final double value;
