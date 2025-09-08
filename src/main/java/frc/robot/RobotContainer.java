@@ -690,6 +690,7 @@ public class RobotContainer {
                 }));
 
     controller.y().onTrue(drive.setFastRotationMode(true));
+    controller.y().onFalse(drive.setFastRotationMode(false));
 
     // ======== L3 ============
     OI.L3Algea()
