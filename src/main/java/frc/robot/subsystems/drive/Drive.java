@@ -51,6 +51,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants;
@@ -98,6 +99,7 @@ public class Drive extends SubsystemBase {
   public boolean coralIntededforL1 = false;
   public double reefRadiusToSpecialPoseActivation = 3.0;
   double currentRadiusFromReef;
+  public boolean fastRotation = false;
 
   public Drive(
       GyroIO gyroIO,
@@ -320,6 +322,7 @@ public class Drive extends SubsystemBase {
             false; // TODO: this line says weather we go into megatag 1 when close to the reef
       }
       Logger.recordOutput("Drive/DriveMode", Constants.DRIVE_MODE);
+      Logger.recordOutput("Drive/FastRotation", fastRotation);
       Logger.recordOutput("Drive/DistanceFromReef", currentRadiusFromReef);
       Logger.recordOutput("Drive/InSpecialMode", specialPoseEstimation);
       Logger.recordOutput("Drive/ICoral-For-L1", coralIntededforL1);
@@ -576,6 +579,13 @@ public class Drive extends SubsystemBase {
   /** Returns the maximum angular speed in radians per sec. */
   public double getMaxAngularSpeedRadPerSec() {
     return MAX_ANGULAR_SPEED;
+  }
+
+  public Command setFastRotationMode(boolean fastRotation) {
+    return new InstantCommand(
+        () -> {
+          this.fastRotation = fastRotation;
+        });
   }
 
   public Twist2d getfieldVelocity() {

@@ -33,18 +33,6 @@
             }
           },
           {
-            "title": "Alerts",
-            "x": 1280.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 384.0,
-            "type": "Alerts",
-            "properties": {
-              "topic": "/SmartDashboard/Alerts",
-              "period": 0.06
-            }
-          },
-          {
             "title": "MatchTime",
             "x": 384.0,
             "y": 128.0,
@@ -77,18 +65,6 @@
             "type": "FMSInfo",
             "properties": {
               "topic": "/FMSInfo",
-              "period": 0.06
-            }
-          },
-          {
-            "title": "Alerts",
-            "x": 1280.0,
-            "y": 0.0,
-            "width": 256.0,
-            "height": 384.0,
-            "type": "Alerts",
-            "properties": {
-              "topic": "/SmartDashboard/Alerts",
               "period": 0.06
             }
           },
@@ -171,7 +147,7 @@
           },
           {
             "title": "Using-Distance-Sensor",
-            "x": 256.0,
+            "x": 128.0,
             "y": 256.0,
             "width": 128.0,
             "height": 128.0,
@@ -188,13 +164,30 @@
           },
           {
             "title": "Dist-Tripped",
-            "x": 256.0,
+            "x": 128.0,
             "y": 384.0,
             "width": 128.0,
             "height": 128.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Distance-Sensor/Tripped",
+              "period": 0.06,
+              "data_type": "boolean",
+              "true_color": 4278255360,
+              "false_color": 4294901760,
+              "true_icon": "None",
+              "false_icon": "X"
+            }
+          },
+          {
+            "title": "FastRotation",
+            "x": 384.0,
+            "y": 256.0,
+            "width": 128.0,
+            "height": 256.0,
+            "type": "Boolean Box",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Drive/FastRotation",
               "period": 0.06,
               "data_type": "boolean",
               "true_color": 4278255360,
