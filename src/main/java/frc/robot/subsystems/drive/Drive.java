@@ -581,10 +581,10 @@ public class Drive extends SubsystemBase {
     return MAX_ANGULAR_SPEED;
   }
 
-  public Command setFastRotationMode(boolean fastRotation) {
+  public Command toggleFastRotation() {
     return new InstantCommand(
             () -> {
-              this.fastRotation = fastRotation;
+              this.fastRotation = !this.fastRotation;
             })
         .ignoringDisable(false);
   }
