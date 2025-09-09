@@ -583,9 +583,10 @@ public class Drive extends SubsystemBase {
 
   public Command setFastRotationMode(boolean fastRotation) {
     return new InstantCommand(
-        () -> {
-          this.fastRotation = fastRotation;
-        });
+            () -> {
+              this.fastRotation = fastRotation;
+            })
+        .ignoringDisable(false);
   }
 
   public Twist2d getfieldVelocity() {
