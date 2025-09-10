@@ -206,6 +206,16 @@ public final class Constants {
     public static final int BACK_RIGHT_STEER_ID = 3; // 3
     public static final int BACK_RIGHT_TURN_ENCODER_ID = 0; // 0
     public static final double BACK_RIGHT_OFFSET = Math.toRadians(147.9);
+
+    public static final double SPEED_SCALAR =
+        switch (Constants.DRIVE_MODE) {
+          case NORMAL -> 1.0;
+          case DEMO, DEMO_AUTOALIGN -> 0.5;
+          case TRAINING, TRAINING_AUTOALIGN -> 0.75;
+        };
+    public static final double ROTATION_SPEED_STATIONARY_SCALAR = 0.3;
+    public static final double ROTATION_SPEED_NORMAL_SCALAR = 0.6;
+    public static final double ROTATION_SPEED_FAST_SCALAR = 1;
   }
 
   public static class LEDs {

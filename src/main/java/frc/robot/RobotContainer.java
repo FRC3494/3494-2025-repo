@@ -689,6 +689,8 @@ public class RobotContainer {
                   MainDriveCommand.coralAligning = false;
                 }));
 
+    controller.y().onTrue(drive.toggleFastRotation());
+
     // ======== L3 ============
     OI.L3Algea()
         .rising()
@@ -1020,7 +1022,12 @@ public class RobotContainer {
                           () -> {
                             return groundIntake.getDistanceSensorTripped();
                           }),
-                      leds.setPattern(LEDPattern.HAS_GAMEPIECE))
+                      new InstantCommand(
+                          () -> {
+                            if (OI.activateGroundIntake().getAsBoolean()) {
+                              leds.setPattern(LEDPattern.HAS_GAMEPIECE).schedule();
+                            }
+                          }))
                   .schedule();
             });
 
@@ -1064,8 +1071,12 @@ public class RobotContainer {
                           () -> {
                             return groundIntake.getDistanceSensorTripped();
                           }),
-                      leds.setPattern(LEDPattern.HAS_GAMEPIECE));
-
+                      new InstantCommand(
+                          () -> {
+                            if (OI.L1GroundIntake().getAsBoolean()) {
+                              leds.setPattern(LEDPattern.HAS_GAMEPIECE).schedule();
+                            }
+                          }));
               if (!arm.groundIntaking) {
                 l1gIntake.schedule();
               } else {

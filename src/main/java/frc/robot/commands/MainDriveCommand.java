@@ -33,14 +33,6 @@ public class MainDriveCommand extends Command {
   double currentLinearVelocity;
   public static boolean coralAligning = false;
 
-  private final double speedScalar =
-      switch (Constants.DRIVE_MODE) {
-        case NORMAL -> 1.0;
-        case DEMO, DEMO_AUTOALIGN -> 0.5;
-        case TRAINING -> 0.75;
-        case TRAINING_AUTOALIGN -> 0.75;
-      };
-
   public MainDriveCommand(
       Drive drive,
       DoubleSupplier xSupplier,
@@ -91,18 +83,37 @@ public class MainDriveCommand extends Command {
     }
 
     if (!coralAligning) {
+      double rotationSpeedScalar;
+      if (drive.fastRotation) {
+        rotationSpeedScalar = Constants.Drivetrain.ROTATION_SPEED_FAST_SCALAR;
+      } else {
+        if (linearVelocity.getX() + linearVelocity.getY() == 0) {
+          rotationSpeedScalar = Constants.Drivetrain.ROTATION_SPEED_STATIONARY_SCALAR;
+        } else {
+          rotationSpeedScalar = Constants.Drivetrain.ROTATION_SPEED_NORMAL_SCALAR;
+        }
+      }
+
       drive.runVelocity(
           ChassisSpeeds.fromFieldRelativeSpeeds(
-              linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec() * speedScalar,
-              linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec() * speedScalar,
-              omega * drive.getMaxAngularSpeedRadPerSec(),
+              linearVelocity.getX()
+                  * drive.getMaxLinearSpeedMetersPerSec()
+                  * Constants.Drivetrain.SPEED_SCALAR,
+              linearVelocity.getY()
+                  * drive.getMaxLinearSpeedMetersPerSec()
+                  * Constants.Drivetrain.SPEED_SCALAR,
+              omega * drive.getMaxAngularSpeedRadPerSec() * rotationSpeedScalar,
               isFlipped ? drive.getRotation().plus(new Rotation2d(Math.PI)) : drive.getRotation()));
     } else {
       try {
         drive.runVelocity(
             ChassisSpeeds.fromFieldRelativeSpeeds(
-                linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec() * speedScalar,
-                linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec() * speedScalar,
+                linearVelocity.getX()
+                    * drive.getMaxLinearSpeedMetersPerSec()
+                    * Constants.Drivetrain.SPEED_SCALAR,
+                linearVelocity.getY()
+                    * drive.getMaxLinearSpeedMetersPerSec()
+                    * Constants.Drivetrain.SPEED_SCALAR,
                 drive.getCoralYaw() * drive.getMaxAngularSpeedRadPerSec(),
                 isFlipped
                     ? drive.getRotation().plus(new Rotation2d(Math.PI))
@@ -120,12 +131,12 @@ public class MainDriveCommand extends Command {
                       * drive.getMaxLinearSpeedMetersPerSec()
                       * linearVelocity.getX()
                       * drive.getMaxLinearSpeedMetersPerSec()
-                      * speedScalar)
+                      * Constants.Drivetrain.SPEED_SCALAR)
                   + (linearVelocity.getY()
                       * drive.getMaxLinearSpeedMetersPerSec()
                       * linearVelocity.getY()
                       * drive.getMaxLinearSpeedMetersPerSec()
-                      * speedScalar));
+                      * Constants.Drivetrain.SPEED_SCALAR));
 
       Logger.recordOutput("Drive/CurrentLinearVelocity", currentLinearVelocity);
       Logger.recordOutput("Drive/TargetLinearVelocity", targetVelocity);
