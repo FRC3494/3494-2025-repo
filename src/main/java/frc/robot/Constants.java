@@ -213,7 +213,8 @@ public final class Constants {
           case DEMO, DEMO_AUTOALIGN -> 0.5;
           case TRAINING, TRAINING_AUTOALIGN -> 0.75;
         };
-    public static final double ROTATION_SPEED_NORMAL_SCALAR = 0.3;
+    public static final double ROTATION_SPEED_STATIONARY_SCALAR = 0.3;
+    public static final double ROTATION_SPEED_NORMAL_SCALAR = 0.7;
     public static final double ROTATION_SPEED_FAST_SCALAR = 1;
   }
 
