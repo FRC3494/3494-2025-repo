@@ -956,10 +956,6 @@ public class RobotContainer {
                               }
 
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                            }),
-                        new WaitCommand(Constants.Presets.defenseDelay / 2.0),
-                        new InstantCommand(
-                            () -> {
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
                             }),
                         new WaitUntilCommand(
@@ -967,7 +963,7 @@ public class RobotContainer {
                               return SeanMathUtil.comparePosition(
                                   groundIntake.getPivotPosition(),
                                   Constants.Presets.groundIntakeIntake,
-                                  0.05);
+                                  0.15);
                             }),
                         new InstantCommand(
                             () -> {
@@ -1003,11 +999,6 @@ public class RobotContainer {
                               }
 
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                              System.out.println(Constants.Presets.defenseDelay / 2.0);
-                            }),
-                        new WaitCommand(Constants.Presets.defenseDelay / 2.0),
-                        new InstantCommand(
-                            () -> {
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
                             }),
                         new WaitUntilCommand(
@@ -1015,7 +1006,7 @@ public class RobotContainer {
                               return SeanMathUtil.comparePosition(
                                   groundIntake.getPivotPosition(),
                                   Constants.Presets.groundIntakeIntake,
-                                  0.05);
+                                  0.15);
                             }),
                         new InstantCommand(
                             () -> {
