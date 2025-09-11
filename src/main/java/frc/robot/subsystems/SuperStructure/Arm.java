@@ -27,7 +27,7 @@ public class Arm extends SubsystemBase {
   public boolean groundIntaking = false;
   public Command bufferedCommand = null;
 
-  public boolean defenseMode = false;
+  public boolean defenseMode = true;
 
   public Arm() {
     armMotor = new SparkFlex(Constants.Arm.armMotor, MotorType.kBrushless);

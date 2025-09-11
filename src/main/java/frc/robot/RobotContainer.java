@@ -703,7 +703,17 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftAlgeaL3);
                             arm.setTargetAngle(Constants.Presets.armAlgeaL3, 0);
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                          }),
+                      new WaitUntilCommand(
+                          () -> {
+                            return SeanMathUtil.comparePosition(
+                                arm.getPosition(), Constants.Presets.armAlgeaL3, 0.1);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            if (arm.defenseMode) {
+                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                            }
                           }));
               if (!arm.groundIntaking) {
                 l3AlgeaCommand.schedule();
@@ -738,7 +748,17 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
                             arm.setTargetAngle(Constants.Presets.armOuttakeL3, 0);
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                          }),
+                      new WaitUntilCommand(
+                          () -> {
+                            return SeanMathUtil.comparePosition(
+                                arm.getPosition(), Constants.Presets.armOuttakeL3, 0.1);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            if (arm.defenseMode) {
+                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                            }
                           }));
               if (!arm.groundIntaking) {
                 l3CoralCommand.schedule();
@@ -757,7 +777,17 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftAlgeaTeleopL2);
                             arm.setTargetAngle(Constants.Presets.armAlgeaL2, 0);
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                          }),
+                      new WaitUntilCommand(
+                          () -> {
+                            return SeanMathUtil.comparePosition(
+                                arm.getPosition(), Constants.Presets.armAlgeaL2, 0.1);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            if (arm.defenseMode) {
+                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                            }
                           }));
               if (!arm.groundIntaking) {
                 l2AlgeaCommand.schedule();
@@ -792,7 +822,17 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
                             arm.setTargetAngle(Constants.Presets.armOuttakeL2, 0);
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                          }),
+                      new WaitUntilCommand(
+                          () -> {
+                            return SeanMathUtil.comparePosition(
+                                arm.getPosition(), Constants.Presets.armOuttakeL2, 0.1);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            if (arm.defenseMode) {
+                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                            }
                           }));
               if (!arm.groundIntaking) {
                 l2CoralCommand.schedule();
@@ -850,7 +890,17 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.L1elevatorTest);
                             arm.setTargetAngle(Constants.Presets.L1armtest, 0);
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                          }),
+                      new WaitUntilCommand(
+                          () -> {
+                            return SeanMathUtil.comparePosition(
+                                arm.getPosition(), Constants.Presets.L1armtest, 0.1);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            if (arm.defenseMode) {
+                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                            }
                           }));
               if (!arm.groundIntaking) {
                 l1TestCommand.schedule();
@@ -1056,7 +1106,11 @@ public class RobotContainer {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
                             arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                           }),
-                      new WaitCommand(Constants.Presets.defenseDelay / 3),
+                      new WaitUntilCommand(
+                          () -> {
+                            return SeanMathUtil.comparePosition(
+                                arm.getPosition(), Constants.Presets.armSafePosition, 0.07);
+                          }),
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(groundIntake.hoverPosition);
