@@ -30,6 +30,10 @@ public class LEDs extends SubsystemBase {
         .ignoringDisable(true);
   }
 
+  public LEDPattern getPattern() {
+    return pattern;
+  }
+
   @Override
   public void periodic() {
     Logger.recordOutput("LEDs/Pattern", pattern.name());

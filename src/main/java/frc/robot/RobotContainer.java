@@ -1062,6 +1062,12 @@ public class RobotContainer {
                             groundIntake.setIntakePosition(groundIntake.hoverPosition);
                             groundIntake.setIntakePower(0, 0);
                             arm.groundIntaking = false;
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            if (leds.getPattern() != LEDPattern.HAS_GAMEPIECE) {
+                              leds.setPattern(LEDPattern.NONE).schedule();
+                            }
                           }))
                   .schedule();
             });
@@ -1103,11 +1109,18 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Command l1gItnake =
-                  new InstantCommand(
-                      () -> {
-                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
-                        groundIntake.setIntakePower(0, 0);
-                      });
+                  Commands.sequence(
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
+                            groundIntake.setIntakePower(0, 0);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            if (leds.getPattern() != LEDPattern.HAS_GAMEPIECE) {
+                              leds.setPattern(LEDPattern.NONE).schedule();
+                            }
+                          }));
 
               if (!arm.groundIntaking) {
                 l1gItnake.schedule();
@@ -1120,11 +1133,18 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Command l1GroundIntakeHigh =
-                  new InstantCommand(
-                      () -> {
-                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1High);
-                        groundIntake.setIntakePower(0, 0);
-                      });
+                  Commands.sequence(
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1High);
+                            groundIntake.setIntakePower(0, 0);
+                          }),
+                      new InstantCommand(
+                          () -> {
+                            if (leds.getPattern() != LEDPattern.HAS_GAMEPIECE) {
+                              leds.setPattern(LEDPattern.NONE).schedule();
+                            }
+                          }));
 
               if (!arm.groundIntaking) {
                 l1GroundIntakeHigh.schedule();
