@@ -8,4 +8,8 @@ public class SeanMathUtil {
     double ydist = pos2.getY() - pos1.getY();
     return Math.sqrt(Math.pow(ydist, 2) + Math.pow(xdist, 2));
   }
+
+  public static boolean comparePosition(double position, double target, double threshold) {
+    return Math.abs(position - target) < threshold;
+  }
 }

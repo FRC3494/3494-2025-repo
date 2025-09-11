@@ -334,20 +334,6 @@
             }
           },
           {
-            "title": "G-Pivot-Position",
-            "x": 384.0,
-            "y": 0.0,
-            "width": 128.0,
-            "height": 128.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Pivot-Position",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
-            }
-          },
-          {
             "title": "G-Pivot-Target-Position",
             "x": 512.0,
             "y": 0.0,
@@ -459,6 +445,20 @@
               "false_color": 4294901760,
               "true_icon": "Checkmark",
               "false_icon": "None"
+            }
+          },
+          {
+            "title": "Pivot-Abs-Position",
+            "x": 384.0,
+            "y": 0.0,
+            "width": 128.0,
+            "height": 128.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Pivot-Abs-Position",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
             }
           }
         ]

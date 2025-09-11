@@ -59,6 +59,7 @@ import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
+import frc.robot.util.SeanMathUtil;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -702,6 +703,7 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftAlgeaL3);
                             arm.setTargetAngle(Constants.Presets.armAlgeaL3, 0);
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
                           }));
               if (!arm.groundIntaking) {
                 l3AlgeaCommand.schedule();
@@ -736,6 +738,7 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
                             arm.setTargetAngle(Constants.Presets.armOuttakeL3, 0);
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
                           }));
               if (!arm.groundIntaking) {
                 l3CoralCommand.schedule();
@@ -754,6 +757,7 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftAlgeaTeleopL2);
                             arm.setTargetAngle(Constants.Presets.armAlgeaL2, 0);
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
                           }));
               if (!arm.groundIntaking) {
                 l2AlgeaCommand.schedule();
@@ -788,6 +792,7 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
                             arm.setTargetAngle(Constants.Presets.armOuttakeL2, 0);
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
                           }));
               if (!arm.groundIntaking) {
                 l2CoralCommand.schedule();
@@ -845,6 +850,7 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.L1elevatorTest);
                             arm.setTargetAngle(Constants.Presets.L1armtest, 0);
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
                           }));
               if (!arm.groundIntaking) {
                 l1TestCommand.schedule();
@@ -956,7 +962,13 @@ public class RobotContainer {
                             () -> {
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
                             }),
-                        new WaitCommand(Constants.Presets.defenseDelay / 3.5),
+                        new WaitUntilCommand(
+                            () -> {
+                              return SeanMathUtil.comparePosition(
+                                  groundIntake.getPivotPosition(),
+                                  Constants.Presets.groundIntakeIntake,
+                                  0.05);
+                            }),
                         new InstantCommand(
                             () -> {
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
@@ -966,8 +978,8 @@ public class RobotContainer {
                             }),
                         new WaitUntilCommand(
                             () -> {
-                              return arm.getPosition()
-                                  >= (Constants.Presets.armGroundTransfer - 0.05);
+                              return SeanMathUtil.comparePosition(
+                                  arm.getPosition(), Constants.Presets.armGroundTransfer, 0.05);
                             }),
                         new InstantCommand(
                             () -> {
@@ -998,7 +1010,13 @@ public class RobotContainer {
                             () -> {
                               groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
                             }),
-                        new WaitCommand(Constants.Presets.defenseDelay / 3.5),
+                        new WaitUntilCommand(
+                            () -> {
+                              return SeanMathUtil.comparePosition(
+                                  groundIntake.getPivotPosition(),
+                                  Constants.Presets.groundIntakeIntake,
+                                  0.05);
+                            }),
                         new InstantCommand(
                             () -> {
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
@@ -1008,8 +1026,14 @@ public class RobotContainer {
                             }),
                         new WaitUntilCommand(
                             () -> {
-                              return arm.getPosition()
-                                  >= (Constants.Presets.armGroundTransfer - 0.05);
+                              System.out.println(
+                                  arm.getPosition() - Constants.Presets.armGroundTransfer);
+                              return SeanMathUtil.comparePosition(
+                                  arm.getPosition(), Constants.Presets.armGroundTransfer, 0.05);
+                            }),
+                        new InstantCommand(
+                            () -> {
+                              groundIntake.setIntakePower(-0.85, 0.85);
                             }),
                         new InstantCommand(
                             () -> {

@@ -109,7 +109,7 @@ public class Arm extends SubsystemBase {
   }
 
   public double getPosition() {
-    return encoder.getPosition();
+    return armMotor.getAbsoluteEncoder().getPosition();
   }
 
   public void setPIDlimits(double lowerBound, double upperBound) {

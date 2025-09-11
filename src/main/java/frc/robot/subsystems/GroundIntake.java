@@ -80,6 +80,10 @@ public class GroundIntake extends SubsystemBase {
     targetPosition = position;
   }
 
+  public double getPivotPosition() {
+    return pivotMotor.getAbsoluteEncoder().getPosition();
+  }
+
   public void setIntakePower(double front, double back) {
     frontIntakeMotor.set(front);
     backIntakeMotor.set(back);
