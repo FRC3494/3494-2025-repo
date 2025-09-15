@@ -1067,8 +1067,6 @@ public class RobotContainer {
                             }),
                         new WaitUntilCommand(
                             () -> {
-                              System.out.println(
-                                  arm.getPosition() - Constants.Presets.armGroundTransfer);
                               return SeanMathUtil.comparePosition(
                                   arm.getPosition(), Constants.Presets.armGroundTransfer, 0.05);
                             }),
@@ -1113,6 +1111,7 @@ public class RobotContainer {
                           }),
                       new InstantCommand(
                           () -> {
+                            System.out.println(groundIntake.hoverPosition);
                             groundIntake.setIntakePosition(groundIntake.hoverPosition);
                             groundIntake.setIntakePower(0, 0);
                             arm.groundIntaking = false;

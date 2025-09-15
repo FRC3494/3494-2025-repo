@@ -30,7 +30,7 @@ public class GroundIntake extends SubsystemBase {
   public boolean wanttoPOP = true;
   private PIDController pivotMotorPIDLoop = new PIDController(8, 0, 0);
   public double targetPosition;
-  public double hoverPosition = Constants.Presets.groundIntakeHover;
+  public double hoverPosition = Constants.Presets.groundIntakeStore;
 
   // Create instance of Time-Of_Flight driver for device 1
   private final TimeOfFlight m_rangeSensor =
