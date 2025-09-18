@@ -1102,17 +1102,23 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                            arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                            if (Constants.DRIVE_MODE == DriveMode.DEMO) {
+                              arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                            }
                           }),
                       new WaitUntilCommand(
                           () -> {
-                            return SeanMathUtil.comparePosition(
-                                arm.getPosition(), Constants.Presets.armSafePosition, 0.07);
+                            return Constants.DRIVE_MODE == DriveMode.DEMO
+                                || SeanMathUtil.comparePosition(
+                                    arm.getPosition(), Constants.Presets.armSafePosition, 0.07);
                           }),
                       new InstantCommand(
                           () -> {
                             System.out.println(groundIntake.hoverPosition);
-                            groundIntake.setIntakePosition(groundIntake.hoverPosition);
+                            groundIntake.setIntakePosition(
+                                Constants.DRIVE_MODE == DriveMode.DEMO
+                                    ? Constants.Presets.groundIntakeHover
+                                    : groundIntake.hoverPosition);
                             groundIntake.setIntakePower(0, 0);
                             arm.groundIntaking = false;
                           }),
@@ -1275,6 +1281,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               groundIntake.setIntakePower(0.2, -0.5);
+              leds.setPattern(LEDPattern.NONE).schedule();
             });
     OI.groundIntakeManualOut()
         .falling()

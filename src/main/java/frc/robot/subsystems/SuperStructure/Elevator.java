@@ -1,5 +1,7 @@
 package frc.robot.subsystems.SuperStructure;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.revrobotics.spark.SparkBase;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -8,10 +10,10 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import org.littletonrobotics.junction.Logger;
 
 public class Elevator extends SubsystemBase {
   private SparkMax leaderMotor;
@@ -58,12 +60,12 @@ public class Elevator extends SubsystemBase {
   public void setElevatorPower(double power) {
     power = Math.max(Math.min(power, 1), -1);
     manualPower = power;
-    leaderMotor.set(manualPower);
+    // leaderMotor.set(manualPower);
     followerMotor.set(manualPower);
   }
 
   public void setElevatorVoltage(double voltage) {
-    leaderMotor.getClosedLoopController().setReference(voltage, SparkBase.ControlType.kVoltage);
+    // leaderMotor.getClosedLoopController().setReference(voltage, SparkBase.ControlType.kVoltage);
     followerMotor.getClosedLoopController().setReference(voltage, SparkBase.ControlType.kVoltage);
   }
 
@@ -110,7 +112,8 @@ public class Elevator extends SubsystemBase {
   }
 
   public void setElevatorPosition(double position) {
-    leaderMotor.getClosedLoopController().setReference(position, SparkBase.ControlType.kPosition);
+    // leaderMotor.getClosedLoopController().setReference(position,
+    // SparkBase.ControlType.kPosition);
     followerMotor.getClosedLoopController().setReference(position, SparkBase.ControlType.kPosition);
     targetPosition = position;
   }
@@ -128,9 +131,9 @@ public class Elevator extends SubsystemBase {
   }
 
   public void setPIDlimits(double lowerBound, double upperBound) {
-    leaderConfig.closedLoop.outputRange(lowerBound, upperBound);
-    leaderMotor.configure(
-        leaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    // leaderConfig.closedLoop.outputRange(lowerBound, upperBound);
+    // leaderMotor.configure(
+    //     leaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
 
     followerConfig.closedLoop.outputRange(lowerBound, upperBound);
     followerMotor.configure(

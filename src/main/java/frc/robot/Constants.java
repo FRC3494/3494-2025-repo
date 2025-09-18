@@ -153,6 +153,13 @@ public final class Constants {
   public static class Intake {
     public static int intakeMotor = 14;
     public static double DEADBAND = 0.05;
+
+    public static double speedScalar =
+        switch (DRIVE_MODE) {
+          case NORMAL -> 1.0;
+          case DEMO, DEMO_AUTOALIGN -> 0.4;
+          case TRAINING, TRAINING_AUTOALIGN -> 1.0;
+        };
   }
 
   public static class Climber {
