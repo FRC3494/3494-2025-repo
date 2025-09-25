@@ -1073,10 +1073,6 @@ public class RobotContainer {
                         new InstantCommand(
                             () -> {
                               groundIntake.setIntakePower(-0.85, 0.85);
-                            }),
-                        new InstantCommand(
-                            () -> {
-                              groundIntake.setIntakePower(-0.85, 0.85);
                             }))
                     .schedule();
               }
@@ -1098,6 +1094,8 @@ public class RobotContainer {
         .falling()
         .ifHigh(
             () -> {
+              System.out.println(
+                  "Ground Intake Deactivated ---------------------------------------------------------------------");
               Commands.sequence(
                       new InstantCommand(
                           () -> {
