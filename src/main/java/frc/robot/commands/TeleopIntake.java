@@ -95,7 +95,13 @@ public class TeleopIntake extends Command {
     //   arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
     // }
     if (intakePower != lastIntakePower || OI.primaryController.getAButton()) {
-      intake.setSpeed(intakePower * Constants.Intake.speedScalar);
+      if (arm.getTargetPosition()
+          == Constants.Presets.armGroundTransfer + Constants.Presets.globalArmOffset) {
+
+        intake.setSpeed(intakePower);
+      } else {
+        intake.setSpeed(intakePower * Constants.Intake.speedScalar);
+      }
     } else if (holding_algea && OI.deadband(intakePower, 0.5) == 0) {
       boolean isIntaking = ((int) (algeaTimer.get() * 10)) % 2 == 1;
       intake.setSpeed(((isIntaking) ? 1 : 0));

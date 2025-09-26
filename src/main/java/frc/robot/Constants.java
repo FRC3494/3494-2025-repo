@@ -77,7 +77,7 @@ public final class Constants {
     public static double armOuttakeL2 = 0.610; // 0.605; // -111.0;
     public static double armOuttakeL2Auto = 0.610; // 0.595;
     public static double armOuttakeL3 = 0.63; // -106.0;
-    public static double armGroundTransfer = 0.959; // 0.944;
+    public static double armGroundTransfer = 0.945; // 0.944;
 
     public static double armAlgeaL2 = 0.62; // 0.6125; // 0.605
     public static double armAlgeaL2Auto = 0.62;
@@ -108,7 +108,7 @@ public final class Constants {
     public static double L1armtest = 0.613; // 0.610
     public static double L1elevatorTest = 8.38;
 
-    public static double groundIntakeIntake = 0.03123521; // 0.0;//-19.6;
+    public static double groundIntakeIntake = 0.0; // 0.0;//-19.6;
     public static double groundIntakeHover = 0.05;
     // 2.0;//-17;
     public static double groundIntakePop = 0.075; // 2.0;//-17;

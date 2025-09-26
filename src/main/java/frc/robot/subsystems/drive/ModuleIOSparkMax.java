@@ -117,7 +117,7 @@ public class ModuleIOSparkMax implements ModuleIO {
     driveSparkFlexConfig.smartCurrentLimit(50); // 40
     driveSparkFlexConfig.signals.primaryEncoderPositionPeriodMs(
         (int) (1000.0 / Module.ODOMETRY_FREQUENCY));
-    driveSparkFlexConfig.inverted(true);
+    driveSparkFlexConfig.inverted(false);
 
     turnSparkFlexConfig.smartCurrentLimit(30);
     turnSparkFlexConfig.voltageCompensation(12);

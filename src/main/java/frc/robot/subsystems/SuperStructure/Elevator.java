@@ -14,6 +14,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.DriveMode;
 
 public class Elevator extends SubsystemBase {
   private SparkMax leaderMotor;
@@ -37,12 +38,18 @@ public class Elevator extends SubsystemBase {
     leaderConfig.smartCurrentLimit(80);
 
     leaderConfig.closedLoop.pid(0.8, 0, 0);
-    leaderConfig.closedLoop.outputRange(-0.8, 0.8);
+    leaderConfig.closedLoop.outputRange(-0.5, 0.5);
     leaderConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
 
     followerConfig.closedLoop.pid(0.8, 0, 0);
-    followerConfig.closedLoop.outputRange(-0.8, 0.8);
+    followerConfig.closedLoop.outputRange(-0.5, 0.5);
     followerConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
+
+    if (Constants.DRIVE_MODE == DriveMode.DEMO_AUTOALIGN
+        || Constants.DRIVE_MODE == DriveMode.DEMO) {
+      leaderConfig.closedLoop.outputRange(-0.3, 0.3);
+      followerConfig.closedLoop.outputRange(-0.3, 0.3);
+    }
 
     leaderConfig.idleMode(IdleMode.kBrake);
     followerConfig.idleMode(IdleMode.kBrake);
