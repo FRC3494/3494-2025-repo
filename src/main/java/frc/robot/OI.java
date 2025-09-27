@@ -36,8 +36,8 @@ public final class OI {
   public static double getIntakePower() {
     double Sean_intake_power =
         deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
-            + deadband(primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND)
-            + (primaryController.getAButton() ? -0.5 : 0);
+            + deadband(-primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND)
+            + (primaryController.getAButton() ? 0.5 : 0);
     double Ashton_intake_power =
         deadband(rightButtonBoard.getRawAxis(0), Constants.Intake.DEADBAND);
     return Sean_intake_power + Ashton_intake_power;
@@ -53,7 +53,7 @@ public final class OI {
   }
 
   public static BooleanEvent L1GroundIntake() {
-    return (primaryController.a(eventLoop))
+    return (primaryController.leftTrigger(eventLoop))
         .or(
             () -> {
               if ((rightButtonBoard.getRawAxis(1)) > Constants.Intake.DEADBAND) {
@@ -65,11 +65,6 @@ public final class OI {
 
   public static BooleanEvent toggleDistanceSensor() {
     return rightButtonBoard.button(7, eventLoop);
-  }
-
-  public static BooleanEvent L1GroundIntakeHigh() {
-    // not called
-    return rightButtonBoard.button(6, eventLoop);
   }
 
   // TODO: is this "New L1"?
@@ -118,16 +113,6 @@ public final class OI {
 
   public static BooleanEvent bargeStage() {
     return leftButtonBoard.button(9, eventLoop);
-  }
-
-  public static BooleanEvent lowIntake() {
-    // Not called
-    return leftButtonBoard.button(10, eventLoop);
-  }
-
-  public static BooleanEvent lowLowIntake() {
-    // Not called
-    return rightButtonBoard.button(2, eventLoop);
   }
 
   public static BooleanEvent armSafeMode() {

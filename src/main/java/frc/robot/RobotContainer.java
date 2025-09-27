@@ -1231,7 +1231,7 @@ public class RobotContainer {
     OI.groundIntakeOuttake()
         .or(
             () -> {
-              return (drive.coralIntededforL1 ? controller.getLeftTriggerAxis() >= 0.2 : false);
+              return (drive.coralIntededforL1 ? controller.a().getAsBoolean() : false);
             })
         .rising()
         .ifHigh(

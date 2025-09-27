@@ -99,7 +99,8 @@ public class TeleopIntake extends Command {
     // else{
     //   arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
     // }
-    if (intakePower != lastIntakePower || OI.primaryController.getAButton()) {
+    if (intakePower != lastIntakePower
+        || OI.deadband(OI.primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND) > 0) {
       if (arm.getTargetPosition()
           == Constants.Presets.armGroundTransfer + Constants.Presets.globalArmOffset) {
         intake.setSpeed(intakePower);
