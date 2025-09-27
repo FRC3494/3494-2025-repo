@@ -26,7 +26,6 @@ public class GroundIntake extends SubsystemBase {
   private SparkMax backIntakeMotor;
   private SparkMaxConfig backIntakeMotorConfig;
   public boolean wanttoPOP = false;
-  private PIDController pivotMotorPIDLoop = new PIDController(8, 0, 0);
   public double targetPosition;
   public double hoverPosition = Constants.Presets.groundIntakeHover;
 

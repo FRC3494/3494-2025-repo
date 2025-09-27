@@ -52,7 +52,8 @@ public class TeleopIntake extends Command {
     } else {
       // AutoAlignDesitationDeterminer.placingAtL1 = false;
     }
-    if (arm.getTargetPosition() == Constants.Presets.armCoral + Constants.Presets.globalArmOffset
+    if (arm.getTargetPosition()
+            == Constants.Presets.armProcessor + Constants.Presets.globalArmOffset
         || arm.getTargetPosition()
             == Constants.Presets.armBargeStore + Constants.Presets.globalArmOffset) {
       // arm.setPIDlimits(-0.8, 0.8);
@@ -98,10 +99,10 @@ public class TeleopIntake extends Command {
     // else{
     //   arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
     // }
-    if (intakePower != lastIntakePower || OI.primaryController.getAButton()) {
+    if (intakePower != lastIntakePower
+        || OI.deadband(OI.primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND) > 0) {
       if (arm.getTargetPosition()
           == Constants.Presets.armGroundTransfer + Constants.Presets.globalArmOffset) {
-
         intake.setSpeed(intakePower);
       } else {
         intake.setSpeed(intakePower * Constants.Intake.speedScalar);

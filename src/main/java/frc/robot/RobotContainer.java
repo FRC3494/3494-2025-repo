@@ -318,7 +318,7 @@ public class RobotContainer {
             new InstantCommand(
                 () -> {
                   elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                  arm.setTargetAngle(Constants.Presets.armCoral, 0);
+                  arm.setTargetAngle(Constants.Presets.armProcessor, 0);
                 })));
 
     NamedCommands.registerCommand(
@@ -949,7 +949,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               elevator.setElevatorPosition(Constants.Presets.liftIntake);
-              arm.setTargetAngle(Constants.Presets.armCoral, 0);
+              arm.setTargetAngle(Constants.Presets.armProcessor, 0);
             });
     OI.lolipop()
         .rising()
@@ -1114,7 +1114,7 @@ public class RobotContainer {
                           () -> {
                             System.out.println(groundIntake.hoverPosition);
                             groundIntake.setIntakePosition(
-                                Constants.DRIVE_MODE == DriveMode.DEMO
+                                (Constants.DRIVE_MODE == DriveMode.DEMO)
                                     ? Constants.Presets.groundIntakeHover
                                     : groundIntake.hoverPosition);
                             groundIntake.setIntakePower(0, 0);
@@ -1169,7 +1169,10 @@ public class RobotContainer {
                   Commands.sequence(
                       new InstantCommand(
                           () -> {
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
+                            groundIntake.setIntakePosition(
+                                (Constants.DRIVE_MODE == DriveMode.DEMO)
+                                    ? Constants.Presets.groundIntakeHover
+                                    : Constants.Presets.groundIntakeL1);
                             groundIntake.setIntakePower(0, 0);
                           }),
                       new InstantCommand(
@@ -1193,7 +1196,10 @@ public class RobotContainer {
                   Commands.sequence(
                       new InstantCommand(
                           () -> {
-                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1High);
+                            groundIntake.setIntakePosition(
+                                (Constants.DRIVE_MODE == DriveMode.DEMO)
+                                    ? Constants.Presets.groundIntakeHover
+                                    : Constants.Presets.groundIntakeL1High);
                             groundIntake.setIntakePower(0, 0);
                           }),
                       new InstantCommand(
@@ -1225,7 +1231,7 @@ public class RobotContainer {
     OI.groundIntakeOuttake()
         .or(
             () -> {
-              return (drive.coralIntededforL1 ? controller.getLeftTriggerAxis() >= 0.2 : false);
+              return (drive.coralIntededforL1 ? controller.a().getAsBoolean() : false);
             })
         .rising()
         .ifHigh(
@@ -1237,7 +1243,12 @@ public class RobotContainer {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
                             groundIntake.setIntakeCUrrentlim(60);
                           }),
-                      new WaitCommand(0.3),
+                      new WaitUntilCommand(
+                          () ->
+                              SeanMathUtil.comparePosition(
+                                  groundIntake.getPivotPosition(),
+                                  Constants.Presets.groundIntakeL1,
+                                  0.05)),
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePower(0.25, -0.25); // 0.25, -0.25
