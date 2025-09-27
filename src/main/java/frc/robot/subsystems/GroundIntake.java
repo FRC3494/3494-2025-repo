@@ -19,7 +19,6 @@ import frc.robot.Constants;
 
 public class GroundIntake extends SubsystemBase {
   private SparkFlex pivotMotor;
-  private SparkFlexConfig pivotMotorConfig;
   private PIDController pivotController;
 
   private SparkMax frontIntakeMotor;
@@ -37,6 +36,7 @@ public class GroundIntake extends SubsystemBase {
 
   public GroundIntake() {
     pivotMotor = new SparkFlex(Constants.GroundIntake.pivotMotor, MotorType.kBrushless);
+    SparkFlexConfig pivotMotorConfig = new SparkFlexConfig();
     frontIntakeMotor = new SparkMax(Constants.GroundIntake.frontIntakeMotor, MotorType.kBrushless);
     backIntakeMotor = new SparkMax(Constants.GroundIntake.backIntakeMotor, MotorType.kBrushless);
 
@@ -150,8 +150,9 @@ public class GroundIntake extends SubsystemBase {
   }
 
   public void setIntakeCUrrentlim(int current) {
+    SparkFlexConfig pivotMotorConfig = new SparkFlexConfig();
     pivotMotorConfig.smartCurrentLimit(current);
     pivotMotor.configure(
-        pivotMotorConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+        pivotMotorConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 }
