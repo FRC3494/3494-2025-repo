@@ -91,6 +91,10 @@ public class TeleopIntake extends Command {
       }
     }
 
+    if (OI.L1GroundIntake().getAsBoolean()) {
+      intakePower = 0;
+    }
+
     // else{
     //   arm.setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
     // }
