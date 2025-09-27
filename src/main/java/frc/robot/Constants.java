@@ -69,10 +69,9 @@ public final class Constants {
     public static double armIntakeLow = 0.829;
     public static double armIntakeAlt = 0.845; // 0.830
     public static double armIntakeLowLow = 0.846;
-    public static double armCoral = 0.54; // -136.0;
 
     public static double armSafePosition = 0.72;
-    public static double armProcessor = 0.53;
+    public static double armProcessor = 0.54; // -136.0;
     public static double armOuttakeL1 = 0.875;
     public static double armOuttakeL2 = 0.610; // 0.605; // -111.0;
     public static double armOuttakeL2Auto = 0.610; // 0.595;

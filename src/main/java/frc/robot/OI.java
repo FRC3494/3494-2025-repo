@@ -138,9 +138,9 @@ public final class OI {
     return rightButtonBoard.button(4, eventLoop);
   }
 
-  // TODO: needs a button
   public static BooleanEvent lolipop() {
-    return leftButtonBoard.button(3, eventLoop);
+    return new BooleanEvent(eventLoop, () -> false);
+    // return leftButtonBoard.button(3, eventLoop);
   }
 
   public static BooleanEvent feeder() {
