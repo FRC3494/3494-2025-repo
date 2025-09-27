@@ -13,6 +13,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.DriveMode;
 
 public class Intake extends SubsystemBase {
   private SparkMax intakeMotor;
@@ -26,7 +27,11 @@ public class Intake extends SubsystemBase {
   public Intake() {
     Logger.recordOutput("Intake/Intake-Power", intakeSpeed);
     intakeConfig = new SparkMaxConfig();
-    intakeConfig.idleMode(IdleMode.kBrake);
+    if (Constants.DRIVE_MODE == DriveMode.DEMO) {
+      intakeConfig.idleMode(IdleMode.kCoast);
+    } else {
+      intakeConfig.idleMode(IdleMode.kBrake);
+    }
     intakeConfig.smartCurrentLimit(30); // was 40 on 7/9/25
     intakeConfig.inverted(false);
     intakeMotor = new SparkMax(Constants.Intake.intakeMotor, MotorType.kBrushless);
