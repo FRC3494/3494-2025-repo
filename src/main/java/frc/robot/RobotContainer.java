@@ -1304,7 +1304,10 @@ public class RobotContainer {
             () -> {
               new InstantCommand(
                       () -> {
-                        groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
+                        if (!SeanMathUtil.comparePosition(
+                            arm.getPosition(), Constants.Presets.armGroundTransfer, 0.1)) {
+                          groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
+                        }
                       })
                   .schedule();
             });
