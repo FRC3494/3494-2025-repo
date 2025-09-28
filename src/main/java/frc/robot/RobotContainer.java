@@ -1345,7 +1345,14 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              getBargeCommand().schedule();
+              Commands.sequence(
+                      getBargeCommand(),
+                      new WaitCommand(1.0),
+                      new InstantCommand(
+                          () -> {
+                            intake.setSpeed(0);
+                          }))
+                  .schedule();
             });
 
     // OI.ClimbStage0().rising().ifHigh(()->{
