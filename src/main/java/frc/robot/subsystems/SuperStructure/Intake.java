@@ -67,6 +67,7 @@ public class Intake extends SubsystemBase {
     Logger.recordOutput("Intake/Current-Average", Cavrg);
     Logger.recordOutput("Intake/Has-Coral", hasCoral);
     Logger.recordOutput("Intake/Current-Speed", currentSpeed);
+    Logger.recordOutput("Intake/MotorTemp", intakeMotor.getMotorTemperature());
     if (currentSpeed > 0.05) {
       hasCoral = false;
     }
