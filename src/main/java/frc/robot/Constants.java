@@ -195,23 +195,22 @@ public final class Constants {
     public static final int FRONT_LEFT_STEER_ID = 16; // 16
     public static final int FRONT_LEFT_TURN_ENCODER_ID =
         3; // 3public static final double FRONT_LEFT_OFFSET = Math.toRadians(22);
-    public static final double FRONT_LEFT_OFFSET = Math.toRadians(201.9);
+    public static final double FRONT_LEFT_OFFSET = 1.259;
 
     public static final int FRONT_RIGHT_DRIVE_ID = 19; // 19
     public static final int FRONT_RIGHT_STEER_ID = 17; // 17
     public static final int FRONT_RIGHT_TURN_ENCODER_ID = 2; // 2
-    public static final double FRONT_RIGHT_OFFSET = Math.toRadians(239.4);
+    public static final double FRONT_RIGHT_OFFSET = 2.602;
 
-    public static final int BACK_LEFT_DRIVE_ID = 30;
-    // 30
+    public static final int BACK_LEFT_DRIVE_ID = 30; // 30
     public static final int BACK_LEFT_STEER_ID = 2; // 2
     public static final int BACK_LEFT_TURN_ENCODER_ID = 1; // 1
-    public static final double BACK_LEFT_OFFSET = Math.toRadians(265);
+    public static final double BACK_LEFT_OFFSET = 0.248;
 
     public static final int BACK_RIGHT_DRIVE_ID = 1; // 1
     public static final int BACK_RIGHT_STEER_ID = 3; // 3
     public static final int BACK_RIGHT_TURN_ENCODER_ID = 0; // 0
-    public static final double BACK_RIGHT_OFFSET = Math.toRadians(147.9);
+    public static final double BACK_RIGHT_OFFSET = 2.768;
 
     public static final double SPEED_SCALAR =
         switch (Constants.DRIVE_MODE) {
