@@ -173,7 +173,7 @@ public class Robot extends LoggedRobot {
     ModuleIOSparkMax.setGearRatio(Constants.Drivetrain.L2_GEAR_RATIO);
     robotContainer.leds.setPattern(LEDPattern.NONE).schedule();
     // ! Uncomment for comp
-    // Elastic.selectTab("Teleoperated");
+    Elastic.selectTab("Teleoperated");
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
