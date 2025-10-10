@@ -38,11 +38,11 @@ public class Elevator extends SubsystemBase {
     leaderConfig.smartCurrentLimit(80);
 
     leaderConfig.closedLoop.pid(0.8, 0, 0);
-    leaderConfig.closedLoop.outputRange(-0.5, 0.5);
+    leaderConfig.closedLoop.outputRange(-0.8, 0.8);
     leaderConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
 
     followerConfig.closedLoop.pid(0.8, 0, 0);
-    followerConfig.closedLoop.outputRange(-0.5, 0.5);
+    followerConfig.closedLoop.outputRange(-0.8, 0.8);
     followerConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
 
     if (Constants.DRIVE_MODE == DriveMode.DEMO_AUTOALIGN
