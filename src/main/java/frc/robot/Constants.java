@@ -65,30 +65,31 @@ public final class Constants {
 
   public static class Presets {
     public static double globalArmOffset = -0.005; // -0.01
-    public static double armIntake = 0.823; // 0.822; // -34.0;
-    public static double armIntakeLow = 0.829;
-    public static double armIntakeAlt = 0.845; // 0.830
-    public static double armIntakeLowLow = 0.846;
+    public static double armIntake = 0.823; // 0.822; // -34.0; //TODO
+    public static double armIntakeLow = 0.829; // TODO
+    public static double armIntakeAlt = 0.845; // 0.830 //TODO
+    public static double armIntakeLowLow = 0.846; // TODO
 
     public static double armSafePosition = 0.72;
-    public static double armProcessor = 0.54; // -136.0;
-    public static double armOuttakeL1 = 0.875;
-    public static double armOuttakeL2 = 0.610; // 0.605; // -111.0;
-    public static double armOuttakeL2Auto = 0.610; // 0.595;
-    public static double armOuttakeL3 = 0.63; // -106.0;
-    public static double armGroundTransfer = 0.945; // 0.944;
+    public static double armProcessor = 0.54; // -136.0; //TODO
+    public static double armOuttakeL1 = 0.875; // TODO
+    public static double armOuttakeL2 = 0.599;
+    public static double armOuttakeL2Auto = 0.599;
+    public static double armOuttakeL3 = 0.619;
+    public static double armGroundTransfer = 0.945;
 
-    public static double armAlgeaL2 = 0.62; // 0.6125; // 0.605
-    public static double armAlgeaL2Auto = 0.62;
-    public static double armAlgeaL3 = 0.632; // 0.585; // 0.58 // -116.0;
-    public static double armBargeYeet = 0.65;
-    public static double armBargeStore = 0.85;
+    public static double armAlgeaL2 =
+        0.603; // 0.6125; // 0.605// TODO 0.62; difference is -0.027 + 0.05
+    public static double armAlgeaL2Auto = 0.603;
+    public static double armAlgeaL3 = 0.620;
+    public static double armBargeYeet = 0.633; // TODO
+    public static double armBargeStore = 0.833; // TODO
 
     public static double liftIntake = 0;
     public static double liftIntakeAlt = 10; // 2.238
     public static double liftOuttakeL2 = 20;
     public static double liftOuttakeL3 = 44.5;
-    public static double liftAlgeaL3 = 28.75;
+    public static double liftAlgeaL3 = 30;
     public static double liftAlgeaL3Auto = 37.0; // 35.643;//
     public static double liftAlgeaL2 = 3.7;
     public static double liftAlgeaTeleopL2 = 0;
@@ -102,7 +103,7 @@ public final class Constants {
     public static double climberStage1 = -28.0;
     public static double climberStage2 = -53.4;
 
-    public static double armBargeYeetRelease = 0.805; // 0.8075f// 0.8;//0.7965;
+    public static double armBargeYeetRelease = 0.788; // 0.8075f// 0.8;//0.7965;// TODO
 
     public static double L1armtest = 0.613; // 0.610
     public static double L1elevatorTest = 8.38;
@@ -247,8 +248,7 @@ public final class Constants {
     public static final double fieldWidth = Units.inchesToMeters(317); // 26ft 6in
     public static final Translation2d ampCenter =
         new Translation2d(Units.inchesToMeters(72.455), fieldWidth);
-    public static final Pose2d bargeSpot =
-        new Pose2d(7.39, 5.4, new Rotation2d(Math.toRadians(-29.70)));
+    public static final Pose2d bargeSpot = new Pose2d(6.68, 5.20, Rotation2d.fromDegrees(-48.83));
 
     // new Pose2d(7.4, 6.893, new Rotation2d(Math.toRadians(-135.0)));
 
