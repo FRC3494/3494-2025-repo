@@ -1,13 +1,12 @@
 package frc.robot.subsystems.limelights;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.estimator.ExtendedKalmanFilter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.numbers.N2;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.util.LimelightHelpers;
-import frc.robot.util.LimelightHelpers.RawFiducial;
-import java.util.Arrays;
-import org.littletonrobotics.junction.Logger;
 
 public class Limelights {
   private ExtendedKalmanFilter<N2, N2, N2> mKalmanFilter; // NICE IDEA IMPLEMENT LATER
@@ -115,24 +114,5 @@ public class Limelights {
    */
   public void setMegatag(boolean megaTagStauts) {
     useMegatag1 = megaTagStauts;
-  }
-
-  private void logAllFiducialsPose3d(LimelightHelpers.PoseEstimate measurement) {
-    try {
-      if (limelightLeftMeasurment != null) {
-
-        RawFiducial[] asdf = limelightLeftMeasurment.rawFiducials();
-
-        Logger.recordOutput(
-            limelightName + "/SeenApriltags",
-            Arrays.stream(asdf).map(fid -> fid.id).toArray(String[]::new));
-
-      } else {
-        Logger.recordOutput(limelightName + "/SeenApriltags", new String[] {});
-      }
-
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
   }
 }
