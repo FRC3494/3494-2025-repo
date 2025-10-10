@@ -37,7 +37,7 @@ public final class OI {
     double Sean_intake_power =
         deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
             + deadband(-primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND)
-            + (primaryController.getAButton() ? 0.5 : 0);
+            + (primaryController.getAButton() ? 1 : 0);
     double Ashton_intake_power =
         deadband(rightButtonBoard.getRawAxis(0), Constants.Intake.DEADBAND);
     return Sean_intake_power + Ashton_intake_power;
