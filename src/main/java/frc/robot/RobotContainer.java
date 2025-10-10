@@ -20,6 +20,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -558,7 +559,12 @@ public class RobotContainer {
         .onTrue(
             Commands.runOnce(
                 () -> {
-                  GyroIOPigeon2.pigeon.setYaw(0.0);
+                  if (DriverStation.getAlliance().isPresent()
+                      && DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
+                    GyroIOPigeon2.pigeon.setYaw(180.0);
+                  } else {
+                    GyroIOPigeon2.pigeon.setYaw(0.0);
+                  }
                 }));
     controller
         .start()
