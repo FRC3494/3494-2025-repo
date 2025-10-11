@@ -247,7 +247,7 @@ public class RobotContainer {
             new InstantCommand(
                 () -> {
                   elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
-                  arm.setTargetAngle(Constants.Presets.armOuttakeL2Auto, 0);
+                  arm.setTargetAngle(Constants.Presets.armOuttakeL2, 0);
                 })));
     NamedCommands.registerCommand(
         "L2 Algea",

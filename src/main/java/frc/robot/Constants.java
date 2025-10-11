@@ -74,7 +74,6 @@ public final class Constants {
     public static double armProcessor = 0.54; // -136.0; //TODO
     public static double armOuttakeL1 = 0.875; // TODO
     public static double armOuttakeL2 = 0.599;
-    public static double armOuttakeL2Auto = 0.599;
     public static double armOuttakeL3 = 0.619;
     public static double armGroundTransfer = 0.945;
 
