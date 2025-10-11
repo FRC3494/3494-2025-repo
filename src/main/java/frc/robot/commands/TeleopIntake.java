@@ -16,7 +16,6 @@ public class TeleopIntake extends Command {
   private Arm arm;
   private LEDs leds;
   double lastPower;
-  private double armPower = 0;
   private double lastIntakePower = 1;
   private boolean holding_algea = false;
   private Timer algeaTimer = new Timer();
@@ -78,7 +77,7 @@ public class TeleopIntake extends Command {
       donePIdchange = false;
     }
 
-    // Positive power is coral outtake
+    // * Positive power is coral outtake
     if ((arm.getTargetPosition()
             == Constants.Presets.armOuttakeL1 + Constants.Presets.globalArmOffset)
         || (arm.getTargetPosition()
