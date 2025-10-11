@@ -576,6 +576,7 @@ public class RobotContainer {
 
     controller
         .back()
+        .and(controller.start().negate())
         .onTrue(
             Commands.runOnce(
                 () -> {
@@ -588,6 +589,7 @@ public class RobotContainer {
                 }));
     controller
         .start()
+        .and(controller.back())
         .onTrue(
             Commands.runOnce(
                 () -> {
