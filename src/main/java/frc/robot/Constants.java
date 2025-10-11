@@ -229,7 +229,7 @@ public final class Constants {
 
     public enum LEDPattern {
       // PWM values: https://docs.revrobotics.com/rev-crossover-products/blinkin/gs/patterns
-      DISABLED(0.0),
+      DISABLED(0.1),
       NONE(0.65), // Solid Orange
       HAS_GAMEPIECE(0.75), // Solid Dark Green
       DEPOSITED(0.69), // Solid Yellow
