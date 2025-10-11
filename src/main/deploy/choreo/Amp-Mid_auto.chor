@@ -4,7 +4,50 @@
  "type":"Swerve",
  "variables":{
   "expressions":{},
-  "poses":{}
+  "poses":{
+   "ReefA":{
+    "x":{
+     "exp":"3.256 m",
+     "val":3.256
+    },
+    "y":{
+     "exp":"4.227 m",
+     "val":4.227
+    },
+    "heading":{
+     "exp":"-90 deg",
+     "val":-1.5707963267948966
+    }
+   },
+   "ReefABAlgae":{
+    "x":{
+     "exp":"3.266 m",
+     "val":3.266
+    },
+    "y":{
+     "exp":"4.07 m",
+     "val":4.07
+    },
+    "heading":{
+     "exp":"-90 deg",
+     "val":-1.5707963267948966
+    }
+   },
+   "ReefB":{
+    "x":{
+     "exp":"3.256 m",
+     "val":3.256
+    },
+    "y":{
+     "exp":"3.894 m",
+     "val":3.894
+    },
+    "heading":{
+     "exp":"-90 deg",
+     "val":-1.5707963267948966
+    }
+   }
+  }
  },
  "config":{
   "frontLeft":{
