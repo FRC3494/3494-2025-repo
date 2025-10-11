@@ -1,5 +1,5 @@
 {
- "name":"Amp-Mid_auto",
+ "name":"Autos",
  "version":1,
  "type":"Swerve",
  "variables":{
@@ -83,8 +83,8 @@
    "val":8.1428571429
   },
   "radius":{
-   "exp":"0.048 m",
-   "val":0.048
+   "exp":"2.389129574685109 in",
+   "val":0.060683891197001766
   },
   "vmax":{
    "exp":"6784 RPM",
