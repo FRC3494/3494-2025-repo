@@ -146,7 +146,7 @@ public class Robot extends LoggedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    ModuleIOSparkMax.setGearRatio(Constants.Drivetrain.L2_GEAR_RATIO);
+    ModuleIOSparkMax.setGearRatio(Constants.Drivetrain.L1_GEAR_RATIO);
     robotContainer.drive.rezeroModulesRelativeEncoders(); // re-zero on auto init
     robotContainer.leds.setPattern(LEDPattern.NONE).schedule();
     // robotContainer.drive.canReadTags = true;
@@ -170,7 +170,7 @@ public class Robot extends LoggedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     // robotContainer.drive.canReadTags = true;
-    ModuleIOSparkMax.setGearRatio(Constants.Drivetrain.L2_GEAR_RATIO);
+    ModuleIOSparkMax.setGearRatio(Constants.Drivetrain.L1_GEAR_RATIO);
     robotContainer.leds.setPattern(LEDPattern.NONE).schedule();
     // ! Uncomment for comp
     Elastic.selectTab("Teleoperated");
