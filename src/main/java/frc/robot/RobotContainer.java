@@ -1380,7 +1380,15 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              robotCommands.barge().schedule();
+              Commands.sequence(
+                      robotCommands.barge(),
+                      new WaitCommand(1),
+                      new InstantCommand(
+                          () -> {
+                            intake.setSpeed(0);
+                          }),
+                      robotCommands.store())
+                  .schedule();
             });
 
     // OI.ClimbStage0().rising().ifHigh(()->{
@@ -1510,10 +1518,24 @@ public class RobotContainer {
               }));
     }
 
-    public Command groundIntakeDown() {
+    public Command groundIntakeHover() {
       return new InstantCommand(
           () -> {
             groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
+          });
+    }
+
+    public Command groundIntakeStore() {
+      return new InstantCommand(
+          () -> {
+            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+          });
+    }
+
+    public Command stopGroundIntake() {
+      return new InstantCommand(
+          () -> {
+            groundIntake.setIntakePower(0, 0);
           });
     }
 
@@ -1549,6 +1571,10 @@ public class RobotContainer {
     // =================== Algae ====================
     public Command algaeIntake() {
       return new AutoIntakePower(intake, 1);
+    }
+
+    public Command algaeOuttake() {
+      return new AutoIntakePower(intake, -1);
     }
 
     public Command stopIntake() {

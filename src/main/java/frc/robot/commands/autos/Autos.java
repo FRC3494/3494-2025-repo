@@ -4,6 +4,7 @@ import choreo.auto.AutoFactory;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.RobotContainer.RobotCommands;
 import frc.robot.commands.IntakeGroundCoral;
 import frc.robot.subsystems.GroundIntake;
@@ -44,6 +45,7 @@ public class Autos {
   public class AutoRoutines {
     public Command wraparound() {
       final String trajectoryName = "Wraparound";
+      int pathIndex = 0;
 
       return Commands.sequence(
           autoFactory.resetOdometry(trajectoryName, 0),
@@ -51,50 +53,70 @@ public class Autos {
 
           // Place 1st coral (preload)
           Commands.parallel(
-              autoFactory.trajectoryCmd(trajectoryName, 0),
-              Commands.sequence(robotCommands.freeArm(), robotCommands.L2Coral())),
+              autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
+              Commands.sequence(
+                  robotCommands.freeArm(),
+                  robotCommands.L2Coral(),
+                  new WaitUntilCommand(() -> arm.getPosition() < 0.777),
+                  robotCommands.groundIntakeStore())),
+          new WaitCommand(0.25),
           robotCommands.coralOuttake(),
           new WaitCommand(0.5),
 
           // Pluck algae
           Commands.parallel(
-              autoFactory.trajectoryCmd(trajectoryName, 1),
+              autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
               Commands.sequence(
                   robotCommands.stopIntake(),
                   robotCommands.L3Algae(),
                   new WaitCommand(0.25),
                   robotCommands.algaeIntake(),
-                  robotCommands.groundIntakeDown())),
+                  robotCommands.groundIntakeHover())),
           new WaitCommand(0.5),
 
+          // Release algae
+          autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
+          robotCommands.algaeOuttake(),
+
           // Pickup 2nd coral
-          Commands.parallel(
-              autoFactory.trajectoryCmd(trajectoryName, 2),
-              Commands.sequence(
-                  new WaitCommand(0.55), robotCommands.coralIntake(), new WaitCommand(0.5))),
+          autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
           robotCommands.visionCoralPickup(),
+          new WaitCommand(0.75),
 
           // Place 2nd coral
           Commands.parallel(
-              autoFactory.trajectoryCmd(trajectoryName, 3),
-              Commands.sequence(new WaitCommand(1), robotCommands.L3Coral())),
+              autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
+              Commands.sequence(
+                  new WaitCommand(0.5),
+                  robotCommands.groundIntakeHover(),
+                  robotCommands.L3Coral(),
+                  robotCommands.stopGroundIntake())),
           robotCommands.coralOuttake(),
           new WaitCommand(0.2),
 
           // Pick up 3rd coral
           Commands.parallel(
-              autoFactory.trajectoryCmd(trajectoryName, 4),
+              autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
               Commands.sequence(
                   new WaitCommand(0.2),
                   robotCommands.stopIntake(),
                   new IntakeGroundCoral(groundIntake, arm, elevator, intake))),
           robotCommands.visionCoralPickup(),
+          new WaitCommand(0.75),
 
           // Place 3rd coral
           Commands.parallel(
-              autoFactory.trajectoryCmd(trajectoryName, 5),
-              Commands.sequence(new WaitCommand(0.5), robotCommands.L3Coral())),
-          robotCommands.coralOuttake());
+              autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
+              Commands.sequence(
+                  new WaitCommand(0.2),
+                  robotCommands.groundIntakeHover(),
+                  robotCommands.L3Coral(),
+                  robotCommands.stopGroundIntake())),
+          robotCommands.coralOuttake(),
+          new WaitCommand(1),
+
+          // Back up
+          autoFactory.trajectoryCmd(trajectoryName, pathIndex++));
     }
 
     public Command barge() {

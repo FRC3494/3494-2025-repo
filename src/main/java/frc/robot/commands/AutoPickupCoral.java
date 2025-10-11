@@ -11,6 +11,7 @@ import frc.robot.subsystems.SuperStructure.Arm;
 import frc.robot.subsystems.SuperStructure.Elevator;
 import frc.robot.subsystems.SuperStructure.Intake;
 import frc.robot.subsystems.drive.Drive;
+import frc.robot.util.SeanMathUtil;
 
 public class AutoPickupCoral extends Command {
   private Timer timer;
@@ -21,6 +22,7 @@ public class AutoPickupCoral extends Command {
   GroundIntake groundIntake;
   private double time;
   public double driveSpeed = -0.25;
+  boolean groundIntakeActivated = false;
 
   public AutoPickupCoral(
       Drive drive,
@@ -75,7 +77,6 @@ public class AutoPickupCoral extends Command {
     Logger.recordOutput("Drive/Searching", true);
     elevator.setElevatorPosition(Constants.Presets.liftIntake);
     groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
-    groundIntake.setIntakePower(-0.85, 0.85);
     intake.setSpeed(-0.75);
     arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
   }
@@ -87,6 +88,14 @@ public class AutoPickupCoral extends Command {
     // if(drivetrain.seesNote() == false){
     //     driveSpeed = 0;
     // }
+
+    boolean atPosition =
+        SeanMathUtil.comparePosition(arm.getPosition(), Constants.Presets.armGroundTransfer, 0.05)
+            && SeanMathUtil.comparePosition(elevator.getTicks(), Constants.Presets.liftIntake, 1);
+    if (atPosition && !groundIntakeActivated) {
+      groundIntake.setIntakePower(-0.85, 0.85);
+    }
+
     System.out.println(time + "|" + timer.hasElapsed(time));
     Logger.recordOutput("Drive/Auto-Timer", timer.get());
     double omegaRot;

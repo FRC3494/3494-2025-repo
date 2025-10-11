@@ -107,7 +107,7 @@ public final class Constants {
     public static double L1elevatorTest = 8.38;
 
     public static double groundIntakeIntake = 0.0; // 0.0;//-19.6;
-    public static double groundIntakeHover = 0.05;
+    public static double groundIntakeHover = 0.02;
     // 2.0;//-17;
     public static double groundIntakePop = 0.075; // 2.0;//-17;
     public static double defenseDelay = 0.0;
