@@ -13,12 +13,9 @@
 
 package frc.robot;
 
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-
+import choreo.auto.AutoFactory;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-
-import choreo.auto.AutoFactory;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -33,7 +30,7 @@ import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Constants.DriveMode;
-import frc.robot.Constants.LEDs.LEDPattern;
+import frc.robot.Constants.LEDs.LEDLightPattern;
 import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.commands.AutoAutoAlign;
 import frc.robot.commands.AutoIntakeDeadline;
@@ -63,6 +60,7 @@ import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
 import frc.robot.util.SeanMathUtil;
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -1018,7 +1016,7 @@ public class RobotContainer {
               System.out.println(drive.coralIntededforL1);
               if (drive.coralIntededforL1) {
                 Commands.sequence(
-                        leds.setPattern(LEDPattern.INTAKING),
+                        leds.setPattern(LEDLightPattern.INTAKING),
                         new InstantCommand(
                             () -> {
                               arm.groundIntaking = true;
@@ -1061,7 +1059,7 @@ public class RobotContainer {
                     .schedule();
               } else {
                 Commands.sequence(
-                        leds.setPattern(LEDPattern.INTAKING),
+                        leds.setPattern(LEDLightPattern.INTAKING),
                         new InstantCommand(
                             () -> {
                               arm.groundIntaking = true;
@@ -1111,7 +1109,7 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             if (OI.activateGroundIntake().getAsBoolean()) {
-                              leds.setPattern(LEDPattern.HAS_GAMEPIECE).schedule();
+                              leds.setPattern(LEDLightPattern.HAS_GAMEPIECE).schedule();
                             }
                           }))
                   .schedule();
@@ -1149,8 +1147,8 @@ public class RobotContainer {
                           }),
                       new InstantCommand(
                           () -> {
-                            if (leds.getPattern() != LEDPattern.HAS_GAMEPIECE) {
-                              leds.setPattern(LEDPattern.NONE).schedule();
+                            if (leds.getPattern() != LEDLightPattern.HAS_GAMEPIECE) {
+                              leds.setPattern(LEDLightPattern.NONE).schedule();
                             }
                           }))
                   .schedule();
@@ -1162,7 +1160,7 @@ public class RobotContainer {
             () -> {
               Command l1gIntake =
                   Commands.sequence(
-                      leds.setPattern(LEDPattern.INTAKING),
+                      leds.setPattern(LEDLightPattern.INTAKING),
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
@@ -1179,7 +1177,7 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             if (OI.L1GroundIntake().getAsBoolean()) {
-                              leds.setPattern(LEDPattern.HAS_GAMEPIECE).schedule();
+                              leds.setPattern(LEDLightPattern.HAS_GAMEPIECE).schedule();
                             }
                           }));
               if (!arm.groundIntaking) {
@@ -1204,8 +1202,8 @@ public class RobotContainer {
                           }),
                       new InstantCommand(
                           () -> {
-                            if (leds.getPattern() != LEDPattern.HAS_GAMEPIECE) {
-                              leds.setPattern(LEDPattern.NONE).schedule();
+                            if (leds.getPattern() != LEDLightPattern.HAS_GAMEPIECE) {
+                              leds.setPattern(LEDLightPattern.NONE).schedule();
                             }
                           }));
 
@@ -1231,8 +1229,8 @@ public class RobotContainer {
                           }),
                       new InstantCommand(
                           () -> {
-                            if (leds.getPattern() != LEDPattern.HAS_GAMEPIECE) {
-                              leds.setPattern(LEDPattern.NONE).schedule();
+                            if (leds.getPattern() != LEDLightPattern.HAS_GAMEPIECE) {
+                              leds.setPattern(LEDLightPattern.NONE).schedule();
                             }
                           }));
 
@@ -1264,7 +1262,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               Commands.sequence(
-                      leds.setPattern(LEDPattern.DEPOSITED),
+                      leds.setPattern(LEDLightPattern.DEPOSITED),
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
@@ -1298,7 +1296,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               groundIntake.setIntakePower(0, 0);
-              leds.setPattern(LEDPattern.NONE).schedule();
+              leds.setPattern(LEDLightPattern.NONE).schedule();
             });
     OI.groundIntakeIntake()
         .rising()
@@ -1317,7 +1315,7 @@ public class RobotContainer {
         .ifHigh(
             () -> {
               groundIntake.setIntakePower(0.2, -0.5);
-              leds.setPattern(LEDPattern.NONE).schedule();
+              leds.setPattern(LEDLightPattern.NONE).schedule();
             });
     OI.groundIntakeManualOut()
         .falling()

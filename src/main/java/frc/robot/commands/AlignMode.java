@@ -1,6 +1,6 @@
 package frc.robot.commands;
 
-public enum DriveMode {
+public enum AlignMode {
   NORMAL_TELEOP,
   AUTO_ALIGN
 }

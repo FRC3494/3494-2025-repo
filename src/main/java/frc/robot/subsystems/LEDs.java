@@ -1,25 +1,24 @@
 package frc.robot.subsystems;
 
-import org.littletonrobotics.junction.Logger;
-
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.LEDs.LEDPattern;
+import frc.robot.Constants.LEDs.LEDLightPattern;
+import org.littletonrobotics.junction.Logger;
 
 public class LEDs extends SubsystemBase {
   Spark led;
-  LEDPattern pattern;
+  LEDLightPattern pattern;
 
   public LEDs() {
     led = new Spark(Constants.LEDs.LED_PWM_ID);
-    pattern = LEDPattern.NONE;
+    pattern = LEDLightPattern.NONE;
     led.set(pattern.value);
   }
 
-  public Command setPattern(LEDPattern pattern) {
+  public Command setPattern(LEDLightPattern pattern) {
     return new InstantCommand(
             () -> {
               if (this.pattern != pattern) {
@@ -30,7 +29,7 @@ public class LEDs extends SubsystemBase {
         .ignoringDisable(true);
   }
 
-  public LEDPattern getPattern() {
+  public LEDLightPattern getPattern() {
     return pattern;
   }
 

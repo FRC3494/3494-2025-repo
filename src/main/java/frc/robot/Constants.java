@@ -226,7 +226,7 @@ public final class Constants {
   public static class LEDs {
     public static final int LED_PWM_ID = 0;
 
-    public enum LEDPattern {
+    public enum LEDLightPattern {
       // PWM values: https://docs.revrobotics.com/rev-crossover-products/blinkin/gs/patterns
       DISABLED(0.1),
       NONE(0.65), // Solid Orange
@@ -236,7 +236,7 @@ public final class Constants {
 
       public final double value;
 
-      private LEDPattern(double value) {
+      private LEDLightPattern(double value) {
         this.value = value;
       }
     }
