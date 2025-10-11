@@ -613,7 +613,6 @@ public class RobotContainer {
                       })
                   .ignoringDisable(false)
                   .schedule();
-              ;
             });
     OI.toggleDistanceSensor()
         .rising()
@@ -1130,6 +1129,7 @@ public class RobotContainer {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
                             if (Constants.DRIVE_MODE != DriveMode.DEMO) {
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
+                              groundIntake.setIntakePower(0, 0);
                             }
                           }),
                       new WaitUntilCommand(
@@ -1145,7 +1145,6 @@ public class RobotContainer {
                                 (Constants.DRIVE_MODE == DriveMode.DEMO)
                                     ? Constants.Presets.groundIntakeHover
                                     : groundIntake.hoverPosition);
-                            groundIntake.setIntakePower(0, 0);
                             arm.groundIntaking = false;
                           }),
                       new InstantCommand(
@@ -1279,7 +1278,7 @@ public class RobotContainer {
                                   0.05)),
                       new InstantCommand(
                           () -> {
-                            groundIntake.setIntakePower(0.25, -0.25); // 0.25, -0.25
+                            groundIntake.setIntakePower(0.25, -0.25);
                           }),
                       new WaitCommand(0.0),
                       new InstantCommand(
