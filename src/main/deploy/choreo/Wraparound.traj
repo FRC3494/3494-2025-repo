@@ -343,5 +343,12 @@
     {"t":10.61362, "x":3.256, "y":4.227, "heading":-1.5708, "vx":0.0, "vy":0.0, "omega":0.0, "ax":0.0, "ay":0.0, "alpha":0.0, "fx":[0.0,0.0,0.0,0.0], "fy":[0.0,0.0,0.0,0.0]}],
   "splits":[0,115,153,189,224,248]
  },
- "events":[]
+ "events":[
+   {"name":"Start", "from":{"target":0, "targetTimestamp":0.0, "offset":{"exp":"0 s", "val":0.0}}, "event":null},
+   {"name":"Place 1st Coral", "from":{"target":4, "targetTimestamp":3.24271, "offset":{"exp":"0 s", "val":0.0}}, "event":null},
+   {"name":"Pluck Algae", "from":{"target":6, "targetTimestamp":5.10014, "offset":{"exp":"0 s", "val":0.0}}, "event":null},
+   {"name":"Pickup 2nd Coral", "from":{"target":7, "targetTimestamp":6.69384, "offset":{"exp":"0 s", "val":0.0}}, "event":null},
+   {"name":"Place 2nd Coral", "from":{"target":8, "targetTimestamp":8.23479, "offset":{"exp":"0 s", "val":0.0}}, "event":null},
+   {"name":"Pickup 3rd Coral", "from":{"target":9, "targetTimestamp":9.43161, "offset":{"exp":"0 s", "val":0.0}}, "event":null},
+   {"name":"Place 3rd Coral", "from":{"target":10, "targetTimestamp":10.61362, "offset":{"exp":"0 s", "val":0.0}}, "event":null}]
 }
