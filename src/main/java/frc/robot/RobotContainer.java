@@ -18,6 +18,7 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import choreo.auto.AutoFactory;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -47,6 +48,7 @@ import frc.robot.commands.TeleopElevator;
 import frc.robot.commands.TeleopIntake;
 import frc.robot.commands.WheelOffsetCalculator;
 import frc.robot.commands.WheelRadiusCharacterization;
+import frc.robot.commands.autos.Autos;
 import frc.robot.commands.enums.Direction;
 import frc.robot.subsystems.GroundIntake;
 import frc.robot.subsystems.LEDs;
@@ -83,6 +85,9 @@ public class RobotContainer {
   public static Joystick leftButtonBoard = new Joystick(1);
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
+
+  private final AutoFactory autoFactory;
+  private final Autos autos;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -534,7 +539,22 @@ public class RobotContainer {
         "Drive SysId (Dynamic Reverse)", drive.sysIdDynamic(SysIdRoutine.Direction.kReverse));
 
     autoChooser.addOption("Calculate Wheel Position", new WheelOffsetCalculator(drive));
+    autoChooser.addOption(
+        "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
     autoChooser.addOption("Outtake Test", new AutoIntakePower(intake, -1));
+
+    autoFactory =
+        new AutoFactory(
+            drive::getPose, // A function that returns the current robot pose
+            drive::setPose, // A function that resets the current robot pose to the provided Pose2d
+            drive::followTrajectory, // The drive subsystem trajectory follower
+            true, // If alliance flipping should be enabled
+            drive // The drive subsystem
+            );
+    autos = new Autos(autoFactory, intake, elevator, arm, groundIntake, drive);
+
+    autoChooser.addOption("Wraparound", autos.AutoRoutines.wraparound());
+
     // Configure the button bindings
     configureButtonBindings();
   }

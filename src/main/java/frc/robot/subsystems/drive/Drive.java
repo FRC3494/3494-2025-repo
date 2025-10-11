@@ -35,7 +35,9 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import com.pathplanner.lib.util.PathPlannerLogging;
 
+import choreo.trajectory.SwerveSample;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -100,6 +102,10 @@ public class Drive extends SubsystemBase {
   public double reefRadiusToSpecialPoseActivation = 3.0;
   double currentRadiusFromReef;
   public boolean fastRotation = false;
+
+  private final PIDController xController = new PIDController(3.5, 0.0, 0.0); // 10.0
+  private final PIDController yController = new PIDController(3.5, 0.0, 0.0); // 10.0
+  private final PIDController headingController = new PIDController(7.0, 0.0, 0.0); // 7.5
 
   public Drive(
       GyroIO gyroIO,
@@ -187,6 +193,8 @@ public class Drive extends SubsystemBase {
                 },
                 null,
                 this));
+
+    headingController.enableContinuousInput(-Math.PI, Math.PI);
   }
 
   public void periodic() {
@@ -416,6 +424,23 @@ public class Drive extends SubsystemBase {
     // Log setpoint states
     Logger.recordOutput("SwerveStates/Setpoints", setpointStates);
     Logger.recordOutput("SwerveStates/SetpointsOptimized", optimizedSetpointStates);
+  }
+
+  public void followTrajectory(SwerveSample sample) {
+    // Get the current pose of the robot
+    Pose2d pose = getPose();
+
+    // Generate the next speeds for the robot
+    ChassisSpeeds speeds =
+        ChassisSpeeds.fromFieldRelativeSpeeds(
+            sample.vx + xController.calculate(pose.getX(), sample.x),
+            sample.vy + yController.calculate(pose.getY(), sample.y),
+            sample.omega
+                + headingController.calculate(pose.getRotation().getRadians(), sample.heading),
+            getRotation());
+
+    // Apply the generated speeds
+    runVelocity(speeds);
   }
 
   /** Stops the drive. */
