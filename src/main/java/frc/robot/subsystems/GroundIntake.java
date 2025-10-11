@@ -25,9 +25,9 @@ public class GroundIntake extends SubsystemBase {
   private SparkMaxConfig frontIntakeMotorConfig;
   private SparkMax backIntakeMotor;
   private SparkMaxConfig backIntakeMotorConfig;
-  public boolean wanttoPOP = false;
-  public double targetPosition;
-  public double hoverPosition = Constants.Presets.groundIntakeHover;
+  public boolean wanttoPOP = true;
+  public Double targetPosition = null;
+  public double hoverPosition = Constants.Presets.groundIntakeStore;
 
   // Create instance of Time-Of_Flight driver for device 1
   private final TimeOfFlight m_rangeSensor =
@@ -111,8 +111,10 @@ public class GroundIntake extends SubsystemBase {
     //   motorpower = 0;
     // }
     // pivotMotor.set(motorpower);
+    if (targetPosition != null) {
+      pivotMotor.set(pivotController.calculate(getPivotPosition(), targetPosition));
+    }
 
-    pivotMotor.set(pivotController.calculate(getPivotPosition(), targetPosition));
     Logger.recordOutput("Ground-Intake/Distance-Sensor/Distance", getDistanceSensor());
     // Logger.recordOutput("Ground-Intake/Distance-Sensor/Sdev", sensor_sdev);
     // Logger.recordOutput("Ground-Intake/Distance-Sensor/Status", m_rangeSensor.getStatus());
