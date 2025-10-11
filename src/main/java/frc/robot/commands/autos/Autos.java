@@ -3,11 +3,8 @@ package frc.robot.commands.autos;
 import choreo.auto.AutoFactory;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.Constants;
-import frc.robot.commands.AutoIntakePower;
-import frc.robot.commands.AutoPickupCoral;
+import frc.robot.RobotContainer.RobotCommands;
 import frc.robot.commands.IntakeGroundCoral;
 import frc.robot.subsystems.GroundIntake;
 import frc.robot.subsystems.SuperStructure.Arm;
@@ -16,19 +13,16 @@ import frc.robot.subsystems.SuperStructure.Intake;
 import frc.robot.subsystems.drive.Drive;
 
 public class Autos {
-  private AutoFactory autoFactory;
-  private Intake intake;
-  private Elevator elevator;
-  private Arm arm;
-  private GroundIntake groundIntake;
-  private Drive drive;
+  private final AutoFactory autoFactory;
+  private final Intake intake;
+  private final Elevator elevator;
+  private final Arm arm;
+  private final GroundIntake groundIntake;
+  private final Drive drive;
 
-  private GroundIntakeCommands groundIntakeCommands = new GroundIntakeCommands();
-  private CoralArmCommands coralArmCommands = new CoralArmCommands();
-  private AlgaeArmCommands algaeArmCommands = new AlgaeArmCommands();
-  private IntakeCommands intakeCommands = new IntakeCommands();
+  private final RobotCommands robotCommands;
 
-  public AutoRoutines AutoRoutines = new AutoRoutines();
+  public final AutoRoutines AutoRoutines = new AutoRoutines();
 
   public Autos(
       AutoFactory autoFactory,
@@ -36,13 +30,15 @@ public class Autos {
       Elevator elevator,
       Arm arm,
       GroundIntake groundIntake,
-      Drive drive) {
+      Drive drive,
+      RobotCommands robotCommands) {
     this.autoFactory = autoFactory;
     this.intake = intake;
     this.elevator = elevator;
     this.arm = arm;
     this.groundIntake = groundIntake;
     this.drive = drive;
+    this.robotCommands = robotCommands;
   }
 
   public class AutoRoutines {
@@ -51,126 +47,95 @@ public class Autos {
 
       return Commands.sequence(
           autoFactory.resetOdometry(trajectoryName, 0),
-          intakeCommands.coralIntake(),
+          robotCommands.coralIntake(),
 
-          // Place first coral (preload)
+          // Place 1st coral (preload)
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, 0),
-              Commands.sequence(groundIntakeCommands.freeArm(), coralArmCommands.L2Coral())),
-          intakeCommands.coralOuttake(),
+              Commands.sequence(robotCommands.freeArm(), robotCommands.L2Coral())),
+          robotCommands.coralOuttake(),
           new WaitCommand(0.5),
 
           // Pluck algae
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, 1),
               Commands.sequence(
-                  intakeCommands.stopIntake(),
-                  algaeArmCommands.L3Algae(),
+                  robotCommands.stopIntake(),
+                  robotCommands.L3Algae(),
                   new WaitCommand(0.25),
-                  intakeCommands.algaeIntake(),
-                  groundIntakeCommands.groundIntakeDown())),
+                  robotCommands.algaeIntake(),
+                  robotCommands.groundIntakeDown())),
           new WaitCommand(0.5),
 
-          // Pick up second coral
+          // Pickup 2nd coral
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, 2),
               Commands.sequence(
-                  new WaitCommand(0.55), intakeCommands.coralIntake(), new WaitCommand(0.5))),
-          groundIntakeCommands.visionCoralPickup(),
+                  new WaitCommand(0.55), robotCommands.coralIntake(), new WaitCommand(0.5))),
+          robotCommands.visionCoralPickup(),
 
-          // Place second coral
+          // Place 2nd coral
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, 3),
-              Commands.sequence(new WaitCommand(1), coralArmCommands.L3Coral())),
-          intakeCommands.coralOuttake(),
+              Commands.sequence(new WaitCommand(1), robotCommands.L3Coral())),
+          robotCommands.coralOuttake(),
           new WaitCommand(0.2),
 
-          // Pick up third coral
+          // Pick up 3rd coral
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, 4),
               Commands.sequence(
                   new WaitCommand(0.2),
-                  intakeCommands.stopIntake(),
+                  robotCommands.stopIntake(),
                   new IntakeGroundCoral(groundIntake, arm, elevator, intake))),
-          groundIntakeCommands.visionCoralPickup(),
+          robotCommands.visionCoralPickup(),
 
-          // Place third coral
+          // Place 3rd coral
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, 5),
-              Commands.sequence(new WaitCommand(0.5), coralArmCommands.L3Coral())),
-          intakeCommands.coralOuttake());
+              Commands.sequence(new WaitCommand(0.5), robotCommands.L3Coral())),
+          robotCommands.coralOuttake());
     }
-  }
 
-  private class GroundIntakeCommands {
-    private Command freeArm() {
+    public Command barge() {
+      final String trajectoryName = "Barge";
+
       return Commands.sequence(
-          new InstantCommand(
-              () -> {
-                groundIntake.setIntakePosition(Constants.Presets.groundIntakePop);
-              }),
+          autoFactory.resetOdometry(trajectoryName, 0),
+          robotCommands.coralIntake(),
+
+          // Place 1st coral (preload)
+          Commands.parallel(
+              autoFactory.trajectoryCmd(trajectoryName, 0),
+              Commands.sequence(
+                  robotCommands.freeArm(), new WaitCommand(0.5), robotCommands.L3Coral())),
+          robotCommands.coralOuttake(),
+          new WaitCommand(0.25),
+          robotCommands.stopIntake(),
+
+          // Pluck 1st algae
+          Commands.parallel(
+              autoFactory.trajectoryCmd(trajectoryName, 1),
+              Commands.sequence(
+                  new WaitCommand(0.3), robotCommands.L2Algae(), robotCommands.algaeIntake())),
           new WaitCommand(0.5),
-          new InstantCommand(
-              () -> {
-                arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-              }));
-    }
 
-    private Command groundIntakeDown() {
-      return new InstantCommand(
-          () -> {
-            groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
-          });
-    }
+          // Barge
+          Commands.parallel(
+              autoFactory.trajectoryCmd(trajectoryName, 2),
+              Commands.sequence(new WaitCommand(0.5), robotCommands.preBarge())),
+          new WaitCommand(0.505),
+          robotCommands.barge(),
+          robotCommands.L3Algae(),
 
-    private Command visionCoralPickup() {
-      return new AutoPickupCoral(drive, groundIntake, arm, elevator, intake, 2);
-    }
-  }
+          // Pluck 2nd Algae
+          Commands.parallel(
+              autoFactory.trajectoryCmd(trajectoryName, 3),
+              Commands.sequence(new WaitCommand(0.3), robotCommands.algaeIntake())),
+          new WaitCommand(0.5),
 
-  private class CoralArmCommands {
-    private Command L2Coral() {
-      return new InstantCommand(
-          () -> {
-            elevator.setElevatorPosition(Constants.Presets.liftOuttakeL2);
-            arm.setTargetAngle(Constants.Presets.armOuttakeL2, 0);
-          });
-    }
-
-    private Command L3Coral() {
-      return new InstantCommand(
-          () -> {
-            elevator.setElevatorPosition(Constants.Presets.liftOuttakeL3);
-            arm.setTargetAngle(Constants.Presets.armOuttakeL3, 0);
-          });
-    }
-  }
-
-  private class AlgaeArmCommands {
-    private Command L3Algae() {
-      return new InstantCommand(
-          () -> {
-            elevator.setElevatorPosition(Constants.Presets.liftAlgeaL3);
-            arm.setTargetAngle(Constants.Presets.armAlgeaL3, 0);
-          });
-    }
-  }
-
-  private class IntakeCommands {
-    private Command coralIntake() {
-      return new AutoIntakePower(intake, -1);
-    }
-
-    private Command coralOuttake() {
-      return new AutoIntakePower(intake, 0.75);
-    }
-
-    private Command algaeIntake() {
-      return new AutoIntakePower(intake, 1);
-    }
-
-    private Command stopIntake() {
-      return new AutoIntakePower(intake, 0);
+          // End
+          Commands.parallel(autoFactory.trajectoryCmd(trajectoryName, 4), robotCommands.store()));
     }
   }
 }

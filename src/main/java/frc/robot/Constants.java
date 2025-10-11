@@ -79,7 +79,6 @@ public final class Constants {
 
     public static double armAlgeaL2 =
         0.603; // 0.6125; // 0.605// TODO 0.62; difference is -0.027 + 0.05
-    public static double armAlgeaL2Auto = 0.603;
     public static double armAlgeaL3 = 0.620;
     public static double armBargeYeet = 0.633; // TODO
     public static double armBargeStore = 0.833; // TODO
