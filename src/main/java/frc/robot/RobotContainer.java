@@ -529,7 +529,23 @@ public class RobotContainer {
     NamedCommands.registerCommand( // THIS IS IN AUTO, IF YOU WANNA TUNE DONT RUN THIS ONE
         "Barge", robotCommands.barge());
 
+    autoFactory =
+        new AutoFactory(
+            drive::getPose, // A function that returns the current robot pose
+            drive::setPose, // A function that resets the current robot pose to the provided Pose2d
+            drive::followTrajectory, // The drive subsystem trajectory follower
+            true, // If alliance flipping should be enabled
+            drive // The drive subsystem
+            );
+    autos = new Autos(autoFactory, intake, elevator, arm, groundIntake, drive, robotCommands);
+
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
+
+    autoChooser.addOption("Wraparound", autos.AutoRoutines.wraparound());
+    autoChooser.addOption("Barge", autos.AutoRoutines.barge());
+
+    autoChooser.addOption("====================", Commands.none());
+
     // Set up SysId routines
     autoChooser.addOption(
         "Drive SysId (Quasistatic Forward)",
@@ -546,18 +562,6 @@ public class RobotContainer {
     autoChooser.addOption(
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
     autoChooser.addOption("Outtake Test", new AutoIntakePower(intake, -1));
-
-    autoFactory =
-        new AutoFactory(
-            drive::getPose, // A function that returns the current robot pose
-            drive::setPose, // A function that resets the current robot pose to the provided Pose2d
-            drive::followTrajectory, // The drive subsystem trajectory follower
-            true, // If alliance flipping should be enabled
-            drive // The drive subsystem
-            );
-    autos = new Autos(autoFactory, intake, elevator, arm, groundIntake, drive, robotCommands);
-
-    autoChooser.addOption("Wraparound", autos.AutoRoutines.wraparound());
 
     // Configure the button bindings
     configureButtonBindings();
