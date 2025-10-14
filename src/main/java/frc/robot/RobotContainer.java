@@ -983,8 +983,13 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              elevator.setElevatorPosition(Constants.Presets.liftIntake);
-              arm.setTargetAngle(Constants.Presets.armProcessor, 0);
+              new InstantCommand(
+                      () -> {
+                        elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                        arm.setTargetAngle(Constants.Presets.armProcessor, 0);
+                      })
+                  .ignoringDisable(false)
+                  .schedule();
             });
     OI.lolipop()
         .rising()
