@@ -1135,9 +1135,9 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                            groundIntake.setIntakePower(0, 0);
                             if (Constants.DRIVE_MODE != DriveMode.DEMO) {
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
-                              groundIntake.setIntakePower(0, 0);
                             }
                           }),
                       new WaitUntilCommand(
