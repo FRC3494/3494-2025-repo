@@ -1,7 +1,5 @@
 package frc.robot.subsystems;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -12,10 +10,11 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.DriveMode;
+import org.littletonrobotics.junction.Logger;
 
 public class GroundIntake extends SubsystemBase {
   private SparkFlex pivotMotor;
@@ -27,7 +26,10 @@ public class GroundIntake extends SubsystemBase {
   private SparkMaxConfig backIntakeMotorConfig;
   public boolean wanttoPOP = true;
   public Double targetPosition = null;
-  public double hoverPosition = Constants.Presets.groundIntakeStore;
+  public double hoverPosition =
+      Constants.DRIVE_MODE == DriveMode.DEMO
+          ? Constants.Presets.groundIntakeHover
+          : Constants.Presets.groundIntakeStore;
 
   // Create instance of Time-Of_Flight driver for device 1
   private final TimeOfFlight m_rangeSensor =
