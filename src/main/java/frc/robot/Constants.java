@@ -136,6 +136,9 @@ public final class Constants {
     public static int distanceSensorDeviceNumber = 31;
 
     public static double CoralDistanceTheshold = 400;
+
+    public static double upPIDRange = 0.9;
+    public static double downPIDRange = 0.7;
   }
 
   public static class Arm {

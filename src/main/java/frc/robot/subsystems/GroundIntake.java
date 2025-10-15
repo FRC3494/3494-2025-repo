@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.playingwithfusion.TimeOfFlight;
 import com.playingwithfusion.TimeOfFlight.RangingMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -10,11 +12,12 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.DriveMode;
-import org.littletonrobotics.junction.Logger;
 
 public class GroundIntake extends SubsystemBase {
   private SparkFlex pivotMotor;
@@ -49,6 +52,7 @@ public class GroundIntake extends SubsystemBase {
     pivotMotorConfig.smartCurrentLimit(45);
     pivotMotorConfig.inverted(false);
     pivotController = new PIDController(5.0, 0, 0);
+
     pivotController.setSetpoint(getPivotPosition());
     targetPosition = getPivotPosition();
     // pivotController.enableContinuousInput(0, 1);
@@ -114,7 +118,20 @@ public class GroundIntake extends SubsystemBase {
     // }
     // pivotMotor.set(motorpower);
     if (targetPosition != null) {
-      pivotMotor.set(pivotController.calculate(getPivotPosition(), targetPosition));
+      double pidPower = pivotController.calculate(getPivotPosition(), targetPosition);
+      if (targetPosition < getPivotPosition()) {
+        pidPower =
+            MathUtil.clamp(
+                pidPower,
+                -Constants.GroundIntake.downPIDRange,
+                Constants.GroundIntake.downPIDRange);
+      } else {
+        pidPower =
+            MathUtil.clamp(
+                pidPower, -Constants.GroundIntake.upPIDRange, Constants.GroundIntake.upPIDRange);
+      }
+
+      pivotMotor.set(pidPower);
     }
 
     Logger.recordOutput("Ground-Intake/Distance-Sensor/Distance", getDistanceSensor());
