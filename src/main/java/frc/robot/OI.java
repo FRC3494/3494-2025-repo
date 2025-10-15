@@ -33,6 +33,10 @@ public final class OI {
     return 0.0;
   }
 
+  public static BooleanEvent rezeroElevator() {
+    return leftButtonBoard.button(3, eventLoop);
+  }
+
   public static double getIntakePower() {
     double Sean_intake_power =
         deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
@@ -124,12 +128,15 @@ public final class OI {
   }
 
   public static BooleanEvent lolipop() {
+    // ! Disabled
     return new BooleanEvent(eventLoop, () -> false);
     // return leftButtonBoard.button(3, eventLoop);
   }
 
   public static BooleanEvent feeder() {
-    return leftButtonBoard.button(6, eventLoop);
+    // ! Disabled
+    return new BooleanEvent(eventLoop, () -> false);
+    // return leftButtonBoard.button(6, eventLoop);
   }
 
   public static BooleanEvent Processor() {

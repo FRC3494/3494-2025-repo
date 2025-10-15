@@ -603,6 +603,14 @@ public class RobotContainer {
                 () -> {
                   drive.rezeroModulesRelativeEncoders();
                 }));
+    OI.rezeroElevator()
+        .rising()
+        .ifHigh(
+            () -> {
+              elevator.rezeroElevator();
+              ;
+            });
+
     OI.ToggleDefenseMode()
         .rising()
         .ifHigh(

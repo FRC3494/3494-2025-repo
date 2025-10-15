@@ -93,8 +93,7 @@ public class Elevator extends SubsystemBase {
     // }
 
     if (getElevatorSensorState() == ElevatorSensorState.BOTTOM) {
-      leaderMotor.getEncoder().setPosition(0);
-      followerMotor.getEncoder().setPosition(0);
+      rezeroElevator();
     }
 
     Logger.recordOutput("Elevator/Encoder-Position", leaderMotor.getEncoder().getPosition());
@@ -145,5 +144,10 @@ public class Elevator extends SubsystemBase {
     followerConfig.closedLoop.outputRange(lowerBound, upperBound);
     followerMotor.configure(
         followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  }
+
+  public void rezeroElevator() {
+    leaderMotor.getEncoder().setPosition(0);
+    followerMotor.getEncoder().setPosition(0);
   }
 }
