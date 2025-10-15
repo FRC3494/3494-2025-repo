@@ -217,9 +217,24 @@ public final class Constants {
           case DEMO, DEMO_AUTOALIGN -> 0.5;
           case TRAINING, TRAINING_AUTOALIGN -> 0.75;
         };
-    public static final double ROTATION_SPEED_STATIONARY_SCALAR = 0.3;
-    public static final double ROTATION_SPEED_NORMAL_SCALAR = 0.6;
-    public static final double ROTATION_SPEED_FAST_SCALAR = 1;
+    public static final double ROTATION_SPEED_STATIONARY_SCALAR =
+        switch (Constants.DRIVE_MODE) {
+          case NORMAL, DEMO_AUTOALIGN -> 0.3;
+          case DEMO -> 0.3;
+          case TRAINING, TRAINING_AUTOALIGN -> 0.3;
+        };
+    public static final double ROTATION_SPEED_NORMAL_SCALAR =
+        switch (Constants.DRIVE_MODE) {
+          case NORMAL, DEMO_AUTOALIGN -> 0.6;
+          case DEMO -> 0.3;
+          case TRAINING, TRAINING_AUTOALIGN -> 0.6;
+        };
+    public static final double ROTATION_SPEED_FAST_SCALAR =
+        switch (Constants.DRIVE_MODE) {
+          case NORMAL, DEMO_AUTOALIGN -> 1.0;
+          case DEMO -> 0.6;
+          case TRAINING, TRAINING_AUTOALIGN -> 1.0;
+        };
   }
 
   public static class LEDs {
