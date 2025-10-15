@@ -51,7 +51,7 @@ public class Autos {
           autoFactory.resetOdometry(trajectoryName, 0),
           robotCommands.coralIntake(),
 
-          // Place 1st coral (preload)
+          // Place 1st coral (preload): B-L2
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
               Commands.sequence(
@@ -63,7 +63,7 @@ public class Autos {
           robotCommands.coralOuttake(),
           new WaitCommand(0.5),
 
-          // Pluck algae
+          // Pluck algae: AB
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
               Commands.sequence(
@@ -78,12 +78,12 @@ public class Autos {
           autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
           robotCommands.algaeOuttake(),
 
-          // Pickup 2nd coral
+          // Pickup 2nd coral: Right preset coral from DS
           autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
           robotCommands.visionCoralPickup(),
           new WaitCommand(0.75),
 
-          // Place 2nd coral
+          // Place 2nd coral: B-L3
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
               Commands.sequence(
@@ -94,7 +94,7 @@ public class Autos {
           robotCommands.coralOuttake(),
           new WaitCommand(0.2),
 
-          // Pick up 3rd coral
+          // Pick up 3rd coral: Center preset coral from DS
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
               Commands.sequence(
@@ -104,7 +104,7 @@ public class Autos {
           robotCommands.visionCoralPickup(),
           new WaitCommand(0.75),
 
-          // Place 3rd coral
+          // Place 3rd coral: A-L3
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
               Commands.sequence(
@@ -126,7 +126,7 @@ public class Autos {
           autoFactory.resetOdometry(trajectoryName, 0),
           robotCommands.coralIntake(),
 
-          // Place 1st coral (preload)
+          // Place 1st coral (preload): H-L3
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, 0),
               Commands.sequence(
@@ -135,7 +135,7 @@ public class Autos {
           new WaitCommand(0.25),
           robotCommands.stopIntake(),
 
-          // Pluck 1st algae
+          // Pluck 1st algae: GH
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, 1),
               Commands.sequence(
@@ -150,7 +150,7 @@ public class Autos {
           robotCommands.barge(),
           robotCommands.L3Algae(),
 
-          // Pluck 2nd Algae
+          // Pluck 2nd Algae: IJ
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, 3),
               Commands.sequence(new WaitCommand(0.3), robotCommands.algaeIntake())),
