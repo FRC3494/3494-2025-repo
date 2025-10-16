@@ -292,8 +292,8 @@
               "data_type": "boolean",
               "true_color": 4278255360,
               "false_color": 4294901760,
-              "true_icon": "None",
-              "false_icon": "X"
+              "true_icon": "Checkmark",
+              "false_icon": "None"
             }
           },
           {
