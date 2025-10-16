@@ -1301,12 +1301,15 @@ public class RobotContainer {
                       new WaitCommand(0.3),
                       new InstantCommand(
                           () -> {
-                            drive.coralIntededforL1 = false;
                             groundIntake.setIntakeCUrrentlim(45);
                           }))
                   .schedule();
             });
     OI.groundIntakeOuttake()
+        .or(
+            () -> {
+              return (drive.coralIntededforL1 ? controller.a().getAsBoolean() : false);
+            })
         .falling()
         .ifHigh(
             () -> {

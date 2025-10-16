@@ -34,6 +34,8 @@ public class GroundIntake extends SubsystemBase {
           ? Constants.Presets.groundIntakeHover
           : Constants.Presets.groundIntakeStore;
 
+  public boolean fastPID = false;
+
   // Create instance of Time-Of_Flight driver for device 1
   private final TimeOfFlight m_rangeSensor =
       new TimeOfFlight(Constants.GroundIntake.distanceSensorDeviceNumber);
@@ -119,13 +121,13 @@ public class GroundIntake extends SubsystemBase {
     // pivotMotor.set(motorpower);
     if (targetPosition != null) {
       double pidPower = pivotController.calculate(getPivotPosition(), targetPosition);
-      if (targetPosition < getPivotPosition()) {
+      if (!fastPID && targetPosition < getPivotPosition()) {
         pidPower =
             MathUtil.clamp(
                 pidPower,
                 -Constants.GroundIntake.downPIDRange,
                 Constants.GroundIntake.downPIDRange);
-      } else {
+      } else if (!fastPID) {
         pidPower =
             MathUtil.clamp(
                 pidPower, -Constants.GroundIntake.upPIDRange, Constants.GroundIntake.upPIDRange);
@@ -159,6 +161,10 @@ public class GroundIntake extends SubsystemBase {
         && wanttoPOP) {
       setIntakePosition(Constants.Presets.groundIntakePop);
     }
+  }
+
+  public void setFastPID(boolean fastPID) {
+    this.fastPID = fastPID;
   }
 
   public double getDistanceSensor() {
