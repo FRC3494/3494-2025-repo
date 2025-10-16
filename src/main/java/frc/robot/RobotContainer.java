@@ -1274,6 +1274,10 @@ public class RobotContainer {
             () -> {
               Commands.sequence(
                       leds.setPattern(LEDLightPattern.DEPOSITED),
+                      new WaitUntilCommand(
+                          () ->
+                              !SeanMathUtil.comparePosition(
+                                  arm.getPosition(), Constants.Presets.armGroundTransfer, 0.1)),
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
