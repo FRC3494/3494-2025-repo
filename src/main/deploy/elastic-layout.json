@@ -10,9 +10,9 @@
           {
             "title": "Auto Choices",
             "x": 0.0,
-            "y": 390.0,
+            "y": 420.0,
             "width": 390.0,
-            "height": 150.0,
+            "height": 120.0,
             "type": "ComboBox Chooser",
             "properties": {
               "topic": "/SmartDashboard/Auto Choices",
@@ -35,9 +35,9 @@
           {
             "title": "MatchTime",
             "x": 0.0,
-            "y": 240.0,
+            "y": 300.0,
             "width": 240.0,
-            "height": 150.0,
+            "height": 120.0,
             "type": "Match Time",
             "properties": {
               "topic": "/AdvantageKit/DriverStation/MatchTime",
@@ -77,9 +77,9 @@
           {
             "title": "Dist-Tripped",
             "x": 240.0,
-            "y": 240.0,
+            "y": 300.0,
             "width": 150.0,
-            "height": 150.0,
+            "height": 120.0,
             "type": "Boolean Box",
             "properties": {
               "topic": "/AdvantageKit/RealOutputs/Ground-Intake/Distance-Sensor/Tripped",
