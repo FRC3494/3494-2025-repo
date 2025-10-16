@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
 
 public final class OI {
+  // * Link to Control Scheme:
+  // *https://docs.google.com/presentation/d/1tF5M_lSn-6BPPR1MytJeh-sMJD9G1pwS/edit?usp=sharing&ouid=112393567782371061757&rtpof=true&sd=true
+
   private static EventLoop eventLoop = new EventLoop();
   public static XboxController primaryController =
       new XboxController(Constants.OI.PRIMARY_CONTROLLER_PORT);
