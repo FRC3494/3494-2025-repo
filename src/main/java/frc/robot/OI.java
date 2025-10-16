@@ -71,11 +71,6 @@ public final class OI {
     return rightButtonBoard.button(7, eventLoop);
   }
 
-  // TODO: is this "New L1"?
-  public static BooleanEvent L1Outtake() {
-    return leftButtonBoard.button(10, eventLoop);
-  }
-
   public static BooleanEvent groundIntakeIntake() {
     return rightButtonBoard.button(9, eventLoop);
   }
