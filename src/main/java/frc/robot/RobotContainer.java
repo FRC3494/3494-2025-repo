@@ -755,12 +755,6 @@ public class RobotContainer {
                           () -> {
                             return SeanMathUtil.comparePosition(
                                 arm.getPosition(), Constants.Presets.armAlgeaL3, 0.1);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            if (arm.defenseMode) {
-                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
-                            }
                           }));
               if (!arm.groundIntaking) {
                 l3AlgeaCommand.schedule();
@@ -800,12 +794,6 @@ public class RobotContainer {
                           () -> {
                             return SeanMathUtil.comparePosition(
                                 arm.getPosition(), Constants.Presets.armOuttakeL3, 0.1);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            if (arm.defenseMode) {
-                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
-                            }
                           }));
               if (!arm.groundIntaking) {
                 l3CoralCommand.schedule();
@@ -829,12 +817,6 @@ public class RobotContainer {
                           () -> {
                             return SeanMathUtil.comparePosition(
                                 arm.getPosition(), Constants.Presets.armAlgeaL2, 0.1);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            if (arm.defenseMode) {
-                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
-                            }
                           }));
               if (!arm.groundIntaking) {
                 l2AlgeaCommand.schedule();
@@ -874,12 +856,6 @@ public class RobotContainer {
                           () -> {
                             return SeanMathUtil.comparePosition(
                                 arm.getPosition(), Constants.Presets.armOuttakeL2, 0.1);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            if (arm.defenseMode) {
-                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
-                            }
                           }));
               if (!arm.groundIntaking) {
                 l2CoralCommand.schedule();
@@ -942,12 +918,6 @@ public class RobotContainer {
                           () -> {
                             return SeanMathUtil.comparePosition(
                                 arm.getPosition(), Constants.Presets.L1armtest, 0.1);
-                          }),
-                      new InstantCommand(
-                          () -> {
-                            if (arm.defenseMode) {
-                              groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
-                            }
                           }));
               if (!arm.groundIntaking) {
                 l1TestCommand.schedule();
