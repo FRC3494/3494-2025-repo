@@ -1,19 +1,22 @@
 package frc.robot.commands;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Constants.LEDs.LEDLightPattern;
 import frc.robot.OI;
+import frc.robot.subsystems.GroundIntake;
 import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.SuperStructure.Arm;
 import frc.robot.subsystems.SuperStructure.Intake;
-import org.littletonrobotics.junction.Logger;
 
 public class TeleopIntake extends Command {
   private Intake intake;
   private Arm arm;
   private LEDs leds;
+  private GroundIntake groundIntake;
   double lastPower;
   private double lastIntakePower = 1;
   private boolean holding_algea = false;
@@ -21,13 +24,15 @@ public class TeleopIntake extends Command {
 
   private boolean donePIdchange = false;
 
-  public TeleopIntake(Intake intake, Arm arm, LEDs leds) {
+  public TeleopIntake(Intake intake, Arm arm, LEDs leds, GroundIntake groundIntake) {
     this.intake = intake;
     this.arm = arm;
     this.leds = leds;
+    this.groundIntake = groundIntake;
     addRequirements(intake);
     addRequirements(arm);
     addRequirements(leds);
+    addRequirements(groundIntake);
   }
 
   @Override
@@ -100,7 +105,10 @@ public class TeleopIntake extends Command {
     if (intakePower != lastIntakePower
         || OI.deadband(OI.primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND) > 0) {
       if (arm.getTargetPosition()
-          == Constants.Presets.armGroundTransfer + Constants.Presets.globalArmOffset) {
+          == (groundIntake.wanttoPOP
+                  ? Constants.Presets.armGroundTransferWithPop
+                  : Constants.Presets.armGroundTransfer)
+              + Constants.Presets.globalArmOffset) {
         intake.setSpeed(intakePower);
       } else {
         intake.setSpeed(intakePower * Constants.Intake.speedScalar);

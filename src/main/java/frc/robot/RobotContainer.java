@@ -102,7 +102,7 @@ public class RobotContainer {
     // arm.setDefaultCommand(new TeleopArm(arm));// the intake command overrides this so for now its
     // content is going in the intake command
     elevator.setDefaultCommand(new TeleopElevator(elevator));
-    intake.setDefaultCommand(new TeleopIntake(intake, arm, leds));
+    intake.setDefaultCommand(new TeleopIntake(intake, arm, leds, groundIntake));
     // arm.setDefaultCommand(new TeleopIntake(intake, arm));
     climber.setDefaultCommand(new TeleopClimber(climber));
 
@@ -279,7 +279,11 @@ public class RobotContainer {
             new InstantCommand(
                 () -> {
                   elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                  arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+                  arm.setTargetAngle(
+                      groundIntake.wanttoPOP
+                          ? Constants.Presets.armGroundTransferWithPop
+                          : Constants.Presets.armGroundTransfer,
+                      0);
                 })));
     // NamedCommands.registerCommand(
     //     "HOLDALGEA", Commands.sequence(
@@ -1066,14 +1070,22 @@ public class RobotContainer {
                         new InstantCommand(
                             () -> {
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                              arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+                              arm.setTargetAngle(
+                                  groundIntake.wanttoPOP
+                                      ? Constants.Presets.armGroundTransferWithPop
+                                      : Constants.Presets.armGroundTransfer,
+                                  0);
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
                             }),
                         new WaitUntilCommand(
                             () -> {
                               return SeanMathUtil.comparePosition(
-                                  arm.getPosition(), Constants.Presets.armGroundTransfer, 0.05);
+                                  arm.getPosition(),
+                                  groundIntake.wanttoPOP
+                                      ? Constants.Presets.armGroundTransferWithPop
+                                      : Constants.Presets.armGroundTransfer,
+                                  0.05);
                             }),
                         new InstantCommand(
                             () -> {
@@ -1109,14 +1121,22 @@ public class RobotContainer {
                         new InstantCommand(
                             () -> {
                               elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                              arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+                              arm.setTargetAngle(
+                                  groundIntake.wanttoPOP
+                                      ? Constants.Presets.armGroundTransferWithPop
+                                      : Constants.Presets.armGroundTransfer,
+                                  0);
                               drive.coralIntededforL1 = false;
                               AutoAlignDesitationDeterminer.placingAtL1 = false;
                             }),
                         new WaitUntilCommand(
                             () -> {
                               return SeanMathUtil.comparePosition(
-                                  arm.getPosition(), Constants.Presets.armGroundTransfer, 0.05);
+                                  arm.getPosition(),
+                                  groundIntake.wanttoPOP
+                                      ? Constants.Presets.armGroundTransferWithPop
+                                      : Constants.Presets.armGroundTransfer,
+                                  0.05);
                             }),
                         new InstantCommand(
                             () -> {
@@ -1277,7 +1297,11 @@ public class RobotContainer {
                       new WaitUntilCommand(
                           () ->
                               !SeanMathUtil.comparePosition(
-                                  arm.getPosition(), Constants.Presets.armGroundTransfer, 0.1)),
+                                  arm.getPosition(),
+                                  groundIntake.wanttoPOP
+                                      ? Constants.Presets.armGroundTransferWithPop
+                                      : Constants.Presets.armGroundTransfer,
+                                  0.1)),
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeL1);
@@ -1348,7 +1372,11 @@ public class RobotContainer {
               new InstantCommand(
                       () -> {
                         if (!SeanMathUtil.comparePosition(
-                            arm.getPosition(), Constants.Presets.armGroundTransfer, 0.1)) {
+                            arm.getPosition(),
+                            groundIntake.wanttoPOP
+                                ? Constants.Presets.armGroundTransferWithPop
+                                : Constants.Presets.armGroundTransfer,
+                            0.1)) {
                           groundIntake.setIntakePosition(Constants.Presets.groundIntakeJerk);
                         }
                       })

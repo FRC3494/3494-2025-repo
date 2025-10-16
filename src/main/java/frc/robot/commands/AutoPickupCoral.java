@@ -78,7 +78,11 @@ public class AutoPickupCoral extends Command {
     elevator.setElevatorPosition(Constants.Presets.liftIntake);
     groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
     intake.setSpeed(-0.75);
-    arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+    arm.setTargetAngle(
+        groundIntake.wanttoPOP
+            ? Constants.Presets.armGroundTransferWithPop
+            : Constants.Presets.armGroundTransfer,
+        0);
   }
 
   // DOCUMENT SPEED: work slow was: -0.5, and motor torque was 0.3
@@ -90,7 +94,12 @@ public class AutoPickupCoral extends Command {
     // }
 
     boolean atPosition =
-        SeanMathUtil.comparePosition(arm.getPosition(), Constants.Presets.armGroundTransfer, 0.05)
+        SeanMathUtil.comparePosition(
+                arm.getPosition(),
+                groundIntake.wanttoPOP
+                    ? Constants.Presets.armGroundTransferWithPop
+                    : Constants.Presets.armGroundTransfer,
+                0.05)
             && SeanMathUtil.comparePosition(elevator.getTicks(), Constants.Presets.liftIntake, 1);
     if (atPosition && !groundIntakeActivated) {
       groundIntake.setIntakePower(-0.85, 0.85);

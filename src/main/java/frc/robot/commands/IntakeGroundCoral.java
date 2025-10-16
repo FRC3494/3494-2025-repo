@@ -34,7 +34,11 @@ public class IntakeGroundCoral extends Command {
     groundIntake.setIntakePosition(Constants.Presets.groundIntakeIntake);
     groundIntake.setIntakePower(-0.85, 0.85);
     intake.setSpeed(-0.75);
-    arm.setTargetAngle(Constants.Presets.armGroundTransfer, 0);
+    arm.setTargetAngle(
+        groundIntake.wanttoPOP
+            ? Constants.Presets.armGroundTransferWithPop
+            : Constants.Presets.armGroundTransfer,
+        0);
   }
 
   @Override
