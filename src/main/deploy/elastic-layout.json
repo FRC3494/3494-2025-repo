@@ -140,8 +140,8 @@
               "data_type": "boolean",
               "true_color": 4278255360,
               "false_color": 4294901760,
-              "true_icon": "None",
-              "false_icon": "X"
+              "true_icon": "Checkmark",
+              "false_icon": "None"
             }
           },
           {
@@ -237,6 +237,24 @@
               "false_color": 4294901760,
               "true_icon": "None",
               "false_icon": "X"
+            }
+          },
+          {
+            "title": "MotorTemp",
+            "x": 256.0,
+            "y": 256.0,
+            "width": 128.0,
+            "height": 256.0,
+            "type": "Number Bar",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Intake/MotorTemp",
+              "period": 0.06,
+              "data_type": "double",
+              "min_value": 30.0,
+              "max_value": 50.0,
+              "divisions": 5,
+              "inverted": false,
+              "orientation": "vertical"
             }
           }
         ]
