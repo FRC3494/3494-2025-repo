@@ -157,7 +157,7 @@ public class GroundIntake extends SubsystemBase {
     if (targetPosition == Constants.Presets.groundIntakeIntake
         && getDistanceSensorTripped()
         && wanttoPOP) {
-      // setIntakePosition(Constants.Presets.groundIntakePop);
+      setIntakePosition(Constants.Presets.groundIntakePop);
     }
   }
 
