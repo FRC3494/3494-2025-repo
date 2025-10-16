@@ -9,9 +9,8 @@ public final class OI {
   private static EventLoop eventLoop = new EventLoop();
   public static XboxController primaryController =
       new XboxController(Constants.OI.PRIMARY_CONTROLLER_PORT);
-  public static Joystick rightButtonBoard = new Joystick(2);
-
   public static Joystick leftButtonBoard = new Joystick(1);
+  public static Joystick rightButtonBoard = new Joystick(2);
 
   public static XboxController getPrimaryController() {
     return primaryController;
@@ -31,10 +30,6 @@ public final class OI {
     }
 
     return 0.0;
-  }
-
-  public static BooleanEvent rezeroElevator() {
-    return leftButtonBoard.button(3, eventLoop);
   }
 
   public static double getIntakePower() {
@@ -88,11 +83,15 @@ public final class OI {
             });
   }
 
-  // public static double getElevatorPower() {
-  //   double upPower = (primaryController.povUp(eventLoop).getAsBoolean() ? -0.5 : 0.0);
-  //   double downPower = (primaryController.povDown(eventLoop).getAsBoolean() ? 0.5 : 0.0);
-  //   return upPower + downPower;
-  // }
+  public static double getElevatorManualPower() {
+    // double upPower = (primaryController.povUp(eventLoop).getAsBoolean() ? -0.5 : 0.0);
+    // double downPower = (primaryController.povDown(eventLoop).getAsBoolean() ? 0.5 : 0.0);
+    return deadband(-leftButtonBoard.getRawAxis(1), 0.1);
+  }
+
+  public static BooleanEvent rezeroElevator() {
+    return leftButtonBoard.button(3, eventLoop);
+  }
 
   // public static double getArmPower() {
   //   double leftPower = (primaryController.povLeft(eventLoop).getAsBoolean() ? 1 : 0.0);
