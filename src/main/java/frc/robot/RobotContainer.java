@@ -545,7 +545,10 @@ public class RobotContainer {
 
     autoChooser = new LoggedDashboardChooser<>("Auto Choices", AutoBuilder.buildAutoChooser());
 
+    autoChooser.addOption("=====================", Commands.none());
+
     autoChooser.addOption("Wraparound", autos.AutoRoutines.wraparound());
+    autoChooser.addOption("Backside", autos.AutoRoutines.backside());
     autoChooser.addOption("Barge", autos.AutoRoutines.barge());
 
     autoChooser.addOption("====================", Commands.none());
@@ -1517,7 +1520,8 @@ public class RobotContainer {
               () -> {
                 groundIntake.setIntakePosition(Constants.Presets.groundIntakePop);
               }),
-          new WaitCommand(0.5),
+          new WaitUntilCommand(
+              () -> groundIntake.getPivotPosition() < Constants.GroundIntake.safePosition),
           new InstantCommand(
               () -> {
                 arm.setTargetAngle(Constants.Presets.armSafePosition, 0);

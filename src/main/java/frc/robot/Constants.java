@@ -140,6 +140,8 @@ public final class Constants {
 
     public static double upPIDRange = 0.9;
     public static double downPIDRange = 0.7;
+
+    public static double safePosition = 0.114;
   }
 
   public static class Arm {

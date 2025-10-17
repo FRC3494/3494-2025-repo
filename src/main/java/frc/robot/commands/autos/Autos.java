@@ -108,7 +108,7 @@ public class Autos {
                   robotCommands.stopIntake(),
                   new IntakeGroundCoral(groundIntake, arm, elevator, intake))),
           robotCommands.visionCoralPickup(),
-          new WaitCommand(0.25),
+          new WaitCommand(0.5),
 
           // Place 3rd coral: A-L3
           Commands.parallel(
@@ -170,6 +170,36 @@ public class Autos {
 
           // End
           Commands.parallel(autoFactory.trajectoryCmd(trajectoryName, 4), robotCommands.store()));
+    }
+
+    public Command backside() {
+      final String trajectoryName = "Backside";
+      int pathIndex = 0;
+
+      return Commands.sequence(
+          autoFactory.resetOdometry(trajectoryName, 0),
+          robotCommands.coralIntake(),
+
+          // Place 1st coral (preload): H-L3
+          Commands.parallel(
+              autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
+              Commands.sequence(
+                  robotCommands.freeArm(), new WaitCommand(0.5), robotCommands.L3Coral())),
+          robotCommands.coralOuttake(),
+          new WaitCommand(0.25),
+          robotCommands.stopIntake(),
+
+          // Pluck 1st algae: GH
+          Commands.parallel(
+              autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
+              Commands.sequence(
+                  new WaitCommand(0.3), robotCommands.L2Algae(), robotCommands.algaeIntake())),
+          new WaitCommand(0.5),
+
+          // Hold algae
+          Commands.parallel(
+              autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
+              Commands.sequence(new WaitCommand(0.6), robotCommands.store())));
     }
   }
 }
