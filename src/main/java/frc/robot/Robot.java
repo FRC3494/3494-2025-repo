@@ -21,6 +21,8 @@ import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
 import edu.wpi.first.net.WebServer;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.PowerDistribution;
@@ -174,6 +176,9 @@ public class Robot extends LoggedRobot {
     robotContainer.leds.setPattern(LEDLightPattern.NONE).schedule();
     // ! Uncomment for comp
     Elastic.selectTab("Teleoperated");
+
+    robotContainer.arm.setBrakes(IdleMode.kCoast);
+
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }

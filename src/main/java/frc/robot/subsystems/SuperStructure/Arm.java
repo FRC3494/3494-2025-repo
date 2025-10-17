@@ -54,9 +54,9 @@ public class Arm extends SubsystemBase {
   }
 
   public void setBrakes(IdleMode neutralMode) {
-    this.armMotorConfig.idleMode(neutralMode);
-    armMotor.configure(
-        armMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    SparkFlexConfig config = new SparkFlexConfig();
+    config.idleMode(neutralMode);
+    armMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
   public void setTargetAngle(double ticks, double arbFFVoltage) {

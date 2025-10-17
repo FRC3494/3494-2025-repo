@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
-import frc.robot.RobotContainer.RobotCommands;
+import frc.robot.RobotCommands;
 import frc.robot.commands.IntakeGroundCoral;
 import frc.robot.subsystems.GroundIntake;
 import frc.robot.subsystems.SuperStructure.Arm;
@@ -184,7 +184,11 @@ public class Autos {
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
               Commands.sequence(
-                  robotCommands.freeArm(), new WaitCommand(0.5), robotCommands.L3Coral())),
+                  robotCommands.freeArm(),
+                  new WaitCommand(0.5),
+                  robotCommands.L3Coral(),
+                  new WaitUntilCommand(() -> arm.getPosition() < 0.777),
+                  robotCommands.groundIntakeStore())),
           robotCommands.coralOuttake(),
           new WaitCommand(0.25),
           robotCommands.stopIntake(),
@@ -199,7 +203,8 @@ public class Autos {
           // Hold algae
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
-              Commands.sequence(new WaitCommand(0.6), robotCommands.store())));
+              Commands.sequence(new WaitCommand(0.6), robotCommands.store())),
+          robotCommands.armBrake());
     }
   }
 }
