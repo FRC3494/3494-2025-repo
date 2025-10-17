@@ -1427,6 +1427,7 @@ public class RobotContainer {
                           () -> {
                             climber.setTargetAngle(0, 0);
                           }))
+                  .ignoringDisable(false)
                   .schedule();
             });
 
@@ -1434,8 +1435,13 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              climber.setCurrentLimit(20);
-              climber.setTargetAngle(Constants.Presets.climberStage1, 0);
+              new InstantCommand(
+                      () -> {
+                        climber.setCurrentLimit(20);
+                        climber.setTargetAngle(Constants.Presets.climberStage1, 0);
+                      })
+                  .ignoringDisable(false)
+                  .schedule();
             });
 
     OI.ClimbStage2()
@@ -1485,6 +1491,7 @@ public class RobotContainer {
                           () -> {
                             climber.setCurrentLimit(0);
                           }))
+                  .ignoringDisable(false)
                   .schedule();
             });
   }
