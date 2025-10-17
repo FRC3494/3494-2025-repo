@@ -1,8 +1,10 @@
 package frc.robot.commands.autos;
 
 import choreo.auto.AutoFactory;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.RobotContainer.RobotCommands;
@@ -48,6 +50,10 @@ public class Autos {
       int pathIndex = 0;
 
       return Commands.sequence(
+          new InstantCommand(
+              () -> {
+                System.out.println(Timer.getMatchTime());
+              }),
           autoFactory.resetOdometry(trajectoryName, 0),
           robotCommands.coralIntake(),
 
@@ -81,7 +87,7 @@ public class Autos {
           // Pickup 2nd coral: Right preset coral from DS
           autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
           robotCommands.visionCoralPickup(),
-          new WaitCommand(0.75),
+          new WaitCommand(0.25),
 
           // Place 2nd coral: B-L3
           Commands.parallel(
@@ -102,13 +108,13 @@ public class Autos {
                   robotCommands.stopIntake(),
                   new IntakeGroundCoral(groundIntake, arm, elevator, intake))),
           robotCommands.visionCoralPickup(),
-          new WaitCommand(0.75),
+          new WaitCommand(0.25),
 
           // Place 3rd coral: A-L3
           Commands.parallel(
               autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
               Commands.sequence(
-                  new WaitCommand(0.2),
+                  new WaitCommand(0.75),
                   robotCommands.groundIntakeHover(),
                   robotCommands.L3Coral(),
                   robotCommands.stopGroundIntake())),
@@ -116,7 +122,13 @@ public class Autos {
           new WaitCommand(1),
 
           // Back up
-          autoFactory.trajectoryCmd(trajectoryName, pathIndex++));
+          autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
+
+          // End
+          new InstantCommand(
+              () -> {
+                System.out.println(Timer.getMatchTime());
+              }));
     }
 
     public Command barge() {
