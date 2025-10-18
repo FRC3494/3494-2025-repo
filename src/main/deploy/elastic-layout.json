@@ -320,20 +320,6 @@
         "layouts": [],
         "containers": [
           {
-            "title": "Arm-Encoder-Position",
-            "x": 0.0,
-            "y": 0.0,
-            "width": 150.0,
-            "height": 90.0,
-            "type": "Text Display",
-            "properties": {
-              "topic": "/AdvantageKit/RealOutputs/Arm/Arm-Encoder-Position",
-              "period": 0.06,
-              "data_type": "double",
-              "show_submit_button": false
-            }
-          },
-          {
             "title": "DefenseMode",
             "x": 150.0,
             "y": 300.0,
@@ -574,6 +560,20 @@
               "false_color": 4294901760,
               "true_icon": "Checkmark",
               "false_icon": "None"
+            }
+          },
+          {
+            "title": "ArmAbsPosition",
+            "x": 0.0,
+            "y": 0.0,
+            "width": 150.0,
+            "height": 90.0,
+            "type": "Text Display",
+            "properties": {
+              "topic": "/AdvantageKit/RealOutputs/Arm/ArmAbsPosition",
+              "period": 0.06,
+              "data_type": "double",
+              "show_submit_button": false
             }
           }
         ]
