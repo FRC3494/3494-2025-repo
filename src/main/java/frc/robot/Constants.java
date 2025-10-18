@@ -70,18 +70,18 @@ public final class Constants {
     public static double armIntakeAlt = 0.845 - 0.756; // 0.830 //TODO
     public static double armIntakeLowLow = 0.846 - 0.756; // TODO
 
-    public static double armSafePosition = 0.72 - 0.756;
-    public static double armProcessor = 0.54 - 0.756; // -136.0; //TODO
+    public static double armSafePosition = 0.72 - 0.756 + 1;
+    public static double armProcessor = 0.54 - 0.756 + 1; // -136.0; //TODO
     public static double armOuttakeL1 = 0.875 - 0.756; // TODO
-    public static double armOuttakeL2 = 0.599 - 0.756;
-    public static double armOuttakeL3 = 0.619 - 0.756;
+    public static double armOuttakeL2 = 0.599 - 0.756 + 1;
+    public static double armOuttakeL3 = 0.619 - 0.756 + 1;
     public static double armGroundTransfer = 0.945 - 0.756;
     public static double armGroundTransferWithPop = 0.948 - 0.756;
 
     public static double armAlgeaL2 =
         0.603 - 0.756; // 0.6125; // 0.605// TODO 0.62; difference is -0.027 + 0.05
-    public static double armAlgeaL3 = 0.620 - 0.756;
-    public static double armBargeYeet = 0.633 - 0.756; // TODO
+    public static double armAlgeaL3 = 0.620 - 0.756 + 1;
+    public static double armBargeYeet = 0.633 - 0.756 + 1; // TODO
     public static double armBargeStore = 0.833 - 0.756; // TODO
 
     public static double liftIntake = 0;
@@ -104,7 +104,7 @@ public final class Constants {
 
     public static double armBargeYeetRelease = 0.788 - 0.756; // 0.8075f// 0.8;//0.7965;// TODO
 
-    public static double L1armtest = 0.613 - 0.756; // 0.610
+    public static double L1armtest = 0.613 - 0.756 + 1; // 0.610
     public static double L1elevatorTest = 8.38;
 
     public static double groundIntakeIntake = 0.0; // 0.0;//-19.6;
@@ -149,9 +149,14 @@ public final class Constants {
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double ARM_OFFSET = 0.3750; // 0.8909;//0.438 -> 0.458 //0.3804 ->
+    public static double absoluteEncoderOffset = 0.5697519;
 
     public static int normalCurrentLimit = 75;
+
+    public static double safePosition = 0.777 - 0.756;
+
+    public static double reverseSoftLimit = 0.960 - 0.756;
+    public static double forwardSoftLimit = 0.530 - 0.756 + 1;
   }
 
   public static class Intake {

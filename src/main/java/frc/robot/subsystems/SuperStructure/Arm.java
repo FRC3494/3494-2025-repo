@@ -2,7 +2,6 @@ package frc.robot.subsystems.SuperStructure;
 
 import org.littletonrobotics.junction.Logger;
 
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -23,7 +22,6 @@ public class Arm extends SubsystemBase {
   SparkFlexConfig armMotorConfig;
   double manualPower = 0;
   private double targetPosition;
-  private RelativeEncoder encoder;
 
   public boolean groundIntaking = false;
   public Command bufferedCommand = null;
@@ -36,13 +34,20 @@ public class Arm extends SubsystemBase {
     armMotorConfig.idleMode(IdleMode.kCoast);
     armMotorConfig.inverted(false);
     armMotorConfig.smartCurrentLimit(Constants.Arm.normalCurrentLimit);
-    armMotorConfig.closedLoop.pid(9, 0, 0);
+    armMotorConfig.closedLoop.pid(3, 0, 0); // 9,0,0
     armMotorConfig.closedLoop.outputRange(
         -Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange); // -.45, .45);
     armMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
     armMotorConfig.closedLoopRampRate(0);
     armMotorConfig.openLoopRampRate(0);
-    encoder = armMotor.getEncoder();
+    armMotorConfig.absoluteEncoder.zeroOffset(Constants.Arm.absoluteEncoderOffset);
+    armMotorConfig.closedLoop.positionWrappingEnabled(true).positionWrappingInputRange(0, 1);
+    // armMotorConfig
+    //     .softLimit
+    //     .forwardSoftLimit(Constants.Arm.forwardSoftLimit)
+    //     .forwardSoftLimitEnabled(true)
+    //     .reverseSoftLimit(Constants.Arm.reverseSoftLimit)
+    //     .reverseSoftLimitEnabled(true);
 
     if (Constants.DRIVE_MODE == DriveMode.DEMO_AUTOALIGN
         || Constants.DRIVE_MODE == DriveMode.DEMO) {
@@ -80,8 +85,8 @@ public class Arm extends SubsystemBase {
 
   @Override
   public void periodic() {
-    Logger.recordOutput("Arm/Arm-Position", encoder.getPosition());
-    Logger.recordOutput("Arm/Arm-Encoder-Position", armMotor.getAbsoluteEncoder().getPosition());
+    Logger.recordOutput("Arm/ArmRelPosition", armMotor.getEncoder().getPosition());
+    Logger.recordOutput("Arm/ArmAbsPosition", armMotor.getAbsoluteEncoder().getPosition());
     Logger.recordOutput("Arm/Target-Position", targetPosition);
     Logger.recordOutput("Arm/Manual-Power", manualPower);
     Logger.recordOutput("Arm/Applied-Output", armMotor.getAppliedOutput());

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
+import frc.robot.Constants;
 import frc.robot.RobotCommands;
 import frc.robot.commands.IntakeGroundCoral;
 import frc.robot.subsystems.GroundIntake;
@@ -14,6 +15,7 @@ import frc.robot.subsystems.SuperStructure.Arm;
 import frc.robot.subsystems.SuperStructure.Elevator;
 import frc.robot.subsystems.SuperStructure.Intake;
 import frc.robot.subsystems.drive.Drive;
+import frc.robot.util.SeanMathUtil;
 
 public class Autos {
   private final AutoFactory autoFactory;
@@ -63,7 +65,10 @@ public class Autos {
               Commands.sequence(
                   robotCommands.freeArm(),
                   robotCommands.L2Coral(),
-                  new WaitUntilCommand(() -> arm.getPosition() < 0.777),
+                  new WaitUntilCommand(
+                      () ->
+                          SeanMathUtil.compareArmPosition(
+                              arm.getPosition(), Constants.Arm.safePosition, false)),
                   robotCommands.groundIntakeStore())),
           new WaitCommand(0.25),
           robotCommands.coralOuttake(),
@@ -187,7 +192,10 @@ public class Autos {
                   robotCommands.freeArm(),
                   new WaitCommand(0.5),
                   robotCommands.L3Coral(),
-                  new WaitUntilCommand(() -> arm.getPosition() < 0.777),
+                  new WaitUntilCommand(
+                      () ->
+                          SeanMathUtil.compareArmPosition(
+                              arm.getPosition(), Constants.Arm.safePosition, false)),
                   robotCommands.groundIntakeStore())),
           robotCommands.coralOuttake(),
           new WaitCommand(0.25),

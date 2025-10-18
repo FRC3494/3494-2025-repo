@@ -755,7 +755,7 @@ public class RobotContainer {
                           }),
                       new WaitUntilCommand(
                           () -> {
-                            return SeanMathUtil.comparePosition(
+                            return SeanMathUtil.compareArmPosition(
                                 arm.getPosition(), Constants.Presets.armAlgeaL3, 0.1);
                           }));
               if (!arm.groundIntaking) {
@@ -794,7 +794,7 @@ public class RobotContainer {
                           }),
                       new WaitUntilCommand(
                           () -> {
-                            return SeanMathUtil.comparePosition(
+                            return SeanMathUtil.compareArmPosition(
                                 arm.getPosition(), Constants.Presets.armOuttakeL3, 0.1);
                           }));
               if (!arm.groundIntaking) {
@@ -817,7 +817,7 @@ public class RobotContainer {
                           }),
                       new WaitUntilCommand(
                           () -> {
-                            return SeanMathUtil.comparePosition(
+                            return SeanMathUtil.compareArmPosition(
                                 arm.getPosition(), Constants.Presets.armAlgeaL2, 0.1);
                           }));
               if (!arm.groundIntaking) {
@@ -856,7 +856,7 @@ public class RobotContainer {
                           }),
                       new WaitUntilCommand(
                           () -> {
-                            return SeanMathUtil.comparePosition(
+                            return SeanMathUtil.compareArmPosition(
                                 arm.getPosition(), Constants.Presets.armOuttakeL2, 0.1);
                           }));
               if (!arm.groundIntaking) {
@@ -918,7 +918,7 @@ public class RobotContainer {
                           }),
                       new WaitUntilCommand(
                           () -> {
-                            return SeanMathUtil.comparePosition(
+                            return SeanMathUtil.compareArmPosition(
                                 arm.getPosition(), Constants.Presets.L1armtest, 0.1);
                           }));
               if (!arm.groundIntaking) {
@@ -1052,7 +1052,7 @@ public class RobotContainer {
                             }),
                         new WaitUntilCommand(
                             () -> {
-                              return SeanMathUtil.comparePosition(
+                              return SeanMathUtil.compareArmPosition(
                                   arm.getPosition(),
                                   groundIntake.wanttoPOP
                                       ? Constants.Presets.armGroundTransferWithPop
@@ -1103,7 +1103,7 @@ public class RobotContainer {
                             }),
                         new WaitUntilCommand(
                             () -> {
-                              return SeanMathUtil.comparePosition(
+                              return SeanMathUtil.compareArmPosition(
                                   arm.getPosition(),
                                   groundIntake.wanttoPOP
                                       ? Constants.Presets.armGroundTransferWithPop
@@ -1148,7 +1148,7 @@ public class RobotContainer {
                       new WaitUntilCommand(
                           () -> {
                             return Constants.DRIVE_MODE == DriveMode.DEMO
-                                || SeanMathUtil.comparePosition(
+                                || SeanMathUtil.compareArmPosition(
                                     arm.getPosition(), Constants.Presets.armSafePosition, 0.07);
                           }),
                       new InstantCommand(
@@ -1268,7 +1268,7 @@ public class RobotContainer {
                       leds.setPattern(LEDLightPattern.DEPOSITED),
                       new WaitUntilCommand(
                           () ->
-                              !SeanMathUtil.comparePosition(
+                              !SeanMathUtil.compareArmPosition(
                                   arm.getPosition(),
                                   groundIntake.wanttoPOP
                                       ? Constants.Presets.armGroundTransferWithPop
@@ -1493,6 +1493,20 @@ public class RobotContainer {
                           }))
                   .ignoringDisable(false)
                   .schedule();
+            });
+
+    OI.test1()
+        .rising()
+        .ifHigh(
+            () -> {
+              arm.setTargetAngle(Constants.Arm.forwardSoftLimit, 0);
+            });
+
+    OI.test2()
+        .rising()
+        .ifHigh(
+            () -> {
+              arm.setTargetAngle(Constants.Arm.reverseSoftLimit, 0);
             });
   }
 
