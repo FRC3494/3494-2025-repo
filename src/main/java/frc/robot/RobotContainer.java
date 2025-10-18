@@ -1422,7 +1422,8 @@ public class RobotContainer {
                             arm.setTargetAngle(Constants.Presets.armClimb, 0);
                             groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
                           }),
-                      new WaitCommand(0.5),
+                      new WaitUntilCommand(
+                          () -> elevator.getTicks() >= Constants.Presets.liftClimb - 5),
                       new InstantCommand(
                           () -> {
                             climber.setTargetAngle(0, 0);
