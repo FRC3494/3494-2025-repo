@@ -96,7 +96,7 @@ public class Elevator extends SubsystemBase {
       rezeroElevator();
     }
 
-    Logger.recordOutput("Elevator/Encoder-Position", leaderMotor.getEncoder().getPosition());
+    Logger.recordOutput("Elevator/Encoder-Position", followerMotor.getEncoder().getPosition());
     Logger.recordOutput("Elevator/Sensor-Tripped", getElevatorSensorState());
     Logger.recordOutput("Elevator/Target-Position", targetPosition);
     Logger.recordOutput("Elevator/AppliedPOwer-Leader", leaderMotor.getAppliedOutput());
