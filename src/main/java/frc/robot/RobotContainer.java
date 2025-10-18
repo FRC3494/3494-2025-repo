@@ -1494,20 +1494,6 @@ public class RobotContainer {
                   .ignoringDisable(false)
                   .schedule();
             });
-
-    OI.test1()
-        .rising()
-        .ifHigh(
-            () -> {
-              arm.setTargetAngle(Constants.Arm.forwardSoftLimit, 0);
-            });
-
-    OI.test2()
-        .rising()
-        .ifHigh(
-            () -> {
-              arm.setTargetAngle(Constants.Arm.reverseSoftLimit, 0);
-            });
   }
 
   /**

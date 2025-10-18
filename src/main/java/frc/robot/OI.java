@@ -181,12 +181,4 @@ public final class OI {
     if (inputPower < 0) return -newValue;
     return newValue;
   }
-
-  public static BooleanEvent test1() {
-    return leftButtonBoard.button(6, eventLoop);
-  }
-
-  public static BooleanEvent test2() {
-    return leftButtonBoard.button(10, eventLoop);
-  }
 }
