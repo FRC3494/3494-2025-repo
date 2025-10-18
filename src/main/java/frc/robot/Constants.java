@@ -101,7 +101,7 @@ public final class Constants {
     public static double climberStage0 = 0.0;
     public static double climberStage1 = -28.0;
     public static double climberStage2 = -53.4;
-    public static double climberHover = 0;
+    public static double climberHover = -36.0;
 
     public static double armBargeYeetRelease = 0.788 - 0.756; // 0.8075f// 0.8;//0.7965;// TODO
 
