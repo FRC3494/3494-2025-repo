@@ -183,7 +183,9 @@ public final class OI {
   }
 
   public static BooleanEvent l1Test() {
-    return leftButtonBoard.button(10, eventLoop);
+    // ! Disabled
+    return new BooleanEvent(eventLoop, () -> false);
+    // return leftButtonBoard.button(10, eventLoop);
   }
 
   public static double powerCurved(double inputPower) {
