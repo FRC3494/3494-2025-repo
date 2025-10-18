@@ -21,7 +21,6 @@ import com.pathplanner.lib.auto.NamedCommands;
 import choreo.auto.AutoFactory;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -29,19 +28,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import frc.robot.Constants.DriveMode;
-import frc.robot.Constants.LEDs.LEDLightPattern;
-import frc.robot.commands.AutoAlignDesitationDeterminer;
 import frc.robot.commands.AutoAutoAlign;
 import frc.robot.commands.AutoIntakeDeadline;
 import frc.robot.commands.AutoIntakePower;
 import frc.robot.commands.AutoPickupCoral;
-import frc.robot.commands.DriveCommands;
 import frc.robot.commands.IntakeGroundCoral;
-import frc.robot.commands.MainDriveCommand;
 import frc.robot.commands.TeleopClimber;
 import frc.robot.commands.TeleopElevator;
 import frc.robot.commands.TeleopIntake;
@@ -61,7 +54,6 @@ import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
-import frc.robot.util.SeanMathUtil;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -1337,6 +1329,12 @@ public class RobotContainer {
             () -> {
               groundIntake.setIntakePower(0, 0);
             });
+    OI.groundHover()
+        .rising()
+        .ifHigh(
+            () -> {
+              groundIntake.setIntakePosition(Constants.Presets.groundIntakeHover);
+            });
     OI.groundIntakeUp()
         .rising()
         .ifHigh(
@@ -1494,6 +1492,15 @@ public class RobotContainer {
                           }))
                   .ignoringDisable(false)
                   .schedule();
+            });
+
+    OI.climberHover()
+        .rising()
+        .ifHigh(
+            () -> {
+              new InstantCommand(() -> {
+                climber.setTargetAngle(Cons, 0);
+              }).ignoringDisable(false).schedule();
             });
   }
 

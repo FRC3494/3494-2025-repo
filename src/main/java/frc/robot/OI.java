@@ -70,7 +70,9 @@ public final class OI {
   }
 
   public static BooleanEvent groundIntakeIntake() {
-    return rightButtonBoard.button(9, eventLoop);
+    // ! Disabled
+    return new BooleanEvent(eventLoop, () -> false);
+    // return rightButtonBoard.button(9, eventLoop);
   }
 
   public static BooleanEvent groundIntakeOuttake() {
@@ -84,6 +86,10 @@ public final class OI {
             () -> {
               return (rightButtonBoard.getRawAxis(1)) < -Constants.Intake.DEADBAND;
             });
+  }
+
+  public static BooleanEvent groundHover() {
+    return leftButtonBoard.button(10, eventLoop);
   }
 
   public static double getElevatorManualPower() {
@@ -170,6 +176,10 @@ public final class OI {
 
   public static BooleanEvent ClimbStage2() {
     return rightButtonBoard.button(3, eventLoop);
+  }
+
+  public static BooleanEvent climberHover() {
+    return rightButtonBoard.button(9, eventLoop);
   }
 
   public static BooleanEvent l1Test() {
