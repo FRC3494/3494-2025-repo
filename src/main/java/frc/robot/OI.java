@@ -113,7 +113,7 @@ public final class OI {
   }
 
   public static BooleanEvent bargeStage() {
-    return leftButtonBoard.button(9, eventLoop);
+    return leftButtonBoard.button(8, eventLoop);
   }
 
   public static BooleanEvent armSafeMode() {
@@ -137,7 +137,7 @@ public final class OI {
   }
 
   public static BooleanEvent Processor() {
-    return leftButtonBoard.button(8, eventLoop);
+    return leftButtonBoard.button(9, eventLoop);
   }
 
   public static BooleanEvent L3Algea() {
