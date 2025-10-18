@@ -96,7 +96,7 @@ public final class Constants {
     public static double armLoliPop = 0.847 - 0.756;
 
     public static double liftClimb = 20;
-    public static double armClimb = 0.56;
+    public static double armClimb = 0.56 - 0.756 + 1;
 
     public static double climberStage0 = 0.0;
     public static double climberStage1 = -28.0;
