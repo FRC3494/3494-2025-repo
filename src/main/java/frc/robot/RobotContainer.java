@@ -967,11 +967,20 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              new InstantCommand(
-                      () -> {
-                        elevator.setElevatorPosition(Constants.Presets.liftIntake);
-                        arm.setTargetAngle(Constants.Presets.armProcessor, 0);
-                      })
+              Commands.sequence(
+                      new InstantCommand(
+                          () -> {
+                            elevator.setElevatorPosition(Constants.Presets.liftIntake);
+                            arm.setTargetAngle(Constants.Presets.armProcessor, 0);
+                          }),
+                      new WaitUntilCommand(
+                          () ->
+                              SeanMathUtil.compareArmPosition(
+                                  arm.getPosition(), Constants.Arm.safePosition, false)),
+                      new InstantCommand(
+                          () -> {
+                            groundIntake.setIntakePosition(Constants.Presets.groundIntakeStore);
+                          }))
                   .ignoringDisable(false)
                   .schedule();
             });
