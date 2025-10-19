@@ -73,7 +73,7 @@ public final class Constants {
     public static double armSafePosition = 0.72 - 0.756 + 1;
     public static double armProcessor = 0.54 - 0.756 + 1; // -136.0; //TODO
     public static double armOuttakeL1 = 0.875 - 0.756; // TODO
-    public static double armOuttakeL2 = 0.599 - 0.756 + 1;
+    public static double armOuttakeL2 = 0.599 - 0.756 + 1; // 0.843
     public static double armOuttakeL3 = 0.619 - 0.756 + 1;
     public static double armGroundTransfer = 0.945 - 0.756; // 0.189
     public static double armGroundTransferWithPop = 0.948 - 0.756;
@@ -269,8 +269,9 @@ public final class Constants {
   }
 
   public static class Field {
-    public static final double fieldLength = Units.inchesToMeters(690.875); // 57 ft 6 and 7/8 in
-    public static final double fieldWidth = Units.inchesToMeters(317); // 26ft 6in
+    public static final double fieldLength =
+        Units.inchesToMeters(690.875); // 57 ft 6 and 7/8 in // 17.548 m
+    public static final double fieldWidth = Units.inchesToMeters(317); // 26ft 6in //8.0518 m
     public static final Translation2d ampCenter =
         new Translation2d(Units.inchesToMeters(72.455), fieldWidth);
     public static final Pose2d bargeSpot = new Pose2d(6.68, 5.20, Rotation2d.fromDegrees(-48.83));
