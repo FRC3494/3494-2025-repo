@@ -75,8 +75,8 @@ public final class Constants {
     public static double armOuttakeL1 = 0.875 - 0.756; // TODO
     public static double armOuttakeL2 = 0.599 - 0.756 + 1; // 0.843
     public static double armOuttakeL3 = 0.619 - 0.756 + 1;
-    public static double armGroundTransfer = 0.945 - 0.756 + 0.009; // 0.198
-    public static double armGroundTransferWithPop = 0.948 - 0.756 + 0.009; // 0.201
+    public static double armGroundTransfer = 0.945 - 0.756 + 0.011; // 0.198
+    public static double armGroundTransferWithPop = 0.948 - 0.756 + 0.011; // 0.201
 
     public static double armAlgeaL2 =
         0.603 - 0.756; // 0.6125; // 0.605// TODO 0.62; difference is -0.027 + 0.05
