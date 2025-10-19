@@ -92,7 +92,7 @@ public class Autos {
           // Pickup 2nd coral: Right preset coral from DS
           autoFactory.trajectoryCmd(trajectoryName, pathIndex++),
           robotCommands.visionCoralPickup(),
-          new WaitCommand(0.25),
+          new WaitCommand(0.5),
 
           // Place 2nd coral: B-L3
           Commands.parallel(
@@ -113,7 +113,7 @@ public class Autos {
                   robotCommands.stopIntake(),
                   new IntakeGroundCoral(groundIntake, arm, elevator, intake))),
           robotCommands.visionCoralPickup(),
-          new WaitCommand(0.5),
+          new WaitCommand(0.25),
 
           // Place 3rd coral: A-L3
           Commands.parallel(
