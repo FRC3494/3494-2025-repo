@@ -53,7 +53,7 @@ public class GroundIntake extends SubsystemBase {
 
     pivotMotorConfig.smartCurrentLimit(45);
     pivotMotorConfig.inverted(false);
-    pivotController = new PIDController(4.8, 0, 0);
+    pivotController = new PIDController(4.6, 0, 0);
 
     pivotController.setSetpoint(getPivotPosition());
     targetPosition = getPivotPosition();
