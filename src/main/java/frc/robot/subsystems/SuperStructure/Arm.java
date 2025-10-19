@@ -40,7 +40,7 @@ public class Arm extends SubsystemBase {
     armMotorConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
     armMotorConfig.closedLoopRampRate(0);
     armMotorConfig.openLoopRampRate(0);
-    armMotorConfig.absoluteEncoder.zeroOffset(Constants.Arm.absoluteEncoderOffset);
+    // armMotorConfig.absoluteEncoder.zeroOffset(Constants.Arm.absoluteEncoderOffset);
     armMotorConfig.closedLoop.positionWrappingEnabled(true).positionWrappingInputRange(0, 1);
     // armMotorConfig
     //     .softLimit
