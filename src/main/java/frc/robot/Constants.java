@@ -75,7 +75,7 @@ public final class Constants {
     public static double armOuttakeL1 = 0.875 - 0.756; // TODO
     public static double armOuttakeL2 = 0.599 - 0.756 + 1;
     public static double armOuttakeL3 = 0.619 - 0.756 + 1;
-    public static double armGroundTransfer = 0.945 - 0.756;
+    public static double armGroundTransfer = 0.945 - 0.756; // 0.189
     public static double armGroundTransferWithPop = 0.948 - 0.756;
 
     public static double armAlgeaL2 =
@@ -150,7 +150,7 @@ public final class Constants {
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double absoluteEncoderOffset = 0.8301311;
+    public static double absoluteEncoderOffset = 0.8301311 + 0.06;
 
     public static int normalCurrentLimit = 75;
 
