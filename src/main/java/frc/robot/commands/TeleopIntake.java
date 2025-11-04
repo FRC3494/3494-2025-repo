@@ -111,7 +111,7 @@ public class TeleopIntake extends Command {
               + Constants.Presets.globalArmOffset) {
         intake.setSpeed(intakePower);
       } else {
-        intake.setSpeed(intakePower * Constants.Intake.speedScalar);
+        intake.setSpeed(intakePower * Constants.Intake.getSpeedScalar());
       }
     } else if (holding_algea && OI.deadband(intakePower, 0.5) == 0) {
       boolean isIntaking = ((int) (algeaTimer.get() * 10)) % 2 == 1;

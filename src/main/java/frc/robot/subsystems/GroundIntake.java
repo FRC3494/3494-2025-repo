@@ -17,7 +17,6 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.DriveMode;
 
 public class GroundIntake extends SubsystemBase {
   private SparkFlex pivotMotor;
@@ -30,9 +29,10 @@ public class GroundIntake extends SubsystemBase {
   public boolean wanttoPOP = true;
   public Double targetPosition = null;
   public double hoverPosition =
-      Constants.DRIVE_MODE == DriveMode.DEMO
-          ? Constants.Presets.groundIntakeHover
-          : Constants.Presets.groundIntakeStore;
+      switch (Constants.DRIVE_MODE) {
+        case DEMO, DEMO_AUTOALIGN -> Constants.Presets.groundIntakeHover;
+        default -> Constants.Presets.groundIntakeStore;
+      };
 
   public boolean fastPID = false;
 

@@ -14,7 +14,6 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.DriveMode;
 
 public class Elevator extends SubsystemBase {
   private SparkMax leaderMotor;
@@ -44,12 +43,6 @@ public class Elevator extends SubsystemBase {
     followerConfig.closedLoop.pid(0.8, 0, 0);
     followerConfig.closedLoop.outputRange(-0.8, 0.8);
     followerConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder);
-
-    if (Constants.DRIVE_MODE == DriveMode.DEMO_AUTOALIGN
-        || Constants.DRIVE_MODE == DriveMode.DEMO) {
-      leaderConfig.closedLoop.outputRange(-0.3, 0.3);
-      followerConfig.closedLoop.outputRange(-0.3, 0.3);
-    }
 
     leaderConfig.idleMode(IdleMode.kBrake);
     followerConfig.idleMode(IdleMode.kBrake);
@@ -139,13 +132,24 @@ public class Elevator extends SubsystemBase {
   }
 
   public void setPIDlimits(double lowerBound, double upperBound) {
-    // leaderConfig.closedLoop.outputRange(lowerBound, upperBound);
-    // leaderMotor.configure(
-    //     leaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    SparkMaxConfig config = new SparkMaxConfig();
+    config.closedLoop.outputRange(lowerBound, upperBound);
 
-    followerConfig.closedLoop.outputRange(lowerBound, upperBound);
+    // leaderMotor.configure(
+    //     config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     followerMotor.configure(
-        followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+  }
+
+  public void updatePIDLimits() {
+    switch (Constants.DRIVE_MODE) {
+      case DEMO, DEMO_AUTOALIGN -> {
+        setPIDlimits(-0.3, 0.3);
+      }
+      default -> {
+        setPIDlimits(-0.8, 0.8);
+      }
+    }
   }
 
   public void rezeroElevator() {

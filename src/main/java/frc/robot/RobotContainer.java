@@ -376,8 +376,8 @@ public class RobotContainer {
             1,
             Constants.Auto.AmpMidAuto.posSwing,
             4.5,
-            Constants.Drivetrain.maxLinearAcceleration,
-            Constants.Drivetrain.maxAngularVelocity)); // todo
+            Constants.Drivetrain.getMaxLinearAcceleration(),
+            Constants.Drivetrain.getMaxAngularVelocity())); // todo
     NamedCommands.registerCommand(
         "GOTOPos1",
         new AutoAutoAlign(
@@ -385,8 +385,8 @@ public class RobotContainer {
             1,
             Constants.Auto.AmpMidAuto.pos1,
             4.5,
-            Constants.Drivetrain.maxLinearAcceleration,
-            Constants.Drivetrain.maxAngularVelocity)); // todo
+            Constants.Drivetrain.getMaxLinearAcceleration(),
+            Constants.Drivetrain.getMaxAngularVelocity())); // todo
     NamedCommands.registerCommand(
         "GOTOPos2",
         new AutoAutoAlign(
@@ -394,8 +394,8 @@ public class RobotContainer {
             2,
             Constants.Auto.AmpMidAuto.pos2,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.5,
-            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.5,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.3)); // todo
     NamedCommands.registerCommand(
         "GOTOPos2pt2",
         new AutoAutoAlign(
@@ -403,8 +403,8 @@ public class RobotContainer {
             2.5,
             Constants.Auto.AmpMidAuto.pos2,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.5,
-            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.5,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.3)); // todo
     NamedCommands.registerCommand(
         "GOTOPluck", new AutoAutoAlign(drive, 0.25, Constants.Auto.AmpMidAuto.algeaPluck)); // todo
     NamedCommands.registerCommand(
@@ -418,8 +418,8 @@ public class RobotContainer {
             2.5,
             Constants.Auto.AmpMidAuto.pos5,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.3,
-            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.3,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.3)); // todo
     // RED COMMANDS STUFFFFF
     NamedCommands.registerCommand(
         "GOTOPosSwingRed",
@@ -428,8 +428,8 @@ public class RobotContainer {
             1,
             Constants.Auto.AmpMidAutoRed.posSwing,
             4.5,
-            Constants.Drivetrain.maxLinearAcceleration,
-            Constants.Drivetrain.maxAngularVelocity)); // todo
+            Constants.Drivetrain.getMaxLinearAcceleration(),
+            Constants.Drivetrain.getMaxAngularVelocity())); // todo
     NamedCommands.registerCommand(
         "GOTOPos1Red",
         new AutoAutoAlign(
@@ -437,7 +437,7 @@ public class RobotContainer {
             1,
             Constants.Auto.AmpMidAutoRed.pos1,
             4.5,
-            Constants.Drivetrain.maxLinearAcceleration,
+            Constants.Drivetrain.getMaxLinearAcceleration(),
             4.8)); // todo
     NamedCommands.registerCommand(
         "GOTOPos2Red",
@@ -446,8 +446,8 @@ public class RobotContainer {
             2,
             Constants.Auto.AmpMidAutoRed.pos2,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.5,
-            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.5,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.3)); // todo
     NamedCommands.registerCommand(
         "GOTOPos2pt2Red",
         new AutoAutoAlign(
@@ -455,8 +455,8 @@ public class RobotContainer {
             2.5,
             Constants.Auto.AmpMidAutoRed.pos2,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.5,
-            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.5,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.3)); // todo
     NamedCommands.registerCommand(
         "GOTOPluckRed",
         new AutoAutoAlign(drive, 0.25, Constants.Auto.AmpMidAutoRed.algeaPluck)); // todo
@@ -471,8 +471,8 @@ public class RobotContainer {
             2.5,
             Constants.Auto.AmpMidAutoRed.pos5,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.3,
-            Constants.Drivetrain.maxAngularVelocity * 0.3)); // todo
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.3,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.3)); // todo
     // END OF RED COMMANDS STUFF
 
     // START OF $PEICE TEST STUFF
@@ -483,8 +483,8 @@ public class RobotContainer {
             2.5,
             Constants.Auto.ThreePeiceCoolAuto.pos1,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.4,
-            Constants.Drivetrain.maxAngularVelocity * 0.6));
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.4,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.6));
     NamedCommands.registerCommand(
         "4-GOTOPos2",
         new AutoAutoAlign(
@@ -492,8 +492,8 @@ public class RobotContainer {
             0.5,
             Constants.Auto.ThreePeiceCoolAuto.pos2,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.4,
-            Constants.Drivetrain.maxAngularVelocity * 0.6));
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.4,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.6));
     NamedCommands.registerCommand(
         "4-GOTOPos3",
         new AutoAutoAlign(
@@ -501,8 +501,8 @@ public class RobotContainer {
             3,
             Constants.Auto.ThreePeiceCoolAuto.pos3,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.4,
-            Constants.Drivetrain.maxAngularVelocity * 0.6));
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.4,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.6));
     NamedCommands.registerCommand(
         "4-GOTOPos4",
         new AutoAutoAlign(
@@ -510,8 +510,8 @@ public class RobotContainer {
             0.5,
             Constants.Auto.ThreePeiceCoolAuto.pos4,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.4,
-            Constants.Drivetrain.maxAngularVelocity * 0.6));
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.4,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.6));
     NamedCommands.registerCommand(
         "4-GOTOPos5",
         new AutoAutoAlign(
@@ -519,8 +519,8 @@ public class RobotContainer {
             3,
             Constants.Auto.ThreePeiceCoolAuto.pos5,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.4,
-            Constants.Drivetrain.maxAngularVelocity * 0.6));
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.4,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.6));
     NamedCommands.registerCommand(
         "4-GOTOPos7",
         new AutoAutoAlign(
@@ -528,8 +528,8 @@ public class RobotContainer {
             2.5,
             Constants.Auto.ThreePeiceCoolAuto.pos7,
             3.5,
-            Constants.Drivetrain.maxLinearAcceleration * 0.4,
-            Constants.Drivetrain.maxAngularVelocity * 0.6));
+            Constants.Drivetrain.getMaxLinearAcceleration() * 0.4,
+            Constants.Drivetrain.getMaxAngularVelocity() * 0.6));
     //
     NamedCommands.registerCommand( // THIS IS IN AUTO, IF YOU WANNA TUNE DONT RUN THIS ONE
         "Barge", robotCommands.barge());
@@ -656,75 +656,73 @@ public class RobotContainer {
                   .schedule();
             });
 
-    boolean autoalignEnabled =
-        switch (Constants.DRIVE_MODE) {
-          case DEMO, TRAINING -> false;
-          default -> true;
-        };
-    if (autoalignEnabled) {
-      // Coral Align
-      controller
-          .leftBumper()
-          .and(controller.rightBumper().negate())
-          .or(controller.rightBumper().and(controller.leftBumper().negate()))
-          .onTrue(
-              Commands.runOnce(
-                  () -> {
-                    System.out.println("ALIGNING CORAL-------------------------------------------");
-                    System.out.println(drive.getDefaultCommand());
-                    drive.setDefaultCommand(
-                        DriveCommands.autoAlign(
-                            drive, controller.leftBumper().getAsBoolean(), false, false));
-                    System.out.println(drive.getDefaultCommand());
-                  }));
+    // Coral Align
+    controller
+        .leftBumper()
+        .and(controller.rightBumper().negate())
+        .or(controller.rightBumper().and(controller.leftBumper().negate()))
+        .and(Constants::getAutoAlignEnabled)
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  System.out.println("ALIGNING CORAL-------------------------------------------");
+                  System.out.println(drive.getDefaultCommand());
+                  drive.setDefaultCommand(
+                      DriveCommands.autoAlign(
+                          drive, controller.leftBumper().getAsBoolean(), false, false));
+                  System.out.println(drive.getDefaultCommand());
+                }));
 
-      // Algae Align
-      controller
-          .leftBumper()
-          .and(controller.rightBumper())
-          .onTrue(
-              Commands.runOnce(
-                  () -> {
-                    System.out.println("ALIGNING ALGAE-------------------------------------------");
-                    System.out.println(drive.getDefaultCommand());
-                    drive.setDefaultCommand(DriveCommands.autoAlign(drive, false, false, true));
-                    System.out.println(drive.getDefaultCommand());
-                  }));
+    // Algae Align
+    controller
+        .leftBumper()
+        .and(controller.rightBumper())
+        .and(Constants::getAutoAlignEnabled)
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  System.out.println("ALIGNING ALGAE-------------------------------------------");
+                  System.out.println(drive.getDefaultCommand());
+                  drive.setDefaultCommand(DriveCommands.autoAlign(drive, false, false, true));
+                  System.out.println(drive.getDefaultCommand());
+                }));
 
-      // Barge Align
-      controller
-          .x()
-          .onTrue(
-              Commands.runOnce(
-                  () -> {
-                    System.out.println("ALIGNING BARGE-------------------------------------------");
-                    System.out.println(drive.getDefaultCommand());
-                    drive.setDefaultCommand(
-                        DriveCommands.autoAlign(
-                            drive,
-                            false,
-                            true,
-                            controller.leftBumper().getAsBoolean()
-                                && controller.rightBumper().getAsBoolean()));
-                    System.out.println(drive.getDefaultCommand());
-                  }));
+    // Barge Align
+    controller
+        .x()
+        .and(Constants::getAutoAlignEnabled)
+        .onTrue(
+            Commands.runOnce(
+                () -> {
+                  System.out.println("ALIGNING BARGE-------------------------------------------");
+                  System.out.println(drive.getDefaultCommand());
+                  drive.setDefaultCommand(
+                      DriveCommands.autoAlign(
+                          drive,
+                          false,
+                          true,
+                          controller.leftBumper().getAsBoolean()
+                              && controller.rightBumper().getAsBoolean()));
+                  System.out.println(drive.getDefaultCommand());
+                }));
 
-      controller
-          .leftBumper()
-          .or(controller.rightBumper())
-          .or(controller.x())
-          .onFalse(
-              Commands.runOnce(
-                  () -> {
-                    System.out.println("Stopping-------------------------------------------");
-                    drive.setDefaultCommand(
-                        DriveCommands.joystickDrive(
-                            drive,
-                            () -> -controller.getLeftY(),
-                            () -> -controller.getLeftX(), // used to be -
-                            () -> -controller.getRightX()));
-                  }));
-    }
+    controller
+        .leftBumper()
+        .or(controller.rightBumper())
+        .or(controller.x())
+        .and(Constants::getAutoAlignEnabled)
+        .onFalse(
+            Commands.runOnce(
+                () -> {
+                  System.out.println("Stopping-------------------------------------------");
+                  drive.setDefaultCommand(
+                      DriveCommands.joystickDrive(
+                          drive,
+                          () -> -controller.getLeftY(),
+                          () -> -controller.getLeftX(),
+                          () -> -controller.getRightX()));
+                }));
+
     controller
         .leftBumper()
         .or(controller.rightBumper())
@@ -1163,13 +1161,15 @@ public class RobotContainer {
                           () -> {
                             elevator.setElevatorPosition(Constants.Presets.liftIntake);
                             groundIntake.setIntakePower(0, 0);
-                            if (Constants.DRIVE_MODE != DriveMode.DEMO) {
+                            if (Constants.DRIVE_MODE != DriveMode.DEMO
+                                && Constants.DRIVE_MODE != DriveMode.DEMO_AUTOALIGN) {
                               arm.setTargetAngle(Constants.Presets.armSafePosition, 0);
                             }
                           }),
                       new WaitUntilCommand(
                           () -> {
                             return Constants.DRIVE_MODE == DriveMode.DEMO
+                                || Constants.DRIVE_MODE == DriveMode.DEMO_AUTOALIGN
                                 || SeanMathUtil.compareArmPosition(
                                     arm.getPosition(), Constants.Presets.armSafePosition, 0.07);
                           }),
@@ -1177,7 +1177,8 @@ public class RobotContainer {
                           () -> {
                             System.out.println(groundIntake.hoverPosition);
                             groundIntake.setIntakePosition(
-                                (Constants.DRIVE_MODE == DriveMode.DEMO)
+                                (Constants.DRIVE_MODE == DriveMode.DEMO
+                                        || Constants.DRIVE_MODE == DriveMode.DEMO_AUTOALIGN)
                                     ? Constants.Presets.groundIntakeHover
                                     : groundIntake.hoverPosition);
                             arm.groundIntaking = false;
@@ -1232,7 +1233,8 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(
-                                (Constants.DRIVE_MODE == DriveMode.DEMO)
+                                (Constants.DRIVE_MODE == DriveMode.DEMO
+                                        || Constants.DRIVE_MODE == DriveMode.DEMO_AUTOALIGN)
                                     ? Constants.Presets.groundIntakeHover
                                     : Constants.Presets.groundIntakeL1);
                             groundIntake.setIntakePower(0, 0);
@@ -1259,7 +1261,8 @@ public class RobotContainer {
                       new InstantCommand(
                           () -> {
                             groundIntake.setIntakePosition(
-                                (Constants.DRIVE_MODE == DriveMode.DEMO)
+                                (Constants.DRIVE_MODE == DriveMode.DEMO
+                                        || Constants.DRIVE_MODE == DriveMode.DEMO_AUTOALIGN)
                                     ? Constants.Presets.groundIntakeHover
                                     : Constants.Presets.groundIntakeL1High);
                             groundIntake.setIntakePower(0, 0);

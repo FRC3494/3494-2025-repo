@@ -56,6 +56,13 @@ public final class Constants {
     TRAINING_AUTOALIGN, // Training new drivers with autoalign
   }
 
+  public static boolean getAutoAlignEnabled() {
+    return switch (Constants.DRIVE_MODE) {
+      case DEMO, TRAINING -> false;
+      default -> true;
+    };
+  }
+
   public static class Mitocandria {
     public static final int MITOCANDRIA_CAN_ID = 50;
 
@@ -164,12 +171,13 @@ public final class Constants {
     public static int intakeMotor = 14;
     public static double DEADBAND = 0.05;
 
-    public static double speedScalar =
-        switch (DRIVE_MODE) {
-          case NORMAL -> 1.0;
-          case DEMO, DEMO_AUTOALIGN -> 0.4;
-          case TRAINING, TRAINING_AUTOALIGN -> 1.0;
-        };
+    public static double getSpeedScalar() {
+      return switch (DRIVE_MODE) {
+        case NORMAL -> 1.0;
+        case DEMO, DEMO_AUTOALIGN -> 0.4;
+        case TRAINING, TRAINING_AUTOALIGN -> 1.0;
+      };
+    }
   }
 
   public static class Climber {
@@ -193,26 +201,33 @@ public final class Constants {
     public static final double trackWidthX = 0.5222; // TODO: random Number
     public static final double trackWidthY = 0.574675;
 
-    public static final double maxLinearVelocity =
-        switch (DRIVE_MODE) {
-          case DEMO_AUTOALIGN -> 1.0;
-          default -> 4.5; // TODO: I made this number up
-        };
-    public static double maxLinearAcceleration =
-        switch (DRIVE_MODE) {
-          case DEMO_AUTOALIGN -> 1.0;
-          default -> 9.0; // TODO: I made this number up
-        };
-    public static double maxAngularVelocity =
-        switch (DRIVE_MODE) {
-          case DEMO_AUTOALIGN -> 3.0;
-          default -> 6.0; // TODO: I made this number up
-        };
-    public static double maxAngularAcceleration =
-        switch (DRIVE_MODE) {
-          case DEMO_AUTOALIGN -> 5.0;
-          default -> 12.0; // TODO: I made this number up
-        };
+    public static double getMaxLinearVelocity() {
+      return switch (DRIVE_MODE) {
+        case DEMO_AUTOALIGN -> 1.0;
+        default -> 4.5; // TODO: I made this number up
+      };
+    }
+
+    public static double getMaxLinearAcceleration() {
+      return switch (DRIVE_MODE) {
+        case DEMO_AUTOALIGN -> 1.0;
+        default -> 9.0; // TODO: I made this number up
+      };
+    }
+
+    public static double getMaxAngularVelocity() {
+      return switch (DRIVE_MODE) {
+        case DEMO_AUTOALIGN -> 3.0;
+        default -> 6.0; // TODO: I made this number up
+      };
+    }
+
+    public static double getMaxAngularAcceleration() {
+      return switch (DRIVE_MODE) {
+        case DEMO_AUTOALIGN -> 5.0;
+        default -> 12.0; // TODO: I made this number up
+      };
+    }
 
     public static final int PIGEON_PORT = 52;
     public static final int FRONT_LEFT_DRIVE_ID = 18; // 18
@@ -236,30 +251,37 @@ public final class Constants {
     public static final int BACK_RIGHT_TURN_ENCODER_ID = 0; // 0
     public static final double BACK_RIGHT_OFFSET = 2.768;
 
-    public static final double SPEED_SCALAR =
-        switch (Constants.DRIVE_MODE) {
-          case NORMAL -> 1.0;
-          case DEMO, DEMO_AUTOALIGN -> 0.5;
-          case TRAINING, TRAINING_AUTOALIGN -> 0.75;
-        };
-    public static final double ROTATION_SPEED_STATIONARY_SCALAR =
-        switch (Constants.DRIVE_MODE) {
-          case NORMAL, DEMO_AUTOALIGN -> 0.3;
-          case DEMO -> 0.3;
-          case TRAINING, TRAINING_AUTOALIGN -> 0.3;
-        };
-    public static final double ROTATION_SPEED_NORMAL_SCALAR =
-        switch (Constants.DRIVE_MODE) {
-          case NORMAL, DEMO_AUTOALIGN -> 0.6;
-          case DEMO -> 0.3;
-          case TRAINING, TRAINING_AUTOALIGN -> 0.6;
-        };
-    public static final double ROTATION_SPEED_FAST_SCALAR =
-        switch (Constants.DRIVE_MODE) {
-          case NORMAL, DEMO_AUTOALIGN -> 1.0;
-          case DEMO -> 0.6;
-          case TRAINING, TRAINING_AUTOALIGN -> 1.0;
-        };
+    public static final double getSpeedScalar() {
+      return switch (Constants.DRIVE_MODE) {
+        case NORMAL -> 1.0;
+        case DEMO, DEMO_AUTOALIGN -> 0.5;
+        case TRAINING, TRAINING_AUTOALIGN -> 0.75;
+      };
+    }
+
+    public static final double getRotationSpeedStationaryScalar() {
+      return switch (Constants.DRIVE_MODE) {
+        case NORMAL, DEMO_AUTOALIGN -> 0.3;
+        case DEMO -> 0.3;
+        case TRAINING, TRAINING_AUTOALIGN -> 0.3;
+      };
+    }
+
+    public static final double getRotationSpeedNormalScalar() {
+      return switch (Constants.DRIVE_MODE) {
+        case NORMAL, DEMO_AUTOALIGN -> 0.6;
+        case DEMO -> 0.3;
+        case TRAINING, TRAINING_AUTOALIGN -> 0.6;
+      };
+    }
+
+    public static final double getRotationSpeedFastScalar() {
+      return switch (Constants.DRIVE_MODE) {
+        case NORMAL, DEMO_AUTOALIGN -> 1.0;
+        case DEMO -> 0.6;
+        case TRAINING, TRAINING_AUTOALIGN -> 1.0;
+      };
+    }
   }
 
   public static class LEDs {

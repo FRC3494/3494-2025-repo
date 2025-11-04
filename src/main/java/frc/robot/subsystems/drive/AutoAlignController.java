@@ -7,17 +7,23 @@
 
 package frc.robot.subsystems.drive;
 
+import java.util.function.Supplier;
+
+import org.littletonrobotics.junction.AutoLogOutput;
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.*;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Twist2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
-import java.util.function.Supplier;
-import org.littletonrobotics.junction.AutoLogOutput;
-import org.littletonrobotics.junction.Logger;
 
 public class AutoAlignController {
   private double linearkP = 3.5; // 5.0; // 3.5;
@@ -27,12 +33,12 @@ public class AutoAlignController {
   private static final double linearTolerance = 0.01;
   private static final double thetaTolerance = Units.degreesToRadians(1.0);
   private static final double toleranceTime = 0.5;
-  private double maxLinearVelocity = Constants.Drivetrain.maxLinearVelocity;
-  private double maxLinearAcceleration =
-      Constants.Drivetrain.maxLinearAcceleration * 0.4;
-  private static final double maxAngularVelocity = Constants.Drivetrain.maxAngularVelocity * 0.8;
+  private double maxLinearVelocity = Constants.Drivetrain.getMaxLinearVelocity();
+  private double maxLinearAcceleration = Constants.Drivetrain.getMaxLinearAcceleration() * 0.4;
+  private static final double maxAngularVelocity =
+      Constants.Drivetrain.getMaxAngularVelocity() * 0.8;
   private static final double maxAngularAcceleration =
-      Constants.Drivetrain.maxAngularAcceleration * 0.8;
+      Constants.Drivetrain.getMaxAngularAcceleration() * 0.8;
   private static final double slowLinearVelocity = 2.25;
   private static final double slowLinearAcceleration = 3.0;
   private static final double slowAngularVelocity = Math.PI / 2.0;
@@ -75,7 +81,10 @@ public class AutoAlignController {
       Drive drive,
       Supplier<Pose2d> poseSupplier,
       Supplier<Translation2d> feedforwardSupplier,
-      boolean slowMode, double linearP, double maxLinearVelocity, double maxLinearAcceleration) {
+      boolean slowMode,
+      double linearP,
+      double maxLinearVelocity,
+      double maxLinearAcceleration) {
     this.linearkP = linearP;
     this.maxLinearAcceleration = maxLinearAcceleration;
     this.maxLinearVelocity = maxLinearVelocity;

@@ -156,6 +156,9 @@ public class Robot extends LoggedRobot {
     Elastic.selectTab("Autonomous");
 
     Constants.DRIVE_MODE = DriveMode.NORMAL;
+    robotContainer.arm.updatePIDLimits();
+    robotContainer.elevator.updatePIDLimits();
+    robotContainer.intake.updateIdleMode();
 
     autonomousCommand = robotContainer.getAutonomousCommand();
     if (autonomousCommand != null) {
@@ -181,8 +184,10 @@ public class Robot extends LoggedRobot {
     Elastic.selectTab("Teleoperated");
 
     Constants.DRIVE_MODE = robotContainer.driveModeChooser.get();
-
+    robotContainer.arm.updatePIDLimits();
     robotContainer.arm.setBrakes(IdleMode.kCoast);
+    robotContainer.elevator.updatePIDLimits();
+    robotContainer.intake.updateIdleMode();
 
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
@@ -195,6 +200,26 @@ public class Robot extends LoggedRobot {
     if (!robotContainer.arm.groundIntaking && robotContainer.arm.bufferedCommand != null) {
       robotContainer.arm.bufferedCommand.schedule();
       robotContainer.arm.bufferedCommand = null;
+    }
+
+    DriveMode chooserDriveMode = robotContainer.driveModeChooser.get();
+    if (chooserDriveMode != Constants.DRIVE_MODE) {
+      Constants.DRIVE_MODE = chooserDriveMode;
+
+      switch (Constants.DRIVE_MODE) {
+        case DEMO, DEMO_AUTOALIGN -> {
+          robotContainer.arm.defenseMode = false;
+          robotContainer.groundIntake.hoverPosition = Constants.Presets.groundIntakeHover;
+        }
+        default -> {
+          robotContainer.arm.defenseMode = true;
+          robotContainer.groundIntake.hoverPosition = Constants.Presets.groundIntakeStore;
+        }
+      }
+
+      robotContainer.arm.updatePIDLimits();
+      robotContainer.elevator.updatePIDLimits();
+      robotContainer.intake.updateIdleMode();
     }
   }
 

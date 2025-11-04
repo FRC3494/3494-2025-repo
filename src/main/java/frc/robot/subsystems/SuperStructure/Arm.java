@@ -15,7 +15,6 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.Constants.DriveMode;
 
 public class Arm extends SubsystemBase {
   SparkFlex armMotor;
@@ -26,7 +25,11 @@ public class Arm extends SubsystemBase {
   public boolean groundIntaking = false;
   public Command bufferedCommand = null;
 
-  public boolean defenseMode = Constants.DRIVE_MODE == DriveMode.DEMO ? false : true;
+  public boolean defenseMode =
+      switch (Constants.DRIVE_MODE) {
+        case DEMO, DEMO_AUTOALIGN -> false;
+        default -> true;
+      };
 
   public Arm() {
     armMotor = new SparkFlex(Constants.Arm.armMotor, MotorType.kBrushless);
@@ -48,11 +51,6 @@ public class Arm extends SubsystemBase {
     //     .forwardSoftLimitEnabled(true)
     //     .reverseSoftLimit(Constants.Arm.reverseSoftLimit)
     //     .reverseSoftLimitEnabled(true);
-
-    if (Constants.DRIVE_MODE == DriveMode.DEMO_AUTOALIGN
-        || Constants.DRIVE_MODE == DriveMode.DEMO) {
-      armMotorConfig.closedLoop.outputRange(-0.4, 0.4);
-    }
 
     armMotor.configure(
         armMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -126,9 +124,20 @@ public class Arm extends SubsystemBase {
   }
 
   public void setPIDlimits(double lowerBound, double upperBound) {
-    armMotorConfig.closedLoop.outputRange(lowerBound, upperBound);
-    armMotor.configure(
-        armMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    SparkFlexConfig config = new SparkFlexConfig();
+    config.closedLoop.outputRange(lowerBound, upperBound);
+    armMotor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+  }
+
+  public void updatePIDLimits() {
+    switch (Constants.DRIVE_MODE) {
+      case DEMO, DEMO_AUTOALIGN -> {
+        setPIDlimits(-0.4, 0.4);
+      }
+      default -> {
+        setPIDlimits(-Constants.Arm.normalPIDRange, Constants.Arm.normalPIDRange);
+      }
+    }
   }
 
   public void setCurrentLimit(int limit) {
