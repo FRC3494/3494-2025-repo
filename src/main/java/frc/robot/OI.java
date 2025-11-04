@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.event.BooleanEvent;
 import edu.wpi.first.wpilibj.event.EventLoop;
+import frc.robot.Constants.DriveMode;
 
 public final class OI {
   // * Link to Control Scheme:
@@ -127,7 +128,11 @@ public final class OI {
   }
 
   public static BooleanEvent groundIntakeUp() {
-    return rightButtonBoard.button(4, eventLoop);
+    if (Constants.DRIVE_MODE == DriveMode.DEMO) {
+      return rightButtonBoard.button(4, eventLoop).or(primaryController.x(eventLoop));
+    } else {
+      return rightButtonBoard.button(4, eventLoop);
+    }
   }
 
   public static BooleanEvent lolipop() {
@@ -151,7 +156,11 @@ public final class OI {
   }
 
   public static BooleanEvent L3Coral() {
-    return leftButtonBoard.button(2, eventLoop);
+    if (Constants.DRIVE_MODE == DriveMode.DEMO) {
+      return leftButtonBoard.button(2, eventLoop).or(primaryController.rightBumper(eventLoop));
+    } else {
+      return leftButtonBoard.button(2, eventLoop);
+    }
   }
 
   public static BooleanEvent L2Algea() {
@@ -159,7 +168,11 @@ public final class OI {
   }
 
   public static BooleanEvent L2Coral() {
-    return leftButtonBoard.button(5, eventLoop);
+    if (Constants.DRIVE_MODE == DriveMode.DEMO) {
+      return leftButtonBoard.button(5, eventLoop).or(primaryController.leftBumper(eventLoop));
+    } else {
+      return leftButtonBoard.button(5, eventLoop);
+    }
   }
 
   public static BooleanEvent startClimb() {

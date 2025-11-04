@@ -46,7 +46,7 @@ public final class Constants {
     REPLAY
   }
 
-  public static final DriveMode DRIVE_MODE = DriveMode.NORMAL;
+  public static final DriveMode DRIVE_MODE = DriveMode.DEMO;
 
   public static enum DriveMode {
     NORMAL,
