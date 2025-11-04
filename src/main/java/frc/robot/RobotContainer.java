@@ -571,7 +571,7 @@ public class RobotContainer {
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
     autoChooser.addOption("Outtake Test", new AutoIntakePower(intake, -1));
 
-    driveModeChooser = new LoggedDashboardChooser<>("DriveMode");
+    driveModeChooser = new LoggedDashboardChooser<>("Teleop DriveMode");
     driveModeChooser.addDefaultOption("NORMAL", DriveMode.DEMO);
     for (DriveMode mode : DriveMode.values()) {
       driveModeChooser.addOption(mode.toString(), mode);
