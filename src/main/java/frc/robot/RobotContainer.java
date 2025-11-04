@@ -656,7 +656,12 @@ public class RobotContainer {
                   .schedule();
             });
 
-    if (Constants.DRIVE_MODE != DriveMode.DEMO && Constants.DRIVE_MODE != DriveMode.TRAINING) {
+    boolean autoalignEnabled =
+        switch (Constants.DRIVE_MODE) {
+          case DEMO, TRAINING -> false;
+          default -> true;
+        };
+    if (autoalignEnabled) {
       // Coral Align
       controller
           .leftBumper()

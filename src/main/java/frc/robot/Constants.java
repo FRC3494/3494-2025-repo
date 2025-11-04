@@ -194,12 +194,25 @@ public final class Constants {
     public static final double trackWidthY = 0.574675;
 
     public static final double maxLinearVelocity =
-        DRIVE_MODE == DriveMode.DEMO_AUTOALIGN ? 1.0 : 4.5; // TODO: I made this number up
-    public static final double maxLinearAcceleration =
-        DRIVE_MODE == DriveMode.DEMO_AUTOALIGN ? 1.0 : 9.0; // TODO: I made this number up
-    public static final double maxAngularVelocity = DRIVE_MODE == DriveMode.DEMO_AUTOALIGN ? 3 : 6;
-    public static final double maxAngularAcceleration =
-        DRIVE_MODE == DriveMode.DEMO_AUTOALIGN ? 5 : 12;
+        switch (DRIVE_MODE) {
+          case DEMO_AUTOALIGN -> 1.0;
+          default -> 4.5; // TODO: I made this number up
+        };
+    public static double maxLinearAcceleration =
+        switch (DRIVE_MODE) {
+          case DEMO_AUTOALIGN -> 1.0;
+          default -> 9.0; // TODO: I made this number up
+        };
+    public static double maxAngularVelocity =
+        switch (DRIVE_MODE) {
+          case DEMO_AUTOALIGN -> 3.0;
+          default -> 6.0; // TODO: I made this number up
+        };
+    public static double maxAngularAcceleration =
+        switch (DRIVE_MODE) {
+          case DEMO_AUTOALIGN -> 5.0;
+          default -> 12.0; // TODO: I made this number up
+        };
 
     public static final int PIGEON_PORT = 52;
     public static final int FRONT_LEFT_DRIVE_ID = 18; // 18
