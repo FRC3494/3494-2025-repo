@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.Threads;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.DriveMode;
 import frc.robot.Constants.LEDs.LEDLightPattern;
 import frc.robot.subsystems.LoggedMitocandria;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
@@ -152,9 +153,11 @@ public class Robot extends LoggedRobot {
     robotContainer.drive.rezeroModulesRelativeEncoders(); // re-zero on auto init
     robotContainer.leds.setPattern(LEDLightPattern.NONE).schedule();
     // robotContainer.drive.canReadTags = true;
-    autonomousCommand = robotContainer.getAutonomousCommand();
     Elastic.selectTab("Autonomous");
-    // // schedule the autonomous command (example)
+
+    Constants.DRIVE_MODE = DriveMode.NORMAL;
+
+    autonomousCommand = robotContainer.getAutonomousCommand();
     if (autonomousCommand != null) {
       autonomousCommand.schedule();
     }
@@ -176,6 +179,8 @@ public class Robot extends LoggedRobot {
     robotContainer.leds.setPattern(LEDLightPattern.NONE).schedule();
     // ! Uncomment for comp
     Elastic.selectTab("Teleoperated");
+
+    Constants.DRIVE_MODE = robotContainer.driveModeChooser.get();
 
     robotContainer.arm.setBrakes(IdleMode.kCoast);
 

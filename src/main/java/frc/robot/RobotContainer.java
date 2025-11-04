@@ -90,6 +90,8 @@ public class RobotContainer {
   private final AutoFactory autoFactory;
   private final Autos autos;
 
+  public final LoggedDashboardChooser<DriveMode> driveModeChooser;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     elevator = new Elevator();
@@ -568,6 +570,12 @@ public class RobotContainer {
     autoChooser.addOption(
         "Wheel Radius Calc", new WheelRadiusCharacterization(drive, Direction.COUNTER_CLOCKWISE));
     autoChooser.addOption("Outtake Test", new AutoIntakePower(intake, -1));
+
+    driveModeChooser = new LoggedDashboardChooser<>("DriveMode");
+    driveModeChooser.addDefaultOption("NORMAL", DriveMode.DEMO);
+    for (DriveMode mode : DriveMode.values()) {
+      driveModeChooser.addOption(mode.toString(), mode);
+    }
 
     // Configure the button bindings
     configureButtonBindings();
