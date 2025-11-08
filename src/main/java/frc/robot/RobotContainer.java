@@ -1073,11 +1073,13 @@ public class RobotContainer {
                         new WaitUntilCommand(
                             () -> {
                               return SeanMathUtil.compareArmPosition(
-                                  arm.getPosition(),
-                                  groundIntake.wanttoPOP
-                                      ? Constants.Presets.armGroundTransferWithPop
-                                      : Constants.Presets.armGroundTransfer,
-                                  0.05);
+                                      arm.getPosition(),
+                                      groundIntake.wanttoPOP
+                                          ? Constants.Presets.armGroundTransferWithPop
+                                          : Constants.Presets.armGroundTransfer,
+                                      0.05)
+                                  && SeanMathUtil.comparePosition(
+                                      elevator.getTicks(), Constants.Presets.liftIntake, 5);
                             }),
                         new InstantCommand(
                             () -> {
@@ -1124,11 +1126,13 @@ public class RobotContainer {
                         new WaitUntilCommand(
                             () -> {
                               return SeanMathUtil.compareArmPosition(
-                                  arm.getPosition(),
-                                  groundIntake.wanttoPOP
-                                      ? Constants.Presets.armGroundTransferWithPop
-                                      : Constants.Presets.armGroundTransfer,
-                                  0.05);
+                                      arm.getPosition(),
+                                      groundIntake.wanttoPOP
+                                          ? Constants.Presets.armGroundTransferWithPop
+                                          : Constants.Presets.armGroundTransfer,
+                                      0.05)
+                                  && SeanMathUtil.comparePosition(
+                                      elevator.getTicks(), Constants.Presets.liftIntake, 5);
                             }),
                         new InstantCommand(
                             () -> {
