@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
+
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -23,12 +25,21 @@ public class TeleopIntake extends Command {
   private Timer algeaTimer = new Timer();
 
   private boolean donePIdchange = false;
+  private BooleanSupplier coralIntendedForL1;
 
-  public TeleopIntake(Intake intake, Arm arm, LEDs leds, GroundIntake groundIntake) {
+  public TeleopIntake(
+      Intake intake,
+      Arm arm,
+      LEDs leds,
+      GroundIntake groundIntake,
+      BooleanSupplier coralIntendedForL1) {
     this.intake = intake;
     this.arm = arm;
     this.leds = leds;
     this.groundIntake = groundIntake;
+
+    this.coralIntendedForL1 = coralIntendedForL1;
+
     addRequirements(intake);
     addRequirements(arm);
     addRequirements(leds);
@@ -38,7 +49,10 @@ public class TeleopIntake extends Command {
   @Override
   public void execute() {
     // TODO: might have to invert intake speeds/directions
-    double intakePower = Math.copySign(Math.pow(OI.getIntakePower(), 2), OI.getIntakePower());
+    double intakePower =
+        Math.copySign(
+            Math.pow(OI.getIntakePower(coralIntendedForL1.getAsBoolean()), 2),
+            OI.getIntakePower(coralIntendedForL1.getAsBoolean()));
     if (intakePower == 0) {
       intakePower = 0.1 * Math.copySign(1, lastPower);
     } else {
@@ -90,7 +104,7 @@ public class TeleopIntake extends Command {
             == Constants.Presets.armOuttakeL3 + Constants.Presets.globalArmOffset)) {
       if (intakePower > 0) {
         leds.setPattern(LEDLightPattern.DEPOSITED).schedule();
-      } else if (lastIntakePower > 0 && OI.getIntakePower() == 0) {
+      } else if (lastIntakePower > 0 && OI.getIntakePower(coralIntendedForL1.getAsBoolean()) == 0) {
         leds.setPattern(LEDLightPattern.NONE).schedule();
       }
     }
@@ -119,7 +133,9 @@ public class TeleopIntake extends Command {
     }
     lastIntakePower = intakePower;
 
-    Logger.recordOutput("Intake/Intake-Power-Command", -1 * Math.pow(OI.getIntakePower(), 2));
+    Logger.recordOutput(
+        "Intake/Intake-Power-Command",
+        -1 * Math.pow(OI.getIntakePower(coralIntendedForL1.getAsBoolean()), 2));
 
     // armPower = OI.deadband(OI.getArmPower(), 0.05);
     // Logger.recordOutput("Arm/Manual-Power-Command", armPower);

@@ -35,14 +35,19 @@ public final class OI {
     return 0.0;
   }
 
-  public static double getIntakePower() {
+  public static double getIntakePower(boolean coralIntendedForL1) {
     double Sean_intake_power =
         deadband(-primaryController.getRightTriggerAxis(), Constants.Intake.DEADBAND)
-            + deadband(-primaryController.getLeftTriggerAxis(), Constants.Intake.DEADBAND)
-            + (primaryController.getAButton() ? 1 : 0);
+            + (!coralIntendedForL1
+                ? OI.deadband(OI.controllerOuttake(), Constants.Intake.DEADBAND)
+                : 0);
     double Ashton_intake_power =
         deadband(rightButtonBoard.getRawAxis(0), Constants.Intake.DEADBAND);
     return Sean_intake_power + Ashton_intake_power;
+  }
+
+  public static double controllerOuttake() {
+    return primaryController.getLeftTriggerAxis();
   }
 
   public static BooleanEvent activateGroundIntake() {
@@ -55,7 +60,7 @@ public final class OI {
   }
 
   public static BooleanEvent L1GroundIntake() {
-    return (primaryController.leftTrigger(eventLoop))
+    return (primaryController.a(eventLoop))
         .or(
             () -> {
               if ((rightButtonBoard.getRawAxis(1)) > Constants.Intake.DEADBAND) {

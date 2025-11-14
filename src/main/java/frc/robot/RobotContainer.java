@@ -100,12 +100,6 @@ public class RobotContainer {
     climber = new Climber();
     groundIntake = new GroundIntake();
     leds = new LEDs();
-    // arm.setDefaultCommand(new TeleopArm(arm));// the intake command overrides this so for now its
-    // content is going in the intake command
-    elevator.setDefaultCommand(new TeleopElevator(elevator));
-    intake.setDefaultCommand(new TeleopIntake(intake, arm, leds, groundIntake));
-    // arm.setDefaultCommand(new TeleopIntake(intake, arm));
-    climber.setDefaultCommand(new TeleopClimber(climber));
 
     switch (Constants.currentMode) {
       case REAL:
@@ -141,6 +135,15 @@ public class RobotContainer {
                 new ModuleIO() {});
         break;
     }
+
+    // arm.setDefaultCommand(new TeleopArm(arm));// the intake command overrides this so for now
+    // its
+    // content is going in the intake command
+    elevator.setDefaultCommand(new TeleopElevator(elevator));
+    intake.setDefaultCommand(
+        new TeleopIntake(intake, arm, leds, groundIntake, () -> drive.coralIntededforL1));
+    // arm.setDefaultCommand(new TeleopIntake(intake, arm));
+    climber.setDefaultCommand(new TeleopClimber(climber));
 
     robotCommands = new RobotCommands(elevator, arm, groundIntake, intake, drive);
 
@@ -1288,7 +1291,9 @@ public class RobotContainer {
     OI.groundIntakeOuttake()
         .or(
             () -> {
-              return (drive.coralIntededforL1 ? controller.a().getAsBoolean() : false);
+              return (drive.coralIntededforL1
+                  ? (OI.controllerOuttake() > Constants.Intake.DEADBAND)
+                  : false);
             })
         .rising()
         .ifHigh(
@@ -1333,7 +1338,9 @@ public class RobotContainer {
     OI.groundIntakeOuttake()
         .or(
             () -> {
-              return (drive.coralIntededforL1 ? controller.a().getAsBoolean() : false);
+              return (drive.coralIntededforL1
+                  ? (OI.controllerOuttake() > Constants.Intake.DEADBAND)
+                  : false);
             })
         .falling()
         .ifHigh(
