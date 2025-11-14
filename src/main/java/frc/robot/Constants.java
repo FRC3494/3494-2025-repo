@@ -341,7 +341,7 @@ public final class Constants {
 
       public static final Pose2d[]
           leftLocations = { // Placeholder currently using the center positions
-        new Pose2d(3.256, 4.222, new Rotation2d(0.0 - Math.PI / 2.0)), // 1
+        new Pose2d(3.178, 4.202, Rotation2d.fromDegrees(-90)), // 1
         new Pose2d(
             4.05,
             5.15,
@@ -351,7 +351,7 @@ public final class Constants {
             3.78,
             3.080,
             new Rotation2d(Math.PI / 3.0 - Math.PI / 2.0)), // 3 //before iri3.78, 3.080
-        new Pose2d(4.95, 5.18, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)), // 4
+        new Pose2d(5.028, 5.257, Rotation2d.fromDegrees(150)), // 4
         new Pose2d(5.23, 3.03, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5
         new Pose2d(5.72, 4.17, new Rotation2d(Math.PI - Math.PI / 2.0)), // 6
         new Pose2d(6.001, 0.489, new Rotation2d(Math.PI / 2.0 - Math.PI / 2.0)), // 7
@@ -361,8 +361,7 @@ public final class Constants {
 
       public static final Pose2d[]
           rightLocations = { // Placeholder currently using the center positions
-        new Pose2d(
-            3.256, 3.894, new Rotation2d(0.0 - Math.PI / 2.0)), // 1 //BEFORE IRI was 3.256, 3.894
+        new Pose2d(3.172, 3.884, Rotation2d.fromDegrees(-90)), // 1 //BEFORE IRI was 3.256, 3.894
         new Pose2d(3.76, 5.035, new Rotation2d(-Math.PI / 3.0 - Math.PI / 2.0)), // 2 //3.76, 5.035
         new Pose2d(
             3.988,
@@ -371,7 +370,7 @@ public final class Constants {
                 Math.PI / 3.0
                     - Math.PI
                         / 2.0)), // 3 //before iri WHATTT  |old 3.988, 2.888 \when revert 3.96, 2.86
-        new Pose2d(5.23, 5.02, new Rotation2d(-2 * Math.PI / 3.0 - Math.PI / 2.0)), // 4
+        new Pose2d(5.250, 5.065, Rotation2d.fromDegrees(150)), // 4
         new Pose2d(
             4.98,
             2.88,
