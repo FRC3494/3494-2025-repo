@@ -157,7 +157,7 @@ public final class Constants {
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double absoluteEncoderOffset = 0.8301311 + 0.006;
+    public static double absoluteEncoderOffset = 0.8059040 + 0.006;
 
     public static int normalCurrentLimit = 75;
 
