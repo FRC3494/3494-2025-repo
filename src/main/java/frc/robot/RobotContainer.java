@@ -692,7 +692,7 @@ public class RobotContainer {
 
     // Barge Align
     controller
-        .x()
+        .povLeft()
         .and(Constants::getAutoAlignEnabled)
         .onTrue(
             Commands.runOnce(
@@ -712,7 +712,7 @@ public class RobotContainer {
     controller
         .leftBumper()
         .or(controller.rightBumper())
-        .or(controller.x())
+        .or(controller.povLeft())
         .and(Constants::getAutoAlignEnabled)
         .onFalse(
             Commands.runOnce(
@@ -739,14 +739,14 @@ public class RobotContainer {
                 .ignoringDisable(true));
 
     controller
-        .b()
+        .povRight()
         .onTrue(
             new InstantCommand(
                 () -> {
                   MainDriveCommand.coralAligning = true;
                 }));
     controller
-        .b()
+        .povRight()
         .onFalse(
             new InstantCommand(
                 () -> {

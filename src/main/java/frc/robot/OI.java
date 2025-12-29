@@ -132,7 +132,7 @@ public final class OI {
   }
 
   public static BooleanEvent groundIntakeUp() {
-    return rightButtonBoard.button(4, eventLoop).or(primaryController.povDown(eventLoop));
+    return rightButtonBoard.button(4, eventLoop).or(primaryController.povUp(eventLoop));
   }
 
   public static BooleanEvent lolipop() {
@@ -156,7 +156,7 @@ public final class OI {
   }
 
   public static BooleanEvent L3Coral() {
-    return leftButtonBoard.button(2, eventLoop).or(primaryController.povUp(eventLoop));
+    return leftButtonBoard.button(2, eventLoop).or(primaryController.x(eventLoop));
   }
 
   public static BooleanEvent L2Algea() {
@@ -164,7 +164,7 @@ public final class OI {
   }
 
   public static BooleanEvent L2Coral() {
-    return leftButtonBoard.button(5, eventLoop).or(primaryController.povLeft(eventLoop));
+    return leftButtonBoard.button(5, eventLoop).or(primaryController.b(eventLoop));
   }
 
   public static BooleanEvent startClimb() {
@@ -172,7 +172,7 @@ public final class OI {
   }
 
   public static BooleanEvent ToggleDefenseMode() {
-    return rightButtonBoard.button(5, eventLoop);
+    return rightButtonBoard.button(5, eventLoop).or(primaryController.povDown(eventLoop));
   }
 
   public static BooleanEvent ClimbStage1() {
