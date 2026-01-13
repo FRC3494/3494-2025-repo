@@ -115,10 +115,10 @@ public final class Constants {
     public static double L1armtest = 0.613 - 0.756 + 1; // 0.610
     public static double L1elevatorTest = 8.38;
 
-    public static double groundIntakeIntake = 0.0; // 0.0;//-19.6;
-    public static double groundIntakeHover = 0.02;
+    public static double groundIntakeIntake = 0.07; // 0.0;//-19.6;
+    public static double groundIntakeHover = 0.07;
     // 2.0;//-17;
-    public static double groundIntakePop = 0.03; // 2.0;//-17;
+    public static double groundIntakePop = 0.07; // 2.0;//-17;
     public static double defenseDelay = 0.0;
     public static double groundIntakeStore = 0.31; // 28.0;//6;
     public static double groundIntakeL1 = 0.36; // not bad: 0.36
@@ -157,7 +157,7 @@ public final class Constants {
     public static double manualPowerPOS = 0.006;
     public static double normalPIDRange = 0.9;
 
-    public static double absoluteEncoderOffset = 0.8059040 + 0.006;
+    public static double absoluteEncoderOffset = 0.7609175 + 0.006;
 
     public static int normalCurrentLimit = 75;
 
@@ -335,8 +335,8 @@ public final class Constants {
         new Translation2d(5.170, 2.858), // 5
         new Translation2d(5.832, 4.047), // 6
         new Translation2d(6.001, 0.489), // 7
-        new Translation2d(1.172, 1.00), // 8
-        new Translation2d(1.172, 7.0) // 9
+        // new Translation2d(1.172, 1.00), // 8
+        // new Translation2d(1.172, 7.0) // 9
       };
 
       public static final Pose2d[]
@@ -355,8 +355,8 @@ public final class Constants {
         new Pose2d(5.23, 3.03, new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5
         new Pose2d(5.72, 4.17, new Rotation2d(Math.PI - Math.PI / 2.0)), // 6
         new Pose2d(6.001, 0.489, new Rotation2d(Math.PI / 2.0 - Math.PI / 2.0)), // 7
-        new Pose2d(1.312, 0.948, new Rotation2d(0.3 * Math.PI - Math.PI / 2.0)), // 8
-        new Pose2d(1.276, 7.124, new Rotation2d(-0.3 * Math.PI - Math.PI / 2.0)) // 9
+        // new Pose2d(1.312, 0.948, new Rotation2d(0.3 * Math.PI - Math.PI / 2.0)), // 8
+        // new Pose2d(1.276, 7.124, new Rotation2d(-0.3 * Math.PI - Math.PI / 2.0)) // 9
       };
 
       public static final Pose2d[]
@@ -377,8 +377,8 @@ public final class Constants {
             new Rotation2d(2 * Math.PI / 3.0 - Math.PI / 2.0)), // 5 before iri 4.98, 2.88
         new Pose2d(5.71, 3.85, new Rotation2d(Math.PI - Math.PI / 2.0)), // 6
         new Pose2d(6.001, 0.489, new Rotation2d(Math.PI / 2.0 - Math.PI / 2.0)), // 7
-        new Pose2d(1.702, 0.613, new Rotation2d(0.3 * Math.PI - Math.PI / 2.0)), // 8
-        new Pose2d(0.685, 6.703, new Rotation2d(-0.3 * Math.PI - Math.PI / 2.0)) // 9
+        // new Pose2d(1.702, 0.613, new Rotation2d(0.3 * Math.PI - Math.PI / 2.0)), // 8
+        // new Pose2d(0.685, 6.703, new Rotation2d(-0.3 * Math.PI - Math.PI / 2.0)) // 9
       };
       public static final Translation2d reefCenter = new Translation2d(4.59, 4.026);
     }

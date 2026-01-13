@@ -13,12 +13,9 @@
 
 package frc.robot;
 
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-
+import choreo.auto.AutoFactory;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-
-import choreo.auto.AutoFactory;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -62,6 +59,7 @@ import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
 import frc.robot.util.SeanMathUtil;
+import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -1364,7 +1362,7 @@ public class RobotContainer {
         .rising()
         .ifHigh(
             () -> {
-              groundIntake.setIntakePower(0.2, -0.5);
+              groundIntake.setIntakePower(1.0, 0);
               leds.setPattern(LEDLightPattern.NONE).schedule();
             });
     OI.groundIntakeManualOut()

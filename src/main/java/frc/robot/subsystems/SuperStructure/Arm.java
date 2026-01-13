@@ -1,20 +1,16 @@
 package frc.robot.subsystems.SuperStructure;
 
-import org.littletonrobotics.junction.Logger;
-
-import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import org.littletonrobotics.junction.Logger;
 
 public class Arm extends SubsystemBase {
   SparkFlex armMotor;
@@ -63,16 +59,16 @@ public class Arm extends SubsystemBase {
   }
 
   public void setTargetAngle(double ticks, double arbFFVoltage) {
-    targetPosition = ticks + Constants.Presets.globalArmOffset;
+    // targetPosition = ticks + Constants.Presets.globalArmOffset;
 
     if (targetPosition < 0) {}
 
-    armMotor
-        .getClosedLoopController()
-        .setReference(
-            ticks + Constants.Presets.globalArmOffset,
-            SparkMax.ControlType.kPosition,
-            ClosedLoopSlot.kSlot0);
+    // armMotor
+    //     .getClosedLoopController()
+    //     .setReference(
+    //         ticks + Constants.Presets.globalArmOffset,
+    //         SparkMax.ControlType.kPosition,
+    //         ClosedLoopSlot.kSlot0);
   }
 
   public void setPID(double p, double i, double d) {
